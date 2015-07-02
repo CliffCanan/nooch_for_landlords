@@ -1,0 +1,51 @@
+body {font-size:14px;}
+.form-control {font-size:14px;}
+.divider {
+  height: 1px;
+  margin: 8px 0;
+  overflow: hidden;
+  background-color: rgba(0, 0, 0, 0.08);
+ }
+ 
+ .pmo-stat > .col-xs-6 {
+   float:none;
+   display:inline-block;
+   width:49%;
+ }
+ .pmo-stat > .col-xs-6:first-child {
+   border-right: 1px solid #eee;
+   padding: 5px 0;
+ }
+ 
+ .pmbb-header  p {
+  display: block;
+  text-transform: none;
+  margin: 8px 0 20px 30px;
+  color: #808080;
+  line-height: 140%;
+}
+
+.bank-container .media {
+  margin-bottom:40px;
+}
+.bank-container .media-object {
+  max-width: 70px;
+}
+
+#bankAdd iframe {
+  border: none;
+  display: block;
+  height: 560px;
+  margin: 0 auto;
+  width: 96%;
+}
+
+.addBank-container {height:999px !important;}
+
+
+
+ @media screen and (min-width:768px) {
+	.pm-body .jumbotron {
+		padding: 35px 45px;
+	}
+}

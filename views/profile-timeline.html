@@ -1,0 +1,226 @@
+<div class="card col-sm-12">
+	<div class="jumbotron">
+		<h2>Welcome Aboard!</h2>
+		<p>Connect any checking account so we know where to send you payments.  No routing or account number needed.</p>
+		<p>
+			<button data-toggle="modal" data-target="#bankAdd" class="btn btn-success btn-icon-text btn-lg waves-effect"><i class="md-add-circle"></i> &nbsp;Add A Bank</button>
+		</p>
+	</div>
+</div>
+
+
+<div class="card col-sm-12">
+
+	<div class="card-header">
+		<p>Below are the accounts you have already added to Nooch.</p>
+
+		<ul class="actions">
+			<li class="">
+				<button data-toggle="modal" data-target="#bankFaq" class="btn btn-primary btn-icon waves-effect"><span class="md-2x">?</span></button>
+			</li>
+		</ul>
+	</div>
+
+	<div class="card-body card-padding">
+
+		<div class="bank-container">
+
+			<div class="media">
+
+				<div class="pull-left">
+					<a href="#">
+						<img class="media-object" src="img/bank-icons/boa.png" alt="">
+					</a>
+				</div>
+
+				<div class="media-body">
+
+					<span class="col-xs-10">
+						<h4 class="media-heading">Bank of America</h4>
+							Business Checking - 6252
+						<p class="bank-status">Pending</p>
+					</span>
+
+					<span class="col-xs-2">
+						<ul class="actions">
+							<li>
+								<a href="" data-toggle="collapse" data-target="#bankform1" aria-expanded="true" aria-controls="bankform1">
+									<i class="md md-expand-more"></i>
+								</a>
+							</li>
+							<li>
+								<a href="" data-swal-params>
+									<i class="md md-close"></i>
+								</a>
+							</li>
+						</ul>
+					</span>
+
+				</div>
+
+				<div class="m-t-10 collapse" id="bankform1" aria-expanded="true">
+					<!-- Form -->
+					<div class="card">
+						<div class="card-header ch-alt">
+							<h2>Bank Status</h2>
+						</div>
+
+						<div class="card-body card-padding">
+
+							<div class="form-group fg-line">
+								<label for="nameOnAcnt" class="fg-label">Name on Account</label>
+								<input type="text" id="nameOnAcnt" class="form-control" value="Joshua Hamilton">
+							</div>
+
+							<div class="form-group fg-line">
+								<label for="bankName" class="fg-label">Bank Name</label>
+								<input type="text" id="bankName" class="form-control" value="Bank of America" disabled>
+							</div>
+
+							<div class="form-group fg-line">
+								<label for="dateAdded" class="fg-label">Date Added</label>
+								<input type="text" id="dateAdded" class="form-control" value="July 2, 2015" disabled>
+							</div>
+
+							<div class="form-group fg-line">
+								<label for="status" class="fg-label">Status</label>
+								<input type="text" id="status" class="form-control" value="Pending" disabled>
+							</div>
+
+							<div class="form-group fg-line">
+								<label for="bankNotes" class="fg-label">Notes</label>
+								<input type="text" id="bankNotes" class="form-control" value="" disabled>
+							</div>
+
+							<button class="btn btn-info">Submit</button>
+							<button class="btn btn-link" data-toggle="collapse" data-target="#bankform1" aria-expanded="true" aria-controls="bankform1">Close</button>
+						</div>
+
+					</div>
+
+				</div>
+
+			</div>
+
+			<div class="media">
+
+				<div class="pull-left">
+					<a href="#">
+						<img class="media-object" src="img/bank-icons/wells.png" alt="">
+					</a>
+				</div>
+
+				<div class="media-body">
+
+					<span class="col-xs-10">
+						<h4 class="media-heading">Wells Fargo</h4>
+							Account Nickname - 9674
+						<p class="bank-status">Verified</p>
+					</span>
+
+					<span class="col-xs-2">
+						<ul class="actions">
+							<li>
+								<a href="" data-toggle="collapse" data-target="#bankform2" aria-expanded="true" aria-controls="bankform2">
+									<i class="md md-expand-more"></i>
+								</a>
+							</li>
+							<li>
+								<a href="" data-swal-params>
+									<i class="md md-close"></i>
+								</a>
+							</li>
+						</ul>
+					</span>
+
+				</div>
+
+				<div class="m-t-10 collapse" id="bankform2" aria-expanded="true">
+					<!-- Form -->
+					<div class="card">
+						<div class="card-header ch-alt">
+							<h2>Bank Status</h2>
+						</div>
+
+						<div class="card-body card-padding">
+
+							<div class="form-group fg-line">
+								<label for="nameOnAcnt" class="fg-label">Name on Account</label>
+								<input type="text" id="nameOnAcnt" class="form-control" value="Joshua Hamilton">
+							</div>
+
+							<div class="form-group fg-line">
+								<label for="bankName" class="fg-label">Bank Name</label>
+								<input type="text" id="bankName" class="form-control" value="Wells Fargo" disabled>
+							</div>
+
+							<div class="form-group fg-line">
+								<label for="dateAdded" class="fg-label">Date Added</label>
+								<input type="text" id="dateAdded" class="form-control" value="July 3, 2015" disabled>
+							</div>
+
+							<div class="form-group fg-line">
+								<label for="bankMsg" class="fg-label">Message</label>
+								<textarea type="text" id="bankMsg" class="form-control" value=""></textarea>
+							</div>
+
+							<div class="form-group fg-line">
+								<label for="status" class="fg-label">Status</label>
+								<input type="text" id="status" class="form-control" value="Verified" disabled>
+							</div>
+
+							<button class="btn btn-info">Submit</button>
+							<button class="btn btn-link" data-toggle="collapse" data-target="#bankform2" aria-expanded="true" aria-controls="bankform2">Close</button>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+
+	</div>
+
+</div>
+
+<!-- Modal Bank FAQs -->	
+<div class="modal fade" id="bankFaq" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">Why We Ask</h4>
+			</div>
+			<div class="modal-body">
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin sodales orci ante, sed ornare eros vestibulum ut. Ut accumsan vitae eros sit amet tristique. Nullam scelerisque nunc enim, non dignissim nibh faucibus ullamcorper. Fusce pulvinar libero vel ligula iaculis ullamcorper. Integer dapibus, mi ac tempor varius, purus nibh mattis erat, vitae porta nunc nisi non tellus. Vivamus mollis ante non massa egestas fringilla. Vestibulum egestas consectetur nunc at ultricies. Morbi quis consectetur nunc.</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-link">Save changes</button>
+				<button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Modal Add Bank -->	
+<div class="modal fade" id="bankAdd" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">Connect Bank Account</h4>
+			</div>
+			<div class="modal-body">
+				<iframe src="http://54.201.43.89/noochweb/MyAccounts/Add-Bank.aspx?MemberId=B3A6CF&ll=yes"></iframe>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-link">Save changes</button>
+				<button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+	$("#addBankBtn").click(function () {
+		swal("Here's a message!", "Lorem ipsum dolor sit amet")
+	});
+</script>
