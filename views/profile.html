@@ -1,7 +1,7 @@
 <div class="container">
 
     <div class="block-header">
-        <h2>Malinda Hollaway <small>Web/UI Developer, Dubai, United Arab Emirates</small></h2>
+        <h2>Malinda Hollaway <small>ABC Rental Properties</small></h2>
 
         <ul class="actions m-t-20 hidden-xs">
             <li class="dropdown">
@@ -27,6 +27,7 @@
     <div class="card" id="profile-main" data-ng-controller="profileCtrl as pctrl">
 
         <div class="pm-overview c-overflow">
+
             <div class="pmo-pic">
                 <div class="p-relative">
                     <a href="">
@@ -45,23 +46,24 @@
                         </div>
                     </div>
 
-                    <a href="" class="pmop-edit">
+                    <a data-toggle="modal" data-target="#addPic" class="pmop-edit">
                         <i class="md md-camera-alt"></i> <span class="hidden-xs">Update Profile Picture</span>
                     </a>
                 </div>
 
 
-                <div class="pmo-stat">
+                <div class="pmo-stat bgm-lightblue">
 					<span class="col-xs-6">
-						<h2 class="m-0 c-white">1562</h2>
+						<h2 class="m-0 c-white">6</h2>
 						Total Properties
 					</span>
 					<span class="col-xs-6">
-						<h2 class="m-0 c-white">1562</h2>
+						<h2 class="m-0 c-white">80</h2>
 						Total Tenants
 					</span>
                 </div>
-            </div>
+
+			</div>
 
             <div class="pmo-block pmo-contact hidden-xs">
                 <h2>Contact</h2>
@@ -135,5 +137,61 @@
 
         </div>
     </div>
+</div>
+
+<!-- Modal Bank FAQs -->	
+<div class="modal fade" id="addPic" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog modal-sm">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">Change Profile Picture</h4>
+			</div>
+			<div class="modal-body">
+				<div class="card">
+
+					<div class="card-body p-15">
+
+						<div class="row">
+							<div class="col-xs-12">
+								<div class="fileinput fileinput-new" data-provides="fileinput">
+									<span class="btn btn-primary btn-file m-r-10">
+										<span class="fileinput-new">Select Picture</span>
+										<span class="fileinput-exists">Change Picture</span>
+										<input type="file" name="...">
+									</span>
+									<span class="fileinput-filename"></span>
+									<a href="#" class="close fileinput-exists" data-dismiss="fileinput">&times;</a>
+								</div>
+							</div>
+						</div>
+
+						<br/>
+
+						<p class="f-500 c-black m-b-20">Image Preview</p>
+
+						<div class="fileinput fileinput-new" data-provides="fileinput">
+							<div class="fileinput-preview thumbnail" data-trigger="fileinput"></div>
+							<div>
+								<span class="btn btn-info btn-file">
+									<span class="fileinput-new">Select image</span>
+									<span class="fileinput-exists">Change</span>
+									<input type="file" name="...">
+								</span>
+								<a href="#" class="btn btn-danger fileinput-exists" data-dismiss="fileinput">Remove</a>
+							</div>
+						</div>
+
+						<br/>
+						<br/>
+						<p><small><em>Image preview only works in IE10+, FF3.6+, Safari6.0+, Chrome6.0+ and Opera11.1+. In older browsers the filename is shown instead.</em></small></p>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-link">Save changes</button>
+				<button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
 </div>
           

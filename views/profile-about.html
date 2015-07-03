@@ -4,18 +4,15 @@
     </div>
     <div class="pmbb-body p-l-30">
         <div class="pmbb-view" data-ng-if="pctrl.editSummary === 0">
-            {{ pctrl.accountStatus }}
+			<dl class="dl-horizontal">
+                <dt>Account Type</dt>
+                <dd>{{ pctrl.type }} - {{ pctrl.subtype }}</dd>
+            </dl>
+            <dl class="dl-horizontal">
+                <dt>Verification Type <a href=""><i class="md-info m-l-5"></i></a></dt>
+                <dd><span class="label label-success">{{ pctrl.accountStatus }}</span></dd>
+            </dl>
         </div>
-
-        <form data-ng-submit="pctrl.submit('profileSummary', 'Profile Summary')" class="pmbb-edit" data-ng-if="pctrl.editSummary === 1"> 
-            <div class="fg-line">
-                <textarea data-ng-model="pctrl.profileSummary" class="form-control" rows="5" placeholder="Summary...">Donec sed felis vel magna mattis ornare ut non turpis. Sed id arcu elit. Sed nec sagittis tortor. Mauris ante urna, ornare sit amet mollis eu, aliquet ac ligula. Nullam dolor metus, suscipit ac imperdiet nec, consectetur sed ex. Sed cursus porttitor leo.</textarea>
-            </div>
-            <div class="m-t-10">
-                <button class="btn btn-primary btn-sm" type="submit">Save</button>
-                <button class="btn btn-link btn-sm" data-ng-click="pctrl.editSummary = 0" >Cancel</button>
-            </div>
-        </form>
     </div>
 </div>
 
@@ -50,7 +47,7 @@
                 <dd>{{ pctrl.birthDay }}</dd>
             </dl>
             <dl class="dl-horizontal">
-                <dt>SSN</dt>
+                <dt>SSN - Last 4</dt>
                 <dd>{{ pctrl.ssnLast4 }}</dd>
             </dl>
         </div>
@@ -69,7 +66,16 @@
                 <dt class="p-t-10">Birthday</dt>
                 <dd>
                     <div class="dtp-container dropdown fg-line">
-                        <input type='text' class="form-control" data-dt-picker="DD/MM/YYYY" data-toggle="dropdown" placeholder="eg. 23/06/1988">
+                        <input data-ng-model="pctrl.birthDay" type='text' class="form-control" value="{{ pctrl.birthDay }}" data-dt-picker="DD/MM/YYYY" data-toggle="dropdown" placeholder="eg. 23/06/1988">
+                    </div>
+                </dd>
+            </dl>
+
+			<dl class="dl-horizontal">
+                <dt class="p-t-10">SSN - Last 4</dt>
+                <dd>
+                    <div class="dtp-container dropdown fg-line">
+                        <input data-ng-model="pctrl.ssnLast4" type='num' class="form-control" value="{{ pctrl.ssnLast4 }}" placeholder="eg. 1234">
                     </div>
                 </dd>
             </dl>

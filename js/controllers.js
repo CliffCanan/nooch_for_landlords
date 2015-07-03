@@ -211,6 +211,8 @@ materialAdmin
         
         //User
         this.accountStatus = "Identity Verified";
+        this.type = "Landlord";
+        this.subtype = "Basic";
         this.fullName = "Josh Hamilton";
         this.birthDay = "23/06/1982";
         this.mobileNumber = "(215) 711-6789";

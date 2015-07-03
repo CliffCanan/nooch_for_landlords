@@ -48,7 +48,27 @@ materialAdmin
         
             .state ('history', {
                 url: '/history',
-                templateUrl: 'views/history.html'
+                templateUrl: 'views/history.html',
+				resolve: {
+                    loadPlugin: function($ocLazyLoad) {
+                        return $ocLazyLoad.load ([
+							{
+                                name: 'css',
+                                insertBefore: '#app-level',
+                                files: [
+                                    'vendors/bower_components/jquery.bootgrid/dist/jquery.bootgrid.min.css',
+                                ]
+                            },
+                            {
+                                name: 'vendors',
+                                files: [
+                                    'vendors/sparklines/jquery.sparkline.min.js',
+                                    'vendors/bower_components/jquery.bootgrid/dist/jquery.bootgrid-override.min.js'
+                                ]
+                            }
+                        ])
+                    }
+                }
             })
 
 
@@ -315,88 +335,54 @@ materialAdmin
                         ])
                     }
                 }
-            })
+            })       
         
-        
-            //------------------------------
-            // CALENDAR
-            //------------------------------
-            
-            .state ('calendar', {
-                url: '/calendar',
-                templateUrl: 'views/calendar.html',
-                resolve: {
-                    loadPlugin: function($ocLazyLoad) {
-                        return $ocLazyLoad.load ([
-                            {
-                                name: 'css',
-                                insertBefore: '#app-level',
-                                files: [
-                                    'vendors/bower_components/fullcalendar/dist/fullcalendar.min.css',
-                                ]
-                            },
-                            {
-                                name: 'vendors',
-                                files: [
-                                    'vendors/bower_components/moment/min/moment.min.js',
-                                    'vendors/bower_components/fullcalendar/dist/fullcalendar.min.js'
-                                ]
-                            }
-                        ])
-                    }
-                }
-            })
-        
-        
-            //------------------------------
-            // GENERIC CLASSES
-            //------------------------------
-            
-            .state ('generic-classes', {
-                url: '/generic-classes',
-                templateUrl: 'views/generic-classes.html'
-            })
-        
-            
+
             //------------------------------
             // PAGES
             //------------------------------
-            
+
             .state ('pages', {
                 url: '/pages',
                 templateUrl: 'views/common.html'
             })
             
-        
+
             //Profile
-        
+
             .state ('pages.profile', {
                 url: '/profile',
                 templateUrl: 'views/profile.html'
             })
-        
+
             .state ('pages.profile.profile-about', {
                 url: '/profile-about',
-                templateUrl: 'views/profile-about.html'
-            })
-        
-            .state ('pages.profile.profile-timeline', {
-                url: '/profile-timeline',
-                templateUrl: 'views/profile-timeline.html',
-                resolve: {
+                templateUrl: 'views/profile-about.html',
+				resolve: {
                     loadPlugin: function($ocLazyLoad) {
                         return $ocLazyLoad.load ([
                             {
                                 name: 'css',
                                 insertBefore: '#app-level',
                                 files: [
-                                    'vendors/bower_components/lightgallery/light-gallery/css/lightGallery.css'
+                                    'vendors/bower_components/bootstrap-select/dist/css/bootstrap-select.css',
+                                    'vendors/chosen_v1.4.2/chosen.min.css',
+                                    'vendors/farbtastic/farbtastic.css',
+                                    'vendors/bower_components/summernote/dist/summernote.css',
+                                    'vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css'
                                 ]
                             },
                             {
                                 name: 'vendors',
                                 files: [
-                                    'vendors/bower_components/lightgallery/light-gallery/js/lightGallery.min.js'
+                                    'vendors/input-mask/input-mask.min.js',
+                                    'vendors/bower_components/bootstrap-select/dist/js/bootstrap-select.js',
+                                    'vendors/chosen_v1.4.2/chosen.jquery.min.js',
+                                    'vendors/bower_components/moment/min/moment.min.js',
+                                    'vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js',
+                                    'vendors/farbtastic/farbtastic.min.js',
+                                    'vendors/bower_components/summernote/dist/summernote.min.js',
+                                    'vendors/fileinput/fileinput.min.js'
                                 ]
                             }
                         ])
@@ -404,28 +390,14 @@ materialAdmin
                 }
             })
 
-            .state ('pages.profile.profile-photos', {
-                url: '/profile-photos',
-                templateUrl: 'views/profile-photos.html',
-                resolve: {
-                    loadPlugin: function($ocLazyLoad) {
-                        return $ocLazyLoad.load ([
-                            {
-                                name: 'css',
-                                insertBefore: '#app-level',
-                                files: [
-                                    'vendors/bower_components/lightgallery/light-gallery/css/lightGallery.css'
-                                ]
-                            },
-                            {
-                                name: 'vendors',
-                                files: [
-                                    'vendors/bower_components/lightgallery/light-gallery/js/lightGallery.min.js'
-                                ]
-                            }
-                        ])
-                    }
-                }
+            .state ('pages.profile.profile-notifications', {
+                url: '/profile-notifications',
+                templateUrl: 'views/profile-notifications.html',
+            })
+
+            .state ('pages.profile.profile-bankaccounts', {
+                url: '/profile-bankaccounts',
+                templateUrl: 'views/profile-bankaccounts.html',
             })
         
             .state ('pages.profile.profile-connections', {

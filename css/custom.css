@@ -6,7 +6,8 @@ body {font-size:14px;}
   overflow: hidden;
   background-color: rgba(0, 0, 0, 0.08);
  }
- 
+ .btn-lg > i {line-height: inherit;}
+ .md-6x {font-size: 6em;}
  .pmo-stat > .col-xs-6 {
    float:none;
    display:inline-block;
@@ -42,10 +43,23 @@ body {font-size:14px;}
 
 .addBank-container {height:999px !important;}
 
+.mini-charts-item .count > span {
+  display: block;
+  font-size:13px;
+  margin-bottom:3px;
+}
 
+#notif-tog-container label {font-weight:normal;}
+#notif-tog-container .row  > *:nth-child(2), 
+#notif-tog-container .row  > *:nth-child(3) {
+  text-align:center;
+}
 
  @media screen and (min-width:768px) {
 	.pm-body .jumbotron {
 		padding: 35px 45px;
 	}
+
+	#profile-main .pm-overview {max-width:250px !important;}
+	#profile-main .pm-body {padding-left:250px;}
 }
