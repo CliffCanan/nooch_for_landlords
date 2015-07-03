@@ -46,7 +46,7 @@
 					<span class="col-xs-2">
 						<ul class="actions">
 							<li>
-								<a href="" data-toggle="collapse" data-target="#bankform1" aria-expanded="true" aria-controls="bankform1">
+								<a href="" data-toggle="collapse" data-target="#bankform1" aria-expanded="false" aria-controls="bankform1">
 									<i class="md md-expand-more"></i>
 								</a>
 							</li>
@@ -60,42 +60,48 @@
 
 				</div>
 
-				<div class="m-t-10 collapse" id="bankform1" aria-expanded="true">
-					<!-- Form -->
+				<div class="m-t-10 collapse" id="bankform1" aria-expanded="false">
+
 					<div class="card">
+
 						<div class="card-header ch-alt">
 							<h2>Bank Status</h2>
 						</div>
 
 						<div class="card-body card-padding">
 
-							<div class="form-group fg-line">
-								<label for="nameOnAcnt" class="fg-label">Name on Account</label>
-								<input type="text" id="nameOnAcnt" class="form-control" value="Joshua Hamilton">
-							</div>
+							<!-- Form -->
+							<form role="form">
 
-							<div class="form-group fg-line">
-								<label for="bankName" class="fg-label">Bank Name</label>
-								<input type="text" id="bankName" class="form-control" value="Bank of America" disabled>
-							</div>
+								<div class="form-group fg-line">
+									<label for="nameOnAcnt" class="fg-label">Name on Account</label>
+									<input type="text" id="nameOnAcnt" class="form-control" value="Joshua Hamilton">
+								</div>
 
-							<div class="form-group fg-line">
-								<label for="dateAdded" class="fg-label">Date Added</label>
-								<input type="text" id="dateAdded" class="form-control" value="July 2, 2015" disabled>
-							</div>
+								<div class="form-group fg-line">
+									<label for="bankName" class="fg-label">Bank Name</label>
+									<input type="text" id="bankName" class="form-control" value="Bank of America" disabled>
+								</div>
 
-							<div class="form-group fg-line">
-								<label for="status" class="fg-label">Status</label>
-								<input type="text" id="status" class="form-control" value="Pending" disabled>
-							</div>
+								<div class="form-group fg-line">
+									<label for="dateAdded" class="fg-label">Date Added</label>
+									<input type="text" id="dateAdded" class="form-control" value="July 2, 2015" disabled>
+								</div>
 
-							<div class="form-group fg-line">
-								<label for="bankNotes" class="fg-label">Notes</label>
-								<input type="text" id="bankNotes" class="form-control" value="" disabled>
-							</div>
+								<div class="form-group fg-line">
+									<label for="status" class="fg-label">Status</label>
+									<input type="text" id="status" class="form-control" value="Pending" disabled>
+								</div>
 
-							<button class="btn btn-info">Submit</button>
-							<button class="btn btn-link" data-toggle="collapse" data-target="#bankform1" aria-expanded="true" aria-controls="bankform1">Close</button>
+								<div class="form-group fg-line">
+									<label for="bankNotes" class="fg-label">Notes</label>
+									<input type="text" id="bankNotes" class="form-control" value="" disabled>
+								</div>
+
+								<button class="btn btn-info">Submit</button>
+								<button class="btn btn-link" data-toggle="collapse" data-target="#bankform1" aria-expanded="false" aria-controls="bankform1">Close</button>
+
+							</form>
 						</div>
 
 					</div>
@@ -137,42 +143,49 @@
 
 				</div>
 
-				<div class="m-t-10 collapse" id="bankform2" aria-expanded="true">
-					<!-- Form -->
+				<div class="m-t-10 collapse" id="bankform2" aria-expanded="false">
+
 					<div class="card">
+
 						<div class="card-header ch-alt">
 							<h2>Bank Status</h2>
 						</div>
 
 						<div class="card-body card-padding">
 
-							<div class="form-group fg-line">
-								<label for="nameOnAcnt" class="fg-label">Name on Account</label>
-								<input type="text" id="nameOnAcnt" class="form-control" value="Joshua Hamilton">
-							</div>
+							<!-- Form -->
+							<form role="form">
 
-							<div class="form-group fg-line">
-								<label for="bankName" class="fg-label">Bank Name</label>
-								<input type="text" id="bankName" class="form-control" value="Wells Fargo" disabled>
-							</div>
+								<div class="form-group fg-line">
+									<label for="nameOnAcnt" class="fg-label">Name on Account</label>
+									<input type="text" id="nameOnAcnt" class="form-control" value="Joshua Hamilton">
+								</div>
 
-							<div class="form-group fg-line">
-								<label for="dateAdded" class="fg-label">Date Added</label>
-								<input type="text" id="dateAdded" class="form-control" value="July 3, 2015" disabled>
-							</div>
+								<div class="form-group fg-line">
+									<label for="bankName" class="fg-label">Bank Name</label>
+									<input type="text" id="bankName" class="form-control" value="Wells Fargo" disabled>
+								</div>
 
-							<div class="form-group fg-line">
-								<label for="bankMsg" class="fg-label">Message</label>
-								<textarea type="text" id="bankMsg" class="form-control" value=""></textarea>
-							</div>
+								<div class="form-group fg-line">
+									<label for="dateAdded" class="fg-label">Date Added</label>
+									<input type="text" id="dateAdded" class="form-control" value="July 3, 2015" disabled>
+								</div>
 
-							<div class="form-group fg-line">
-								<label for="status" class="fg-label">Status</label>
-								<input type="text" id="status" class="form-control" value="Verified" disabled>
-							</div>
+								<div class="form-group fg-line">
+									<label for="bankMsg" class="fg-label">Message</label>
+									<textarea type="text" id="bankMsg" class="form-control" value=""></textarea>
+								</div>
 
-							<button class="btn btn-info">Submit</button>
-							<button class="btn btn-link" data-toggle="collapse" data-target="#bankform2" aria-expanded="true" aria-controls="bankform2">Close</button>
+								<div class="form-group fg-line">
+									<label for="status" class="fg-label">Status</label>
+									<input type="text" id="status" class="form-control" value="Verified" disabled>
+								</div>
+
+								<button class="btn btn-info">Submit</button>
+								<button class="btn btn-link" data-toggle="collapse" data-target="#bankform2" aria-expanded="true" aria-controls="bankform2">Close</button>
+
+							</form>
+
 						</div>
 					</div>
 				</div>
@@ -196,8 +209,7 @@
 				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin sodales orci ante, sed ornare eros vestibulum ut. Ut accumsan vitae eros sit amet tristique. Nullam scelerisque nunc enim, non dignissim nibh faucibus ullamcorper. Fusce pulvinar libero vel ligula iaculis ullamcorper. Integer dapibus, mi ac tempor varius, purus nibh mattis erat, vitae porta nunc nisi non tellus. Vivamus mollis ante non massa egestas fringilla. Vestibulum egestas consectetur nunc at ultricies. Morbi quis consectetur nunc.</p>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-link">Save changes</button>
-				<button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-default btn-icon-text waves-effect" data-dismiss="modal"><i class="md md-close m-r-5"></i>Close</button>
 			</div>
 		</div>
 	</div>
@@ -209,13 +221,13 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<h4 class="modal-title">Connect Bank Account</h4>
+				<button type="button" class="btn btn-default btn-icon waves-effect modalclose" data-dismiss="modal"><i class="md md-close"></i></button>
 			</div>
 			<div class="modal-body">
 				<iframe src="http://54.201.43.89/noochweb/MyAccounts/Add-Bank.aspx?MemberId=B3A6CF&ll=yes"></iframe>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-link">Save changes</button>
-				<button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-default btn-icon-text waves-effect" data-dismiss="modal"><i class="md md-close m-r-5"></i>Close</button>
 			</div>
 		</div>
 	</div>

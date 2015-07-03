@@ -1,0 +1,34 @@
+{  
+   "list":[
+        {
+            "id":1,
+            "img": "1.jpg",
+            "propName": "Wayne Apartments",
+            "address": "76 W. Lancaster Ave"
+        },
+        {
+            "id":2,
+            "img": "2.jpg",
+            "propName": "Oakmont Towers",
+            "address": "1020 Continental Road"
+        },
+        {
+            "id":3,
+            "img": "3.jpg",
+            "propName": "Main Property",
+            "address": "Phasellus a ante et est ornare accumsan at vel magnauis blandit turpis at augue ultricies"
+        },
+        {
+            "id":4,
+            "img": "4.jpg",
+            "propName": "Shore Place",
+            "address": "Ut vitae lacus sem ellentesque maximus, nunc sit amet varius dignissim, dui est consectetur neque"
+        },
+        {
+            "id":5,
+            "img": "5.jpg",
+            "propName": "North Philly",
+            "address": "760 Roosevelt Blvd"
+        }
+   ]
+}

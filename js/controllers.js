@@ -134,21 +134,6 @@ materialAdmin
     })
 
 
-
-    // =========================================================================
-    // Best Selling Widget
-    // =========================================================================
-
-    .controller('bestsellingCtrl', function(bestsellingService){
-        // Get Best Selling widget Data
-        this.img = bestsellingService.img;
-        this.name = bestsellingService.name;
-        this.range = bestsellingService.range;
-        
-        this.bsResult = bestsellingService.getBestselling(this.img, this.name, this.range);
-    })
-
- 
     // =========================================================================
     // Todo List Widget
     // =========================================================================
@@ -187,17 +172,18 @@ materialAdmin
 
 
     // =========================================================================
-    // Recent Posts Widget
+    // Properties Widget
     // =========================================================================
     
-    .controller('recentpostCtrl', function(recentpostService){
+    .controller('propertiesCtrl', function(propertiesService){
         
-        //Get Recent Posts Widget Items
-        this.img = recentpostService.img;
-        this.user = recentpostService.user;
-        this.text = recentpostService.text;
+        //Get Properties Widget Items
+		this.id = propertiesService.id;
+        this.img = propertiesService.img;
+        this.user = propertiesService.propName;
+        this.text = propertiesService.address;
         
-        this.rpResult = recentpostService.getRecentpost(this.img, this.user, this.text);
+        this.propResult = propertiesService.getProperty(this.id, this.img, this.propName, this.address);
     })
 
 

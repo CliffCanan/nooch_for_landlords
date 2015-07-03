@@ -1,0 +1,113 @@
+<header id="header" data-ng-include src="'includes/header.html'" data-ng-controller="headerCtrl as hctrl"></header>
+
+<section id="main">
+    <aside id="sidebar" data-ng-include src="'includes/sidebar-left.html'" data-ng-class="{ 'toggled': mactrl.sidebarToggle.left === true }"></aside>
+
+    <section id="content">
+
+        <div class="container">
+
+            <div class="block-header">
+                <h2>All Properties</h2>
+
+                <ul class="actions">
+                    <li>
+                        <a href="">
+                            <i class="md md-cached"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="row">
+
+                <div class="col-sm-9 col-lg-8">
+
+                    <!-- Recent Posts -->
+                    <div class="card z-depth-1" data-ng-controller="propertiesCtrl as rpctrl">
+                        <div class="card-header ch-alt m-b-20">
+                            <h2>All Properties</h2>
+
+                            <div data-toggle="dropdown" data-animation="bounceIn,bounceOut,1000">
+                                <button class="btn bgm-cyan btn-float"><i class="md md-add"></i></button>
+                            </div>
+                            <ul class="dropdown-menu dropdown-menu-right">
+                                <li>
+                                    <a href="">Add New Unit</a>
+                                </li>
+                                <li>
+                                    <a href="">Add New Tenant</a>
+                                </li>
+                                <li class="divider"></li>
+                                <li>
+                                    <a href="">Edit Property</a>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="card-body">
+                            <div class="listview lv-lg" id="propertiesList">
+
+                                <div class="lv-item" data-ng-repeat="w in rpctrl.propResult.list">
+
+                                    <a href="" data-toggle="collapse" data-target="#prop{{ w.id }}" aria-controls="prop{{ w.id }}" aria-expanded="false">
+
+                                        <div class="media">
+
+                                            <div class="pull-left">
+                                                <img class="lv-img-lg" data-ng-src="img/profile-pics/{{ w.img }}" alt="">
+                                            </div>
+
+                                            <div class="media-body">
+
+                                                <div class="col-xs-10">
+                                                    <div class="lv-title lv-lg">{{ w.propName }}</div>
+                                                    <small class="lv-small">{{ w.address }}</small>
+                                                </div>
+
+                                                <div class="col-xs-2">
+                                                    <ul class="actions">
+                                                        <li>
+                                                            <span data-toggle="collapse" data-target="#bankform1">
+                                                                <i class="md md-expand-more"></i>
+                                                            </span>
+                                                        </li>
+                                                        <li>
+                                                            <span data-swal-params>
+                                                                <i class="md md-close"></i>
+                                                            </span>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                    </a>
+
+                                    <div class="m-t-10 collapse" id="#prop{{w.id}}" aria-expanded="false" style="height:0px;">
+                                        <p>Just a test!!</p>
+                                    </div>
+
+                                </div>
+
+                                <a class="lv-footer" href="">View All</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-sm-3 col-lg-4">
+                    <div class="bs-item z-depth-1">
+                        Stuff
+                    </div>
+                </div>
+            </div>
+
+		</div>
+    </section>
+</section>
+
+<footer id="footer" data-ng-include src="'includes/footer.html'"></footer>

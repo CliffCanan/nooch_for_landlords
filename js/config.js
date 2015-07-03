@@ -72,6 +72,16 @@ materialAdmin
             })
 
 
+            //------------------------------
+            // Properties
+            //------------------------------
+        
+            .state ('properties', {
+                url: '/properties',
+                templateUrl: 'views/properties.html'
+            })
+
+
 
             //------------------------------
             // WIDGETS
@@ -227,7 +237,7 @@ materialAdmin
             //------------------------------
             // USER INTERFACE
             //------------------------------
-        
+
             .state ('user-interface', {
                 url: '/user-interface',
                 templateUrl: 'views/common.html'
@@ -242,7 +252,7 @@ materialAdmin
                 url: '/animations',
                 templateUrl: 'views/animations.html'
             })
-        
+
             .state ('user-interface.box-shadow', {
                 url: '/box-shadow',
                 templateUrl: 'views/box-shadow.html'
@@ -252,15 +262,10 @@ materialAdmin
                 url: '/buttons',
                 templateUrl: 'views/buttons.html'
             })
-        
+
             .state ('user-interface.icons', {
                 url: '/icons',
                 templateUrl: 'views/icons.html'
-            })
-        
-            .state ('user-interface.alerts', {
-                url: '/alerts',
-                templateUrl: 'views/alerts.html'
             })
         
             .state ('user-interface.notifications-dialogs', {
@@ -298,13 +303,13 @@ materialAdmin
                 url: '/components',
                 templateUrl: 'views/components.html'
             })
-        
+
             .state ('user-interface.other-components', {
                 url: '/other-components',
                 templateUrl: 'views/other-components.html'
             })
-            
-        
+
+
             //------------------------------
             // CHARTS
             //------------------------------

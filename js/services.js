@@ -17,22 +17,6 @@ materialAdmin
     }])
     
 
-    // =========================================================================
-    // Best Selling Widget Data (Home Page)
-    // =========================================================================
-
-    .service('bestsellingService', ['$resource', function($resource){
-        this.getBestselling = function(img, name, range) {
-            var gbList = $resource("data/best-selling.json");
-            
-            return gbList.get({
-                img: img,
-                name: name,
-                range: range,
-            });
-        }
-    }])
-
     
     // =========================================================================
     // Todo List Widget Data
@@ -67,17 +51,18 @@ materialAdmin
 
 
     // =========================================================================
-    // Recent Posts Widget Data
+    // Properties Widget Data
     // =========================================================================
     
-    .service('recentpostService', ['$resource', function($resource){
-        this.getRecentpost = function(img, user, text) {
-            var recentpostList = $resource("data/messages-notifications.json");
-            
-            return recentpostList.get ({
+    .service('propertiesService', ['$resource', function($resource){
+        this.getProperty = function(id, img, propName, address) {
+            var propertyList = $resource("data/properties.json");
+
+            return propertyList.get ({
+				id: id,
                 img: img,
-                user: user,
-                text: text
+                propName: propName,
+                address: address
             })
         }
     }])

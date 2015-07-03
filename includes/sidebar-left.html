@@ -31,6 +31,10 @@
             <a data-ui-sref="history" data-ng-click="mactrl.sidebarStat($event)"><i class="md md-history"></i> History</a>
         </li>
 
+		<li data-ui-sref-active="active">
+            <a data-ui-sref="properties" data-ng-click="mactrl.sidebarStat($event)"><i class="md md-business"></i> Properties <span class="label label-info pull-right">3</span></a>
+        </li>
+
 		<li class="divider"></li>
 
         <li class="sub-menu" data-ng-class="{ 'active toggled': mactrl.$state.includes('widgets') }">
@@ -68,7 +72,6 @@
                 <li><a data-ui-sref-active="active" data-ui-sref="user-interface.box-shadow" data-ng-click="mactrl.sidebarStat($event)">Box Shadow</a></li>
                 <li><a data-ui-sref-active="active" data-ui-sref="user-interface.buttons" data-ng-click="mactrl.sidebarStat($event)">Buttons</a></li>
                 <li><a data-ui-sref-active="active" data-ui-sref="user-interface.icons" data-ng-click="mactrl.sidebarStat($event)">Icons</a></li>
-                <li><a data-ui-sref-active="active" data-ui-sref="user-interface.alerts" data-ng-click="mactrl.sidebarStat($event)">Alerts</a></li>
                 <li><a data-ui-sref-active="active" data-ui-sref="user-interface.notifications-dialogs" data-ng-click="mactrl.sidebarStat($event)">Notifications & Dialogs</a></li>
                 <li><a data-ui-sref-active="active" data-ui-sref="user-interface.media" data-ng-click="mactrl.sidebarStat($event)">Media</a></li>
                 <li><a data-ui-sref-active="active" data-ui-sref="user-interface.components" data-ng-click="mactrl.sidebarStat($event)">Components</a></li>

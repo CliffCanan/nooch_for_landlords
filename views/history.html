@@ -72,7 +72,7 @@
                 </div>
             </div>
 
-			<div class="card">
+			<div class="card z-depth-1">
 				<div class="card-header">
 					<h2>Payments Received <small>View all of the payments you have received for all your properties.</small></h2>
 				</div>
@@ -182,68 +182,6 @@
 				</table>
 			</div>
 
-            <div class="row">
-
-                <div class="col-sm-6">
-
-                    <!-- Recent Posts -->
-                    <div class="card" data-ng-controller="recentpostCtrl as rpctrl">
-                        <div class="card-header ch-alt m-b-20">
-                            <h2>Recent Posts <small>Phasellus condimentum ipsum id auctor imperdie</small></h2>
-                            <ul class="actions">
-                                <li>
-                                    <a href="">
-                                        <i class="md md-cached"></i>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="">
-                                        <i class="md md-file-download"></i>
-                                    </a>
-                                </li>
-                                <li class="dropdown">
-                                    <a href="" data-toggle="dropdown">
-                                        <i class="md md-more-vert"></i>
-                                    </a>
-
-                                    <ul class="dropdown-menu dropdown-menu-right">
-                                        <li>
-                                            <a href="">Change Date Range</a>
-                                        </li>
-                                        <li>
-                                            <a href="">Change Graph Type</a>
-                                        </li>
-                                        <li>
-                                            <a href="">Other Settings</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
-
-                            <button class="btn bgm-cyan btn-float"><i class="md md-add"></i></button>
-                        </div>
-
-                        <div class="card-body">
-                            <div class="listview">
-
-                                <a class="lv-item" href="" data-ng-repeat="w in rpctrl.rpResult.list">
-                                    <div class="media">
-                                        <div class="pull-left">
-                                            <img class="lv-img-sm" data-ng-src="img/profile-pics/{{ w.img }}" alt="">
-                                        </div>
-                                        <div class="media-body">
-                                            <div class="lv-title">{{ w.user }}</div>
-                                            <small class="lv-small">{{ w.text }}</small>
-                                        </div>
-                                    </div>
-                                </a>
-
-                                <a class="lv-footer" href="">View All</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </section>
 </section>

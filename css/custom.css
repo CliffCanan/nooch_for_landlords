@@ -13,6 +13,12 @@ body {font-size:14px;}
    display:inline-block;
    width:49%;
  }
+ .modal-header .modalclose {
+  position: absolute;
+  right: 5%;
+  top: 10px;
+}
+ 
  .pmo-stat > .col-xs-6:first-child {
    border-right: 1px solid #eee;
    padding: 5px 0;
@@ -54,6 +60,9 @@ body {font-size:14px;}
 #notif-tog-container .row  > *:nth-child(3) {
   text-align:center;
 }
+
+#propertiesList.lv-lg .lv-title {font-size:16px;}
+#propertiesList.lv-lg .lv-small {font-size:13px;}
 
  @media screen and (min-width:768px) {
 	.pm-body .jumbotron {
