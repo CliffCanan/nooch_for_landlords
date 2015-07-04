@@ -1,37 +1,111 @@
+/**** GENERAL LAYOUT ****/
 body {font-size:14px;}
 .form-control {font-size:14px;}
 .divider {
-  height: 1px;
-  margin: 8px 0;
+  height: 10px;
+  margin: 1px 0;
   overflow: hidden;
-  background-color: rgba(0, 0, 0, 0.08);
- }
- .btn-lg > i {line-height: inherit;}
- .md-6x {font-size: 6em;}
- .pmo-stat > .col-xs-6 {
-   float:none;
-   display:inline-block;
-   width:49%;
- }
- .modal-header .modalclose {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+.btn-lg > i {line-height: inherit;}
+.md-6x {font-size: 6em;}
+
+.block-header .row h2 {
+  font-size: 15px;
+  color: #777;
+  margin: 0;
+  font-weight: 400;
+  text-transform: uppercase;
+}
+/**** LEFT SIDEBAR ****/
+#sidebar,
+#sidebar .sidebar-inner {width:230px;}
+#sidebar .profile-menu > a {height:118px; margin-bottom:0;}
+#sidebar .profile-menu > a .profile-info {margin-top:10px;}
+
+body.sw-toggled #content {padding-left: 230px;}
+
+.main-menu li {
+  box-shadow: 0 1px 0px rgba(214,216,218,.5);
+  display: list-item !important;
+  line-height:1.43 !important;
+  text-align: left !important;
+  padding: 0;
+  width: 100%;
+}
+#sidebar .main-menu > li > a {padding: 15px 15px 15px 55px}
+
+/**** CARDS ****/
+.card-header .headerIcon i {
+  color: #939598;
+  text-shadow: 0 -1px 0px rgba(64,65,66,.85);
+}
+.card-header .headerIcon .md-5x {line-height:.55}
+.card-header .headerIcon .md-4x {line-height:.75}
+.card-header .headerIcon .md-4x > i {
+  font-size: .4em;
+  position: absolute;
+  top: -2px;
+  left: 68px;
+  opacity:.65;
+  text-shadow:none;
+}
+
+#acntChecklistCard .lv-item span span i {
+  float:right;
+  font-size:18px;
+  position:relative;
+  left:4px;
+  top:-2px;
+}
+
+/**** MODALS ****/
+.modal-header .modalclose {
   position: absolute;
   right: 5%;
   top: 10px;
 }
- 
- .pmo-stat > .col-xs-6:first-child {
+
+/**** TO-DO LIST WIDGET ****/
+.listview .lv-item .media-body {padding-top:5px;}
+
+/**** FORMS ****/
+.form-horizontal .control-label {font-weight: 600;}
+.form-horizontal .control-label > small {
+  color: #9E9E9E;
+  display: block;
+  font-size: 13px;
+}
+
+.noUi-connect {background: #72bf44}
+.noUi-horizontal .noUi-handle {background-color: #72bf44}
+
+
+/**** PROFILE - ABOUT ****/
+.pmo-stat > .col-xs-6 {
+   float:none;
+   display:inline-block;
+   width:49%;
+}
+.pmo-stat > .col-xs-6:first-child {
    border-right: 1px solid #eee;
    padding: 5px 0;
- }
- 
- .pmbb-header  p {
+}
+.pmbb-header  p {
   display: block;
   text-transform: none;
   margin: 8px 0 20px 30px;
   color: #808080;
   line-height: 140%;
 }
+.dl-horizontal .label + i {
+  position:relative;
+  top: 3px;
+  font-size:16px;
+}
 
+
+/**** PROFILE - BANKS ****/
 .bank-container .media {
   margin-bottom:40px;
 }
@@ -55,16 +129,147 @@ body {font-size:14px;}
   margin-bottom:3px;
 }
 
+/**** PROFILE - NOTIFICATIONS ****/
 #notif-tog-container label {font-weight:normal;}
 #notif-tog-container .row  > *:nth-child(2), 
 #notif-tog-container .row  > *:nth-child(3) {
   text-align:center;
 }
 
+/**** PROPERTIES - ALL ****/
 #propertiesList.lv-lg .lv-title {font-size:16px;}
 #propertiesList.lv-lg .lv-small {font-size:13px;}
 
- @media screen and (min-width:768px) {
+/***** For the Wizard Plugin *****/
+#addPropWizard .tab-content {min-height:250px;}
+.tabs-left > .nav-tabs > li {
+  float: none;
+}
+.tabs-left > .nav-tabs {
+  float: left;
+  border-right: 1px solid #ddd;
+}
+.tabs-below>.nav-tabs, .tabs-right>.nav-tabs, .tabs-left>.nav-tabs {
+  border-bottom: 0;
+}
+.tabs-left > .nav-tabs .active > a,
+.tabs-left > .nav-tabs .active > a:hover,
+.tabs-left > .nav-tabs .active > a:focus {
+  border-color: #ddd transparent #ddd #ddd;
+}
+.tabs-left > .nav-tabs > li > a {
+  margin-right: -1px;
+  -webkit-border-radius: 4px 0 0 4px;
+  -moz-border-radius: 4px 0 0 4px;
+  border-radius: 4px 0 0 4px;
+}
+.tabs-left>.nav-tabs>li>a,
+.tabs-right>.nav-tabs>li>a {
+  min-width: 74px;
+  margin-right: 0;
+  margin-bottom: 3px;
+}
+.pager li .btn {
+  border: 0;
+  border-radius: 0;
+  color: #444;
+  padding: 11px 20px;
+}
+#addPropWizard .pager {margin-top:50px;}
+.pager li > .btn-primary,
+.pager li > .btn-primary:hover {
+  color:#fff !important;
+  background-color: #2196f3 !important;
+}
+.progress {
+  height: 16px;
+  margin-bottom: 20px;
+  overflow: hidden;
+  background-color: #f7f7f7;
+  background-image: -moz-linear-gradient(top,#f5f5f5,#f9f9f9);
+  background-image: -webkit-gradient(linear,0 0,0 100%,from(#f5f5f5),to(#f9f9f9));
+  background-image: -webkit-linear-gradient(top,#f5f5f5,#f9f9f9);
+  background-image: -o-linear-gradient(top,#f5f5f5,#f9f9f9);
+  background-image: linear-gradient(to bottom,#f5f5f5,#f9f9f9);
+  background-repeat: repeat-x;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fff5f5f5',endColorstr='#fff9f9f9',GradientType=0);
+  -webkit-box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
+  -moz-box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
+}
+.progress .bar {
+  float: left;
+  width: 0;
+  height: 100%;
+  font-size: 11px;
+  font-weight: 300;
+  color: #fff;
+  text-align: center;
+  text-shadow: 0 -1px 0 rgba(0,0,0,0.25);
+  background-color: #0e90d2;
+  background-image: -moz-linear-gradient(top,#149bdf,#0480be);
+  background-image: -webkit-gradient(linear,0 0,0 100%,from(#149bdf),to(#0480be));
+  background-image: -webkit-linear-gradient(top,#149bdf,#0480be);
+  background-image: -o-linear-gradient(top,#149bdf,#0480be);
+  background-image: linear-gradient(to bottom,#149bdf,#0480be);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff149bdf',endColorstr='#ff0480be',GradientType=0);
+  -webkit-box-shadow: inset 0 -1px 0 rgba(0,0,0,0.15);
+  -moz-box-shadow: inset 0 -1px 0 rgba(0,0,0,0.15);
+  box-shadow: inset 0 -1px 0 rgba(0,0,0,0.15);
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-transition: width .6s ease;
+  -moz-transition: width .6s ease;
+  -o-transition: width .6s ease;
+  transition: width .6s ease;
+}
+.progress.active .bar {
+  -webkit-animation: progress-bar-stripes 2s linear infinite;
+  -moz-animation: progress-bar-stripes 2s linear infinite;
+  -ms-animation: progress-bar-stripes 2s linear infinite;
+  -o-animation: progress-bar-stripes 2s linear infinite;
+  animation: progress-bar-stripes 2s linear infinite;
+}
+.progress-striped .bar {
+  background-color: #3fabe1;
+  background-image: -webkit-gradient(linear,0 100%,100% 0,color-stop(0.25,rgba(255,255,255,0.15)),color-stop(0.25,transparent),color-stop(0.5,transparent),color-stop(0.5,rgba(255,255,255,0.15)),color-stop(0.75,rgba(255,255,255,0.15)),color-stop(0.75,transparent),to(transparent));
+  background-image: -webkit-linear-gradient(45deg,rgba(255,255,255,0.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,0.15) 50%,rgba(255,255,255,0.15) 75%,transparent 75%,transparent);
+  background-image: -moz-linear-gradient(45deg,rgba(255,255,255,0.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,0.15) 50%,rgba(255,255,255,0.15) 75%,transparent 75%,transparent);
+  background-image: linear-gradient(45deg,rgba(255,255,255,0.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,0.15) 50%,rgba(255,255,255,0.15) 75%,transparent 75%,transparent);
+  -webkit-background-size: 40px 40px;
+  -moz-background-size: 40px 40px;
+  -o-background-size: 40px 40px;
+  background-size: 40px 40px;
+}
+@-webkit-keyframes progress-bar-stripes{
+  from{background-position:40px 0}to{background-position:0 0}
+}
+@-moz-keyframes progress-bar-stripes{
+  from{background-position:40px 0}to{background-position:0 0}
+}
+@-ms-keyframes progress-bar-stripes{
+  from{background-position:40px 0}to{background-position:0 0}
+}
+@keyframes progress-bar-stripes{
+  from{background-position:40px 0}to{background-position:0 0}
+}
+.progress-danger.progress-striped .bar,
+.progress-striped .bar-danger{background-color:#ee5f5b;background-image:-webkit-gradient(linear,0 100%,100% 0,color-stop(0.25,rgba(255,255,255,0.15)),color-stop(0.25,transparent),color-stop(0.5,transparent),color-stop(0.5,rgba(255,255,255,0.15)),color-stop(0.75,rgba(255,255,255,0.15)),color-stop(0.75,transparent),to(transparent));background-image:-webkit-linear-gradient(45deg,rgba(255,255,255,0.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,0.15) 50%,rgba(255,255,255,0.15) 75%,transparent 75%,transparent);background-image:-moz-linear-gradient(45deg,rgba(255,255,255,0.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,0.15) 50%,rgba(255,255,255,0.15) 75%,transparent 75%,transparent);background-image:-o-linear-gradient(45deg,rgba(255,255,255,0.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,0.15) 50%,rgba(255,255,255,0.15) 75%,transparent 75%,transparent);background-image:linear-gradient(45deg,rgba(255,255,255,0.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,0.15) 50%,rgba(255,255,255,0.15) 75%,transparent 75%,transparent)}
+.progress-success .bar,
+.progress .bar-success{background-color:#5eb95e;background-image:-moz-linear-gradient(top,#62c462,#57a957);background-image:-webkit-gradient(linear,0 0,0 100%,from(#62c462),to(#57a957));background-image:-webkit-linear-gradient(top,#62c462,#57a957);background-image:-o-linear-gradient(top,#62c462,#57a957);background-image:linear-gradient(to bottom,#62c462,#57a957);background-repeat:repeat-x;filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff62c462',endColorstr='#ff57a957',GradientType=0)}
+.progress-success.progress-striped .bar,
+.progress-striped .bar-success{background-color:#62c462;background-image:-webkit-gradient(linear,0 100%,100% 0,color-stop(0.25,rgba(255,255,255,0.15)),color-stop(0.25,transparent),color-stop(0.5,transparent),color-stop(0.5,rgba(255,255,255,0.15)),color-stop(0.75,rgba(255,255,255,0.15)),color-stop(0.75,transparent),to(transparent));background-image:-webkit-linear-gradient(45deg,rgba(255,255,255,0.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,0.15) 50%,rgba(255,255,255,0.15) 75%,transparent 75%,transparent);background-image:-moz-linear-gradient(45deg,rgba(255,255,255,0.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,0.15) 50%,rgba(255,255,255,0.15) 75%,transparent 75%,transparent);background-image:-o-linear-gradient(45deg,rgba(255,255,255,0.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,0.15) 50%,rgba(255,255,255,0.15) 75%,transparent 75%,transparent);background-image:linear-gradient(45deg,rgba(255,255,255,0.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,0.15) 50%,rgba(255,255,255,0.15) 75%,transparent 75%,transparent)}
+.progress-info .bar,
+.progress .bar-info{background-color:#4bb1cf;background-image:-moz-linear-gradient(top,#5bc0de,#339bb9);background-image:-webkit-gradient(linear,0 0,0 100%,from(#5bc0de),to(#339bb9));background-image:-webkit-linear-gradient(top,#5bc0de,#339bb9);background-image:-o-linear-gradient(top,#5bc0de,#339bb9);background-image:linear-gradient(to bottom,#5bc0de,#339bb9);background-repeat:repeat-x;filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff5bc0de',endColorstr='#ff339bb9',GradientType=0)}
+.progress-info.progress-striped .bar,
+.progress-striped .bar-info{background-color:#5bc0de;background-image:-webkit-gradient(linear,0 100%,100% 0,color-stop(0.25,rgba(255,255,255,0.15)),color-stop(0.25,transparent),color-stop(0.5,transparent),color-stop(0.5,rgba(255,255,255,0.15)),color-stop(0.75,rgba(255,255,255,0.15)),color-stop(0.75,transparent),to(transparent));background-image:-webkit-linear-gradient(45deg,rgba(255,255,255,0.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,0.15) 50%,rgba(255,255,255,0.15) 75%,transparent 75%,transparent);background-image:-moz-linear-gradient(45deg,rgba(255,255,255,0.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,0.15) 50%,rgba(255,255,255,0.15) 75%,transparent 75%,transparent);background-image:-o-linear-gradient(45deg,rgba(255,255,255,0.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,0.15) 50%,rgba(255,255,255,0.15) 75%,transparent 75%,transparent);background-image:linear-gradient(45deg,rgba(255,255,255,0.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,0.15) 50%,rgba(255,255,255,0.15) 75%,transparent 75%,transparent)}
+
+@media screen and (min-width:768px) {
 	.pm-body .jumbotron {
 		padding: 35px 45px;
 	}
@@ -72,3 +277,9 @@ body {font-size:14px;}
 	#profile-main .pm-overview {max-width:250px !important;}
 	#profile-main .pm-body {padding-left:250px;}
 }
+
+
+
+
+
+

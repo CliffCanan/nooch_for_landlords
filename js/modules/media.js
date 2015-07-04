@@ -1,9 +1,9 @@
-materialAdmin
+noochForLandlords
 
     // =========================================================================
     // MEDIA ELEMENT
     // =========================================================================
-    
+
     .directive('mediaElement', function(){
         return {
             restrict: 'A',
@@ -11,14 +11,13 @@ materialAdmin
                 element.mediaelementplayer();
             }
         }
-        
     })
 
 
     // =========================================================================
     // LIGHTBOX
     // =========================================================================
-    
+
     .directive('lightbox', function(){
         return {
             restrict: 'C',
@@ -28,5 +27,4 @@ materialAdmin
                 }); 
             }
         }
-        
     })

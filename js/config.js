@@ -1,4 +1,4 @@
-materialAdmin
+noochForLandlords
 
     .run(function($templateCache,$http){
           $http.get('includes/templates.html', {cache:$templateCache});
@@ -81,6 +81,36 @@ materialAdmin
                 templateUrl: 'views/properties.html'
             })
 
+			.state ('add-property', {
+                url: '/add-property',
+                templateUrl: 'views/property-add.html',
+                resolve: {
+                    loadPlugin: function($ocLazyLoad) {
+                        return $ocLazyLoad.load ([
+                            {
+                                name: 'css',
+                                insertBefore: '#app-level',
+                                files: [
+                                    'vendors/bower_components/bootstrap-select/dist/css/bootstrap-select.css',
+                                    'vendors/chosen_v1.4.2/chosen.min.css',
+                                    'vendors/bower_components/nouislider/distribute/jquery.nouislider.min.css',
+                                ]
+                            },
+                            {
+                                name: 'vendors',
+                                files: [
+                                    'vendors/bootstrap-wizard/jquery.bootstrap.wizard.min.js',
+                                    'vendors/input-mask/input-mask.min.js',
+                                    'vendors/bower_components/bootstrap-select/dist/js/bootstrap-select.js',
+                                    'vendors/chosen_v1.4.2/chosen.jquery.min.js',
+                                    'vendors/bower_components/nouislider/distribute/jquery.nouislider.all.min.js',
+                                    'vendors/fileinput/fileinput.min.js'
+                                ]
+                            }
+                        ])
+                    }
+                }
+            })
 
 
             //------------------------------
@@ -242,30 +272,10 @@ materialAdmin
                 url: '/user-interface',
                 templateUrl: 'views/common.html'
             })
-
-            .state ('user-interface.colors', {
-                url: '/colors',
-                templateUrl: 'views/colors.html'
-            })
-
-            .state ('user-interface.animations', {
-                url: '/animations',
-                templateUrl: 'views/animations.html'
-            })
-
-            .state ('user-interface.box-shadow', {
-                url: '/box-shadow',
-                templateUrl: 'views/box-shadow.html'
-            })
         
             .state ('user-interface.buttons', {
                 url: '/buttons',
                 templateUrl: 'views/buttons.html'
-            })
-
-            .state ('user-interface.icons', {
-                url: '/icons',
-                templateUrl: 'views/icons.html'
             })
         
             .state ('user-interface.notifications-dialogs', {

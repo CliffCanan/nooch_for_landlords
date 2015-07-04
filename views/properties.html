@@ -23,32 +23,49 @@
 
                 <div class="col-sm-9 col-lg-8">
 
-                    <!-- Recent Posts -->
+                    <!-- Properties -->
                     <div class="card z-depth-1" data-ng-controller="propertiesCtrl as rpctrl">
                         <div class="card-header ch-alt m-b-20">
                             <h2>All Properties</h2>
 
-                            <div data-toggle="dropdown" data-animation="bounceIn,bounceOut,1000">
-                                <button class="btn bgm-cyan btn-float"><i class="md md-add"></i></button>
+                            <div>
+                                <a data-ui-sref="add-property" class="btn bgm-cyan btn-float noExtraWaves"><i class="md md-add"></i></a>
                             </div>
-                            <ul class="dropdown-menu dropdown-menu-right">
-                                <li>
-                                    <a href="">Add New Unit</a>
-                                </li>
-                                <li>
-                                    <a href="">Add New Tenant</a>
-                                </li>
-                                <li class="divider"></li>
-                                <li>
-                                    <a href="">Edit Property</a>
-                                </li>
-                            </ul>
+                            
                         </div>
 
                         <div class="card-body">
                             <div class="listview lv-lg" id="propertiesList">
 
                                 <div class="lv-item" data-ng-repeat="w in rpctrl.propResult.list">
+
+									<div class="pull-right">
+										<ul class="actions">
+											<li class="dropdown" data-animation="bounceIn,bounceOut,1000">
+												<a href="" data-toggle="dropdown">
+													<i class="md md-more-vert"></i>
+												</a>
+
+												<ul class="dropdown-menu dropdown-menu-right">
+													<li>
+														<a href="">Add New Unit</a>
+													</li>
+													<li>
+														<a href="">Add New Tenant</a>
+													</li>
+													<li class="divider"></li>
+													<li>
+														<a href="">Edit Property</a>
+													</li>
+												</ul>
+											</li>
+											<li>
+												<span data-swal-params>
+													<i class="md md-close"></i>
+												</span>
+											</li>
+										</ul>
+									</div>
 
                                     <a href="" data-toggle="collapse" data-target="#prop{{ w.id }}" aria-controls="prop{{ w.id }}" aria-expanded="false">
 
@@ -60,25 +77,8 @@
 
                                             <div class="media-body">
 
-                                                <div class="col-xs-10">
-                                                    <div class="lv-title lv-lg">{{ w.propName }}</div>
-                                                    <small class="lv-small">{{ w.address }}</small>
-                                                </div>
-
-                                                <div class="col-xs-2">
-                                                    <ul class="actions">
-                                                        <li>
-                                                            <span data-toggle="collapse" data-target="#bankform1">
-                                                                <i class="md md-expand-more"></i>
-                                                            </span>
-                                                        </li>
-                                                        <li>
-                                                            <span data-swal-params>
-                                                                <i class="md md-close"></i>
-                                                            </span>
-                                                        </li>
-                                                    </ul>
-                                                </div>
+												<div class="lv-title lv-lg">{{ w.propName }}</div>
+												<small class="lv-small">{{ w.address }}</small>
 
                                             </div>
 
@@ -86,7 +86,7 @@
 
                                     </a>
 
-                                    <div class="m-t-10 collapse" id="#prop{{w.id}}" aria-expanded="false" style="height:0px;">
+                                    <div class="m-t-10 collapse" id="prop{{w.id}}">
                                         <p>Just a test!!</p>
                                     </div>
 
@@ -100,10 +100,9 @@
                 </div>
 
                 <div class="col-sm-3 col-lg-4">
-                    <div class="bs-item z-depth-1">
-                        Stuff
-                    </div>
+                    <div id="acntChklst" data-ng-include src="'includes/account-checklist.html'"></div>
                 </div>
+
             </div>
 
 		</div>

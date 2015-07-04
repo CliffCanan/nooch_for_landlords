@@ -10,7 +10,7 @@
             </dl>
             <dl class="dl-horizontal">
                 <dt>Verification Type <a href=""><i class="md-info m-l-5"></i></a></dt>
-                <dd><span class="label label-success">{{ pctrl.accountStatus }}</span></dd>
+                <dd><span class="label label-success">{{ pctrl.accountStatus }}</span><i class="md-verified-user m-l-10 c-green"></i></dd>
             </dl>
         </div>
     </div>
@@ -40,7 +40,7 @@
         <div class="pmbb-view" data-ng-if="pctrl.editInfo === 0">
             <dl class="dl-horizontal">
                 <dt>Full Name</dt>
-                <dd>{{ pctrl.fullName }}</dd>
+                <dd>{{ pctrl.firstName }} {{pctrl.lastName}}</dd>
             </dl>
             <dl class="dl-horizontal">
                 <dt>Birthday</dt>
@@ -57,7 +57,7 @@
                 <dt class="p-t-10">Full Name</dt>
                 <dd>
                     <div class="fg-line">
-                        <input data-ng-model="pctrl.fullName" type="text" class="form-control" value="{{ pctrl.fullName }}" placeholder="eg. Mallinda Hollaway">
+                        <input data-ng-model="pctrl.fullName" type="text" class="form-control" value="{{ pctrl.firstName }} {{pctrl.lastName}}" placeholder="eg. Mallinda Hollaway">
                     </div>
 
                 </dd>

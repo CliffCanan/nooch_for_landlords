@@ -1,4 +1,4 @@
-materialAdmin
+noochForLandlords
     // =========================================================================
     // Base controller for common functions
     // =========================================================================
@@ -199,7 +199,8 @@ materialAdmin
         this.accountStatus = "Identity Verified";
         this.type = "Landlord";
         this.subtype = "Basic";
-        this.fullName = "Josh Hamilton";
+        this.firstName = "Josh";
+        this.lastName = "Hamilton";
         this.birthDay = "23/06/1982";
         this.mobileNumber = "(215) 711-6789";
         this.emailAddress = "josh.h@nooch.com";
@@ -208,8 +209,12 @@ materialAdmin
         this.addressCity = "Philadelphia, PA";
         this.addressCountry = "United States";
         this.ssnLast4 = "7654";
-    
-    
+
+        //Account Info
+        
+        this.propertyCount = 5;
+        this.tenantRequests = 3;
+
         //Edit
         this.editSummary = 0;
         this.editInfo = 0;
@@ -229,12 +234,46 @@ materialAdmin
                 this.editContact = 0;
             }
             
-            growlService.growl(message+' has updated Successfully!', 'inverse'); 
+            growlService.growl(message + ' has updated Successfully!', 'inverse'); 
         }
 
     })
 
+    //=================================================
+    // Account Checklist Widget
+    //=================================================
 
+    .controller('accntChecklistCtrl', function ($scope) {
+
+        //Status
+        $scope.checklistItems = {
+            confirmEmail: 1,
+            confirmPhone: 1,
+            verifyId: 0,
+            connectBank: 0,
+            addProp: 0 ,
+            addTenant: 0,
+            acceptPayment: 0
+        }
+    })
+
+	//=================================================
+    // Profile - ADD PROPERTY
+    //=================================================
+
+ /* .controller('addPropCtrl', function($scope, $location, angularFireCollection, properties) {
+
+	  var prop = this;
+
+	  prop.submit = function submit($location, item) {
+
+		properties.add(item)
+		  .then(function() {
+			$location.path('/properties');
+		  });
+
+	  };
+	});*/
 
     //=================================================
     // LOGIN

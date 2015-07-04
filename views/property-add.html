@@ -1,0 +1,330 @@
+<header id="header" data-ng-include src="'includes/header.html'" data-ng-controller="headerCtrl as hctrl"></header>
+
+<section id="main">
+    <aside id="sidebar" data-ng-include src="'includes/sidebar-left.html'" data-ng-class="{ 'toggled': mactrl.sidebarToggle.left === true }"></aside>
+
+    <section id="content">
+
+        <div class="container">
+
+            <div class="block-header" style="display:none">
+                <div class="row">
+                    <div class="col-sm-9 col-lg-8">
+                        <h2 class="col-xs-9" style="padding:2px 0;">Add a New Property</h2>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+
+                <div class="col-sm-9 col-lg-8">
+
+                    <!-- Add A Property Widget -->
+					<div class="card z-depth-1 animated zoomInUp">
+
+						<div class="card-header ch-alt">
+                            <div class="row">
+
+                                <div class="col-xs-3 col-sm-2 headerIcon">
+                                    <i class="md md-4x md-business"><i class="md md-2x md-plus-one"></i></i>
+                                </div>
+
+                                <div class="col-xs-9 col-sm-10 p-l-0">
+                                    <div class="pull-right">
+                                        <a data-ui-sref="properties" class="btn btn-link noExtraWaves">Cancel <i class="md md-backspace m-l-5" style="position:relative;top:1px"></i></a>
+                                    </div>
+                                    <h2>Add New Property<small>Enter the details for your property.</small></h2>
+                                    
+                                </div>
+
+                            </div>
+						</div>
+
+
+						<div class="card-body card-padding">
+
+							<form id="addNewProperty" role="form" class="form-horizontal">
+
+                                <div id="addPropWizard" class="tabbable tabs-left">
+
+                                    <div id="bar" class="progress progress-striped active m-b-25 m-r-10">
+                                        <div class="bar"></div>
+                                    </div>
+
+                                    <ul class="col-xs-3 col-sm-2 p-0">
+                                        <li><a href="#tab1" data-toggle="tab">Step 1</a></li>
+                                        <li><a href="#tab2" data-toggle="tab">Step 2</a></li>
+                                        <li><a href="#tab3" data-toggle="tab">Step 3</a></li>
+                                        <li><a href="#tab4" data-toggle="tab">Step 4</a></li>
+                                    </ul>
+
+                                    <div class="tab-content col-xs-9 col-sm-10 p-l-15">
+
+                                        <div class="tab-pane fade" id="tab1">
+
+                                            <div class="form-group">
+                                                <label for="propertyName" class="col-sm-3 control-label">Property Name</label>
+                                                <div class="form-group col-sm-9 m-b-0">
+                                                    <div class="fg-line">
+                                                        <input type="text" id="propertyName" class="form-control" placeholder="ex: East View Apartments">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="tab-pane fade " id="tab2">
+
+                                            <div class="form-group">
+                                                <label for="propertyName" class="col-sm-3 control-label">Property Picture</label>
+                                                <div class="form-group col-sm-9 m-b-0">
+
+                                                    <div class="fileinput fileinput-new" data-provides="fileinput">
+                                                        <div class="fileinput-new thumbnail" style="width: 300px; height: auto;">
+                                                            <img src="img/300x200.gif" alt="">
+                                                        </div>
+                                                        <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 300px; max-height: 200px;"></div>
+                                                        <div>
+                                                            <span class="btn btn-primary btn-file">
+                                                                <span class="fileinput-new">Select image</span>
+                                                                <span class="fileinput-exists">Change</span>
+                                                                <input type="file" name="...">
+                                                            </span>
+                                                            <a href="#" class="btn btn-danger fileinput-exists" data-dismiss="fileinput">Remove</a>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="tab-pane fade" id="tab3">
+
+                                            <div class="form-group">
+                                                <label for="address" class="col-sm-3 control-label">Address</label>
+                                                <div class="form-group col-sm-9 m-b-0">
+
+                                                    <div class="col-sm-12">
+                                                        <div class="form-group fg-float">
+                                                            <div class="fg-line">
+                                                                <input type="text" class="form-control">
+                                                            </div>
+                                                            <label class="fg-label">Street Address</label>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-xs-9 col-sm-4">
+                                                        <div class="form-group fg-float m-b-0">
+                                                            <div class="fg-line">
+                                                                <input type="text" class="form-control">
+                                                            </div>
+                                                            <label class="fg-label">City</label>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-xs-3 col-sm-4">
+                                                        <div style="position:relative;top:5px;">
+                                                            <select data-select-picker data-live-search="true">
+                                                                <option>Alabama</option>
+                                                                <option>Alaska</option>
+                                                                <option>Arizona</option>
+                                                                <option>Arkansas</option>
+                                                                <option>California</option>
+                                                                <option>Colorado</option>
+                                                                <option>Connecticut</option>
+                                                                <option>Delaware</option>
+                                                                <option>Florida</option>
+                                                                <option>Georgia</option>
+                                                                <option>Hawaii</option>
+                                                                <option>Idaho</option>
+                                                                <option>Illinois</option>
+                                                                <option>Indiana</option>
+                                                                <option>Iowa</option>
+                                                                <option>Kansas</option>
+                                                                <option>Kentucky</option>
+                                                                <option>Louisiana</option>
+                                                                <option>Maine</option>
+                                                                <option>Maryland</option>
+                                                                <option>Massachusetts</option>
+                                                                <option>Michigan</option>
+                                                                <option>Minnesota</option>
+                                                                <option>Mississippi</option>
+                                                                <option>Missouri</option>
+                                                                <option>Montana</option>
+                                                                <option>Nebraska</option>
+                                                                <option>Nevada</option>
+                                                                <option>New Hampshire</option>
+                                                                <option>New Jersey</option>
+                                                                <option>New Mexico</option>
+                                                                <option>New York</option>
+                                                                <option>North Carolina</option>
+                                                                <option>North Dakota</option>
+                                                                <option>Ohio</option>
+                                                                <option>Oklahoma</option>
+                                                                <option>Oregon</option>
+                                                                <option>Pennsylvania</option>
+                                                                <option>Rhode Island</option>
+                                                                <option>South Carolina</option>
+                                                                <option>South Dakota</option>
+                                                                <option>Tennessee</option>
+                                                                <option>Texas</option>
+                                                                <option>Utah</option>
+                                                                <option>Vermont</option>
+                                                                <option>Virginia</option>
+                                                                <option>Washington</option>
+                                                                <option>West Virginia</option>
+                                                                <option>Wisconsin</option>
+                                                                <option>Wyoming</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xs-12 col-sm-4">
+                                                        <div class="form-group fg-float m-b-0">
+                                                            <div class="fg-line">
+                                                                <input type="num" class="form-control" data-input-mask="{mask: '00000'}">
+                                                            </div>
+                                                            <label class="fg-label">Zip</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="contactNum" class="col-sm-3 control-label">Contact Number</label>
+                                                <div class="form-group col-sm-9 m-b-0">
+                                                    <div class="fg-line">
+                                                        <input type="num" id="contactNum" class="form-control" placeholder="ex: (215) 804-4226" data-input-mask="{mask: '(000) 000-0000'}">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="tab-pane fade" id="tab4">
+
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Rent Range <small>Optional</small></label>
+                                                <div class="form-group col-sm-9 m-b-0">
+                                                    <div class="m-t-15 clearfix">
+                                                        <div id="rentRangeSlider" class="m-b-15"></div>
+                                                        <strong class="pull-left text-muted">$<span id="value-lower"></span></strong>
+                                                        <strong class="pull-right text-muted">$<span id="value-upper"></span></strong>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        <ul class="pager wizard">
+                                            <li class="previous"><a href="#" class="btn btn-default btn-icon-text"><i class="md md-chevron-left"></i> Previous</a></li>
+                                            <li class="next"><a href="#" class="btn btn-primary btn-icon-text">Next Step <i class="md md-chevron-right"></i></a></li>
+                                            <li class="next finish" style="display:none;"><a href="javascript:;" class="btn btn-primary btn-icon-text"><i class="md md-check"></i>Finish</a></li>
+                                        </ul>
+
+                                    </div>
+                                </div>
+
+
+								<div class="clearfix">
+									
+								</div>
+
+							</form>
+
+						</div>
+
+					</div>
+
+                </div>
+
+                <div class="col-sm-3 col-lg-4">
+                    <div id="acntChklst" data-ng-include src="'includes/account-checklist.html'"></div>
+                </div>
+
+            </div>
+
+		</div>
+    </section>
+</section>
+
+<footer id="footer" data-ng-include src="'includes/footer.html'"></footer>
+
+<script>
+    $(document).ready(function () {
+        // Setup the wizard plugin
+        $('#addPropWizard').bootstrapWizard({
+            'tabClass': 'nav nav-tabs',
+            onTabClick: function (tab, navigation, index) {
+                return false;
+            },
+            onTabShow: function (tab, navigation, index) {
+                var $total = navigation.find('li').length;
+                var $current = index + 1;
+                var $percent = ($current / $total) * 100;
+                $('#addPropWizard').find('.bar').css({ width: $percent + '%' });
+                $('#addPropWizard').find('.bar').text($percent + '%');
+
+                if ($current == 1) {
+                    $('.previous').fadeOut();
+                } else {
+                    $('.previous').fadeIn();
+                }
+                // If it's the last tab then hide the last button and show the finish instead
+                if ($current >= $total) {
+                    $('#addPropWizard').find('.pager .next').hide();
+                    $('#addPropWizard').find('.pager .finish').show();
+                    $('#addPropWizard').find('.pager .finish').removeClass('disabled');
+                }
+                else {
+                    $('#addPropWizard').find('.pager .next').show();
+                    $('#addPropWizard').find('.pager .finish').hide();
+                }
+            },
+        });
+        $('#addPropWizard .finish').click(function () {
+            swal({
+                title: "Awesome - Property Added",
+                text: "This property has been successfully created.  Would you like to publish it so Nooch users can find it to pay their rent? (You can do this later, too.)",
+                type: "success",
+                showCancelButton: true,
+                confirmButtonColor: "#3fabe1",
+                confirmButtonText: "Yes, Publish Now",
+                cancelButtonText: "No, I'll do it later!",
+                closeOnConfirm: false,
+                closeOnCancel: false
+            }, function (isConfirm) {
+                var url = $location.path("/properties");
+                location.href = url;
+                if (isConfirm) {
+                    swal("You Got It!", "Your property has been published.", "success");
+                }
+                else {
+                    swal("No Problem", "Your property has NOT been published. Before tenants can pay rent for this property, you must publish it, but you can do that later at any time.", "warning");
+                }
+                
+            });
+        });
+
+		// Setup the slider for selecting Rent Range
+		$('#rentRangeSlider').noUiSlider({
+			start: [ 400, 1000 ],
+			connect: true,
+			behaviour: 'drag-tap',
+			margin: 100,
+			step: 50,
+			range: {
+				'min': 100,
+				'max': 2000
+			}
+		});
+
+		$('#rentRangeSlider').Link('lower').to($('#value-lower'));
+		$('#rentRangeSlider').Link('upper').to($('#value-upper'), 'html');
+	});
+
+	// Go Live Alert Dialog after creating a new property
+	$("#addNewProperty").submit(function (e) {
+	    e.preventDefault();
+	});
+</script>

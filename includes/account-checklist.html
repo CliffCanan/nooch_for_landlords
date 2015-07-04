@@ -1,0 +1,246 @@
+<div class="card z-depth-1" id="acntChecklistCard">
+
+    <div class="listview" data-ng-controller="accntChecklistCtrl as chkLstCtrl">
+
+        <div class="lv-header">
+            Account Checklist <i class="md md-content-paste m-l-10"></i>
+        </div>
+
+        <div class="lv-body" ng-controller="accntChecklistCtrl">
+
+            <div class="lv-item">
+                <div class="checkbox media">
+                    <div class="pull-right">
+                        <ul class="actions" ng-if="checklistItems.confirmEmail == 0">
+                            <li class="dropdown">
+                                <a href="" data-toggle="dropdown">
+                                    <i class="md md-info"></i>
+                                </a>
+
+                                <ul class="dropdown-menu dropdown-menu-right">
+                                    <li><a href="">Delete</a></li>
+                                    <li><a href="">Archive</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="media-body">
+                        <label>
+                            <span ng-if="checklistItems.confirmEmail == 0">
+                                <input type="checkbox" disabled>
+                                <i class="input-helper"></i>
+                                <span> Confirm Email Address</span>
+                            </span>
+                            <span ng-if="checklistItems.confirmEmail == 1">
+                                <input type="checkbox" disabled checked>
+                                <i class="input-helper"></i>
+                                <span><s>Confirm Email Address</s></span>
+                            </span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lv-item">
+                <div class="checkbox media">
+                    <div class="pull-right">
+                        <ul class="actions" ng-if="checklistItems.confirmPhone == 0">
+                            <li class="dropdown">
+                                <a href="" data-toggle="dropdown">
+                                    <i class="md md-info"></i>
+                                </a>
+
+                                <ul class="dropdown-menu dropdown-menu-right">
+                                    <li><a href="">Delete</a></li>
+                                    <li><a href="">Archive</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="media-body">
+                        <label>
+                            <span ng-if="checklistItems.confirmPhone == 0">
+                                <input type="checkbox" disabled>
+                                <i class="input-helper"></i>
+                                <span> Confirm Phone Number</span>
+                            </span>
+                            <span ng-if="checklistItems.confirmPhone == 1">
+                                <input type="checkbox" disabled checked>
+                                <i class="input-helper"></i>
+                                <span><s>Confirm Phone Number</s></span>
+                            </span>                            
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lv-item">
+                <div class="checkbox media">
+                    <div class="pull-right">
+                        <ul class="actions" ng-if="checklistItems.verifyId == 0">
+                            <li class="dropdown">
+                                <a href="" data-toggle="dropdown">
+                                    <i class="md md-info"></i>
+                                </a>
+
+                                <ul class="dropdown-menu dropdown-menu-right">
+                                    <li><a href="">Delete</a></li>
+                                    <li><a href="">Archive</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="media-body">
+                        <label>
+                            <span ng-if="checklistItems.verifyId == 0">
+                                <input type="checkbox" disabled>
+                                <i class="input-helper"></i>
+                                <span>Verify Identity <i class="md md-sms-failed c-red m-l-10 md-"></i></span>
+                            </span>
+                            <span ng-if="checklistItems.verifyId == 1">
+                                <input type="checkbox" disabled checked>
+                                <i class="input-helper"></i>
+                                <span><s>Verify Identity</s></span>
+                            </span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lv-item">
+                <div class="checkbox media">
+                    <div class="pull-right">
+                        <ul class="actions" ng-if="checklistItems.connectBank == 0">
+                            <li class="dropdown">
+                                <a href="" data-toggle="dropdown">
+                                    <i class="md md-info"></i>
+                                </a>
+
+                                <ul class="dropdown-menu dropdown-menu-right">
+                                    <li><a href="">Delete</a></li>
+                                    <li><a href="">Archive</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="media-body">
+                        <label>
+                            <span ng-if="checklistItems.connectBank == 0">
+                                <input type="checkbox" disabled>
+                                <i class="input-helper"></i>
+                                <span>Connect Bank Account</span>
+                            </span>
+                            <span ng-if="checklistItems.connectBank == 1">
+                                <input type="checkbox" disabled checked>
+                                <i class="input-helper"></i>
+                                <span><s>Connect Bank Account</s></span>
+                            </span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lv-item">
+                <div class="checkbox media">
+                    <div class="pull-right">
+                        <ul class="actions" ng-if="checklistItems.addProp == 0">
+                            <li class="dropdown">
+                                <a href="" data-toggle="dropdown">
+                                    <i class="md md-info"></i>
+                                </a>
+
+                                <ul class="dropdown-menu dropdown-menu-right">
+                                    <li><a href="">Delete</a></li>
+                                    <li><a href="">Archive</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="media-body">
+                        <label>
+                            <span ng-if="checklistItems.addProp == 0">
+                                <input type="checkbox" disabled>
+                                <i class="input-helper"></i>
+                                <span>Add Property</span>
+                            </span>
+                            <span ng-if="checklistItems.addProp == 1">
+                                <input type="checkbox" disabled checked>
+                                <i class="input-helper"></i>
+                                <span><s>Add Property</s></span>
+                            </span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lv-item">
+                <div class="checkbox media">
+                    <div class="pull-right">
+                        <ul class="actions" ng-if="checklistItems.addTenant == 0">
+                            <li class="dropdown">
+                                <a href="" data-toggle="dropdown">
+                                    <i class="md md-info"></i>
+                                </a>
+
+                                <ul class="dropdown-menu dropdown-menu-right">
+                                    <li><a href="">Delete</a></li>
+                                    <li><a href="">Archive</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="media-body">
+                        <label>
+                            <span ng-if="checklistItems.addTenant == 0">
+                                <input type="checkbox" disabled>
+                                <i class="input-helper"></i>
+                                <span>Add a Tenant</span>
+                            </span>
+                            <span ng-if="checklistItems.addTenant == 1">
+                                <input type="checkbox" disabled checked>
+                                <i class="input-helper"></i>
+                                <span><s>Add a Tenant</s></span>
+                            </span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lv-item">
+                <div class="checkbox media">
+                    <div class="pull-right">
+                        <ul class="actions" ng-if="checklistItems.acceptPayment == 0">
+                            <li class="dropdown">
+                                <a href="" data-toggle="dropdown">
+                                    <i class="md md-info"></i>
+                                </a>
+
+                                <ul class="dropdown-menu dropdown-menu-right">
+                                    <li><a href="">Delete</a></li>
+                                    <li><a href="">Archive</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="media-body">
+                        <label>
+                            <span ng-if="checklistItems.acceptPayment == 0">
+                                <input type="checkbox" disabled>
+                                <i class="input-helper"></i>
+                                <span>Accept a Rent Payment</span>
+                            </span>
+                            <span ng-if="checklistItems.acceptPayment == 1">
+                                <input type="checkbox" disabled checked>
+                                <i class="input-helper"></i>
+                                <span><s>Accept a Rent Payment</s></span>
+                            </span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

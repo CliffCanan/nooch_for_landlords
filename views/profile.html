@@ -1,7 +1,7 @@
-<div class="container">
+<div class="container" data-ng-controller="profileCtrl as pctrl">
 
     <div class="block-header">
-        <h2>Malinda Hollaway <small>ABC Rental Properties</small></h2>
+        <h2>{{ pctrl.firstName }} {{pctrl.lastName}} <small>ABC Rental Properties</small></h2>
 
         <ul class="actions m-t-20 hidden-xs">
             <li class="dropdown">
@@ -24,14 +24,14 @@
         </ul>
     </div>
 
-    <div class="card z-depth-1" id="profile-main" data-ng-controller="profileCtrl as pctrl">
+    <div class="card z-depth-1" id="profile-main">
 
         <div class="pm-overview c-overflow">
 
             <div class="pmo-pic z-depth-2">
                 <div class="p-relative">
                     <a href="">
-                        <img class="img-responsive" src="img/profile-pics/profile-pic-2.jpg" alt=""> 
+                        <img class="img-responsive" src="img/profile-pics/profile-pic-2.jpg" alt="">
                     </a>
 
                     <div class="dropdown pmop-message">
@@ -53,17 +53,17 @@
 
 
                 <div class="pmo-stat bgm-lightblue">
-					<span class="col-xs-6">
-						<h2 class="m-0 c-white">6</h2>
-						Total Properties
-					</span>
-					<span class="col-xs-6">
-						<h2 class="m-0 c-white">80</h2>
-						Total Tenants
-					</span>
+                    <span class="col-xs-6">
+                        <h2 class="m-0 c-white">6</h2>
+                        Total Properties
+                    </span>
+                    <span class="col-xs-6">
+                        <h2 class="m-0 c-white">80</h2>
+                        Total Tenants
+                    </span>
                 </div>
 
-			</div>
+            </div>
 
             <div class="pmo-block pmo-contact hidden-xs">
                 <h2>Contact</h2>
@@ -75,8 +75,8 @@
                     <li>
                         <i class="md md-location-on"></i>
                         <address class="m-b-0">
-                            {{ pctrl.addressSuite }}, <br/>
-                            {{ pctrl.addressCity }}, <br/>
+                            {{ pctrl.addressSuite }}, <br />
+                            {{ pctrl.addressCity }}, <br />
                             {{ pctrl.addressCountry }}
                         </address>
                     </li>
