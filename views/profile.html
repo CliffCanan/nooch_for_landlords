@@ -1,197 +1,186 @@
-<div class="container" data-ng-controller="profileCtrl as pctrl">
+<header id="header" data-ng-include src="'includes/header.html'" data-ng-controller="headerCtrl as hctrl"></header>
 
-    <div class="block-header">
-        <h2>{{ pctrl.firstName }} {{pctrl.lastName}} <small>ABC Rental Properties</small></h2>
+<section id="main">
 
-        <ul class="actions m-t-20 hidden-xs">
-            <li class="dropdown">
-                <a href="" data-toggle="dropdown">
-                    <i class="md md-more-vert"></i>
-                </a>
+    <aside id="sidebar" data-ng-include src="'includes/sidebar-left.html'" data-ng-class="{ 'toggled': mactrl.sidebarToggle.left === true }"></aside>
 
-                <ul class="dropdown-menu dropdown-menu-right">
-                    <li>
-                        <a href="">Privacy Settings</a>
-                    </li>
-                    <li>
-                        <a href="">Account Settings</a>
-                    </li>
-                    <li>
-                        <a href="">Other Settings</a>
+    <section id="content">
+
+        <div class="container" data-ng-controller="profileCtrl as pctrl">
+
+            <div class="block-header">
+                <h2>{{ pctrl.firstName }} {{pctrl.lastName}} <small>ABC Rental Properties</small></h2>
+
+                <ul class="actions m-t-20 hidden-xs">
+                    <li class="dropdown">
+                        <a href="" data-toggle="dropdown">
+                            <i class="md md-more-vert"></i>
+                        </a>
+
+                        <ul class="dropdown-menu dropdown-menu-right">
+                            <li>
+                                <a href="">Privacy Settings</a>
+                            </li>
+                            <li>
+                                <a href="">Account Settings</a>
+                            </li>
+                            <li>
+                                <a href="">Other Settings</a>
+                            </li>
+                        </ul>
                     </li>
                 </ul>
-            </li>
-        </ul>
-    </div>
+            </div>
 
-    <div class="card z-depth-1" id="profile-main">
+            <div class="card z-depth-1" id="profile-main">
 
-        <div class="pm-overview c-overflow">
+                <div class="pm-overview c-overflow">
 
-            <div class="pmo-pic z-depth-2">
-                <div class="p-relative">
-                    <a href="">
-                        <img class="img-responsive" src="img/profile-pics/profile-pic-2.jpg" alt="">
-                    </a>
+                    <div class="pmo-pic z-depth-2">
+                        <div class="p-relative">
+                            <a href="">
+                                <img class="img-responsive" src="img/profile-pics/{{pctrl.userPic}}.png" alt="">
+                            </a>
 
-                    <div class="dropdown pmop-message">
-                        <button data-toggle="dropdown" class="btn bgm-white btn-float z-depth-1">
-                            <i class="md md-message"></i>
-                        </button>
+                            <div class="dropdown pmop-message">
+                                <button data-toggle="dropdown" class="btn bgm-white btn-float z-depth-1">
+                                    <i class="md md-message"></i>
+                                </button>
 
-                        <div class="dropdown-menu stop-propagate">
-                            <textarea placeholder="Write something..."></textarea>
+                                <div class="dropdown-menu stop-propagate">
+                                    <textarea placeholder="Write something..."></textarea>
 
-                            <button class="btn bgm-green btn-icon"><i class="md md-send"></i></button>
+                                    <button class="btn bgm-green btn-icon"><i class="md md-send"></i></button>
+                                </div>
+                            </div>
+
+                            <a data-toggle="modal" data-target="#addPic" class="pmop-edit">
+                                <i class="md md-camera-alt"></i> <span class="hidden-xs">Update Profile Picture</span>
+                            </a>
+                        </div>
+
+
+                        <div class="pmo-stat bgm-lightblue">
+                            <span class="col-xs-6">
+                                <h2 class="m-0 c-white">6</h2>
+                                Total Properties
+                            </span>
+                            <span class="col-xs-6">
+                                <h2 class="m-0 c-white">80</h2>
+                                Total Tenants
+                            </span>
+                        </div>
+
+                    </div>
+
+                    <div class="pmo-block pmo-contact hidden-xs">
+                        <h2>Contact</h2>
+
+                        <ul>
+                            <li><i class="md md-phone"></i> {{ pctrl.mobileNumber }}</li>
+                            <li><i class="md md-email"></i> {{ pctrl.emailAddress }}</li>
+                            <li><i class="socicon socicon-twitter"></i> {{ pctrl.twitter }}</li>
+                            <li>
+                                <i class="md md-location-on"></i>
+                                <address class="m-b-0">
+                                    {{ pctrl.address1 }}, <br />
+                                    {{ pctrl.addressCity }}, <br />
+                                    {{ pctrl.addressCountry }}
+                                </address>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="pmo-block pmo-items hidden-xs">
+                        <h2>Tenants</h2>
+
+                        <div class="pmob-body">
+                            <div class="row">
+                                <a href="" class="col-xs-2">
+                                    <img class="img-circle" src="img/profile-pics/1.jpg" alt="">
+                                </a>
+                                <a href="" class="col-xs-2">
+                                    <img class="img-circle" src="img/profile-pics/2.jpg" alt="">
+                                </a>
+                                <a href="" class="col-xs-2">
+                                    <img class="img-circle" src="img/profile-pics/3.jpg" alt="">
+                                </a>
+                                <a href="" class="col-xs-2">
+                                    <img class="img-circle" src="img/profile-pics/4.jpg" alt="">
+                                </a>
+                                <a href="" class="col-xs-2">
+                                    <img class="img-circle" src="img/profile-pics/5.jpg" alt="">
+                                </a>
+                                <a href="" class="col-xs-2">
+                                    <img class="img-circle" src="img/profile-pics/6.jpg" alt="">
+                                </a>
+                                <a href="" class="col-xs-2">
+                                    <img class="img-circle" src="img/profile-pics/7.jpg" alt="">
+                                </a>
+                                <a href="" class="col-xs-2">
+                                    <img class="img-circle" src="img/profile-pics/8.jpg" alt="">
+                                </a>
+                                <a href="" class="col-xs-2">
+                                    <img class="img-circle" src="img/profile-pics/1.jpg" alt="">
+                                </a>
+                                <a href="" class="col-xs-2">
+                                    <img class="img-circle" src="img/profile-pics/2.jpg" alt="">
+                                </a>
+                                <a href="" class="col-xs-2">
+                                    <img class="img-circle" src="img/profile-pics/3.jpg" alt="">
+                                </a>
+                                <a href="" class="col-xs-2">
+                                    <img class="img-circle" src="img/profile-pics/4.jpg" alt="">
+                                </a>
+                            </div>
                         </div>
                     </div>
-
-                    <a data-toggle="modal" data-target="#addPic" class="pmop-edit">
-                        <i class="md md-camera-alt"></i> <span class="hidden-xs">Update Profile Picture</span>
-                    </a>
                 </div>
 
+                <div class="pm-body clearfix" id="profileMain">
 
-                <div class="pmo-stat bgm-lightblue">
-                    <span class="col-xs-6">
-                        <h2 class="m-0 c-white">6</h2>
-                        Total Properties
-                    </span>
-                    <span class="col-xs-6">
-                        <h2 class="m-0 c-white">80</h2>
-                        Total Tenants
-                    </span>
+                    <ul class="tab-nav tn-justified" data-ng-include="'includes/profile-menu.html'"></ul>
+
+                    <data ui-view></data>
+
                 </div>
-
             </div>
+        </div>
 
-            <div class="pmo-block pmo-contact hidden-xs">
-                <h2>Contact</h2>
+        <!-- Modal Bank FAQs -->
+        <div class="modal fade" id="addPic" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Change Profile Picture</h4>
+                    </div>
+                    <div class="modal-body">
 
-                <ul>
-                    <li><i class="md md-phone"></i> {{ pctrl.mobileNumber }}</li>
-                    <li><i class="md md-email"></i> {{ pctrl.emailAddress }}</li>
-                    <li><i class="socicon socicon-twitter"></i> {{ pctrl.twitter }}</li>
-                    <li>
-                        <i class="md md-location-on"></i>
-                        <address class="m-b-0">
-                            {{ pctrl.addressSuite }}, <br />
-                            {{ pctrl.addressCity }}, <br />
-                            {{ pctrl.addressCountry }}
-                        </address>
-                    </li>
-                </ul>
-            </div>
+                        <p class="f-500 c-black m-b-20">Image Preview</p>
 
-            <div class="pmo-block pmo-items hidden-xs">
-                <h2>Tenants</h2>
+                        <div class="fileinput fileinput-new" data-provides="fileinput">
+                            <div class="fileinput-preview thumbnail" data-trigger="fileinput"></div>
+                            <div>
+                                <span class="btn btn-info btn-file">
+                                    <span class="fileinput-new">Select image</span>
+                                    <span class="fileinput-exists">Change</span>
+                                    <input type="file" name="...">
+                                </span>
+                                <a href="#" class="btn btn-danger fileinput-exists" data-dismiss="fileinput">Remove</a>
+                            </div>
+                        </div>
 
-                <div class="pmob-body">
-                    <div class="row">
-                        <a href="" class="col-xs-2">
-                            <img class="img-circle" src="img/profile-pics/1.jpg" alt="">
-                        </a>
-                        <a href="" class="col-xs-2">
-                            <img class="img-circle" src="img/profile-pics/2.jpg" alt="">
-                        </a>
-                        <a href="" class="col-xs-2">
-                            <img class="img-circle" src="img/profile-pics/3.jpg" alt="">
-                        </a>
-                        <a href="" class="col-xs-2">
-                            <img class="img-circle" src="img/profile-pics/4.jpg" alt="">
-                        </a>
-                        <a href="" class="col-xs-2">
-                            <img class="img-circle" src="img/profile-pics/5.jpg" alt="">
-                        </a>
-                        <a href="" class="col-xs-2">
-                            <img class="img-circle" src="img/profile-pics/6.jpg" alt="">
-                        </a>
-                        <a href="" class="col-xs-2">
-                            <img class="img-circle" src="img/profile-pics/7.jpg" alt="">
-                        </a>
-                        <a href="" class="col-xs-2">
-                            <img class="img-circle" src="img/profile-pics/8.jpg" alt="">
-                        </a>
-                        <a href="" class="col-xs-2">
-                            <img class="img-circle" src="img/profile-pics/1.jpg" alt="">
-                        </a>
-                        <a href="" class="col-xs-2">
-                            <img class="img-circle" src="img/profile-pics/2.jpg" alt="">
-                        </a>
-                        <a href="" class="col-xs-2">
-                            <img class="img-circle" src="img/profile-pics/3.jpg" alt="">
-                        </a>
-                        <a href="" class="col-xs-2">
-                            <img class="img-circle" src="img/profile-pics/4.jpg" alt="">
-                        </a>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-link">Save changes</button>
+                        <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>
         </div>
+    
+    </section>
 
-        <div class="pm-body clearfix">
+</section>
 
-            <ul class="tab-nav tn-justified" data-ng-include="'includes/profile-menu.html'"></ul>
-
-            <data ui-view></data>
-
-        </div>
-    </div>
-</div>
-
-<!-- Modal Bank FAQs -->	
-<div class="modal fade" id="addPic" tabindex="-1" role="dialog" aria-hidden="true">
-	<div class="modal-dialog modal-sm">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h4 class="modal-title">Change Profile Picture</h4>
-			</div>
-			<div class="modal-body">
-				<div class="card">
-
-					<div class="card-body p-15">
-
-						<div class="row">
-							<div class="col-xs-12">
-								<div class="fileinput fileinput-new" data-provides="fileinput">
-									<span class="btn btn-primary btn-file m-r-10">
-										<span class="fileinput-new">Select Picture</span>
-										<span class="fileinput-exists">Change Picture</span>
-										<input type="file" name="...">
-									</span>
-									<span class="fileinput-filename"></span>
-									<a href="#" class="close fileinput-exists" data-dismiss="fileinput">&times;</a>
-								</div>
-							</div>
-						</div>
-
-						<br/>
-
-						<p class="f-500 c-black m-b-20">Image Preview</p>
-
-						<div class="fileinput fileinput-new" data-provides="fileinput">
-							<div class="fileinput-preview thumbnail" data-trigger="fileinput"></div>
-							<div>
-								<span class="btn btn-info btn-file">
-									<span class="fileinput-new">Select image</span>
-									<span class="fileinput-exists">Change</span>
-									<input type="file" name="...">
-								</span>
-								<a href="#" class="btn btn-danger fileinput-exists" data-dismiss="fileinput">Remove</a>
-							</div>
-						</div>
-
-						<br/>
-						<br/>
-						<p><small><em>Image preview only works in IE10+, FF3.6+, Safari6.0+, Chrome6.0+ and Opera11.1+. In older browsers the filename is shown instead.</em></small></p>
-					</div>
-				</div>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-link">Save changes</button>
-				<button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
-			</div>
-		</div>
-	</div>
-</div>
-          
+<footer id="footer" data-ng-include src="'includes/footer.html'"></footer>

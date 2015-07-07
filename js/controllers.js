@@ -42,15 +42,14 @@ noochForLandlords
             angular.element('#header').removeClass('search-toggled');
         }
         
-        // Get messages and notification for header
+        // Get Notifications for header
         this.img = messageService.img;
         this.user = messageService.user;
         this.user = messageService.text;
 
         this.messageResult = messageService.getMessage(this.img, this.user, this.text);
 
-
-        //Clear Notification
+        // Clear Notification  (part of default template)
         this.clearNotification = function($event) {
             $event.preventDefault();
             
@@ -77,27 +76,28 @@ noochForLandlords
                 angular.element('#notifications').addClass('empty');
             }, (z*150)+200);
         }
-        
-        // Clear Local Storage - CLIFF: CAN BE DELETED, KEEPING JUST AS REFERENCE FOR CREATING A 'SWAL' DIALOG ALERT
-        this.clearLocalStorage = function() {
-            
-            //Get confirmation, if confirmed clear the localStorage
-            swal({   
-                title: "Are you sure?",   
-                text: "All your saved localStorage values will be removed",   
-                type: "success",   
-                showCancelButton: true,   
-                confirmButtonColor: "#F44336",   
-                confirmButtonText: "Yes, delete it!",   
-                closeOnConfirm: false 
-            }, function(){
-                localStorage.clear();
-                swal("Done!", "localStorage is cleared", "success"); 
+
+        // Logout
+        this.logout = function () {
+            swal({
+                title: "Are you sure?",
+                text: "All your saved localStorage values will be removed",
+                type: "success",
+                showCancelButton: true,
+                confirmButtonColor: "#F44336",
+                confirmButtonText: "Yes - Logout",
+                cancelButtonText: "No - Stay Logged In",
+                closeOnConfirm: false
+            }, function (isConfirm) {
+                if (isConfirm)
+                {
+                    localStorage.clear();
+                    window.location.href = 'login.html';
+                }
             });
-            
         }
-        
-        //Fullscreen View
+
+        // Fullscreen View (part of default template)
         this.fullScreen = function() {
             //Launch
             function launchIntoFullscreen(element) {
@@ -157,7 +157,7 @@ noochForLandlords
 
 
     // =========================================================================
-    // Recent Items Widget
+    // Recent Items Widget (Came with default Template)
     // =========================================================================
 
     .controller('recentitemCtrl', function(recentitemService){
@@ -175,15 +175,9 @@ noochForLandlords
     // Properties Widget
     // =========================================================================
     
-    .controller('propertiesCtrl', function(propertiesService){
-        
-        //Get Properties Widget Items
-		this.id = propertiesService.id;
-        this.img = propertiesService.img;
-        this.user = propertiesService.propName;
-        this.text = propertiesService.address;
-        
-        this.propResult = propertiesService.getProperty(this.id, this.img, this.propName, this.address);
+    .controller('propertiesCtrl', function (propertiesService)
+    {
+        this.propResult = propertiesService.getProperty(this.a, this.b, this.c, this.d, this.e, this.f);
     })
 
 
@@ -191,50 +185,97 @@ noochForLandlords
     // Profile
     //=================================================
 
-    .controller('profileCtrl', function(growlService){
+    .controller('profileCtrl', function($scope, growlService){
         
         //Get Profile Information from profileService Service
         
-        //User
+        // Get User Info
         this.accountStatus = "Identity Verified";
         this.type = "Landlord";
         this.subtype = "Basic";
         this.firstName = "Josh";
         this.lastName = "Hamilton";
+        this.fullName = this.firstName + " " + this.lastName;
         this.birthDay = "23/06/1982";
         this.mobileNumber = "(215) 711-6789";
         this.emailAddress = "josh.h@nooch.com";
+        this.fb = "NoochMoney";
         this.twitter = "@NoochMoney";
-        this.addressSuite = "1098 ABC Towers";
+        this.insta = "NoochMoney";
+        this.address1 = "1098 ABC Towers";
         this.addressCity = "Philadelphia, PA";
         this.addressCountry = "United States";
         this.ssnLast4 = "7654";
+        this.userPic = "josh";
 
-        //Account Info
-        
+        // Get Company Info
+        this.company = {
+            "name": "ABC Rental LLC",
+            "ein": "10-2273413",
+        }
+
+        // Account Info
         this.propertyCount = 5;
+        this.unitCount = 18;
         this.tenantRequests = 3;
 
-        //Edit
-        this.editSummary = 0;
-        this.editInfo = 0;
-        this.editContact = 0;
-    
+        //When user Edits one of the sections
+        this.editPersonalInfo = 0;
+        this.editBusinessInfo = 0;
+        this.editContactInfo = 0;
+        this.editSocialInfo = 0;
         
-        this.submit = function(item, message) {            
-            if(item === 'profileSummary') {
-                this.editSummary = 0;
+        this.beginEditingPersonal = function () {
+            this.editPersonalInfo = 1;
+            this.editBusinessInfo = 0;
+            this.editContactInfo = 0;
+            this.editSocialInfo = 0;
+        }
+        this.beginEditingCompany = function () {
+            this.editPersonalInfo = 0;
+            this.editBusinessInfo = 1;
+            this.editContactInfo = 0;
+            this.editSocialInfo = 0;
+            $('input#compName').focus();
+        }
+        this.beginEditingContact = function () {
+            this.editPersonalInfo = 0;
+            this.editBusinessInfo = 0;
+            this.editContactInfo = 1;
+            this.editSocialInfo = 0;
+        }
+        this.beginEditingSocial = function () {
+            this.editPersonalInfo = 0;
+            this.editBusinessInfo = 0;
+            this.editContactInfo = 0;
+            this.editSocialInfo = 1;
+        }
+        this.cancel = function ()
+        {
+            this.editPersonalInfo = 0;
+            this.editBusinessInfo = 0;
+            this.editContactInfo = 0;
+            this.editSocialInfo = 0;
+        }
+        this.submit = function (item, message)
+        {
+            if (item === 'personalInfo') {
+                this.editPersonalInfo = 0;
             }
-            
-            if(item === 'profileInfo') {
-                this.editInfo = 0;
+
+            if (item === 'businessInfo') {
+                this.editBusinessInfo = 0;
             }
-            
-            if(item === 'profileContact') {
-                this.editContact = 0;
+
+            if (item === 'profileContact') {
+                this.editContactInfo = 0;
             }
-            
-            growlService.growl(message + ' has updated Successfully!', 'inverse'); 
+
+            if (item === 'socialInfo') {
+                this.editSocialInfo = 0;
+            }
+
+            growlService.growl(message + ' has updated Successfully!', 'success'); 
         }
 
     })
@@ -255,34 +296,48 @@ noochForLandlords
             addTenant: 0,
             acceptPayment: 0
         }
+
+        this.percentComplete = ((($scope.checklistItems.confirmEmail + $scope.checklistItems.confirmPhone + $scope.checklistItems.verifyId +
+                               $scope.checklistItems.connectBank + $scope.checklistItems.addProp + $scope.checklistItems.addTenant + $scope.checklistItems.acceptPayment)
+                               / 7) * 100).toFixed(0);
+    })
+
+    // Account Checklist Pie Chart (EASY PIE CHART)
+    .directive('acntchklstChart', function () {
+        return {
+            restrict: 'A',
+            link: function (scope, element)
+            {
+                
+            }
+        }
     })
 
 	//=================================================
-    // Profile - ADD PROPERTY
+    // Profile - BANK ACCOUNTS
     //=================================================
 
- /* .controller('addPropCtrl', function($scope, $location, angularFireCollection, properties) {
+    .controller('banksCtrl', function (getBanksService)
+    {
+        this.isBankAttached = true;
+        this.bankCount = 2;
 
-	  var prop = this;
+        this.bankList = getBanksService.getBank(this.name, this.nickname, this.logo, this.last, this.status, this.dateAdded, this.notes, this.primary, this.deleted);
 
-	  prop.submit = function submit($location, item) {
-
-		properties.add(item)
-		  .then(function() {
-			$location.path('/properties');
-		  });
-
-	  };
-	});*/
+        this.addBank = function () {
+            $('#bankAdd iframe').attr("src", "http://54.201.43.89/noochweb/MyAccounts/Add-Bank.aspx?MemberId=B3A6CF&ll=yes");
+            $('#bankAdd').modal({
+                keyboard: false
+            })
+        }
+	})
 
     //=================================================
-    // LOGIN
+    // LOGIN (Came w/ default template)
     //=================================================
 
     .controller('loginCtrl', function(){
-        
         //Status
-    
         this.login = 1;
         this.register = 0;
         this.forgot = 0;
@@ -290,14 +345,14 @@ noochForLandlords
 
 
     //=================================================
-    // CALENDAR
+    // CALENDAR  (Came w/ default template)
     //=================================================
-    
+
     .controller('calendarCtrl', function(){
-    
+
         //Create and add Action button with dropdown in Calendar header. 
         this.month = 'month';
-    
+
         this.actionMenu = '<ul class="actions actions-alt" id="fc-actions">' +
                             '<li class="dropdown">' +
                                 '<a href="" data-toggle="dropdown"><i class="md md-more-vert"></i></a>' +
@@ -320,9 +375,7 @@ noochForLandlords
                                 '</ul>' +
                             '</div>' +
                         '</li>';
-        
-        
-    
+
         //Calendar Event Data
         this.calendarData = {
             eventName: ''
@@ -375,7 +428,5 @@ noochForLandlords
                 this.calendarData.eventName = '';
                 $('#addNew-event').modal('hide');
             }
-        }
-
-        
+        }        
     })

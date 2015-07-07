@@ -1,11 +1,12 @@
 <header id="header" data-ng-include src="'includes/header.html'" data-ng-controller="headerCtrl as hctrl"></header>
 
 <section id="main">
+
     <aside id="sidebar" data-ng-include src="'includes/sidebar-left.html'" data-ng-class="{ 'toggled': mactrl.sidebarToggle.left === true }"></aside>
 
     <section id="content">
 
-        <div class="container">
+        <div class="container" data-ng-controller="propertiesCtrl as rpctrl">
 
             <div class="block-header">
                 <h2>All Properties</h2>
@@ -21,17 +22,17 @@
 
             <div class="row">
 
-                <div class="col-sm-9 col-lg-8">
+                <div class="col-sm-9 col-lg-8 hidden">
 
                     <!-- Properties -->
-                    <div class="card z-depth-1" data-ng-controller="propertiesCtrl as rpctrl">
+                    <div class="card z-depth-1 animated fadeInUpSm">
+
                         <div class="card-header ch-alt m-b-20">
                             <h2>All Properties</h2>
 
                             <div>
                                 <a data-ui-sref="add-property" class="btn bgm-cyan btn-float noExtraWaves"><i class="md md-add"></i></a>
                             </div>
-                            
                         </div>
 
                         <div class="card-body">
@@ -39,46 +40,46 @@
 
                                 <div class="lv-item" data-ng-repeat="w in rpctrl.propResult.list">
 
-									<div class="pull-right">
-										<ul class="actions">
-											<li class="dropdown" data-animation="bounceIn,bounceOut,1000">
-												<a href="" data-toggle="dropdown">
-													<i class="md md-more-vert"></i>
-												</a>
+                                    <div class="pull-right">
+                                        <ul class="actions">
+                                            <li class="dropdown" data-animation="bounceIn,bounceOut,1000">
+                                                <a data-toggle="dropdown">
+                                                    <i class="md md-more-vert"></i>
+                                                </a>
 
-												<ul class="dropdown-menu dropdown-menu-right">
-													<li>
-														<a href="">Add New Unit</a>
-													</li>
-													<li>
-														<a href="">Add New Tenant</a>
-													</li>
-													<li class="divider"></li>
-													<li>
-														<a href="">Edit Property</a>
-													</li>
-												</ul>
-											</li>
-											<li>
-												<span data-swal-params>
-													<i class="md md-close"></i>
-												</span>
-											</li>
-										</ul>
-									</div>
+                                                <ul class="dropdown-menu dropdown-menu-right">
+                                                    <li>
+                                                        <a href="">Add New Unit</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="">Add New Tenant</a>
+                                                    </li>
+                                                    <li class="divider"></li>
+                                                    <li>
+                                                        <a href="">Edit Property</a>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                            <li>
+                                                <span data-swal-params>
+                                                    <i class="md md-delete m-l-5"></i>
+                                                </span>
+                                            </li>
+                                        </ul>
+                                    </div>
 
-                                    <a href="" data-toggle="collapse" data-target="#prop{{ w.id }}" aria-controls="prop{{ w.id }}" aria-expanded="false">
+                                    <a data-toggle="collapse" data-target="#prop{{ w.id }}" aria-controls="prop{{ w.id }}" aria-expanded="false">
 
                                         <div class="media">
 
                                             <div class="pull-left">
-                                                <img class="lv-img-lg" data-ng-src="img/profile-pics/{{ w.img }}" alt="">
+                                                <img class="lv-img-lg" data-ng-src="img/property-pics/{{ w.img }}" alt="Property Picture">
                                             </div>
 
                                             <div class="media-body">
 
-												<div class="lv-title lv-lg">{{ w.propName }}</div>
-												<small class="lv-small">{{ w.address }}</small>
+                                                <div class="lv-title lv-lg">{{ w.propName }}</div>
+                                                <small class="lv-small">{{ w.address }}</small>
 
                                             </div>
 
@@ -99,13 +100,51 @@
 
                 </div>
 
-                <div class="col-sm-3 col-lg-4">
+                <div class="col-xs-12 col-sm-9">
+
+                    <!-- Profile view -->
+                    <div class="col-sm-4 propCard" data-ng-repeat="w in rpctrl.propResult.list">
+
+                        <div class="card profile-view">
+                            <div>
+                                <button class="btn btn-icon btn-danger closeFloat" data-toggle="tooltip" data-placement="top" data-original-title="Delete this property"><i class="md md-close"></i></button>
+                            </div>
+                            <div class="pv-header">
+                                <div class="pv-main z-depth-1-bottom">
+                                    <img src="img/property-pics/{{w.img}}" alt="Property Picture">
+                                </div>
+                            </div>
+
+                            <div class="pv-body">
+                                <h2>{{ w.propName }}</h2>
+                                <small><i class="md md-place m-r-5"></i>{{ w.address }}</small>
+
+                                <ul class="pv-contact">
+                                <!--<li><i class="md md-phone"></i> (215) 556-4785</li>-->
+                                </ul>
+
+                                <div class="pv-follow">
+                                    <div class="row f-22 f-300">
+                                        <div class="col-xs-6">{{ w.units }}<div class="f-14">Units</div></div>
+                                        <div class="col-xs-6">{{ w.tenants }}<div class="f-14">Tenants</div></div>
+                                    </div>
+                                </div>
+
+                                <a href="" class="pv-follow-btn">Follow</a>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="col-xs-12 col-sm-3">
                     <div id="acntChklst" data-ng-include src="'includes/account-checklist.html'"></div>
                 </div>
 
             </div>
 
-		</div>
+        </div>
     </section>
 </section>
 

@@ -13,38 +13,14 @@
 
     <li class="pull-right">
         <ul class="top-menu">
-           
-         <!--<li id="toggle-width">
+
+            <li id="toggle-width">
                 <div class="toggle-switch">
                     <input id="tw-switch" type="checkbox" hidden="hidden" data-change-layout="mactrl.layoutType"> 
                     <label for="tw-switch" class="ts-helper"></label>
                 </div>
-            </li>-->
-            
-            <li class="dropdown">
-                <a data-toggle="dropdown" class="tm-message" href=""><i class="tmn-counts">6</i></a>
-                <div class="dropdown-menu dropdown-menu-lg stop-propagate pull-right">
-                    <div class="listview">
-                        <div class="lv-header">
-                            Messages
-                        </div>
-                        <div class="lv-body c-overflow">
-                            <a class="lv-item" ng-href="" ng-repeat="w in hctrl.messageResult.list">
-                                <div class="media">
-                                    <div class="pull-left">
-                                        <img class="lv-img-sm" ng-src="img/profile-pics/{{ w.img }}" alt="">
-                                    </div>
-                                    <div class="media-body">
-                                        <div class="lv-title">{{ w.user }}</div>
-                                        <small class="lv-small">{{ w.text }}</small>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <a class="lv-footer" href="">View All</a>
-                    </div>
-                </div>
             </li>
+
             <li class="dropdown">
                 <a data-toggle="dropdown" class="tm-notification" href=""><i class="tmn-counts">0</i></a>
                 <div class="dropdown-menu dropdown-menu-lg stop-propagate pull-right">
@@ -79,7 +55,8 @@
 
                 </div>
             </li>
-            <li class="dropdown hidden-xs">
+
+        <!--<li class="dropdown hidden-xs">
                 <a data-toggle="dropdown" class="tm-task" href=""><i class="tmn-counts">2</i></a>
                 <div class="dropdown-menu pull-right dropdown-menu-lg">
                     <div class="listview">
@@ -137,7 +114,8 @@
                         <a class="lv-footer" href="">View All</a>
                     </div>
                 </div>
-            </li>
+            </li>-->
+
             <li class="dropdown">
                 <a data-toggle="dropdown" class="tm-settings" href=""></a>
                 <ul class="dropdown-menu dm-icon pull-right">
@@ -151,10 +129,11 @@
                         <a href=""><i class="md md-settings"></i> Account Settings</a>
                     </li>
                     <li>
-                        <a href="login.html"><i class="md md-exit-to-app"></i> Logout</a>
+                        <a data-ng-click="hctrl.fullScreen()"><i class="md md-exit-to-app"></i> Logout</a>
                     </li>
                 </ul>
             </li>
+
         </ul>
     </li>
 </ul>

@@ -1,0 +1,131 @@
+<header id="header" data-ng-include src="'includes/header.html'" data-ng-controller="headerCtrl as hctrl"></header>
+
+<section id="main">
+
+    <aside id="sidebar" data-ng-include src="'includes/sidebar-left.html'" data-ng-class="{ 'toggled': mactrl.sidebarToggle.left === true }"></aside>
+
+    <section id="content">  
+
+        <div class="container">
+
+            <div class="block-header">
+                <h2>Tenant Requests</h2>
+
+                <ul class="actions">
+                    <li>
+                        <a data-toggle="tooltip" data-placement="left" data-original-title="Refresh">
+                            <i class="md md-cached"></i>
+                        </a>
+                    </li>
+                </ul>
+
+            </div>
+
+            <div class="card z-depth-1 animated fadeInUpSm">
+                <div class="card-header">
+                    <h2>Tenant Requests <small>The people below have indicated they are a tenant of one of your properties.  Verify, reject, or edit each person.</small></h2>
+                </div>
+
+                <table class="table table-striped table-vmiddle" id="tenantRqstTbl" data-tenant-requests>
+                    <thead>
+                        <tr>
+                            <th data-column-id="id" data-identifier="true" data-formatter="id" data-visible="false">ID</th>
+                            <th data-column-id="email" data-visible="false">Email</th>
+                            <th data-column-id="user" data-formatter="user">User</th>
+                            <th data-column-id="tenant">Property</th>
+                            <th data-column-id="dateSubmitted" data-formatter="dateColumn">Date Submitted</th>
+                            <th data-column-id="status" data-formatter="status" data-align="center">Status</th>
+                            <th data-column-id="actions" data-formatter="actions" data-sortable="false">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>chestnut@gmail.com</td>
+                            <td>Joey Chestnut</td>
+                            <td>101 Lancaster Ave</td>
+                            <td>July 3</td>
+                            <td>Pending</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>chestnut@gmail.com</td>
+                            <td>Frank Quinterro</td>
+                            <td>88 East Oak Lane</td>
+                            <td>April 13</td>
+                            <td>Pending</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>chestnut@gmail.com</td>
+                            <td>Susan Rice</td>
+                            <td>1607 Long Way</td>
+                            <td>March 18</td>
+                            <td>Pending</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>chestnut@gmail.com</td>
+                            <td>Kareem O'Leary</td>
+                            <td>103 Lancaster Ave</td>
+                            <td>February 22</td>
+                            <td>Approved</td>
+                        </tr>
+                        <tr>
+                            <td>6</td>
+                            <td>chestnut@gmail.com</td>
+                            <td>Usain Quick</td>
+                            <td>1607 Long Way</td>
+                            <td>July 1</td>
+                            <td>Rejected</td>
+                        </tr>
+                        <tr>
+                            <td>7</td>
+                            <td>chestnut@gmail.com</td>
+                            <td>Aligator Sampson</td>
+                            <td>10 Old Marsh Road</td>
+                            <td>July 1</td>
+                            <td>Approved</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </section>
+
+</section>
+
+<!-- Modal Bank FAQs -->
+<div class="modal fade" id="test123" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Change Profile Picture</h4>
+            </div>
+            <div class="modal-body">
+
+                <p class="f-500 c-black m-b-20">Image Preview</p>
+
+                <div class="fileinput fileinput-new" data-provides="fileinput">
+                    <div class="fileinput-preview thumbnail" data-trigger="fileinput"></div>
+                    <div>
+                        <span class="btn btn-info btn-file">
+                            <span class="fileinput-new">Select image</span>
+                            <span class="fileinput-exists">Change</span>
+                            <input type="file" name="...">
+                        </span>
+                        <a href="#" class="btn btn-danger fileinput-exists" data-dismiss="fileinput">Remove</a>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-link">Save changes</button>
+                <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer id="footer" data-ng-include src="'includes/footer.html'"></footer>

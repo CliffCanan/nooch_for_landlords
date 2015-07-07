@@ -112,6 +112,34 @@ noochForLandlords
                 }
             })
 
+            //------------------------------
+            // TENANT REQUESTS
+            //------------------------------
+
+            .state('tenant-requests', {
+                url: '/tenant-requests',
+                templateUrl: 'views/tenant-requests.html',
+                resolve: {
+                    loadPlugin: function ($ocLazyLoad) {
+                        return $ocLazyLoad.load([
+							{
+							    name: 'css',
+							    insertBefore: '#app-level',
+							    files: [
+                                    'vendors/bower_components/jquery.bootgrid/dist/jquery.bootgrid.min.css',
+							    ]
+							},
+                            {
+                                name: 'vendors',
+                                files: [
+                                    'vendors/bower_components/jquery.bootgrid/dist/jquery.bootgrid-override.min.js'
+                                ]
+                            }
+                        ])
+                    }
+                }
+            })
+
 
             //------------------------------
             // WIDGETS
@@ -351,7 +379,7 @@ noochForLandlords
                     }
                 }
             })       
-        
+
 
             //------------------------------
             // PAGES
@@ -361,16 +389,16 @@ noochForLandlords
                 url: '/pages',
                 templateUrl: 'views/common.html'
             })
-            
+
 
             //Profile
 
-            .state ('pages.profile', {
+            .state ('profile', {
                 url: '/profile',
                 templateUrl: 'views/profile.html'
             })
 
-            .state ('pages.profile.profile-about', {
+            .state ('profile.profile-about', {
                 url: '/profile-about',
                 templateUrl: 'views/profile-about.html',
 				resolve: {
@@ -405,25 +433,25 @@ noochForLandlords
                 }
             })
 
-            .state ('pages.profile.profile-notifications', {
+            .state ('profile.profile-notifications', {
                 url: '/profile-notifications',
                 templateUrl: 'views/profile-notifications.html',
             })
 
-            .state ('pages.profile.profile-bankaccounts', {
+            .state ('profile.profile-bankaccounts', {
                 url: '/profile-bankaccounts',
                 templateUrl: 'views/profile-bankaccounts.html',
             })
-        
-            .state ('pages.profile.profile-connections', {
-                url: '/profile-connections',
-                templateUrl: 'views/profile-connections.html'
+
+            .state ('profile.profile-tenants', {
+                url: '/profile-tenants',
+                templateUrl: 'views/profile-tenants.html'
             })
-        
-        
+
+
             //-------------------------------
-        
-            .state ('pages.listview', {
+
+            .state('pages.listview', {
                 url: '/listview',
                 templateUrl: 'views/list-view.html'
             })
@@ -432,14 +460,5 @@ noochForLandlords
                 url: '/messages',
                 templateUrl: 'views/messages.html'
             })
-        
-            
-            
-            //------------------------------
-            // BREADCRUMB DEMO
-            //------------------------------
-            .state ('breadcrumb-demo', {
-                url: '/breadcrumb-demo',
-                templateUrl: 'views/breadcrumb-demo.html'
-            })
+
     });

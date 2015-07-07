@@ -1,13 +1,19 @@
 <header id="header" data-ng-include src="'includes/header.html'" data-ng-controller="headerCtrl as hctrl"></header>
 
+<ol class="breadcrumb" style="margin-bottom: 5px;">
+    <li><a href="#/home">Home</a></li>
+    <li><a href="#/properties">All Properties</a></li>
+    <li class="active">Add New Property</li>
+</ol>
+
 <section id="main">
     <aside id="sidebar" data-ng-include src="'includes/sidebar-left.html'" data-ng-class="{ 'toggled': mactrl.sidebarToggle.left === true }"></aside>
 
-    <section id="content">
+    <section id="content" class="p-t-5">
 
         <div class="container">
 
-            <div class="block-header" style="display:none">
+            <div class="block-header">
                 <div class="row">
                     <div class="col-sm-9 col-lg-8">
                         <h2 class="col-xs-9" style="padding:2px 0;">Add a New Property</h2>
@@ -17,7 +23,7 @@
 
             <div class="row">
 
-                <div class="col-sm-9 col-lg-8">
+                <div class="col-xs-12 col-sm-9 col-lg-8">
 
                     <!-- Add A Property Widget -->
 					<div class="card z-depth-1 animated zoomInUp">
@@ -51,7 +57,7 @@
                                         <div class="bar"></div>
                                     </div>
 
-                                    <ul class="col-xs-3 col-sm-2 p-0">
+                                    <ul class="col-xs-12 col-sm-2 p-0">
                                         <li><a href="#tab1" data-toggle="tab">Step 1</a></li>
                                         <li><a href="#tab2" data-toggle="tab">Step 2</a></li>
                                         <li><a href="#tab3" data-toggle="tab">Step 3</a></li>
@@ -124,7 +130,7 @@
                                                     </div>
 
                                                     <div class="col-xs-3 col-sm-4">
-                                                        <div style="position:relative;top:5px;">
+                                                        <div style="position:relative;top:-2px;">
                                                             <select data-select-picker data-live-search="true">
                                                                 <option>Alabama</option>
                                                                 <option>Alaska</option>
@@ -163,7 +169,7 @@
                                                                 <option>Ohio</option>
                                                                 <option>Oklahoma</option>
                                                                 <option>Oregon</option>
-                                                                <option>Pennsylvania</option>
+                                                                <option selected>Pennsylvania</option>
                                                                 <option>Rhode Island</option>
                                                                 <option>South Carolina</option>
                                                                 <option>South Dakota</option>
@@ -238,7 +244,7 @@
 
                 </div>
 
-                <div class="col-sm-3 col-lg-4">
+                <div class="col-xs-12 col-sm-3 col-lg-4">
                     <div id="acntChklst" data-ng-include src="'includes/account-checklist.html'"></div>
                 </div>
 
@@ -294,15 +300,26 @@
                 closeOnConfirm: false,
                 closeOnCancel: false
             }, function (isConfirm) {
-                var url = $location.path("/properties");
-                location.href = url;
-                if (isConfirm) {
-                    swal("You Got It!", "Your property has been published.", "success");
+                if (isConfirm)
+                {
+                    swal({
+                        title: "You Got It!",
+                        text: "Your property has been published.",
+                        type: "success",
+                    }, function (isConfirm) {
+                        window.location.href = '#/properties';
+                    });
                 }
-                else {
-                    swal("No Problem", "Your property has NOT been published. Before tenants can pay rent for this property, you must publish it, but you can do that later at any time.", "warning");
+                else
+                {
+                    swal({
+                        title: "No Problem",
+                        text: "Your property has NOT been published. Before tenants can pay rent for this property, you must publish it, but you can do that later at any time.",
+                        type: "warning",
+                    }, function (isConfirm) {
+                        window.location.href = '#/properties';
+                    });
                 }
-                
             });
         });
 

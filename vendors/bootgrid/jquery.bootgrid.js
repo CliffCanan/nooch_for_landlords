@@ -111,7 +111,7 @@
                     converter: that.options.converters[data.converter || data.type] || that.options.converters["string"],
                     text: $this.text(),
                     align: data.align || "left",
-                    headerAlign: data.headerAlign || "left",
+                    headerAlign: data.headerAlign || "center",
                     cssClass: data.cssClass || "",
                     headerCssClass: data.headerCssClass || "",
                     formatter: that.options.formatters[data.formatter] || null,

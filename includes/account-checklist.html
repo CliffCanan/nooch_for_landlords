@@ -6,7 +6,14 @@
             Account Checklist <i class="md md-content-paste m-l-10"></i>
         </div>
 
-        <div class="lv-body" ng-controller="accntChecklistCtrl">
+        <div class="lv-body">
+
+            <div class="text-center">
+                <div class="easy-pie main-pie animate fadeIn" data-percent="{{chkLstCtrl.percentComplete}}" dat-chart>
+                    <div class="percent c-blue">{{chkLstCtrl.percentComplete}}</div>
+                    <div class="pie-title c-gray">Account Progress</div>
+                </div>
+            </div>
 
             <div class="lv-item">
                 <div class="checkbox media">
@@ -18,8 +25,8 @@
                                 </a>
 
                                 <ul class="dropdown-menu dropdown-menu-right">
-                                    <li><a href="">Delete</a></li>
-                                    <li><a href="">Archive</a></li>
+                                    <li><a href="">Learn More</a></li>
+                                    <li><a href="">Resend Verification Email</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -51,8 +58,8 @@
                                 </a>
 
                                 <ul class="dropdown-menu dropdown-menu-right">
-                                    <li><a href="">Delete</a></li>
-                                    <li><a href="">Archive</a></li>
+                                    <li><a href="">Learn More</a></li>
+                                    <li><a href="">Resend Verification SMS</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -84,8 +91,8 @@
                                 </a>
 
                                 <ul class="dropdown-menu dropdown-menu-right">
-                                    <li><a href="">Delete</a></li>
-                                    <li><a href="">Archive</a></li>
+                                    <li><a href="">Learn More</a></li>
+                                    <li><a href="#/profile/profile-about">Go Now</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -117,8 +124,8 @@
                                 </a>
 
                                 <ul class="dropdown-menu dropdown-menu-right">
-                                    <li><a href="">Delete</a></li>
-                                    <li><a href="">Archive</a></li>
+                                    <li><a href="">Learn More</a></li>
+                                    <li><a href="#/profile/profile-bankaccounts">Go Now</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -150,8 +157,8 @@
                                 </a>
 
                                 <ul class="dropdown-menu dropdown-menu-right">
-                                    <li><a href="">Delete</a></li>
-                                    <li><a href="">Archive</a></li>
+                                    <li><a href="">Learn More</a></li>
+                                    <li><a href="#/property-add">Go Now</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -183,8 +190,8 @@
                                 </a>
 
                                 <ul class="dropdown-menu dropdown-menu-right">
-                                    <li><a href="">Delete</a></li>
-                                    <li><a href="">Archive</a></li>
+                                    <li><a href="">Learn More</a></li>
+                                    <li><a href="#/properties">Go Now</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -216,8 +223,8 @@
                                 </a>
 
                                 <ul class="dropdown-menu dropdown-menu-right">
-                                    <li><a href="">Delete</a></li>
-                                    <li><a href="">Archive</a></li>
+                                    <li><a href="">Learn More</a></li>
+                                    <li><a href="">Go Now</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -244,3 +251,25 @@
     </div>
 
 </div>
+
+<script src="vendors/bower_components/jquery.easy-pie-chart/dist/jquery.easypiechart.min.js"></script>
+
+<script>
+    setTimeout(function () {
+        $('#acntChecklistCard .main-pie').easyPieChart({
+            size: 130,
+            barColor: "#3fabe1",
+            trackColor: "#f2f2f2",
+            scaleColor: "#dfe0e0",
+            lineCap: "round",
+            animate: 1750,
+        });
+    }, 50);
+
+    $('#acntChecklistCard .main-pie').mouseenter(function () {
+        console.log("MOUSE ENTER CALLED");
+        setTimeout(function () {
+            $('#acntChecklistCard .main-pie').data('easyPieChart').update(40);
+        }, 3000);
+    });
+</script>

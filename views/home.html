@@ -6,6 +6,7 @@
     <section id="content" data-ng-controller="profileCtrl as pctrl">
 
         <div class="container">
+
             <div class="block-header">
                 <h2>Dashboard</h2>
 
@@ -25,58 +26,51 @@
 
             </div>
 
-            <div class="jumbotron">
-                <h1>Hi {{ pctrl.firstName }}!</h1>
-                <p>Welcome to Nooch, the easiest way to collect rent payments.</p>
-                <p>Get started by completing your profile.</p>
-                <p><a class="btn btn-primary btn-lg" data-ui-sref="pages.profile.profile-about" role="button">Get Started</a></p>
-            </div>
-
             <div class="mini-charts">
                 <div class="row">
                     <div class="col-sm-6 col-md-3">
-                        <div class="mini-charts-item bgm-cyan">
+                        <div class="mini-charts-item bgm-blue">
                             <div class="clearfix">
-                                <div class="chart stats-bar" data-sparkline-bar></div>
+                                <i class="md md-business md-4x c-white pull-left m-l-25" style="width:80px"></i>
                                 <div class="count">
-                                    <small>Website Traffics</small>
-                                    <h2>987,459</h2>
+                                    <span>Properties</span>
+                                    <h2>{{ pctrl.propertyCount }}</h2>
                                 </div>
                             </div>
                         </div>
                     </div>
 
                     <div class="col-sm-6 col-md-3">
-                        <div class="mini-charts-item bgm-lightgreen">
+                        <div class="mini-charts-item bgm-lightblue">
                             <div class="clearfix">
-                                <div class="chart stats-bar-2" data-sparkline-bar></div>
+                                <i class="md md-account-circle md-4x c-white pull-left m-l-25" style="width:80px"></i>
                                 <div class="count">
-                                    <small>Website Impressions</small>
-                                    <h2>356,785K</h2>
+                                    <span>Units</span>
+                                    <h2>{{ pctrl.unitCount }}</h2>
                                 </div>
                             </div>
                         </div>
                     </div>
 
                     <div class="col-sm-6 col-md-3">
-                        <div class="mini-charts-item bgm-orange">
+                        <div class="mini-charts-item bgm-deeporange">
                             <div class="clearfix">
-                                <div class="chart stats-line" data-sparkline-line></div>
+                                <i class="md md-inbox md-4x c-white pull-left m-l-25" style="width:80px"></i>
                                 <div class="count">
-                                    <small>Total Sales</small>
-                                    <h2>$ 458,778</h2>
+                                    <small>Rent Due This Month</small>
+                                    <h2>$ 21,000</h2>
                                 </div>
                             </div>
                         </div>
                     </div>
 
                     <div class="col-sm-6 col-md-3">
-                        <div class="mini-charts-item bgm-bluegray">
+                        <div class="mini-charts-item bgm-green">
                             <div class="clearfix">
-                                <div class="chart stats-line-2" data-sparkline-line></div>
+                                <i class="md md-attach-money md-4x c-white pull-left m-l-25" style="width:80px"></i>
                                 <div class="count">
-                                    <small>Support Tickets</small>
-                                    <h2>23,856</h2>
+                                    <small>Rent Collected This Month</small>
+                                    <h2>15,050</h2>
                                 </div>
                             </div>
                         </div>
@@ -84,103 +78,66 @@
                 </div>
             </div>
 
-
-            <div class="dash-widgets">
+            <div class="jumbotron p-50 p-t-30 p-b-30 z-depth-1" id="welcome">
                 <div class="row">
-                    <div class="col-md-3 col-sm-6">
-                        <!-- Custom header -->
-                        <div class="card">
-                            <div class="card-header bgm-cyan">
-                                <!-- Please refer the Colors page in User Interface for more color classes -->
-                                <h2>Text with custom <small>Nam</small></h2>
-                            </div>
 
-                            <div class="card-body card-padding">
-                                Cras leo sem, egestas a accumsan eget, euismod at nunc. Praesent vel mi blandit, tempus ex gravida, accumsan dui. Sed sed aliquam augue. Nullam vel suscipit purus, eu facilisis ante. Mauris nec commodo felis. Donec eget felis et sem scelerisque euismod eget sit amet nunc.
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6">
-                        <div id="site-visits" class="dash-widget-item bgm-teal">
-                            <div class="dash-widget-header">
-                                <div class="p-20">
-                                    <div class="dash-widget-visits" data-sparkline-line></div>
-                                </div>
-
-                                <div class="dash-widget-title">For the past 30 days</div>
-
-                                <ul class="actions actions-alt">
-                                    <li class="dropdown">
-                                        <a href="" data-toggle="dropdown">
-                                            <i class="md md-more-vert"></i>
-                                        </a>
-
-                                        <ul class="dropdown-menu dropdown-menu-right">
-                                            <li>
-                                                <a href="">Refresh</a>
-                                            </li>
-                                            <li>
-                                                <a href="">Manage Widgets</a>
-                                            </li>
-                                            <li>
-                                                <a href="">Widgets Settings</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </div>
-
-                            <div class="p-20">
-
-                                <small>Page Views</small>
-                                <h3 class="m-0 f-400">47,896,536</h3>
-
-                                <br />
-
-                                <small>Site Visitors</small>
-                                <h3 class="m-0 f-400">24,456,799</h3>
-
-                                <br />
-
-                                <small>Total Clicks</small>
-                                <h3 class="m-0 f-400">13,965</h3>
-                            </div>
-                        </div>
+                    <div class="col-xs-12 col-sm-7">
+                        <h1>Hi {{ pctrl.firstName }}!</h1>
+                        <p>Welcome to Nooch, the easiest way to collect rent payments.</p>
+                        <p>Get started by completing your profile.</p>
+                        <p><a class="btn btn-primary btn-lg" data-ui-sref="pages.profile.profile-about" role="button">Get Started <i class="md md-arrow-forward m-l-5"></i></a></p>
                     </div>
 
-                    <div class="col-md-3 col-sm-6">
-                        <div id="pie-charts" class="dash-widget-item">
-                            <div class="bgm-pink">
-                                <div class="dash-widget-header">
-                                    <div class="dash-widget-title">Email Statistics</div>
-                                </div>
-
-                                <div class="clearfix"></div>
-
-                                <div class="text-center p-20 m-t-25">
-                                    <div class="easy-pie main-pie" data-percent="75" data-easypie-chart>
-                                        <div class="percent">45</div>
-                                        <div class="pie-title">Total Emails Sent</div>
-                                    </div>
-                                </div>
+                    <div class="col-xs-12 col-sm-5 homePromptCard" id="addBank">
+                        <div class="card z-depth-1">
+                            <div class="card-header text-center p-5">
+                                <i class="md md-2x md-add-circle-outline c-blue m-r-5" style="line-height:78px;"></i><i class="md md-4x md-business c-blue "></i>
+                                <h2 class="f-22">Connect A Bank Account</h2>
                             </div>
 
-                            <div class="p-t-20 p-b-20 text-center">
-                                <div class="easy-pie sub-pie-1" data-percent="56" data-easypie-chart>
-                                    <div class="percent">56</div>
-                                    <div class="pie-title">Bounce Rate</div>
+                            <div class="card-body card-padding text-center p-t-5">
+                                <p class="m-b-15">
+                                    Don't worry - no routing or account numbers needed.  Just select your bank and enter the online banking credentials you already use.
+                                    <i class="md-lock c-gray f-16" data-trigger="hover" data-toggle="popover" data-placement="bottom" data-content="We don't store or even see your login info." data-original-title="Security Comes First"></i>
+                                </p>
+                                <p class="f-400 m-b-5">Here are a few banks you can link:</p>
+                                <div class="row bank-row">
+                                    <img src="img/bank-icons/boa.png" alt="Bank of America" />
+                                    <img src="img/bank-icons/tdbank.png" alt="TD Bank" />
+                                    <img src="img/bank-icons/pnc.png" alt="PNC" />
+                                    <img src="img/bank-icons/usbank.png" alt="US Bank" />
+                                    <img src="img/bank-icons/wells.png" alt="Wells Fargo" />
                                 </div>
-                                <div class="easy-pie sub-pie-2" data-percent="84" data-easypie-chart>
-                                    <div class="percent">84</div>
-                                    <div class="pie-title">Total Opened</div>
+                                <div>
+                                    <small>...plus many more &nbsp;<i class="md md-chevron-right"></i></small>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="col-md-3 col-sm-6">
-                        <div class="dash-widget-item bgm-lime">
-                            <div id="weather-widget" data-weather-widget></div>
+                    <div class="col-xs-12 col-sm-5 homePromptCard" id="profile">
+                        <div class="card z-depth-1">
+                            <div class="card-header text-center p-5">
+                                <i class="md md-2x md-add-circle-outline c-blue m-r-5" style="line-height:78px;"></i><i class="md md-4x md-person c-blue "></i>
+                                <h2 class="f-22">Complete Your Profile</h2>
+                            </div>
+
+                            <div class="card-body card-padding text-center p-t-5">
+                                <p>Before accepting payments, please complete your profile. Click here to begin.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12 col-sm-5 homePromptCard" id="addProp">
+                        <div class="card z-depth-1">
+                            <div class="card-header text-center p-5">
+                                <i class="md md-2x md-add-circle-outline c-blue m-r-5" style="line-height:78px;"></i><i class="md md-4x md-business c-blue "></i>
+                                <h2 class="f-22">Add A Property</h2>
+                            </div>
+
+                            <div class="card-body card-padding text-center p-t-5">
+                                <p>Add your properties so renters can find them and you can get paid!</p>
+                            </div>
                         </div>
                     </div>
 
@@ -192,3 +149,18 @@
 </section>
 
 <footer id="footer" data-ng-include src="'includes/footer.html'"></footer>
+
+<script>
+    Waves.attach('.jumbotron#welcome .card', ['waves-button', 'waves-float']);
+    Waves.init();
+
+    $('.jumbotron#welcome .homePromptCard#addBank').click(function () {
+        window.location.href = '#/profile/profile-bankaccounts';
+    })
+    $('.jumbotron#welcome .homePromptCard#addProp').click(function () {
+        window.location.href = '#/add-property';
+    })
+    $('.jumbotron#welcome .homePromptCard#profile').click(function () {
+        window.location.href = '#/profile/profile-about';
+    })
+</script>

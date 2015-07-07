@@ -17,7 +17,6 @@ noochForLandlords
     }])
     
 
-    
     // =========================================================================
     // Todo List Widget Data
     // =========================================================================
@@ -54,15 +53,44 @@ noochForLandlords
     // Properties Widget Data
     // =========================================================================
     
-    .service('propertiesService', ['$resource', function($resource){
-        this.getProperty = function(id, img, propName, address) {
+    .service('propertiesService', ['$resource', function ($resource)
+    {
+        this.getProperty = function (id, img, propName, address, units, tenants)
+        {
             var propertyList = $resource("data/properties.json");
-
+            console.log(propertyList.list);
             return propertyList.get ({
 				id: id,
                 img: img,
                 propName: propName,
-                address: address
+                address: address,
+                units: units,
+                tenants: tenants
+            })
+        }
+    }])
+
+
+    // =========================================================================
+    // Bank Accounts Data
+    // =========================================================================
+
+    .service('getBanksService', ['$resource', function ($resource)
+    {
+        this.getBank = function (name, nickname, logo, last4, status, dateAdded, notes)
+        {
+            var bankList = $resource("data/bankAccountsList.json");
+            console.log("SERVICES for BANKS reached");
+            console.log(bankList);
+
+            return bankList.get({
+                name: name,
+                nickname: nickname,
+                logo: logo,
+                last4: last4,
+                status: status,
+                dateAdded: dateAdded,
+                notes: notes
             })
         }
     }])

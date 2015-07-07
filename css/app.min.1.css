@@ -1404,9 +1404,9 @@ html {
 
 body {
   font-family: roboto;
-  font-size: 13px;
-  line-height: 1.42857143;
-  color: #5e5e5e;
+  font-size: 14px;
+  line-height: 1.42857;
+  color: #3f4041;
   background-color: #edecec;
 }
 
@@ -8950,8 +8950,8 @@ button.close {
   cursor: pointer;
   border: none;
   outline: none;
-  color: inherit;
-  background-color: rgba(0, 0, 0, 0);
+  /*color: inherit;
+  background-color: rgba(0, 0, 0, 0);*/
   font-size: 1em;
   line-height: 1em;
   text-align: center;

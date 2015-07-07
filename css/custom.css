@@ -1,5 +1,35 @@
 /**** GENERAL LAYOUT ****/
-body {font-size:14px;}
+.p-30 {padding:30px !important;}
+.p-t-30 {padding-top:30px !important;}
+.p-r-30 {padding-right:30px !important;}
+.p-b-30 {padding-bottom:30px !important;}
+.p-l-30 {padding-left:30px !important;}
+.p-40 {padding:40px !important;}
+.p-t-40 {padding-top:40px !important;}
+.p-r-40 {padding-right:40px !important;}
+.p-b-40 {padding-bottom:40px !important;}
+.p-l-40 {padding-left:40px !important;}
+.p-50 {padding:50px !important;}
+.p-t-50 {padding-top:50px !important;}
+.p-r-50 {padding-right:50px !important;}
+.p-b-50 {padding-bottom:50px !important;}
+.p-l-50 {padding-left:50px !important;}
+.f-10 {font-size:10px !important;}
+.f-11 {font-size:11px !important;}
+.f-12 {font-size:12px !important;}
+.f-13 {font-size:13px !important;}
+.f-14 {font-size:14px !important;}
+.f-15 {font-size:15px !important;}
+.f-16 {font-size:16px !important;}
+.f-17 {font-size:17px !important;}
+.f-18 {font-size:18px !important;}
+.f-19 {font-size:19px !important;}
+.f-20 {font-size:20px !important;}
+.f-21 {font-size:21px !important;}
+.f-22 {font-size:22px !important;}
+.f-23 {font-size:23px !important;}
+.f-24 {font-size:24px !important;}
+.f-25 {font-size:25px !important;}
 .form-control {font-size:14px;}
 .divider {
   height: 10px;
@@ -17,14 +47,64 @@ body {font-size:14px;}
   font-weight: 400;
   text-transform: uppercase;
 }
+
+.label {
+  border-radius:10px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+  font-size: 80%;
+  font-weight: 500;
+  text-shadow: 0 -1px 0 rgba(31,32,33,.35);
+}
+
+.well {
+    border-radius:5px;
+}
+
+/**** TABLES ****/
+table tr th:not(:first-child) .columnWidth-13pc {
+    width:13%;
+    padding-left:2px !important;
+    padding-right:2px !important;
+}
+table .columnWidth-26pc {
+    width:26%;
+    padding-left:2px !important;
+    padding-right:2px !important;
+}
+table img.tableUserPic {
+  border-radius:50%;
+  box-shadow:0 3px 3px -1px rgba(147,149,152,.5);
+  max-width:68px;
+}
+
+#histTbl > tbody > tr > td,
+#tenantRqstTbl > tbody > tr > td {
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+#tenantRqstTbl > thead > tr > th,
+#tenantRqstTbl > tbody > tr > td:not(:first-child) {text-align:center;}
+#tenantRqstTbl > thead > tr th:nth-child(3) {
+  width: 125px;
+  padding: 2px;
+}
+
+
 /**** LEFT SIDEBAR ****/
 #sidebar,
 #sidebar .sidebar-inner {width:230px;}
 #sidebar .profile-menu > a {height:118px; margin-bottom:0;}
 #sidebar .profile-menu > a .profile-info {margin-top:10px;}
 
-body.sw-toggled #content {padding-left: 230px;}
-
+@media (min-width: 1200px) {
+  body.sw-toggled #content {padding-left: 230px;}
+}
+@media (max-width: 1200px) {
+  body.sw-toggled #footer {
+    padding-left: 0px !important;
+  }
+}
 .main-menu li {
   box-shadow: 0 1px 0px rgba(214,216,218,.5);
   display: list-item !important;
@@ -50,6 +130,12 @@ body.sw-toggled #content {padding-left: 230px;}
   opacity:.65;
   text-shadow:none;
 }
+.jumbotron#welcome .card {
+  display: block;
+  white-space: initial;
+  line-height: inherit;
+  padding: 5px;
+}
 
 #acntChecklistCard .lv-item span span i {
   float:right;
@@ -57,6 +143,24 @@ body.sw-toggled #content {padding-left: 230px;}
   position:relative;
   left:4px;
   top:-2px;
+}
+.easy-pie.main-pie .percent{margin-top:40px;}
+.easy-pie.main-pie .percent:after {
+  font-size: 30px;
+  position: relative;
+  top:-12px;
+}
+
+/**** ALERTS / DIALOG BOXES ****/
+.sweet-alert p {
+    font-size:16px;
+    font-weight:400;
+}
+.sweet-alert button {
+  font-size: 16px;
+  font-weight: 400;
+  padding: 9px 12px;
+  margin: 26px 6px 0;
 }
 
 /**** MODALS ****/
@@ -80,8 +184,35 @@ body.sw-toggled #content {padding-left: 230px;}
 .noUi-connect {background: #72bf44}
 .noUi-horizontal .noUi-handle {background-color: #72bf44}
 
+/**** HOME ****/
+.homePromptCard {
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  -webkit-animation-name: fadeIn;
+  animation-name: fadeIn;
+}
+.homePromptCard p {font-size:17px;}
+.homePromptCard .card-body .bank-row {margin: 0 -24px 15px;}
+.homePromptCard .card-body .bank-row img {
+    width: 18%;
+    margin: 0 .6%;
+    border-radius: 14px;
+    box-shadow:0 10px 17px -11px rgba(32,33,34,.3);
+}
+.homePromptCard .card-body small {font-size:15px;}
 
 /**** PROFILE - ABOUT ****/
+#profAbout > .well {
+    margin: 20px 20px 0;
+    padding: 15px;
+}
+#profAbout > .well h2 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 200;
+}
 .pmo-stat > .col-xs-6 {
    float:none;
    display:inline-block;
@@ -95,7 +226,6 @@ body.sw-toggled #content {padding-left: 230px;}
   display: block;
   text-transform: none;
   margin: 8px 0 20px 30px;
-  color: #808080;
   line-height: 140%;
 }
 .dl-horizontal .label + i {
@@ -103,15 +233,41 @@ body.sw-toggled #content {padding-left: 230px;}
   top: 3px;
   font-size:16px;
 }
+#profileMain .pmbb-body dt button.btn-icon {
+    text-transform:none;
+    cursor:default;
+    margin:0 auto;
+}
 
+@media (min-width: 768px) {
+    #profileMain .pmbb-body .dl-horizontal dt {
+        overflow: visible;
+    }
+}
 
 /**** PROFILE - BANKS ****/
 .bank-container .media {
   margin-bottom:40px;
+  border-bottom:1px solid rgba(0,0,0,0.2);
 }
 .bank-container .media-object {
-  max-width: 70px;
+  max-width: 90px;
+  border-radius: 10px;
 }
+.bank-container .media-heading {
+  font-size: 15px;
+  margin-bottom: 10px;
+  padding-top: 5px;
+}
+.bank-container .media-heading .label {
+    font-size:11.25px;
+    font-weight:400;
+    position:relative;
+    top:-2px;
+}
+.bank-container .media-heading .label-default {opacity:.7;}
+.bank-container .collapse .card-header {padding: 20px 26px;}
+.bank-container .collapse form > .form-group {margin-bottom:15px;}
 
 #bankAdd iframe {
   border: none;
@@ -137,6 +293,18 @@ body.sw-toggled #content {padding-left: 230px;}
 }
 
 /**** PROPERTIES - ALL ****/
+.propCard .closeFloat {
+    width: 32px;
+    height: 32px;
+    position: absolute;
+    top:-12px;
+    right:-12px;
+    background-color: rgba(244, 67, 54, .6);
+    opacity: .94;
+}
+.propCard .closeFloat:hover {opacity:.98;background-color: rgba(244, 67, 54, .9);}
+.propCard .pv-header > .pv-main {overflow:hidden}
+.propCard .pv-header > .pv-main > img {max-width:100%;}
 #propertiesList.lv-lg .lv-title {font-size:16px;}
 #propertiesList.lv-lg .lv-small {font-size:13px;}
 
@@ -278,8 +446,69 @@ body.sw-toggled #content {padding-left: 230px;}
 	#profile-main .pm-body {padding-left:250px;}
 }
 
+/**** ANIMATIONS ****/
 
+@media (min-width: 1200px) {
+@-webkit-keyframes fadeInRightSm {
+  0% {
+    opacity: 0;
+    -webkit-transform: translate3d(15%, 0, 0);
+    transform: translate3d(15%, 0, 0);
+  }
 
+  100% {
+    opacity: 1;
+    -webkit-transform: none;
+    transform: none;
+  }
+}
+@keyframes fadeInRightSm {
+  0% {
+    opacity: 0;
+    -webkit-transform: translate3d(15%, 0, 0);
+    transform: translate3d(15%, 0, 0);
+  }
 
+  100% {
+    opacity: 1;
+    -webkit-transform: none;
+    transform: none;
+  }
+}
+.fadeInRightSm {
+  -webkit-animation-name: fadeInRightSm;
+  animation-name: fadeInRightSm;
+}
 
+@-webkit-keyframes fadeInUpSm {
+  0% {
+    opacity: 0;
+    -webkit-transform: translate3d(0, 12%, 0);
+    transform: translate3d(0, 12%, 0);
+  }
 
+  100% {
+    opacity: 1;
+    -webkit-transform: none;
+    transform: none;
+  }
+}
+@keyframes fadeInUpSm {
+  0% {
+    opacity: 0;
+    -webkit-transform: translate3d(0, 12%, 0);
+    transform: translate3d(0, 12%, 0);
+  }
+
+  100% {
+    opacity: 1;
+    -webkit-transform: none;
+    transform: none;
+  }
+}
+.fadeInUpSm {
+  -webkit-animation-name: fadeInUpSm;
+  animation-name: fadeInUpSm;
+}
+
+}

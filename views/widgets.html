@@ -87,76 +87,6 @@
     </div>
 
     <div class="col-sm-4">
-        <!-- Todo Lists -->
-        <div id="todo-lists" data-ng-controller="todoCtrl as tctrl" class="bgm-blue">
-            <div class="tl-header">
-                <h2>Todo Lists</h2>
-                <small>Add, edit and manage your Todo Lists</small>
-
-                <ul class="actions actions-alt">
-                    <li class="dropdown">
-                        <a href="" data-toggle="dropdown">
-                            <i class="md md-more-vert"></i>
-                        </a>
-
-                        <ul class="dropdown-menu dropdown-menu-right">
-                            <li>
-                                <a href="">Refresh</a>
-                            </li>
-                            <li>
-                                <a href="">Manage Widgets</a>
-                            </li>
-                            <li>
-                                <a href="">Widgets Settings</a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-
-            <div class="clearfix"></div>
-
-            <div class="tl-body">
-                <div id="add-tl-item" data-ng-class="{ 'toggled': tctrl.addTodoStat === 1 }" data-ng-click="tctrl.addTodoStat = 1">
-                    <i class="add-new-item md md-add c-blue" data-ng-click="tctrl.addTodo($event)"></i>
-
-                    <div class="add-tl-body">
-                        <textarea placeholder="What you want to do..." data-ng-model="tctrl.todo"></textarea>
-
-                        <div class="add-tl-actions">
-                            <a href="" data-tl-action="dismiss" class="a-prevent md md-close" data-ng-click="tctrl.clearTodo()"></a>
-                            <a href="" data-tl-action="save" class="a-prevent md md-check" data-ng-click="tctrl.clearTodo()"></a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="checkbox media" data-ng-repeat="w in tctrl.tdResult.list.slice(0,4)">
-                    <div class="pull-right">
-                        <ul class="actions actions-alt">
-                            <li class="dropdown">
-                                <a href="" data-toggle="dropdown">
-                                    <i class="md md-more-vert"></i>
-                                </a>
-
-                                <ul class="dropdown-menu dropdown-menu-right">
-                                    <li><a href="">Delete</a></li>
-                                    <li><a href="">Archive</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="media-body">
-                        <label>
-                            <input type="checkbox">
-                            <i class="input-helper"></i>
-                            <span>{{ w.todo }}</span>
-                        </label>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
         <!-- Social -->
         <div class="card go-social">
             <div class="card-header">
@@ -190,6 +120,9 @@
             </div>
         </div>
 
+    </div>   
+
+    <div class="col-sm-4">
         <!-- Form -->
         <div class="card">
             <div class="card-header ch-alt">
@@ -229,70 +162,6 @@
                 <button class="btn btn-link">Cancel</button>
             </div>
         </div>
-    </div>   
-
-    <div class="col-sm-4">
-
-        <!-- Profile view -->
-        <div class="card profile-view">
-            <div class="pv-header">
-                <img src="img/profile-pics/profile-pic.jpg" class="pv-main" alt="">
-            </div>
-
-            <div class="pv-body">
-                <h2>Malinda Hollaway</h2>
-                <small>Praesent vitae justo purus. In hendrerit lorem nislac lacinia urnaunc vitae ante id magna </small>
-
-                <ul class="pv-contact">
-                    <li><i class="md md-room"></i> Jupitor</li>
-                    <li><i class="md md-phone"></i> +11 55694785</li>
-                </ul>
-
-                <ul class="pv-follow">
-                    <li>589 Followers</li>
-                    <li>8545 Followings</li>
-                </ul>
-
-                <a href="" class="pv-follow-btn">Follow</a>
-            </div>
-        </div>
-
-        <!-- Listview -->
-        <div class="card" data-ng-controller="recentpostCtrl as rpctrl">
-            <div class="listview">
-                <div class="lv-header">
-                    Messages
-                </div>
-                <div class="lv-body">
-
-                    <a class="lv-item" href="" data-ng-repeat="w in rpctrl.rpResult.list">
-                        <div class="media">
-                            <div class="pull-left">
-                                <img class="lv-img-sm" data-ng-src="img/profile-pics/{{ w.img }}" alt="">
-                            </div>
-                            <div class="media-body">
-                                <div class="lv-title">{{ w.user }}</div>
-                                <small class="lv-small">{{ w.text }}</small>
-                            </div>
-                        </div>
-                    </a>
-
-                </div>
-                <a class="lv-footer" href="">View All</a>
-            </div>
-        </div>
-
-        <!-- Custom header -->
-        <div class="card">
-            <div class="card-header bgm-cyan"> <!-- Please refer the Colors page in User Interface for more color classes -->
-                <h2>Text with custom header <small>Nam at dui sed lacus lacinia lobortis</small></h2>
-            </div>
-
-            <div class="card-body card-padding">
-                Cras leo sem, egestas a accumsan eget, euismod at nunc. Praesent vel mi blandit, tempus ex gravida, accumsan dui. Sed sed aliquam augue. Nullam vel suscipit purus, eu facilisis ante. Mauris nec commodo felis. Donec eget felis et sem scelerisque euismod eget sit amet nunc.
-            </div>
-        </div>
-
     </div>
               
 </div>
