@@ -7,7 +7,6 @@ noochForLandlords
     .config(function ($stateProvider, $urlRouterProvider){
         $urlRouterProvider.otherwise("/home");
 
-
         $stateProvider
         
             //------------------------------
@@ -342,56 +341,10 @@ noochForLandlords
                 templateUrl: 'views/components.html'
             })
 
-            .state ('user-interface.other-components', {
-                url: '/other-components',
-                templateUrl: 'views/other-components.html'
-            })
-
 
             //------------------------------
-            // CHARTS
+            // Profile
             //------------------------------
-            
-            .state ('charts', {
-                url: '/charts',
-                templateUrl: 'views/common.html'
-            })
-
-            .state ('charts.flot-charts', {
-                url: '/flot-charts',
-                templateUrl: 'views/flot-charts.html',
-            })
-
-            .state ('charts.other-charts', {
-                url: '/other-charts',
-                templateUrl: 'views/other-charts.html',
-                resolve: {
-                    loadPlugin: function($ocLazyLoad) {
-                        return $ocLazyLoad.load ([
-                            {
-                                name: 'vendors',
-                                files: [
-                                    'vendors/sparklines/jquery.sparkline.min.js',
-                                    'vendors/bower_components/jquery.easy-pie-chart/dist/jquery.easypiechart.min.js',
-                                ]
-                            }
-                        ])
-                    }
-                }
-            })       
-
-
-            //------------------------------
-            // PAGES
-            //------------------------------
-
-            .state ('pages', {
-                url: '/pages',
-                templateUrl: 'views/common.html'
-            })
-
-
-            //Profile
 
             .state ('profile', {
                 url: '/profile',
@@ -449,16 +402,13 @@ noochForLandlords
             })
 
 
-            //-------------------------------
+            //------------------------------
+            // FAQ
+            //------------------------------
 
-            .state('pages.listview', {
-                url: '/listview',
-                templateUrl: 'views/list-view.html'
-            })
-        
-            .state ('pages.messages', {
-                url: '/messages',
-                templateUrl: 'views/messages.html'
+            .state('faq', {
+                url: '/faq',
+                templateUrl: 'views/faq.html'
             })
 
     });

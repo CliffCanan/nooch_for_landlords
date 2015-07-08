@@ -30,6 +30,7 @@
 .f-23 {font-size:23px !important;}
 .f-24 {font-size:24px !important;}
 .f-25 {font-size:25px !important;}
+.f-600 {font-weight:600;}
 .form-control {font-size:14px;}
 .divider {
   height: 10px;
@@ -95,7 +96,7 @@ table img.tableUserPic {
 #sidebar,
 #sidebar .sidebar-inner {width:230px;}
 #sidebar .profile-menu > a {height:118px; margin-bottom:0;}
-#sidebar .profile-menu > a .profile-info {margin-top:10px;}
+#sidebar .profile-menu > a .profile-info {font-size:15px;margin-top:6px;}
 
 @media (min-width: 1200px) {
   body.sw-toggled #content {padding-left: 230px;}
@@ -204,6 +205,7 @@ table img.tableUserPic {
 .homePromptCard .card-body small {font-size:15px;}
 
 /**** PROFILE - ABOUT ****/
+#profile-main .pmo-pic .pmop-edit {cursor:pointer;}
 #profAbout > .well {
     margin: 20px 20px 0;
     padding: 15px;
@@ -246,6 +248,24 @@ table img.tableUserPic {
 }
 
 /**** PROFILE - BANKS ****/
+.jumbotron div i.md-6x {
+    background-color:#ffffff;
+    cursor:pointer;
+    -webkit-transition:.4s all ease-out;
+    transition:.25s all ease-out;
+}
+.jumbotron div i.md-6x:hover {
+    background-color:rgba(0, 0, 0, 0.2) !important;
+    margin-top:-2px;
+}
+.jumbotron div i.md-6x:hover #addBnkBtn {
+    background-color:rgba(0, 0, 0, 0.2) !important;
+    margin-top:12px;
+}
+.jumbotron div i.md-6x:active {
+    background-color:rgba(63, 171, 225, 0.15) !important;
+    margin-top:2px;
+}
 .bank-container .media {
   margin-bottom:40px;
   border-bottom:1px solid rgba(0,0,0,0.2);
@@ -272,7 +292,7 @@ table img.tableUserPic {
 #bankAdd iframe {
   border: none;
   display: block;
-  height: 560px;
+  height: 660px;
   margin: 0 auto;
   width: 96%;
 }
@@ -301,6 +321,7 @@ table img.tableUserPic {
     right:-12px;
     background-color: rgba(244, 67, 54, .6);
     opacity: .94;
+    z-index: 99;
 }
 .propCard .closeFloat:hover {opacity:.98;background-color: rgba(244, 67, 54, .9);}
 .propCard .pv-header > .pv-main {overflow:hidden}
@@ -438,7 +459,7 @@ table img.tableUserPic {
 .progress-striped .bar-info{background-color:#5bc0de;background-image:-webkit-gradient(linear,0 100%,100% 0,color-stop(0.25,rgba(255,255,255,0.15)),color-stop(0.25,transparent),color-stop(0.5,transparent),color-stop(0.5,rgba(255,255,255,0.15)),color-stop(0.75,rgba(255,255,255,0.15)),color-stop(0.75,transparent),to(transparent));background-image:-webkit-linear-gradient(45deg,rgba(255,255,255,0.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,0.15) 50%,rgba(255,255,255,0.15) 75%,transparent 75%,transparent);background-image:-moz-linear-gradient(45deg,rgba(255,255,255,0.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,0.15) 50%,rgba(255,255,255,0.15) 75%,transparent 75%,transparent);background-image:-o-linear-gradient(45deg,rgba(255,255,255,0.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,0.15) 50%,rgba(255,255,255,0.15) 75%,transparent 75%,transparent);background-image:linear-gradient(45deg,rgba(255,255,255,0.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,0.15) 50%,rgba(255,255,255,0.15) 75%,transparent 75%,transparent)}
 
 @media screen and (min-width:768px) {
-	.pm-body .jumbotron {
+	.container .jumbotron {
 		padding: 35px 45px;
 	}
 
@@ -452,8 +473,8 @@ table img.tableUserPic {
 @-webkit-keyframes fadeInRightSm {
   0% {
     opacity: 0;
-    -webkit-transform: translate3d(15%, 0, 0);
-    transform: translate3d(15%, 0, 0);
+    -webkit-transform: translate3d(12%, 0, 0);
+    transform: translate3d(12%, 0, 0);
   }
 
   100% {
@@ -465,8 +486,8 @@ table img.tableUserPic {
 @keyframes fadeInRightSm {
   0% {
     opacity: 0;
-    -webkit-transform: translate3d(15%, 0, 0);
-    transform: translate3d(15%, 0, 0);
+    -webkit-transform: translate3d(12%, 0, 0);
+    transform: translate3d(12%, 0, 0);
   }
 
   100% {

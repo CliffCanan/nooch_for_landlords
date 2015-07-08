@@ -6,22 +6,27 @@
 
     <section id="content">
 
-        <div class="container" data-ng-controller="propertiesCtrl as rpctrl">
+        <div class="container" data-ng-controller="propertiesCtrl as propctrl">
 
-            <div class="block-header">
-                <h2>All Properties</h2>
+            <div class="row m-b-10">
+                <div class="col-xs-12 col-sm-9">
+                    <div class="block-header">
+                        <h2>All Properties</h2>
 
-                <ul class="actions">
-                    <li>
-                        <a href="">
-                            <i class="md md-cached"></i>
-                        </a>
-                    </li>
-                </ul>
+                        <ul class="actions" style="top:-8px" data-ng-if="propctrl.propCount > 0">
+                            <li>
+                                <div>
+                                    <a data-ui-sref="add-property" class="btn btn-primary noExtraWaves">Add Property <i class="md md-add m-l-5"></i></a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
 
             <div class="row">
 
+                <!-- LAYOUT OPTION #1 -->
                 <div class="col-sm-9 col-lg-8 hidden">
 
                     <!-- Properties -->
@@ -29,16 +34,12 @@
 
                         <div class="card-header ch-alt m-b-20">
                             <h2>All Properties</h2>
-
-                            <div>
-                                <a data-ui-sref="add-property" class="btn bgm-cyan btn-float noExtraWaves"><i class="md md-add"></i></a>
-                            </div>
                         </div>
 
                         <div class="card-body">
                             <div class="listview lv-lg" id="propertiesList">
 
-                                <div class="lv-item" data-ng-repeat="w in rpctrl.propResult.list">
+                                <div class="lv-item" data-ng-repeat="w in propctrl.propResult.list">
 
                                     <div class="pull-right">
                                         <ul class="actions">
@@ -100,15 +101,35 @@
 
                 </div>
 
+                <!-- LAYOUT OPTION #2 -->
                 <div class="col-xs-12 col-sm-9">
 
-                    <!-- Profile view -->
-                    <div class="col-sm-4 propCard" data-ng-repeat="w in rpctrl.propResult.list">
+                    <div class="jumbotron text-center" data-ng-if="propctrl.propCount != 0 || propctrl.propCount === nil">
+
+                        <h2>Add Your Properties</h2>
+
+                        <p class="m-b-25">
+                            Get started by adding your properties so you can get paid!
+                        </p>
+
+                        <div class="m-15 p-r-10 text-center">
+                            <div class="m-b-20">
+                                <i class="md-business md-6x md-border-circle z-depth-2-bottom animated bounceIn" data-ui-sref="add-property" style="cursor:pointer"></i>
+                            </div>
+                            <button data-ui-sref="add-property" class="btn btn-lg btn-success btn-icon-text waves-effect">&nbsp;<i class="md-add-circle m-r-5"></i> Add A Property&nbsp;</button>
+                        </div>
+
+                    </div>
+
+                    <!-- Property View -->
+                    <div class="col-sm-4 propCard" data-ng-repeat="w in propctrl.propResult.list" id="property{{w.id}}">
 
                         <div class="card profile-view">
+
                             <div>
-                                <button class="btn btn-icon btn-danger closeFloat" data-toggle="tooltip" data-placement="top" data-original-title="Delete this property"><i class="md md-close"></i></button>
+                                <button data-delete-prop class="btn btn-icon btn-danger closeFloat" data-propid="{{w.id}}" data-toggle="tooltip" data-placement="top" data-original-title="Delete this property"><i class="md md-close"></i></button>
                             </div>
+
                             <div class="pv-header">
                                 <div class="pv-main z-depth-1-bottom">
                                     <img src="img/property-pics/{{w.img}}" alt="Property Picture">
@@ -116,12 +137,10 @@
                             </div>
 
                             <div class="pv-body">
-                                <h2>{{ w.propName }}</h2>
-                                <small><i class="md md-place m-r-5"></i>{{ w.address }}</small>
 
-                                <ul class="pv-contact">
-                                <!--<li><i class="md md-phone"></i> (215) 556-4785</li>-->
-                                </ul>
+                                <h2>{{ w.propName }}</h2>
+
+                                <span class="show m-t-10"><i class="md md-place m-r-5"></i>{{ w.address }}</span>
 
                                 <div class="pv-follow">
                                     <div class="row f-22 f-300">
@@ -130,8 +149,9 @@
                                     </div>
                                 </div>
 
-                                <a href="" class="pv-follow-btn">Follow</a>
+                                <a href="" class="pv-follow-btn">Manage</a>
                             </div>
+
                         </div>
 
                     </div>

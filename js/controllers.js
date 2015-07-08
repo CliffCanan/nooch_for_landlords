@@ -177,7 +177,44 @@ noochForLandlords
     
     .controller('propertiesCtrl', function (propertiesService)
     {
-        this.propResult = propertiesService.getProperty(this.a, this.b, this.c, this.d, this.e, this.f);
+        this.propCount = 7;
+        this.propResult = propertiesService.getProperty(this.id, this.img, this.propName, this.address, this.units, this.tenants);
+    })
+
+    // Delete Property Popup
+    .directive('deleteProp', function () {
+        return {
+            restrict: 'A',
+            link: function (scope, element, attrs) {
+                element.click(function () {
+                    console.log("DELETE PROPERTY DIRECTIVE");
+                    console.log(element);
+                    console.log(attrs);
+                    console.log(attrs.propid);
+                    var propertyId = attrs.propid;
+                    swal({
+                        title: "Are you sure?",
+                        text: "This will delete this property from your account.  Your tenants will no longer be able to pay you rent for this property.",
+                        type: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#DD6B55",
+                        confirmButtonText: "Yes, delete it",
+                        cancelButtonText: "No, keep it",
+                        closeOnConfirm: false,
+                        closeOnCancel: false
+                    }, function (isConfirm) {
+                        if (isConfirm) {
+                            swal("Deleted!", "That property has been deleted.", "success");
+
+                            $('.propCard#property' + propertyId).fadeOut();
+                        }
+                        else {
+                            swal("Cancelled", "No worries, this property is safe :)");
+                        }
+                    });
+                });
+            }
+        }
     })
 
 
@@ -281,6 +318,94 @@ noochForLandlords
     })
 
     //=================================================
+    // Profile - BANK ACCOUNTS
+    //=================================================
+
+    .controller('banksCtrl', function (getBanksService) {
+        this.isBankAttached = true;
+        this.bankCount = 2;
+
+        this.bankList = getBanksService.getBank(this.id, this.name, this.nickname, this.logo, this.last, this.status, this.dateAdded, this.notes, this.primary, this.deleted);
+
+        this.addBank = function ()
+        {
+            if (this.bankCount > 0) {
+                var plural = "";
+                var num = "one";
+                if (this.bankCount > 1) {
+                    num = "two"
+                    if (this.bankCount > 2) {
+                        num = "three"
+                    }
+                    plural = "s";
+                }
+
+                swal({
+                    title: "Add A New Bank?",
+                    text: "You already have " + num + " bank account" + plural + " attached.  Would you like to add another?",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Add New Bank",
+                    cancelButtonText: "Cancel",
+                    closeOnConfirm: true,
+                    closeOnCancel: true
+                }, function (isConfirm) {
+                    if (isConfirm) {
+                        $('#bankAdd iframe').attr("src", "http://54.201.43.89/noochweb/MyAccounts/Add-Bank.aspx?MemberId=B3A6CF&ll=yes");
+                        $('#bankAdd').modal({
+                            keyboard: false
+                        })
+                    }
+                    else {}
+                });
+            }
+            else 
+            {
+                $('#bankAdd iframe').attr("src", "http://54.201.43.89/noochweb/MyAccounts/Add-Bank.aspx?MemberId=B3A6CF&ll=yes");
+                $('#bankAdd').modal({
+                    keyboard: false
+                })
+            }
+        }
+    })
+
+    // Delete Property Popup
+    .directive('deleteBank', function () {
+        return {
+            restrict: 'A',
+            link: function (scope, element, attrs) {
+                element.click(function () {
+                    console.log("DELETE BANK DIRECTIVE");
+                    console.log(attrs.id);
+                    var bankId = attrs.id;
+                    swal({
+                        title: "Are you sure?",
+                        text: "You are about to delete this property from your account.  This cannot be undone.",
+                        type: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#DD6B55",
+                        confirmButtonText: "Yes, delete it",
+                        cancelButtonText: "No, keep it",
+                        closeOnConfirm: false,
+                        closeOnCancel: false
+                    }, function (isConfirm) {
+                        if (isConfirm) {
+                            swal("Deleted!", "That bank has been deleted.", "success");
+
+                            $('.media#bank' + bankId).fadeOut();
+                        }
+                        else {
+                            swal("Cancelled", "No worries, this bank is safe :)");
+                        }
+                    });
+                });
+            }
+        }
+    })
+
+
+    //=================================================
     // Account Checklist Widget
     //=================================================
 
@@ -313,24 +438,6 @@ noochForLandlords
         }
     })
 
-	//=================================================
-    // Profile - BANK ACCOUNTS
-    //=================================================
-
-    .controller('banksCtrl', function (getBanksService)
-    {
-        this.isBankAttached = true;
-        this.bankCount = 2;
-
-        this.bankList = getBanksService.getBank(this.name, this.nickname, this.logo, this.last, this.status, this.dateAdded, this.notes, this.primary, this.deleted);
-
-        this.addBank = function () {
-            $('#bankAdd iframe').attr("src", "http://54.201.43.89/noochweb/MyAccounts/Add-Bank.aspx?MemberId=B3A6CF&ll=yes");
-            $('#bankAdd').modal({
-                keyboard: false
-            })
-        }
-	})
 
     //=================================================
     // LOGIN (Came w/ default template)

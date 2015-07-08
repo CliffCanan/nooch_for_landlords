@@ -1,15 +1,27 @@
-<div data-ng-controller="banksCtrl as bctrl">
+<div data-ng-controller="banksCtrl as bctrl" id="prof-ba">
 
-    <div class="jumbotron" data-ng-if="bctrl.bankCount === 2 || bctrl.bankCount === nil">
-        <h2>Welcome Aboard!</h2>
-        <p>Connect any checking account so we know where to send you payments.  No routing or account number needed.</p>
+    <div class="pull-right"><button class="btn btn-xs btn-default" id="toggleView">Toggle View</button></div>
+
+<!--<div class="jumbotron text-center" data-ng-if="bctrl.bankCount === 2 || bctrl.bankCount === nil">-->
+    <div class="jumbotron text-center">
+
+        <h2>Start Getting Paid</h2>
+
+        <p class="m-b-25">
+            <span class="f-600">Step 1:</span> Connect any checking account so we know where to send the payments from tenants. <span class="f-500">No routing or account number needed.</span>
+        </p>
+
         <div class="m-15 p-r-10 text-center">
-            <div class="m-b-20" data-toggle="modal" data-target="#bankAdd"><i class="md-account-balance md-6x md-border-circle bgm-white" style="cursor:pointer"></i></div>
-            <button data-ng-click="bctrl.addBank()" class="btn btn-lg btn-success btn-icon-text waves-effect">&nbsp;<i class="md-add-circle m-r-5"></i> Add A Bank&nbsp;</button>
+            <div class="m-b-20" data-ng-click="bctrl.addBank()">
+                <i class="md-account-balance md-6x md-border-circle z-depth-2-bottom animated bounceIn"></i>
+            </div>
+            <button id="addBnkBtn" data-ng-click="bctrl.addBank()" class="btn btn-lg btn-success btn-icon-text waves-effect">&nbsp;<i class="md-add-circle m-r-5"></i> Add A Bank&nbsp;</button>
         </div>
+
     </div>
 
-    <div class="pmb-block p-t-25" data-ng-if="bctrl.bankCount > 0">
+<!--<div class="pmb-block p-t-30" data-ng-if="bctrl.bankCount > 0">-->
+    <div class="pmb-block p-t-30 hide" id="bankView2">
 
         <div class="pmbb-header">
 
@@ -18,6 +30,9 @@
             <p>Below are the accounts you have already added to Nooch.</p>
 
             <ul class="actions">
+                <li class="m-r-15">
+                    <button data-ng-click="bctrl.addBank()" class="btn btn-primary btn-icon waves-effect"><i class="md md-add"></i></button>
+                </li>
                 <li class="">
                     <button data-toggle="modal" data-target="#bankFaq" class="btn btn-default btn-icon waves-effect"><span class="">?</span></button>
                 </li>
@@ -25,11 +40,11 @@
 
         </div>
 
-        <div class="pmbb-body p-l-30 m-t-20">
+        <div class="pmbb-body p-l-30 p-t-10 m-t-20">
 
             <div class="bank-container">
 
-                <div class="media" data-ng-repeat="bank in bctrl.bankList.banks">
+                <div class="media" data-ng-repeat="bank in bctrl.bankList.banks" id="bank{{bank.id}}">
 
                     <div class="pull-left">
                         <img class="media-object" src="img/bank-icons/{{bank.logo}}">
@@ -55,8 +70,8 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a data-swal-params>
-                                        <i class="md md-close"></i>
+                                    <a data-id="{{bank.id}}" data-delete-bank>
+                                        <i class="md md-delete"></i>
                                     </a>
                                 </li>
                             </ul>
@@ -131,7 +146,7 @@
                     <h4 class="modal-title">Why We Ask</h4>
                 </div>
                 <div class="modal-body">
-                    <p>Federal ‘Know Your Customer’ regulations require that we verify your personal identity before you can accept payments from your renters.</p>
+                    <p>Federal "Know Your Customer" regulations require that we verify your personal identity before you can accept payments from your renters.</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default btn-icon-text waves-effect" data-dismiss="modal"><i class="md md-close m-r-5"></i>Close</button>
@@ -149,18 +164,25 @@
                     <button type="button" class="btn btn-default btn-icon waves-effect modalclose" data-dismiss="modal"><i class="md md-close"></i></button>
                 </div>
                 <div class="modal-body">
-                <iframe src=""></iframe>
+                    <iframe src=""></iframe>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default btn-icon-text waves-effect" data-dismiss="modal"><i class="md md-close m-r-5"></i>Close</button>
+                <div class="modal-footer p-t-5">
+                    <button type="button" class="btn btn-sm btn-default btn-icon-text" data-dismiss="modal"><i class="md md-close m-r-5"></i>Close</button>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        $("#addBankBtn").click(function () {
-            swal("Here's a message!", "Lorem ipsum dolor sit amet")
+        $("#toggleView").click(function () {
+            if ($('.jumbotron').hasClass('hide'))
+            {
+                $('.jumbotron').removeClass('hide');
+                $('#bankView2').addClass('hide');
+            } else {
+                $('.jumbotron').addClass('hide');
+                $('#bankView2').removeClass('hide');
+            }
         });
     </script>
 

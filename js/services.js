@@ -58,8 +58,8 @@ noochForLandlords
         this.getProperty = function (id, img, propName, address, units, tenants)
         {
             var propertyList = $resource("data/properties.json");
-            console.log(propertyList.list);
-            return propertyList.get ({
+
+            return propertyList.get({
 				id: id,
                 img: img,
                 propName: propName,
@@ -77,13 +77,13 @@ noochForLandlords
 
     .service('getBanksService', ['$resource', function ($resource)
     {
-        this.getBank = function (name, nickname, logo, last4, status, dateAdded, notes)
+        this.getBank = function (id, name, nickname, logo, last4, status, dateAdded, notes)
         {
             var bankList = $resource("data/bankAccountsList.json");
-            console.log("SERVICES for BANKS reached");
-            console.log(bankList);
+            //console.log("SERVICES for BANKS reached");
 
             return bankList.get({
+                id: id,
                 name: name,
                 nickname: nickname,
                 logo: logo,

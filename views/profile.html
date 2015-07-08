@@ -4,9 +4,9 @@
 
     <aside id="sidebar" data-ng-include src="'includes/sidebar-left.html'" data-ng-class="{ 'toggled': mactrl.sidebarToggle.left === true }"></aside>
 
-    <section id="content">
+    <section id="content" data-ng-controller="profileCtrl as pctrl">
 
-        <div class="container" data-ng-controller="profileCtrl as pctrl">
+        <div class="container">
 
             <div class="block-header">
                 <h2>{{ pctrl.firstName }} {{pctrl.lastName}} <small>ABC Rental Properties</small></h2>
@@ -19,13 +19,10 @@
 
                         <ul class="dropdown-menu dropdown-menu-right">
                             <li>
-                                <a href="">Privacy Settings</a>
+                                <a href="index.html#/profile/profile-bankaccounts">Bank Settings</a>
                             </li>
                             <li>
-                                <a href="">Account Settings</a>
-                            </li>
-                            <li>
-                                <a href="">Other Settings</a>
+                                <a href="index.html#/profile/profile-notifications">Notification Settings</a>
                             </li>
                         </ul>
                     </li>
@@ -39,7 +36,7 @@
                     <div class="pmo-pic z-depth-2">
                         <div class="p-relative">
                             <a href="">
-                                <img class="img-responsive" src="img/profile-pics/{{pctrl.userPic}}.png" alt="">
+                                <img class="img-responsive" src="img/profile-pics/{{pctrl.userPic}}.png" alt="Profile Picture">
                             </a>
 
                             <div class="dropdown pmop-message">
@@ -159,7 +156,9 @@
                         <p class="f-500 c-black m-b-20">Image Preview</p>
 
                         <div class="fileinput fileinput-new" data-provides="fileinput">
-                            <div class="fileinput-preview thumbnail" data-trigger="fileinput"></div>
+                            <div class="fileinput-preview thumbnail" data-trigger="fileinput">
+                                <img class="img-responsive" src="img/profile-pics/{{pctrl.userPic}}.png">
+                            </div>
                             <div>
                                 <span class="btn btn-info btn-file">
                                     <span class="fileinput-new">Select image</span>
@@ -178,7 +177,7 @@
                 </div>
             </div>
         </div>
-    
+
     </section>
 
 </section>

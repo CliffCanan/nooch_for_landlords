@@ -19,7 +19,8 @@
             </li>
         </ul>
     </div>
-    <ul class="main-menu m-0">
+
+    <ul class="main-menu m-0 m-b-20">
         <li data-ui-sref-active="active">
             <a data-ui-sref="home" data-ng-click="mactrl.sidebarStat($event)"><i class="md md-home"></i> Home</a>
         </li>
@@ -34,7 +35,7 @@
         </li>
         <li class="divider"></li>
         <li data-ui-sref-active="active">
-            <a data-ui-sref="faq" data-ng-click="mactrl.sidebarStat($event)"><i class="md md-help"></i> FAQ</a>
+            <a data-ui-sref="faq" data-ng-click="mactrl.sidebarStat($event)"><i class="md md-help"></i> FAQs</a>
         </li>
         <li class="divider"></li>
         <li class="sub-menu" data-ng-class="{ 'active toggled': mactrl.$state.includes('widgets') }">
@@ -61,30 +62,21 @@
             </ul>
         </li>
         <li class="sub-menu" data-ng-class="{ 'active toggled': mactrl.$state.includes('user-interface') }">
-            <a href="" toggle-submenu><i class="md md-swap-calls"></i>User Interface</a>
+            <a href="" toggle-submenu><i class="md md-swap-calls"></i> User Interface</a>
             <ul>
                 <li><a data-ui-sref-active="active" data-ui-sref="user-interface.buttons" data-ng-click="mactrl.sidebarStat($event)">Buttons</a></li>
                 <li><a data-ui-sref-active="active" data-ui-sref="user-interface.notifications-dialogs" data-ng-click="mactrl.sidebarStat($event)">Notifications & Dialogs</a></li>
                 <li><a data-ui-sref-active="active" data-ui-sref="user-interface.media" data-ng-click="mactrl.sidebarStat($event)">Media</a></li>
                 <li><a data-ui-sref-active="active" data-ui-sref="user-interface.components" data-ng-click="mactrl.sidebarStat($event)">Components</a></li>
-                <li><a data-ui-sref-active="active" data-ui-sref="user-interface.other-components" data-ng-click="mactrl.sidebarStat($event)">Others</a></li>
-            </ul>
-        </li>
-        <li class="sub-menu" data-ng-class="{ 'active toggled': mactrl.$state.includes('charts') }">
-            <a href="" toggle-submenu><i class="md md-trending-up"></i>Charts</a>
-            <ul>
-                <li><a data-ui-sref-active="active" data-ui-sref="charts.other-charts" data-ng-click="mactrl.sidebarStat($event)">Other Charts</a></li>
             </ul>
         </li>
         <!--<li data-ui-sref-active="active">
                 <a data-ui-sref="calendar" data-ng-click="mactrl.sidebarStat($event)"><i class="md md-today"></i> Calendar</a>
             </li>-->
         <li class="sub-menu" data-ng-class="{ 'active toggled': mactrl.$state.includes('pages') }">
-            <a href="" toggle-submenu><i class="md md-content-copy"></i> Sample Pages</a>
+            <a href="login.html"><i class="md md-input"></i> Login and Sign Up</a>
             <ul>
-                <li><a data-ui-sref-active="active" data-ui-sref="pages.listview" data-ng-click="mactrl.sidebarStat($event)">List View</a></li>
-                <li><a data-ui-sref-active="active" data-ui-sref="pages.messages" data-ng-click="mactrl.sidebarStat($event)">Messages</a></li>
-                <li><a href="login.html">Login and Sign Up</a></li>
+                <li></li>
             </ul>
         </li>
     </ul>
