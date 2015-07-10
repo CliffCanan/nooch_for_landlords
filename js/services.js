@@ -55,7 +55,7 @@ noochForLandlords
     
     .service('propertiesService', ['$resource', function ($resource)
     {
-        this.getProperty = function (id, img, propName, address, units, tenants)
+        this.getProperties = function (id, img, propName, address, units, tenants)
         {
             var propertyList = $resource("data/properties.json");
 
@@ -67,6 +67,36 @@ noochForLandlords
                 units: units,
                 tenants: tenants
             })
+        }
+    }])
+
+    .service('propDetailsService', ['$resource', function ($resource)
+    {
+        // FOR GOING TO THE INDIDVIDUAL PROPERTY'S DETAILS PAGE
+        var selectedProp = {};
+
+        function set(propId) {
+            selectedProp = propId;
+            console.log(selectedProp);
+        }
+
+        function get() {
+            return selectedProp;
+        }
+
+        function get2() {
+            var User = $resource('data/properties.json/:id', { id: '@id' });
+            console.log(User.get({id:4}));
+            /*var user = User.get({ userId: 123 }, function () {
+                user.abc = true;
+                user.$save();
+            });*/
+        }
+
+        return {
+            set: set,
+            get: get,
+            get2: get2
         }
     }])
 

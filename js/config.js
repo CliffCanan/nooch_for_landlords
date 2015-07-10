@@ -92,7 +92,6 @@ noochForLandlords
                                 files: [
                                     'vendors/bower_components/bootstrap-select/dist/css/bootstrap-select.css',
                                     'vendors/chosen_v1.4.2/chosen.min.css',
-                                    'vendors/bower_components/nouislider/distribute/jquery.nouislider.min.css',
                                 ]
                             },
                             {
@@ -102,7 +101,36 @@ noochForLandlords
                                     'vendors/input-mask/input-mask.min.js',
                                     'vendors/bower_components/bootstrap-select/dist/js/bootstrap-select.js',
                                     'vendors/chosen_v1.4.2/chosen.jquery.min.js',
-                                    'vendors/bower_components/nouislider/distribute/jquery.nouislider.all.min.js',
+                                    'vendors/fileinput/fileinput.min.js'
+                                ]
+                            }
+                        ])
+                    }
+                }
+			})
+
+            .state('property-details', {
+                url: '/property-details',
+                templateUrl: 'views/property-details.html',
+                resolve: {
+                    loadPlugin: function ($ocLazyLoad) {
+                        return $ocLazyLoad.load([
+                            {
+                                name: 'css',
+                                insertBefore: '#app-level',
+                                files: [
+                                    'vendors/bower_components/bootstrap-select/dist/css/bootstrap-select.css',
+                                    'vendors/chosen_v1.4.2/chosen.min.css',
+                                    'vendors/bower_components/jquery.bootgrid/dist/jquery.bootgrid.min.css',
+                                ]
+                            },
+                            {
+                                name: 'vendors',
+                                files: [
+                                    'vendors/input-mask/input-mask.min.js',
+                                    'vendors/bower_components/bootstrap-select/dist/js/bootstrap-select.js',
+                                    'vendors/chosen_v1.4.2/chosen.jquery.min.js',
+                                    'vendors/bower_components/jquery.bootgrid/dist/jquery.bootgrid-override.min.js',
                                     'vendors/fileinput/fileinput.min.js'
                                 ]
                             }
@@ -284,7 +312,7 @@ noochForLandlords
                 url: '/form-examples',
                 templateUrl: 'views/form-examples.html'
             })
-        
+   
             .state ('form.form-validations', {
                 url: '/form-validations',
                 templateUrl: 'views/form-validations.html'
@@ -299,18 +327,13 @@ noochForLandlords
                 url: '/user-interface',
                 templateUrl: 'views/common.html'
             })
-        
-            .state ('user-interface.buttons', {
-                url: '/buttons',
-                templateUrl: 'views/buttons.html'
-            })
-        
+
             .state ('user-interface.notifications-dialogs', {
                 url: '/notifications-dialogs',
                 templateUrl: 'views/notification-dialog.html'
             })
-        
-            .state ('user-interface.media', {
+
+            .state('user-interface.media', {
                 url: '/media',
                 templateUrl: 'views/media.html',
                 resolve: {
@@ -335,7 +358,7 @@ noochForLandlords
                     }
                 }
             })
-        
+
             .state ('user-interface.components', {
                 url: '/components',
                 templateUrl: 'views/components.html'

@@ -61,11 +61,22 @@
     border-radius:5px;
 }
 
+.fg-line input {padding-left:5px;}
+
 /**** TABLES ****/
-table tr th:not(:first-child) .columnWidth-13pc {
+table tr th:not(:first-child).columnWidth-13pc {
     width:13%;
     padding-left:2px !important;
     padding-right:2px !important;
+    text-align:center;
+}
+table tr th:first-child.columnWidth-13pc {
+    width:13%;
+    padding-right:2px !important;
+    text-align:center;
+}
+#propDetailsTbl .tr th {
+    text-align: center;
 }
 table .columnWidth-26pc {
     width:26%;
@@ -91,7 +102,84 @@ table img.tableUserPic {
   padding: 2px;
 }
 
+/**** LOGIN ****/
+body.login-content:before {
+  background: #3fabe1;
+  top:initial;
+  bottom:0px !important
+}
+#loginLogo {
+  width:100%;
+  background:none;
+  position:absolute;
+  top: 48px;
+}
+#loginLogo div {
+  width:40%;
+  max-width:200px;
+  margin:0 auto;
+  -webkit-animation-duration: 1.2s;
+  animation-duration: 1.2s;
+  position:relative;
+  left:-7%;
+}
+#loginLogo img {
+    width:100%;
+    height:auto;
+}
 
+#loginLogo div::after {
+  content: 'For Landlords';
+  display: inline-block;
+  font-size: 28px;
+  font-weight: 200;
+  max-width: 100px;
+  text-align: left;
+  position: absolute;
+  left: 109%;
+  top: 0px;
+  line-height: 1.25;
+  text-transform: uppercase;
+  border-left: 2px solid #3fabe1;
+  padding-left: 16px;
+
+/*-webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  -webkit-animation-name: bounceInLeft;
+  animation-name: bounceInLeft;*/
+}
+.login-content .lc-block.toggled {
+  box-shadow: 0 6px 15px -4px rgba(0, 0, 0, 0.35);
+  -webkit-transition:.3s all ease-out;
+  transition:.3s all ease-out;
+  padding:30px 55px 15px;
+  top:30px;
+}
+.login-content .form-control {
+    font-size: 16px;
+}
+.login-content .input-group:not(.input-group-lg):not(.input-group-sm) .input-group-addon .md {
+  font-size: 25px;
+  position: relative;
+  top: -4px;
+}
+.login-content .login-navigation > li {
+    line-height:22px;
+    min-height:22px;
+    min-width:22px;
+}
+.login-content .login-navigation > li:hover {
+  border-radius: 8px;
+  padding: 9px 15px;
+  font-size: 15px;
+  letter-spacing: .25px;
+  box-shadow: 0 3px 8px -4px rgba(64,65,66,.3);
+}
+.login-content .login-navigation {
+    position: static;
+}
 /**** LEFT SIDEBAR ****/
 #sidebar,
 #sidebar .sidebar-inner {width:230px;}
@@ -131,6 +219,14 @@ table img.tableUserPic {
   opacity:.65;
   text-shadow:none;
 }
+.card .card-header h2 small {
+  display: block;
+  margin-top: 5px;
+  color: #AEAEAE;
+  line-height: 120%;
+  font-size:14px;
+}
+
 .jumbotron#welcome .card {
   display: block;
   white-space: initial;
@@ -324,13 +420,34 @@ table img.tableUserPic {
     z-index: 99;
 }
 .propCard .closeFloat:hover {opacity:.98;background-color: rgba(244, 67, 54, .9);}
-.propCard .pv-header > .pv-main {overflow:hidden}
+.propCard .pv-header {height:120px;}
+.propCard .pv-body {margin-top:90px;}
+.propCard .pv-header > .pv-main {
+  overflow:hidden;
+  left:47%;
+  width:61.9%;
+  height: auto;
+  bottom: -60px;
+  box-shadow: 0 8px 16px -3px rgba(0, 0, 0, 0.2);
+}
 .propCard .pv-header > .pv-main > img {max-width:100%;}
 #propertiesList.lv-lg .lv-title {font-size:16px;}
 #propertiesList.lv-lg .lv-small {font-size:13px;}
 
+
 /***** For the Wizard Plugin *****/
 #addPropWizard .tab-content {min-height:250px;}
+#addPropWizard .tab-content input {font-size:16px;}
+#addPropWizard .tab-content .control-label {font-size:16px;}
+#addPropWizard .tab-content .fg-float .fg-label {
+  font-size:15px;
+  padding-left:4px;
+  top:7px;
+}
+#addPropWizard .tab-content .fg-float .fg-toggled + .fg-label {
+  font-size:11px;
+  top:-18px;
+}
 .tabs-left > .nav-tabs > li {
   float: none;
 }
@@ -364,11 +481,74 @@ table img.tableUserPic {
   color: #444;
   padding: 11px 20px;
 }
-#addPropWizard .pager {margin-top:50px;}
+#addPropWizard .pager {margin-top:25px;}
 .pager li > .btn-primary,
 .pager li > .btn-primary:hover {
   color:#fff !important;
   background-color: #2196f3 !important;
+}
+#addPropWizard #tab4 {overflow:hidden;}
+#singleOrMulti > div:not(#addUnitContainer) {
+  background: #2196f3;
+  border-radius:3px;
+  border:1px solid #149bdf;
+  color:white;
+  cursor:pointer;
+  float:left;
+  font-size:16px;
+  left:0;
+  margin-bottom:4px;
+  text-shadow: 0 -2px 2px rgba(32,33,34,.3);
+  -webkit-transition:margin-top .16s, margin-bottom .16s, box-shadow .16s, margin-left .7s ease-out, width .8s;
+  transition:margin-top .16s, margin-bottom .16s, box-shadow .16s, margin-left .7s ease-out, width .8s;
+  overflow:hidden;
+  width:41.66666%;
+  padding-left:15px;
+  padding-right:15px;
+  position:relative;
+}
+#singleOrMulti > div:not(#addUnitContainer):active {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.22);
+  margin-top:4px;
+  margin-bottom:0px;
+  z-index:9;
+}
+#singleOrMulti > #or {
+  -webkit-transition:margin-left .6s ease-in .3s;
+  transition:margin-left .6s ease-in .3s;
+  z-index:8;
+}
+#singleOrMulti > div:not(#addUnitContainer) p {
+  font-size:18px;
+  text-shadow:0 1px 0px rgba(32,33,34,.3);
+}
+#singleOrMulti > span {
+  position:relative;
+  top:45px;
+}
+#singleOrMulti > span > span {
+  padding: 7px;
+  font-size: 25px;
+  font-weight: 300;
+  text-transform: uppercase;
+  border-top: 1px solid rgba(31,32,33,.2);
+  border-bottom: 1px solid rgba(31,32,33,.2);
+}
+#addUnitContainer {
+  float:left;
+  font-size:15.5px;
+  margin-left:2%;
+  width:70%;
+}
+#addedUnits .dollar:before {
+  content: "$";
+  color: #4caf50 !important;
+  font-weight: 600;
+  font-size: 18px;
+  height: 0;
+  position: absolute;
+  left: -12px;
+  top: 6px;
 }
 .progress {
   height: 16px;
@@ -458,6 +638,21 @@ table img.tableUserPic {
 .progress-info.progress-striped .bar,
 .progress-striped .bar-info{background-color:#5bc0de;background-image:-webkit-gradient(linear,0 100%,100% 0,color-stop(0.25,rgba(255,255,255,0.15)),color-stop(0.25,transparent),color-stop(0.5,transparent),color-stop(0.5,rgba(255,255,255,0.15)),color-stop(0.75,rgba(255,255,255,0.15)),color-stop(0.75,transparent),to(transparent));background-image:-webkit-linear-gradient(45deg,rgba(255,255,255,0.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,0.15) 50%,rgba(255,255,255,0.15) 75%,transparent 75%,transparent);background-image:-moz-linear-gradient(45deg,rgba(255,255,255,0.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,0.15) 50%,rgba(255,255,255,0.15) 75%,transparent 75%,transparent);background-image:-o-linear-gradient(45deg,rgba(255,255,255,0.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,0.15) 50%,rgba(255,255,255,0.15) 75%,transparent 75%,transparent);background-image:linear-gradient(45deg,rgba(255,255,255,0.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,0.15) 50%,rgba(255,255,255,0.15) 75%,transparent 75%,transparent)}
 
+/**** PROPERTY DETAILS ****/
+.propInfoSidebar .card .card-header {
+    padding: 23px 25px 0;
+}
+.propAddress {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+.propAddress #cityState {
+    display:block;
+    margin-top:4px;
+    position:relative;
+    left:21px;
+}
+
+
 @media screen and (min-width:768px) {
 	.container .jumbotron {
 		padding: 35px 45px;
@@ -465,6 +660,8 @@ table img.tableUserPic {
 
 	#profile-main .pm-overview {max-width:250px !important;}
 	#profile-main .pm-body {padding-left:250px;}
+
+    #addPropWizard .pager {margin-left:8.3333%;}
 }
 
 /**** ANIMATIONS ****/

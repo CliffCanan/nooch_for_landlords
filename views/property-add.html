@@ -24,7 +24,7 @@
 
             <div class="row">
 
-                <div class="col-xs-12 col-sm-9">
+                <div class="col-xs-12 col-md-10 col-md-offset-1">
 
                     <!-- Add A Property Widget -->
 					<div class="card z-depth-1 animated zoomInUp">
@@ -40,15 +40,15 @@
                                     <div class="pull-right">
                                         <a data-ui-sref="properties" class="btn btn-link noExtraWaves">Cancel <i class="md md-backspace m-l-5" style="position:relative;top:1px"></i></a>
                                     </div>
-                                    <h2>Add New Property<small>Enter the details for your property.</small></h2>
+                                    <h2>Add New Property<small class="">Enter the details for your property.</small></h2>
                                 </div>
 
                             </div>
 						</div>
 
-						<div class="card-body card-padding">
+                        <div class="card-body card-padding" data-ng-controller="addPropertyCtrl as apctrl">
 
-							<form id="addNewProperty" role="form" class="form-horizontal">
+                            <form id="addNewProperty" role="form" class="form-horizontal">
 
                                 <div id="addPropWizard" class="tabbable tabs-left">
 
@@ -63,22 +63,22 @@
                                         <li><a href="#tab4" data-toggle="tab">Step 4</a></li>
                                     </ul>
 
-                                    <div class="tab-content col-xs-9 col-sm-10 p-l-15 p-t-10">
+                                    <div class="tab-content col-xs-12 col-sm-10 p-l-15 p-t-0">
 
-                                        <div class="tab-pane fade" id="tab1">
+                                        <div class="tab-pane fade col-sm-10 col-sm-offset-1" id="tab1">
 
-                                            <div class="well well-sm">
+                                            <div class="well well-sm m-b-30">
                                                 <div class="f-500 f-16 text-center">
-                                                    <i class="md md-photo c-gray m-r-5"></i>
+                                                    <i class="md md-assignment c-gray m-r-5"></i>
                                                     First, what is the name of your property?
-                                                    <br/>
-                                                    <span class="f-12 f-400">(This can be anything that helps you identify this property.)</span>
+                                                    <br />
+                                                    <span class="f-12 f-400">This can be anything that helps you identify this property.</span>
                                                 </div>
                                             </div>
 
                                             <div class="form-group">
                                                 <label for="propertyName" class="col-sm-3 control-label">Property Name</label>
-                                                <div class="form-group col-sm-9 m-b-0">
+                                                <div class="col-sm-9 col-md-8 m-b-10">
                                                     <div class="fg-line">
                                                         <input type="text" id="propertyName" class="form-control" placeholder="ex: East View Apartments">
                                                     </div>
@@ -87,19 +87,24 @@
 
                                         </div>
 
-                                        <div class="tab-pane fade " id="tab2">
+                                        <div class="tab-pane fade col-sm-10 col-sm-offset-1" id="tab2">
 
-                                            <div class="well well-sm">
-                                                <div class="f-500 f-16 text-center"><i class="md md-photo c-gray m-r-5"></i> Now add a picture for this property:</div>
+                                            <div class="well well-sm m-b-25">
+                                                <div class="f-500 f-16 text-center">
+                                                    <i class="md md-assignment c-gray m-r-5"></i>
+                                                    Now add a picture for this property:
+                                                    <br />
+                                                    <span class="f-12 f-400">This is optional but highly recommended. <i class="md md-thumb-up"></i></span>
+                                                </div>
                                             </div>
 
-                                            <div class="form-group">
+                                            <div class="form-group m-b-10">
                                                 <label for="propertyName" class="col-sm-3 control-label">Property Picture</label>
-                                                <div class="form-group col-sm-9 m-b-0">
+                                                <div class="col-sm-9 m-b-0">
 
                                                     <div class="fileinput fileinput-new text-center" data-provides="fileinput">
                                                         <div class="fileinput-new thumbnail" style="width: 300px; height: auto;">
-                                                            <img src="img/300x200.gif" alt="">
+                                                            <img src="img/300x200.gif" alt="Default">
                                                         </div>
                                                         <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 300px; max-height: 200px;"></div>
                                                         <div>
@@ -117,14 +122,22 @@
 
                                         </div>
 
-                                        <div class="tab-pane fade" id="tab3">
+                                        <div class="tab-pane fade col-sm-10 col-sm-offset-1" id="tab3">
+
+                                            <div class="well well-sm m-b-25">
+                                                <div class="f-500 f-16 text-center">
+                                                    <i class="md md-place c-gray m-r-5"></i>
+                                                    Enter the street address for this property:
+                                                </div>
+                                            </div>
 
                                             <div class="form-group">
                                                 <label for="address" class="col-sm-3 control-label">Address</label>
-                                                <div class="form-group col-sm-9 m-b-0">
 
-                                                    <div class="col-sm-12">
-                                                        <div class="form-group fg-float">
+                                                <div class="form-group col-sm-9 m-b-10">
+
+                                                    <div class="col-xs-12 m-b-30">
+                                                        <div class="form-group fg-float m-0">
                                                             <div class="fg-line">
                                                                 <input type="text" class="form-control">
                                                             </div>
@@ -132,8 +145,8 @@
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-xs-9 col-sm-4">
-                                                        <div class="form-group fg-float m-b-0">
+                                                    <div class="col-xs-12 col-sm-6">
+                                                        <div class="form-group fg-float m-0">
                                                             <div class="fg-line">
                                                                 <input type="text" class="form-control">
                                                             </div>
@@ -141,64 +154,8 @@
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-xs-3 col-sm-4">
-                                                        <div style="position:relative;top:-2px;">
-                                                            <select data-select-picker data-live-search="true">
-                                                                <option>Alabama</option>
-                                                                <option>Alaska</option>
-                                                                <option>Arizona</option>
-                                                                <option>Arkansas</option>
-                                                                <option>California</option>
-                                                                <option>Colorado</option>
-                                                                <option>Connecticut</option>
-                                                                <option>Delaware</option>
-                                                                <option>Florida</option>
-                                                                <option>Georgia</option>
-                                                                <option>Hawaii</option>
-                                                                <option>Idaho</option>
-                                                                <option>Illinois</option>
-                                                                <option>Indiana</option>
-                                                                <option>Iowa</option>
-                                                                <option>Kansas</option>
-                                                                <option>Kentucky</option>
-                                                                <option>Louisiana</option>
-                                                                <option>Maine</option>
-                                                                <option>Maryland</option>
-                                                                <option>Massachusetts</option>
-                                                                <option>Michigan</option>
-                                                                <option>Minnesota</option>
-                                                                <option>Mississippi</option>
-                                                                <option>Missouri</option>
-                                                                <option>Montana</option>
-                                                                <option>Nebraska</option>
-                                                                <option>Nevada</option>
-                                                                <option>New Hampshire</option>
-                                                                <option>New Jersey</option>
-                                                                <option>New Mexico</option>
-                                                                <option>New York</option>
-                                                                <option>North Carolina</option>
-                                                                <option>North Dakota</option>
-                                                                <option>Ohio</option>
-                                                                <option>Oklahoma</option>
-                                                                <option>Oregon</option>
-                                                                <option selected>Pennsylvania</option>
-                                                                <option>Rhode Island</option>
-                                                                <option>South Carolina</option>
-                                                                <option>South Dakota</option>
-                                                                <option>Tennessee</option>
-                                                                <option>Texas</option>
-                                                                <option>Utah</option>
-                                                                <option>Vermont</option>
-                                                                <option>Virginia</option>
-                                                                <option>Washington</option>
-                                                                <option>West Virginia</option>
-                                                                <option>Wisconsin</option>
-                                                                <option>Wyoming</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-xs-12 col-sm-4">
-                                                        <div class="form-group fg-float m-b-0">
+                                                    <div class="col-xs-12 col-sm-5">
+                                                        <div class="form-group fg-float m-0">
                                                             <div class="fg-line">
                                                                 <input type="num" class="form-control" data-input-mask="{mask: '00000'}">
                                                             </div>
@@ -206,35 +163,98 @@
                                                         </div>
                                                     </div>
                                                 </div>
+
                                             </div>
 
-                                            <div class="form-group">
-                                                <label for="contactNum" class="col-sm-3 control-label">Contact Number</label>
-                                                <div class="form-group col-sm-9 m-b-0">
-                                                    <div class="fg-line">
-                                                        <input type="num" id="contactNum" class="form-control" placeholder="ex: (215) 804-4226" data-input-mask="{mask: '(000) 000-0000'}">
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            <!--<div class="form-group">
+                            <label for="contactNum" class="col-sm-3 control-label">Contact Number</label>
+                            <div class="form-group col-sm-9 m-b-0">
+                                <div class="fg-line">
+                                    <input type="num" id="contactNum" class="form-control" placeholder="ex: (215) 804-4226" data-input-mask="{mask: '(000) 000-0000'}">
+                                </div>
+                            </div>
+                        </div>-->
 
                                         </div>
 
-                                        <div class="tab-pane fade" id="tab4">
+                                        <div class="tab-pane fade col-sm-10 col-sm-offset-1" id="tab4">
 
-                                            <div class="form-group">
-                                                <label class="col-sm-3 control-label">Rent Range <small>Optional</small></label>
-                                                <div class="form-group col-sm-9 m-b-0">
-                                                    <div class="m-t-15 clearfix">
-                                                        <div id="rentRangeSlider" class="m-b-15"></div>
-                                                        <strong class="pull-left text-muted">$<span id="value-lower"></span></strong>
-                                                        <strong class="pull-right text-muted">$<span id="value-upper"></span></strong>
-                                                    </div>
+                                            <div class="form-group text-center" id="singleOrMulti">
+
+                                                <div class="z-depth-2-bottom animated" id="singleUnit" data-ng-click="apctrl.bnkPrmt = 1">
+                                                    <span class=" ">
+                                                        <i class=" md md-4x md-home">
+                                                        </i>
+                                                    </span>
+                                                    <br />
+                                                    <p class="">Single Unit</p>
                                                 </div>
+
+                                                <span class="col-xs-2" id="or">
+                                                    <span class="">or</span>
+                                                </span>
+
+                                                <div class="z-depth-2-bottom animated" id="multiUnit" data-ng-click="apctrl.selectMultiUnit()">
+                                                    <span class=""><i class="md md-4x md-business"></i></span>
+                                                    <br />
+                                                    <p class="">Multiple Units</p>
+                                                </div>
+
+                                                <div id="addUnitContainer" class="hidden">
+
+                                                    <p class="text-centerf-500">
+                                                        Do you want to <span class="f-500">add units</span> for this property now?
+                                                        <br />
+                                                        <small class="f-13">(You can do this later too.)</small>
+                                                    </p>
+
+                                                    <div class="m-b-20">
+                                                        <button class="btn btn-success btn-icon-text animated bounceIn" data-ng-click="apctrl.addUnit()"><i class="md md-add"></i>Add A Unit</button>
+                                                    </div>
+
+                                                    <div id="addedUnits">
+
+                                                        <div class="templateUnitInput hidden">
+
+                                                            <div class="col-xs-6 m-b-10">
+                                                                <div class="fg-float">
+                                                                    <div class="fg-line">
+                                                                        <input type="text" class="form-control fg-input">
+                                                                    </div>
+                                                                    <label class="fg-label">Unit #</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-xs-6 m-b-10">
+                                                                <div class="fg-float">
+                                                                    <div class="fg-line">
+                                                                        <input type="text" class="form-control fg-input">
+                                                                    </div>
+                                                                    <label class="fg-label">Rent Amount</label>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+
                                             </div>
+
+                                            <!--<div class="form-group">
+                            <label class="col-sm-3 control-label">Rent Range <small>Optional</small></label>
+                            <div class="form-group col-sm-9 m-b-0">
+                                <div class="m-t-15 clearfix">
+                                    <div id="rentRangeSlider" class="m-b-15"></div>
+                                    <strong class="pull-left text-muted">$<span id="value-lower"></span></strong>
+                                    <strong class="pull-right text-muted">$<span id="value-upper"></span></strong>
+                                </div>
+                            </div>
+                        </div>-->
 
                                         </div>
 
-                                        <ul class="pager wizard p-r-15">
+                                        <ul class="pager wizard p-r-15 col-sm-10 col-sm-offset-1">
                                             <li class="previous"><a href="#" class="btn btn-default btn-icon-text"><i class="md md-chevron-left"></i> Previous</a></li>
                                             <li class="next"><a href="#" class="btn btn-primary btn-icon-text">Next Step <i class="md md-chevron-right"></i></a></li>
                                             <li class="next finish" style="display:none;"><a href="javascript:;" class="btn btn-primary btn-icon-text"><i class="md md-check"></i>Finish</a></li>
@@ -244,21 +264,21 @@
                                 </div>
 
 
-								<div class="clearfix">
-									
-								</div>
+                                <div class="clearfix">
 
-							</form>
+                                </div>
 
-						</div>
+                            </form>
+
+                        </div>
 
 					</div>
 
                 </div>
 
-                <div class="col-xs-12 col-sm-3">
+            <!--<div class="col-xs-12 col-sm-3">
                     <div id="acntChklst" data-ng-include src="'includes/account-checklist.html'"></div>
-                </div>
+                </div>-->
 
             </div>
 
@@ -336,7 +356,7 @@
         });
 
 		// Setup the slider for selecting Rent Range
-		$('#rentRangeSlider').noUiSlider({
+		/*$('#rentRangeSlider').noUiSlider({
 			start: [ 400, 1000 ],
 			connect: true,
 			behaviour: 'drag-tap',
@@ -349,7 +369,7 @@
 		});
 
 		$('#rentRangeSlider').Link('lower').to($('#value-lower'));
-		$('#rentRangeSlider').Link('upper').to($('#value-upper'), 'html');
+		$('#rentRangeSlider').Link('upper').to($('#value-upper'), 'html');*/
 
         // Focus on Property Name field on page load
 		setTimeout(function () {

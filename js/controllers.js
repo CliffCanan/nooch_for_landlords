@@ -5,7 +5,7 @@ noochForLandlords
 
     .controller('materialadminCtrl', function($timeout, $state, growlService){
         //Welcome Message
-        growlService.growl('Welcome back Mallinda!', 'inverse')
+        growlService.growl('Welcome back Josh!', 'inverse')
         
         
         // Detact Mobile Browser
@@ -175,11 +175,33 @@ noochForLandlords
     // Properties Widget
     // =========================================================================
     
-    .controller('propertiesCtrl', function (propertiesService)
+    .controller('propertiesCtrl', function (propertiesService, propDetailsService)
     {
         this.propCount = 7;
-        this.propResult = propertiesService.getProperty(this.id, this.img, this.propName, this.address, this.units, this.tenants);
+        this.propResult = propertiesService.getProperties(this.id, this.img, this.propName, this.address, this.units, this.tenants);
+
+        // For setting the 'Selected Prop' when going to a Property's Details page
+        this.selectedPropId = "";
+        this.setSelectedId = function ($event) {
+            this.selectedPropId = $event.target.id;
+
+            propDetailsService.set(this.selectedPropId);
+            window.location.href = '#/property-details';
+        }
+
+        // Just for toggling views for demo purposes...
+        this.firstTimeView = 0;
+        this.propsAddedAlreadyView = 1;
     })
+
+    // PROPERTY DETAILS CONTROLLER
+    .controller('propDetailsCtrl', function (propertiesService, propDetailsService) {
+        this.propResult = propertiesService.getProperties(this.id, this.img, this.propName, this.address, this.units, this.tenants);
+
+        this.getSelectedProp = propDetailsService.get();
+        this.getSelectedProp2 = propDetailsService.get2();
+    })
+
 
     // Delete Property Popup
     .directive('deleteProp', function () {
@@ -187,10 +209,10 @@ noochForLandlords
             restrict: 'A',
             link: function (scope, element, attrs) {
                 element.click(function () {
-                    console.log("DELETE PROPERTY DIRECTIVE");
-                    console.log(element);
-                    console.log(attrs);
-                    console.log(attrs.propid);
+                    //console.log("DELETE PROPERTY DIRECTIVE");
+                    //console.log(element);
+                    //console.log(attrs);
+                    //console.log(attrs.propid);
                     var propertyId = attrs.propid;
                     swal({
                         title: "Are you sure?",
@@ -217,6 +239,39 @@ noochForLandlords
         }
     })
 
+    // ADD PROPERTY Page
+    .controller('addPropertyCtrl', function () {
+
+        this.selectMultiUnit = function () {
+            //$('#singleUnit').addClass('fadeOutLeft');
+            $('#singleUnit').css(
+                "margin-left","-250px"
+            );
+            $('#or').css(
+                "margin-left", "-150px"
+            );
+            $('#multiUnit').css(
+                "width", "27%"
+            );
+            setTimeout(function () {
+                $('#addUnitContainer').removeClass('hidden');
+                $('#addUnitContainer').fadeIn();
+            },800)
+        }
+
+        this.unitInputsShowing = 0;
+        this.addUnit = function () {
+            this.unitInputsShowing += 1;
+
+            var templateUnit = "<div class=\"row\"><div class=\"col-xs-6 m-b-15\"><div class=\"fg-float p-r-10\"><div class=\"fg-line\"><input type=\"text\" class=\"form-control fg-input\" maxlength=\"5\"></div><label class=\"fg-label\">Unit #</label></div></div><div class=\"col-xs-6 m-b-10\"><div class=\"fg-float\"><div class=\"fg-line dollar\"><input type=\"text\" id=\"unit" + this.unitInputsShowing + "\" class=\"form-control fg-input\" maxlength=\"7\"></div><label class=\"fg-label\">Rent Amount</label></div></div></div>";
+            var newUnit = "#unit" + this.unitInputsShowing;
+
+            $('#addedUnits').append(templateUnit);
+
+            //$(".templateUnitInput").clone().appendTo("#addedUnits");
+            //$(".templateUnitInput:last-child").removeClass("templateUnitInput").removeClass("hidden");
+        }
+    })
 
     //=================================================
     // Profile
@@ -235,7 +290,9 @@ noochForLandlords
         this.fullName = this.firstName + " " + this.lastName;
         this.birthDay = "23/06/1982";
         this.mobileNumber = "(215) 711-6789";
+        this.isPhoneVerified = 1;
         this.emailAddress = "josh.h@nooch.com";
+        this.isEmailVerified = 1;
         this.fb = "NoochMoney";
         this.twitter = "@NoochMoney";
         this.insta = "NoochMoney";
@@ -245,6 +302,13 @@ noochForLandlords
         this.ssnLast4 = "7654";
         this.userPic = "josh";
 
+        // Home Layout
+        this.home = {
+            "bnkPrmt": 1,
+            "idPrmt": 0,
+            "propPrmt": 0,
+        }
+
         // Get Company Info
         this.company = {
             "name": "ABC Rental LLC",
@@ -252,6 +316,7 @@ noochForLandlords
         }
 
         // Account Info
+        this.bankCount = 2;
         this.propertyCount = 5;
         this.unitCount = 18;
         this.tenantRequests = 3;
@@ -448,6 +513,10 @@ noochForLandlords
         this.login = 1;
         this.register = 0;
         this.forgot = 0;
+
+        this.loginAttmpt = function() {
+            window.location.href = 'index.html#/profile/profile-bankaccounts';
+        }
     })
 
 

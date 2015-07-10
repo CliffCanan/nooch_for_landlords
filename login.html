@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-    <html class="login-content" data-ng-app="materialAdmin">
+﻿<!DOCTYPE html>
+    <html class="login-content" data-ng-app="noochForLandlords">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,42 +13,53 @@
         <!-- CSS -->
         <link href="css/app.min.1.css" rel="stylesheet">
         <link href="css/app.min.2.css" rel="stylesheet">
+        <link href="css/custom.css" rel="stylesheet">
     </head>
     
     <body class="login-content" data-ng-controller="loginCtrl as lctrl">
 
         <!-- Login -->
         <div class="lc-block toggled" id="l-login" data-ng-if="lctrl.login === 1">
-            <div class="input-group m-b-20">
-                <span class="input-group-addon"><i class="md md-person"></i></span>
-                <div class="fg-line">
-                    <input type="text" class="form-control" placeholder="Username">
+
+            <form ng-submit="lctrl.loginAttmpt()">
+
+                <div class="form-group fg-float">
+                    <div class="fg-line">
+                        <input type="text" class="input-lg form-control fg-input">
+                    </div>
+                    <label class="fg-label">Email</label>
                 </div>
-            </div>
 
-            <div class="input-group m-b-20">
-                <span class="input-group-addon"><i class="md md-accessibility"></i></span>
-                <div class="fg-line">
-                    <input type="password" class="form-control" placeholder="Password">
+                <div class="form-group fg-float">
+                    <div class="fg-line">
+                        <input type="text" class="input-lg form-control fg-input">
+                    </div>
+                    <label class="fg-label">Password</label>
                 </div>
-            </div>
 
-            <div class="clearfix"></div>
+                <div class="clearfix"></div>
 
-            <div class="checkbox">
-                <label>
-                    <input type="checkbox" value="">
-                    <i class="input-helper"></i>
-                    Keep me signed in
-                </label>
-            </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" value="">
+                        <i class="input-helper"></i>
+                        Keep me signed in
+                    </label>
+                </div>
 
-            <a href="" class="btn btn-login btn-danger btn-float"><i class="md md-arrow-forward"></i></a>
+                <div class="text-center f-300 m-t-15">
+                    <small>By logging in you agree our <a href="https://www.nooch.com/tos">TOS</a>.</small>
+                </div>
 
-            <ul class="login-navigation">
-                <li data-block="#l-register" class="bgm-red" data-ng-click="lctrl.login = 0; lctrl.register = 1">Register</li>
+                <button type="submit" class="btn btn-login btn-primary btn-float"><i class="md md-arrow-forward"></i></button>
+
+            </form>
+
+            <ul class="login-navigation m-t-20">
+                <li data-block="#l-register" class="bgm-red" data-ng-click="lctrl.login = 0; lctrl.register = 1">Sign Up</li>
                 <li data-block="#l-forget-password" class="bgm-orange" data-ng-click="lctrl.login = 0; lctrl.forgot = 1">Forgot Password?</li>
             </ul>
+
         </div>
 
         <!-- Register -->
@@ -94,6 +105,7 @@
 
         <!-- Forgot Password -->
         <div class="lc-block" id="l-forget-password" data-ng-if="lctrl.forgot === 1">
+
             <p class="text-left">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla eu risus. Curabitur commodo lorem fringilla enim feugiat commodo sed ac lacus.</p>
 
             <div class="input-group m-b-20">
@@ -109,6 +121,12 @@
                 <li data-block="#l-login" class="bgm-green" data-ng-click="lctrl.forgot = 0; lctrl.login = 1">Login</li>
                 <li data-block="#l-register" class="bgm-red" data-ng-click="lctrl.forgot = 0; lctrl.register = 1">Register</li>
             </ul>
+        </div>
+
+        <div id="loginLogo">
+            <div class="animated bounceInDown">
+                <img src="img/nooch-logo.svg" />
+            </div>
         </div>
 
         <!-- Older IE warning message -->
@@ -154,7 +172,7 @@
             </div>   
         <![endif]-->
         
-        
+
         <!-- Core -->
         <script src="vendors/bower_components/jquery/dist/jquery.min.js"></script>
         <script src="vendors/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
