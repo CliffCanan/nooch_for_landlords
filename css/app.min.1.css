@@ -4654,10 +4654,12 @@ tbody.collapse.in {
 
 .dropdown-header {
   display: block;
-  padding: 3px 20px;
+  padding: 4px 20px;
   font-size: 12px;
   line-height: 1.42857143;
   color: #777777;
+  text-align:center;
+  text-transform: uppercase;
   white-space: nowrap;
 }
 
@@ -10627,14 +10629,6 @@ input:focus {
   transform: scale(1);
   opacity: 1;
   filter: alpha(opacity=100);
-}
-
-.dropdown-header {
-  padding: 3px 17px;
-  margin-top: 10px;
-  color: #b1b1b1;
-  text-transform: uppercase;
-  font-weight: normal;
 }
 
 .btn-group.open .dropdown-toggle {

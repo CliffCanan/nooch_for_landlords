@@ -162,7 +162,7 @@ noochForLandlords
             link: function (scope, element, attr) {
                 element.bootgrid({
                     css: {
-                        icon: 'md',
+                        icon: 'md-tableHdr',
                         iconColumns: 'md-view-module',
                         iconDown: 'md-expand-more',
                         iconRefresh: 'md-refresh',
@@ -170,30 +170,45 @@ noochForLandlords
                     },
                     formatters: {
                         "unit": function (column, row) {
-                            return "<span class=\"f-600 f-22 c-bluegray\">" + row.unit + "</span>";
+                            return "<span class=\"f-600 f-22 c-darkblue unitInTable\">" + row.unit + "</span>";
                         },
                         "status": function (column, row) {
                             if (row.status == "Paid" || row.status == "paid" || row.status == "completed") {
                                 return "<span class=\"label label-success\">" + row.status + "</span>";
                             }
-                            else if (row.status == "Pending" || row.status == "pending") {
+                            else if (row.status.toLowerCase == "pending") {
                                 return "<span class=\"label label-warning\">" + row.status + "</span>";
                             }
-                            else if (row.status == "Rejected" || row.status == "rejected") {
+                            else if (row.status.toLowerCase() == "past due") {
                                 return "<span class=\"label label-danger\">" + row.status + "</span>";
                             }
                             else {
                                 return "<span class=\"label label-warning\">" + row.status + "</span>";
                             }
                         },
-                        "user": function (column, row) {
-                            return "<div class=\"media\"><div class=\"pull-left\"><img class=\"tableUserPic\" src=\"img/contacts/" + row.id + ".jpg\"></div><div class=\"media-body\"><div class=\"lv-title\">" + row.tenant + "</div><small class=\"lv-small\">" + row.email + "</small></div></div>";
+                        "tenant": function (column, row) {
+                            var emailStatus = "c-gray";
+                            var phoneStatus = "c-gray";
+                            var idStatus = "c-gray";
+                            var bankStatus = "c-gray";
+
+                            if (row.isEmailVer == "1") { emailStatus = "c-blue"; }
+                            if (row.isPhoneVer == "1") { phoneStatus = "c-blue"; }
+                            if (row.isIdVerified == "1") { idStatus = "c-blue"; }
+                            if (row.isBankAttached == "1") { bankStatus = "c-blue"; }
+
+                            return "<div class=\"media\"><div class=\"pull-left\">" +
+                                   "<img class=\"tableUserPic m-r-5\" src=\"img/contacts/" + row.id + ".jpg\"></div>" +
+                                   "<div class=\"media-body\"><div class=\"lv-title f-15 f-500\">" + row.tenant + "</div>" +
+                                   "<small class=\"lv-small f-12\">" + row.email + "</small>" +
+                                   "<div class=\"icons\"><i class=\"md md-verified-user " + idStatus + "\"></i><i class=\"md md-email " + emailStatus + "\"></i><i class=\"md md-phone-iphone " + phoneStatus + "\"></i><i class=\"md md-account-balance " + bankStatus + "\"></i></div></div></div>";
                         },
                         "amount": function (column, row) {
-                            return "<div class=\"f-500 text-center\">$ " + row.amount + "</div>";
+                            return "<div class=\"f-500 f-15 text-center\">$ " + row.amount + "</div>";
                         },
                         "actions": function (column, row) {
-                            return "<button type=\"button\" class=\"btn btn-icon btn-default command-edit m-r-10\" data-row-id=\"" + row.id + "\"><span class=\"md md-edit\"></span></button> ";
+                            return "<button type=\"button\" class=\"btn btn-icon btn-default command-edit m-r-10\" data-row-id=\"" + row.id + "\"><span class=\"md md-edit\"></span></button> " +
+                                   "<button type=\"button\" class=\"btn btn-icon btn-default command-edit m-r-10\" data-row-id=\"" + row.id + "\"><span class=\"md md-edit\"></span></button> ";
                         },
                     },
                     columnSelection: false,

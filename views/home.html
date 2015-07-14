@@ -12,13 +12,13 @@
 
                 <ul class="actions">
                     <li>
-                        <button class="btn btn-xs btn-defalt" data-ng-click="pctrl.home.bnkPrmt = 1; pctrl.home.idPrmt = 0; pctrl.home.propPrmt = 0;">1</button>
+                        <button class="btn btn-xs btn-default" data-ng-click="pctrl.home.bnkPrmt = 0; pctrl.home.idPrmt = 1; pctrl.home.propPrmt = 0;">1</button>
                     </li>
                     <li>
-                        <button class="btn btn-xs btn-default" data-ng-click="pctrl.home.bnkPrmt = 0; pctrl.home.idPrmt = 1; pctrl.home.propPrmt = 0;">2</button>
+                        <button class="btn btn-xs btn-default" data-ng-click="pctrl.home.bnkPrmt = 1; pctrl.home.idPrmt = 0; pctrl.home.propPrmt = 0;">2</button>
                     </li>
                     <li>
-                        <button class="btn btn-xs btn-defult" data-ng-click="pctrl.home.bnkPrmt = 0; pctrl.home.idPrmt = 0; pctrl.home.propPrmt = 1;">3</button>
+                        <button class="btn btn-xs btn-default" data-ng-click="pctrl.home.bnkPrmt = 0; pctrl.home.idPrmt = 0; pctrl.home.propPrmt = 1;">3</button>
                     </li>
                     <li class="dropdown">
                         <a href="" data-toggle="dropdown">
@@ -95,7 +95,7 @@
                         <p><a class="btn btn-primary btn-lg" data-ui-sref="pages.profile.profile-about" role="button">Get Started <i class="md md-arrow-forward m-l-5"></i></a></p>
                     </div>
 
-                    <div class="col-xs-12 col-sm-5 homePromptCard" id="addBank" data-ng-if="pctrl.home.bnkPrmt === 1">
+                    <div class="col-xs-12 col-sm-5 homePromptCard" id="addBank" data-ng-if="pctrl.home.bnkPrmt === 1" data-ng-click="pctrl.goTo('2')">
                         <div class="card z-depth-1">
                             <div class="card-header text-center p-5">
                                 <i class="md md-2x md-add-circle-outline c-blue m-r-5" style="line-height:78px;"></i><i class="md md-4x md-business c-blue "></i>
@@ -122,20 +122,20 @@
                         </div>
                     </div>
 
-                    <div class="col-xs-12 col-sm-5 homePromptCard" id="profile" data-ng-if="pctrl.home.idPrmt === 1">
-                        <div class="card z-depth-1">
-                            <div class="card-header text-center p-5">
-                                <i class="md md-2x md-add-circle-outline c-blue m-r-5" style="line-height:78px;"></i><i class="md md-4x md-person c-blue "></i>
-                                <h2 class="f-22">Complete Your Profile</h2>
-                            </div>
+                    <div class="col-xs-12 col-sm-5 homePromptCard" id="profile" data-ng-if="pctrl.home.idPrmt === 1" data-ng-click="pctrl.goTo('1')">
+                        <div class=" card z-depth-1">
+                        <div class="card-header text-center p-5">
+                            <i class="md md-2x md-add-circle-outline c-blue m-r-5" style="line-height:78px;"></i><i class="md md-4x md-person c-blue "></i>
+                            <h2 class="f-22">Complete Your Profile</h2>
+                        </div>
 
-                            <div class="card-body card-padding text-center p-t-5">
-                                <p>Before accepting payments, please complete your profile. Click here to begin.</p>
-                            </div>
+                        <div class="card-body card-padding text-center p-t-5">
+                            <p>Before accepting payments, please complete your profile. Click here to begin.</p>
                         </div>
                     </div>
+                    </div>
 
-                    <div class="col-xs-12 col-sm-5 homePromptCard" id="addProp" data-ng-if="pctrl.home.propPrmt === 1">
+                    <div class="col-xs-12 col-sm-5 homePromptCard" id="addProp" data-ng-if="pctrl.home.propPrmt === 1" data-ng-click="pctrl.goTo('3')">
                         <div class="card z-depth-1">
                             <div class="card-header text-center p-5">
                                 <i class="md md-2x md-add-circle-outline c-blue m-r-5" style="line-height:78px;"></i><i class="md md-4x md-business c-blue "></i>
@@ -158,16 +158,17 @@
 <footer id="footer" data-ng-include src="'includes/footer.html'"></footer>
 
 <script>
-    Waves.attach('.jumbotron#welcome .card', ['waves-button', 'waves-float']);
-    Waves.init();
+    //Waves.attach('.jumbotron#welcome .card', ['waves-button', 'waves-float']);
+    //Waves.init();
 
-    $('.jumbotron#welcome .homePromptCard#addBank').click(function () {
+  /*$('.jumbotron#welcome .homePromptCard#addBank').click(function () {
         window.location.href = '#/profile/profile-bankaccounts';
     })
     $('.jumbotron#welcome .homePromptCard#addProp').click(function () {
         window.location.href = '#/add-property';
     })
     $('.jumbotron#welcome .homePromptCard#profile').click(function () {
+        console.log("WTF");
         window.location.href = '#/profile/profile-about';
-    })
+    })*/
 </script>

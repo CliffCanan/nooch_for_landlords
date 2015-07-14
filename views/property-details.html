@@ -25,9 +25,63 @@
             <div class="row">
 
                 <div class="col-xs-12 col-sm-9">
-                    <small>{{pdctrl.getSelectedProp}}</small>
+                    <div class="pull-right">
+                        <small>{{pdctrl.getSelectedProp}}</small>
 
-                    <button class="btn btn-xs btn-default" data-ng-click="pdctrl.getSelectedProp2()">TEST</button>
+                        <button class="btn btn-xs btn-default" data-ng-click="pdctrl.getSelectedProp2()">TEST</button>
+                    </div>
+
+                    <div class="card z-depth-1">
+
+                        <div class="card-header p-b-0">
+                            <h2>Haverford Towers<small>Smaller text with a note about something could go here.</small></h2>
+                        </div>
+
+                        <div class="card-body card-padding">
+                            <div class="row">
+
+                                <div class="col-xs-3">
+                                    <div class="dropdown">
+                                        <a class="btn btn-link btn-block" href="" data-toggle="dropdown">Charge A Tenant <i class="caret m-l-5"></i></a>
+
+                                        <ul class="dropdown-menu dm-icon w-100">
+                                            <li class="dropdown-header">For what?</li>
+                                            <li><a href=""><i class="md md-mail"></i> Security Deposit</a></li>
+                                            <li><a href=""><i class="md md-people"></i> Rent</a></li>
+                                            <li><a href=""><i class="md md-format-list-bulleted"> </i>Damage Fee</a></li>
+                                            <li><a href=""><i class="md md-format-list-bulleted"> </i>Other</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-3">
+                                    <div class="dropdown" >
+                                        <a class="btn btn-primary btn-block" href="" data-toggle="dropdown">Add Unit <i class="caret m-l-5"></i></a>
+
+                                        <ul class="dropdown-menu dm-icon w-100">
+                                            <li class="dropdown-header">-</li>
+                                            <li><a href=""><i class="md md-plus-one"></i> Contacts</a></li>
+                                            <li><a href=""><i class="md md-format-list-bulleted"> </i>Todo Lists</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-3">
+                                    <div class="dropdown">
+                                        <a class="btn btn-primary btn-block" href="" data-toggle="dropdown">Send Message <i class="caret m-l-5"></i></a>
+
+                                        <ul class="dropdown-menu dm-icon w-100">
+                                            <li class="dropdown-header">To Who?</li>
+                                            <li><a href=""><i class="md md-people"></i> All Tenants</a></li>
+                                            <li><a href=""><i class="md md-person"> </i>Pick a Tenant</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
 
                     <div class="card z-depth-1">
 
@@ -40,15 +94,16 @@
                                 <thead>
                                     <tr>
                                         <th data-column-id="id" data-identifier="true" data-visible="false">ID</th>
-                                        <th data-column-id="isNoochUser" data-visible="false"></th>
+                                        <th data-column-id="isEmailVer" data-visible="false"></th>
+                                        <th data-column-id="isPhoneVer" data-visible="false"></th>
                                         <th data-column-id="isIdVerified" data-visible="false"></th>
                                         <th data-column-id="isBankAttached" data-visible="false"></th>
                                         <th data-column-id="email" data-visible="false"></th>
                                         <th data-column-id="unit" data-formatter="unit" data-header-css-class="columnWidth-13pc" data-align="center">Unit #</th>
-                                        <th data-column-id="tenant" data-formatter="user" data-header-css-class="columnWidth-26pc text-center">Tenant</th>
+                                        <th data-column-id="tenant" data-formatter="tenant" data-header-css-class="text-center">Tenant</th>
                                         <th data-column-id="amount" data-formatter="amount" data-header-css-class="columnWidth-13pc" data-align="center">Rent Amount {{ctx.icon}}</th>
                                         <th data-column-id="status" data-formatter="status" data-header-css-class="columnWidth-13pc" data-align="center">Status {{ctx.icon}}</th>
-                                        <th data-column-id="commands" data-formatter="actions" data-sortable="false" data-align="center">Actions</th>
+                                        <th data-column-id="commands" data-formatter="actions" data-sortable="false" data-align="center" data-header-css-class="text-center">Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -56,7 +111,8 @@
                                         <td>1</td>
                                         <td>1</td>
                                         <td>1</td>
-                                        <td>0</td>
+                                        <td>1</td>
+                                        <td>1</td>
                                         <td>j.chestnut@gmail.com</td>
                                         <td>1A</td>
                                         <td>Joey Chestnut</td>
@@ -67,7 +123,8 @@
                                         <td>8</td>
                                         <td>1</td>
                                         <td>1</td>
-                                        <td>0</td>
+                                        <td>1</td>
+                                        <td>1</td>
                                         <td>quinterro.frank@gmail.com</td>
                                         <td>2B</td>
                                         <td>Frank Quinterro</td>
@@ -77,16 +134,18 @@
                                     <tr>
                                         <td>3</td>
                                         <td>1</td>
-                                        <td>1</td>
+                                        <td>0</td>
+                                        <td>0</td>
                                         <td>0</td>
                                         <td>susieR@yahoo.com</td>
                                         <td>5C</td>
                                         <td>Susan Rice</td>
                                         <td>900</td>
-                                        <td>Pending</td>
+                                        <td>Awaiting Payment</td>
                                     </tr>
                                     <tr>
                                         <td>5</td>
+                                        <td>1</td>
                                         <td>1</td>
                                         <td>1</td>
                                         <td>0</td>
@@ -94,12 +153,13 @@
                                         <td>4F</td>
                                         <td>Kareem O'Leary</td>
                                         <td>470</td>
-                                        <td>Paid</td>
+                                        <td>Past Due</td>
                                     </tr>
                                     <tr>
                                         <td>2</td>
-                                        <td>1</td>
-                                        <td>1</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
                                         <td>0</td>
                                         <td>j.chestnut@gmail.com</td>
                                         <td>2C</td>
@@ -111,27 +171,30 @@
                                         <td>4</td>
                                         <td>1</td>
                                         <td>1</td>
+                                        <td>1</td>
                                         <td>0</td>
                                         <td>j.chestnut@gmail.com</td>
                                         <td>9A</td>
                                         <td>Joey Chestnut</td>
                                         <td>800</td>
-                                        <td>Paid</td>
+                                        <td>Past Due</td>
                                     </tr>
                                     <tr>
                                         <td>4</td>
                                         <td>1</td>
                                         <td>1</td>
-                                        <td>0</td>
+                                        <td>1</td>
+                                        <td>1</td>
                                         <td>salvatore.m@gmail.com</td>
                                         <td>13B</td>
                                         <td>Sal Torelli</td>
                                         <td>103 Lancaster Ave</td>
                                         <td>450</td>
-                                        <td>Paid</td>
+                                        <td>Payment Submited</td>
                                     </tr>
                                     <tr>
                                         <td>6</td>
+                                        <td>1</td>
                                         <td>1</td>
                                         <td>1</td>
                                         <td>0</td>
@@ -139,10 +202,11 @@
                                         <td>2C</td>
                                         <td>Joey Chestnut</td>
                                         <td>450</td>
-                                        <td>Paid</td>
+                                        <td>Awaiting Payment</td>
                                     </tr>
                                     <tr>
                                         <td>7</td>
+                                        <td>1</td>
                                         <td>1</td>
                                         <td>1</td>
                                         <td>0</td>
@@ -160,9 +224,10 @@
                 </div>
 
                 <div class="col-xs-12 col-sm-3 propInfoSidebar">
+
                     <div class="card z-depth-1" id="">
 
-                        <div class="card-header">
+                        <div class="card-header bgm-blue">
                             <h2>Property Info</h2>
                         </div>
 
@@ -201,7 +266,7 @@
 
                     <div class="card z-depth-1" id="">
 
-                        <div class="card-header">
+                        <div class="card-header bgm-red">
                             <h2>Past Due Tenants</h2>
                         </div>
 
@@ -217,7 +282,7 @@
 
                     <div class="card z-depth-1" id="">
 
-                        <div class="card-header">
+                        <div class="card-header bgm-green">
                             <h2>Last 5 Payments</h2>
                         </div>
 

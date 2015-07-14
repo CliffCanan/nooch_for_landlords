@@ -23,83 +23,78 @@
             </div>
 
             <div class="row">
-
                 <div class="col-xs-12 col-md-10 col-md-offset-1">
 
                     <!-- Add A Property Widget -->
-					<div class="card z-depth-1 animated zoomInUp">
+                    <div class="card z-depth-1 animated zoomInUp" data-ng-controller="addPropertyCtrl as apctrl">
 
-						<div class="card-header ch-alt">
+                        <div class="card-header ch-alt">
                             <div class="row">
 
-                                <div class="col-xs-3 col-sm-2 headerIcon">
+                                <div class="col-xs-3 col-sm-2 headerIcon" data-ng-click="apctrl.selectMultiUnit()">
                                     <i class="md md-4x md-business"><i class="md md-2x md-plus-one"></i></i>
                                 </div>
 
                                 <div class="col-xs-9 col-sm-10 p-l-0">
                                     <div class="pull-right">
-                                        <a data-ui-sref="properties" class="btn btn-link noExtraWaves">Cancel <i class="md md-backspace m-l-5" style="position:relative;top:1px"></i></a>
+                                        <button data-ng-click="apctrl.cancelGoBack()" class="btn btn-link noExtraWaves"><i class="md md-backspace m-r-5" style="position:relative;top:1px"></i> Cancel</button>
                                     </div>
                                     <h2>Add New Property<small class="">Enter the details for your property.</small></h2>
                                 </div>
 
                             </div>
-						</div>
+                        </div>
 
-                        <div class="card-body card-padding" data-ng-controller="addPropertyCtrl as apctrl">
+                        <div class="card-body card-padding">
 
-                            <form id="addNewProperty" role="form" class="form-horizontal">
+                            <form id="addNewProperty" role="form" class="form-horizontal" data-parsley-validate>
 
-                                <div id="addPropWizard" class="tabbable tabs-left">
+                                <div class="row">
+                                    <div id="example-vertical" class="col-sm-12">
 
-                                    <div id="bar" class="progress progress-striped active m-b-25 m-r-10">
-                                        <div class="bar"></div>
-                                    </div>
+                                        <h3>Step 1:</h3>
+                                        <section>
 
-                                    <ul class="col-xs-12 col-sm-2 p-0">
-                                        <li><a href="#tab1" data-toggle="tab">Step 1</a></li>
-                                        <li><a href="#tab2" data-toggle="tab">Step 2</a></li>
-                                        <li><a href="#tab3" data-toggle="tab">Step 3</a></li>
-                                        <li><a href="#tab4" data-toggle="tab">Step 4</a></li>
-                                    </ul>
-
-                                    <div class="tab-content col-xs-12 col-sm-10 p-l-15 p-t-0">
-
-                                        <div class="tab-pane fade col-sm-10 col-sm-offset-1" id="tab1">
-
-                                            <div class="well well-sm m-b-30">
-                                                <div class="f-500 f-16 text-center">
+                                            <div class="well m-b-10">
+                                                <div class="f-500 f-18 text-center">
                                                     <i class="md md-assignment c-gray m-r-5"></i>
                                                     First, what is the name of your property?
                                                     <br />
-                                                    <span class="f-12 f-400">This can be anything that helps you identify this property.</span>
+                                                    <span class="f-14 f-400">This can be anything that helps you identify this property.</span>
                                                 </div>
                                             </div>
 
-                                            <div class="form-group">
+                                            <div id="step1Feedback">
+                                                <div class="alert alert-danger" role="alert" style="display:none;">
+                                                    <i class="md md-warning m-r-10"></i>So close! Please make sure you enter a name for this property.
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group m-t-30" id="propNameGrp">
                                                 <label for="propertyName" class="col-sm-3 control-label">Property Name</label>
-                                                <div class="col-sm-9 col-md-8 m-b-10">
+                                                <div class="col-sm-9 m-b-10">
                                                     <div class="fg-line">
-                                                        <input type="text" id="propertyName" class="form-control" placeholder="ex: East View Apartments">
+                                                        <input type="text" id="propertyName" class="form-control" placeholder="ex: East View Apartments" data-parsley-minlength="6">
                                                     </div>
+                                                    <span class="md md-check form-control-feedback m-r-10" style="display:none;"></span>
                                                 </div>
                                             </div>
+                                        </section>
 
-                                        </div>
-
-                                        <div class="tab-pane fade col-sm-10 col-sm-offset-1" id="tab2">
-
-                                            <div class="well well-sm m-b-25">
-                                                <div class="f-500 f-16 text-center">
+                                        <h3>Step 2:</h3>
+                                        <section>
+                                            <div class="well m-b-25">
+                                                <div class="f-500 f-18 text-center">
                                                     <i class="md md-assignment c-gray m-r-5"></i>
                                                     Now add a picture for this property:
                                                     <br />
-                                                    <span class="f-12 f-400">This is optional but highly recommended. <i class="md md-thumb-up"></i></span>
+                                                    <span class="f-14 f-400">This is optional but highly recommended. <i class="md md-thumb-up"></i></span>
                                                 </div>
                                             </div>
 
                                             <div class="form-group m-b-10">
                                                 <label for="propertyName" class="col-sm-3 control-label">Property Picture</label>
+
                                                 <div class="col-sm-9 m-b-0">
 
                                                     <div class="fileinput fileinput-new text-center" data-provides="fileinput">
@@ -119,19 +114,24 @@
 
                                                 </div>
                                             </div>
+                                        </section>
 
-                                        </div>
-
-                                        <div class="tab-pane fade col-sm-10 col-sm-offset-1" id="tab3">
-
-                                            <div class="well well-sm m-b-25">
-                                                <div class="f-500 f-16 text-center">
+                                        <h3>Step 3:</h3>
+                                        <section>
+                                            <div class="well m-b-10">
+                                                <div class="f-500 f-18 text-center">
                                                     <i class="md md-place c-gray m-r-5"></i>
                                                     Enter the street address for this property:
                                                 </div>
                                             </div>
 
-                                            <div class="form-group">
+                                            <div id="step3Feedback">
+                                                <div class="alert alert-danger" role="alert" style="display:none;">
+                                                    <i class="md md-warning m-r-10"></i><span>So close! Please make sure you enter a name for this property.</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group m-t-30" id="addressGrp">
                                                 <label for="address" class="col-sm-3 control-label">Address</label>
 
                                                 <div class="form-group col-sm-9 m-b-10">
@@ -139,7 +139,7 @@
                                                     <div class="col-xs-12 m-b-30">
                                                         <div class="form-group fg-float m-0">
                                                             <div class="fg-line">
-                                                                <input type="text" class="form-control">
+                                                                <input type="text" class="form-control" id="address1" maxlength="40">
                                                             </div>
                                                             <label class="fg-label">Street Address</label>
                                                         </div>
@@ -148,7 +148,7 @@
                                                     <div class="col-xs-12 col-sm-6">
                                                         <div class="form-group fg-float m-0">
                                                             <div class="fg-line">
-                                                                <input type="text" class="form-control">
+                                                                <input type="text" class="form-control" id="city" maxlength="25">
                                                             </div>
                                                             <label class="fg-label">City</label>
                                                         </div>
@@ -157,7 +157,7 @@
                                                     <div class="col-xs-12 col-sm-5">
                                                         <div class="form-group fg-float m-0">
                                                             <div class="fg-line">
-                                                                <input type="num" class="form-control" data-input-mask="{mask: '00000'}">
+                                                                <input type="text" class="form-control" id="zipCode" data-input-mask="{mask: '00000'}" maxlength="5">
                                                             </div>
                                                             <label class="fg-label">Zip</label>
                                                         </div>
@@ -165,21 +165,11 @@
                                                 </div>
 
                                             </div>
+                                        </section>
 
-                                            <!--<div class="form-group">
-                            <label for="contactNum" class="col-sm-3 control-label">Contact Number</label>
-                            <div class="form-group col-sm-9 m-b-0">
-                                <div class="fg-line">
-                                    <input type="num" id="contactNum" class="form-control" placeholder="ex: (215) 804-4226" data-input-mask="{mask: '(000) 000-0000'}">
-                                </div>
-                            </div>
-                        </div>-->
-
-                                        </div>
-
-                                        <div class="tab-pane fade col-sm-10 col-sm-offset-1" id="tab4">
-
-                                            <div class="form-group text-center" id="singleOrMulti">
+                                        <h3>Step 4:</h3>
+                                        <section>
+                                            <div class="text-center" id="singleOrMulti">
 
                                                 <div class="z-depth-2-bottom animated" id="singleUnit" data-ng-click="apctrl.bnkPrmt = 1">
                                                     <span class=" ">
@@ -194,7 +184,7 @@
                                                     <span class="">or</span>
                                                 </span>
 
-                                                <div class="z-depth-2-bottom animated" id="multiUnit" data-ng-click="apctrl.selectMultiUnit()">
+                                                <div class="z-depth-2-bottom animated" id="multiUnit">
                                                     <span class=""><i class="md md-4x md-business"></i></span>
                                                     <br />
                                                     <p class="">Multiple Units</p>
@@ -240,39 +230,219 @@
                                                 </div>
 
                                             </div>
+                                        </section>
 
-                                            <!--<div class="form-group">
-                            <label class="col-sm-3 control-label">Rent Range <small>Optional</small></label>
-                            <div class="form-group col-sm-9 m-b-0">
-                                <div class="m-t-15 clearfix">
-                                    <div id="rentRangeSlider" class="m-b-15"></div>
-                                    <strong class="pull-left text-muted">$<span id="value-lower"></span></strong>
-                                    <strong class="pull-right text-muted">$<span id="value-upper"></span></strong>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>-->
+                            </form>
 
+                            <!--<form id="addNewProperty" role="form" class="form-horizontal">
+
+                    <div id="addPropWizard" class="tabbable tabs-left">
+
+                        <div id="bar" class="progress progress-striped active m-b-25 m-r-10">
+                            <div class="bar"></div>
+                        </div>
+
+                        <ul class="col-xs-12 col-sm-2 p-0">
+                            <li><a href="#tab1" data-toggle="tab">Step 1</a></li>
+                            <li><a href="#tab2" data-toggle="tab">Step 2</a></li>
+                            <li><a href="#tab3" data-toggle="tab">Step 3</a></li>
+                            <li><a href="#tab4" data-toggle="tab">Step 4</a></li>
+                        </ul>
+
+                        <div class="tab-content col-xs-12 col-sm-10 p-l-15 p-t-0">
+
+                            <div class="tab-pane fade col-sm-10 col-sm-offset-1" id="tab1">
+
+                                <div class="well well-sm m-b-30">
+                                    <div class="f-500 f-16 text-center">
+                                        <i class="md md-assignment c-gray m-r-5"></i>
+                                        First, what is the name of your property?
+                                        <br />
+                                        <span class="f-12 f-400">This can be anything that helps you identify this property.</span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="propertyName" class="col-sm-3 control-label">Property Name</label>
+                                    <div class="col-sm-9 col-md-8 m-b-10">
+                                        <div class="fg-line">
+                                            <input type="text" id="propertyName" class="form-control" placeholder="ex: East View Apartments">
                                         </div>
+                                    </div>
+                                </div>
 
-                                        <ul class="pager wizard p-r-15 col-sm-10 col-sm-offset-1">
-                                            <li class="previous"><a href="#" class="btn btn-default btn-icon-text"><i class="md md-chevron-left"></i> Previous</a></li>
-                                            <li class="next"><a href="#" class="btn btn-primary btn-icon-text">Next Step <i class="md md-chevron-right"></i></a></li>
-                                            <li class="next finish" style="display:none;"><a href="javascript:;" class="btn btn-primary btn-icon-text"><i class="md md-check"></i>Finish</a></li>
-                                        </ul>
+                            </div>
+
+                            <div class="tab-pane fade col-sm-10 col-sm-offset-1" id="tab2">
+
+                                <div class="well well-sm m-b-25">
+                                    <div class="f-500 f-16 text-center">
+                                        <i class="md md-assignment c-gray m-r-5"></i>
+                                        Now add a picture for this property:
+                                        <br />
+                                        <span class="f-12 f-400">This is optional but highly recommended. <i class="md md-thumb-up"></i></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group m-b-10">
+                                    <label for="propertyName" class="col-sm-3 control-label">Property Picture</label>
+                                    <div class="col-sm-9 m-b-0">
+
+                                        <div class="fileinput fileinput-new text-center" data-provides="fileinput">
+                                            <div class="fileinput-new thumbnail" style="width: 300px; height: auto;">
+                                                <img src="img/300x200.gif" alt="Default">
+                                            </div>
+                                            <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 300px; max-height: 200px;"></div>
+                                            <div>
+                                                <span class="btn btn-primary btn-file">
+                                                    <span class="fileinput-new">Select image</span>
+                                                    <span class="fileinput-exists">Change</span>
+                                                    <input type="file" name="...">
+                                                </span>
+                                                <a href="#" class="btn btn-danger fileinput-exists" data-dismiss="fileinput">Remove</a>
+                                            </div>
+                                        </div>
 
                                     </div>
                                 </div>
 
+                            </div>
 
-                                <div class="clearfix">
+                            <div class="tab-pane fade col-sm-10 col-sm-offset-1" id="tab3">
+
+                                <div class="well well-sm m-b-25">
+                                    <div class="f-500 f-16 text-center">
+                                        <i class="md md-place c-gray m-r-5"></i>
+                                        Enter the street address for this property:
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="address" class="col-sm-3 control-label">Address</label>
+
+                                    <div class="form-group col-sm-9 m-b-10">
+
+                                        <div class="col-xs-12 m-b-30">
+                                            <div class="form-group fg-float m-0">
+                                                <div class="fg-line">
+                                                    <input type="text" class="form-control">
+                                                </div>
+                                                <label class="fg-label">Street Address</label>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-xs-12 col-sm-6">
+                                            <div class="form-group fg-float m-0">
+                                                <div class="fg-line">
+                                                    <input type="text" class="form-control">
+                                                </div>
+                                                <label class="fg-label">City</label>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-xs-12 col-sm-5">
+                                            <div class="form-group fg-float m-0">
+                                                <div class="fg-line">
+                                                    <input type="num" class="form-control" data-input-mask="{mask: '00000'}">
+                                                </div>
+                                                <label class="fg-label">Zip</label>
+                                            </div>
+                                        </div>
+                                    </div>
 
                                 </div>
 
-                            </form>
+
+
+                            </div>
+
+                            <div class="tab-pane fade col-sm-10 col-sm-offset-1" id="tab4">
+
+                                <div class="form-group text-center" id="singleOrMulti">
+
+                                    <div class="z-depth-2-bottom animated" id="singleUnit" data-ng-click="apctrl.bnkPrmt = 1">
+                                        <span class=" ">
+                                            <i class=" md md-4x md-home">
+                                            </i>
+                                        </span>
+                                        <br />
+                                        <p class="">Single Unit</p>
+                                    </div>
+
+                                    <span class="col-xs-2" id="or">
+                                        <span class="">or</span>
+                                    </span>
+
+                                    <div class="z-depth-2-bottom animated" id="multiUnit" data-ng-click="apctrl.selectMultiUnit()">
+                                        <span class=""><i class="md md-4x md-business"></i></span>
+                                        <br />
+                                        <p class="">Multiple Units</p>
+                                    </div>
+
+                                    <div id="addUnitContainer" class="hidden">
+
+                                        <p class="text-centerf-500">
+                                            Do you want to <span class="f-500">add units</span> for this property now?
+                                            <br />
+                                            <small class="f-13">(You can do this later too.)</small>
+                                        </p>
+
+                                        <div class="m-b-20">
+                                            <button class="btn btn-success btn-icon-text animated bounceIn" data-ng-click="apctrl.addUnit()"><i class="md md-add"></i>Add A Unit</button>
+                                        </div>
+
+                                        <div id="addedUnits">
+
+                                            <div class="templateUnitInput hidden">
+
+                                                <div class="col-xs-6 m-b-10">
+                                                    <div class="fg-float">
+                                                        <div class="fg-line">
+                                                            <input type="text" class="form-control fg-input">
+                                                        </div>
+                                                        <label class="fg-label">Unit #</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-6 m-b-10">
+                                                    <div class="fg-float">
+                                                        <div class="fg-line">
+                                                            <input type="text" class="form-control fg-input">
+                                                        </div>
+                                                        <label class="fg-label">Rent Amount</label>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <ul class="pager wizard p-r-15 col-sm-10 col-sm-offset-1">
+                                <li class="previous"><a href="#" class="btn btn-default btn-icon-text"><i class="md md-chevron-left"></i> Previous</a></li>
+                                <li class="next"><a href="#" class="btn btn-primary btn-icon-text">Next Step <i class="md md-chevron-right"></i></a></li>
+                                <li class="next finish" style="display:none;"><a href="javascript:;" class="btn btn-primary btn-icon-text"><i class="md md-check"></i>Finish</a></li>
+                            </ul>
+
+                        </div>
+                    </div>
+
+
+                    <div class="clearfix">
+
+                    </div>
+
+                </form>-->
 
                         </div>
 
-					</div>
+                    </div>
 
                 </div>
 
@@ -291,7 +461,7 @@
 <script>
     $(document).ready(function () {
         // Setup the wizard plugin
-        $('#addPropWizard').bootstrapWizard({
+      /*$('#addPropWizard').bootstrapWizard({
             'tabClass': 'nav nav-tabs',
             onTabClick: function (tab, navigation, index) {
                 return false;
@@ -353,7 +523,7 @@
                     });
                 }
             });
-        });
+        });*/
 
 		// Setup the slider for selecting Rent Range
 		/*$('#rentRangeSlider').noUiSlider({
@@ -371,10 +541,12 @@
 		$('#rentRangeSlider').Link('lower').to($('#value-lower'));
 		$('#rentRangeSlider').Link('upper').to($('#value-upper'), 'html');*/
 
+        
+
         // Focus on Property Name field on page load
 		setTimeout(function () {
 		    $('#propertyName').focus();
-		}, 200);
+		}, 800);
 	});
 
 	// Go Live Alert Dialog after creating a new property

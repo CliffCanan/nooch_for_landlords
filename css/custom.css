@@ -1,4 +1,4 @@
-/**** GENERAL LAYOUT ****/
+/**** TEXT / FONT ****/
 .p-30 {padding:30px !important;}
 .p-t-30 {padding-top:30px !important;}
 .p-r-30 {padding-right:30px !important;}
@@ -32,6 +32,13 @@
 .f-25 {font-size:25px !important;}
 .f-600 {font-weight:600;}
 .form-control {font-size:14px;}
+
+/**** COLORS ****/
+.c-darkblue {
+  color: #1769aa !important;
+}
+
+/**** GENERAL LAYOUT ****/
 .divider {
   height: 10px;
   margin: 1px 0;
@@ -75,9 +82,7 @@ table tr th:first-child.columnWidth-13pc {
     padding-right:2px !important;
     text-align:center;
 }
-#propDetailsTbl .tr th {
-    text-align: center;
-}
+#propDetailsTbl .tr th {text-align: center}
 table .columnWidth-26pc {
     width:26%;
     padding-left:2px !important;
@@ -88,6 +93,14 @@ table img.tableUserPic {
   box-shadow:0 3px 3px -1px rgba(147,149,152,.5);
   max-width:68px;
 }
+table .md-tableHdr {
+  position: absolute;
+  right: -4px;
+  top: 2px;
+  font-size: 15px;
+}
+.bootgrid-table th>.column-header-anchor>.text {margin-right:5px;}
+table tbody td .label {padding: 3px 9px;}
 
 #histTbl > tbody > tr > td,
 #tenantRqstTbl > tbody > tr > td {
@@ -102,6 +115,79 @@ table img.tableUserPic {
   padding: 2px;
 }
 
+#propDetailsTbl.table > thead > tr > th, #propDetailsTbl.table > tbody > tr > th,
+#propDetailsTbl.table > tfoot > tr > th, #propDetailsTbl.table > thead > tr > td,
+#propDetailsTbl.table > tbody > tr > td, #propDetailsTbl.table > tfoot > tr > td {
+  padding: 15px 8px;
+}
+#propDetailsTbl .media-body {overflow:visible;padding-left:10px;}
+#propDetailsTbl tbody .media .icons {
+  margin-top:3px;
+}
+#propDetailsTbl tbody .media .icons i {
+  opacity:.85;
+  font-size:13px;
+  line-height:18px !important;
+  margin-right: 6%;
+  -webkit-transition: 180ms all ease-out;
+  transition: 180ms all ease-out;
+  z-index:99;
+}
+#propDetailsTbl tbody .media .icons i:hover {
+  opacity:.95;
+  -webkit-transform: scale(1.3,1.3);
+  transform: scale(1.3,1.3);
+}
+#propDetailsTbl tbody .media .icons i:hover:after {
+  content:"";
+  background: rgba(32,33,34,.9);
+  border-radius: 4px;
+  color: #ffffff;
+  font-family: Roboto,'Open Sans',sans-serif;
+  font-size: 10px;
+  padding: 3px 10px 4px;
+  position: absolute;
+  left: -20px;
+  bottom: -25px;
+  width: 130px;
+  z-index:999;
+}
+#propDetailsTbl tbody .media .icons .md-email.c-blue:hover:after {
+  content: "Email is verified :-)";
+  width:106px;
+}
+#propDetailsTbl tbody .media .icons .md-phone-iphone.c-blue:hover:after {
+  content: "Phone is verified.";
+  left:-35px;
+  width:100px;
+}
+#propDetailsTbl tbody .media .icons .md-account-balance.c-blue:hover:after {
+  content: "Bank account has been added.";
+  left:-65px;
+  width:160px;
+}
+#propDetailsTbl tbody .media .icons .md-verified-user.c-blue:hover:after {
+  content: "Tenant's ID has been verified.";
+  width: 155px;
+}
+#propDetailsTbl tbody .media .icons .md-email.c-gray:hover:after {
+  content: "Email is not verified yet.";
+  width:150px;
+}
+#propDetailsTbl tbody .media .icons .md-phone-iphone.c-gray:hover:after {
+  content: "Phone is not verified yet.";
+  left:-35px;
+  width:150px;
+}
+#propDetailsTbl tbody .media .icons .md-account-balance.c-gray:hover:after {
+  content: "No bank attached yet.";
+  left:-65px;
+  width:150px;
+}
+#propDetailsTbl tbody .media .icons .md-verified-user.c-gray:hover:after {
+  content: "Tenant's ID not verified.";
+  width:150px;
+}
 /**** LOGIN ****/
 body.login-content:before {
   background: #3fabe1;
@@ -249,6 +335,16 @@ body.login-content:before {
 }
 
 /**** ALERTS / DIALOG BOXES ****/
+.alert {
+  border-radius: 5px;
+  font-size:15px;
+  padding: 10px 25px !important;
+}
+.alert > i.md {
+  font-size: 130%;
+  line-height: 1;
+}
+
 .sweet-alert p {
     font-size:16px;
     font-weight:400;
@@ -283,6 +379,7 @@ body.login-content:before {
 
 /**** HOME ****/
 .homePromptCard {
+  cursor:pointer;
   -webkit-animation-duration: 1s;
   animation-duration: 1s;
   -webkit-animation-fill-mode: both;
@@ -436,18 +533,54 @@ body.login-content:before {
 
 
 /***** For the Wizard Plugin *****/
-#addPropWizard .tab-content {min-height:250px;}
-#addPropWizard .tab-content input {font-size:16px;}
-#addPropWizard .tab-content .control-label {font-size:16px;}
+.wizard, .tabcontrol {
+  top: -15px;
+}
+.wizard .content {
+  min-height:22em;
+}
+.actions > ul > li > a {
+  border-radius:4px;
+}
+.actions > ul > li:last-child > a {
+  color: #333333;
+  background-color: #ffffff;
+  border-color: #cccccc;
+  box-shadow:0 2px 5px 0 rgba(0, 0, 0, 0.12), 0 2px 10px 0 rgba(0, 0, 0, 0.1)
+}
+.actions > ul > li:last-child > a:hover {
+  background-color: #f7f7f7;
+  color: initial;
+}
+.wizard .content .control-label,
+.wizard .content input,
+#addPropWizard .tab-content input,
+#addPropWizard .tab-content .control-label {
+  font-size:16px;
+}
+.wizard.vertical > .actions {
+  margin-top:15px;
+}
+.wizard.vertical > .actions > ul > li:last-child {
+  position:absolute;
+  left:28%;
+}
+.wizard.vertical > .actions > ul > li:not(:last-child) {
+  position:relative;
+}
+
+.wizard .fg-float .fg-label,
 #addPropWizard .tab-content .fg-float .fg-label {
   font-size:15px;
   padding-left:4px;
   top:7px;
 }
+.wizard .fg-float .fg-toggled + .fg-label,
 #addPropWizard .tab-content .fg-float .fg-toggled + .fg-label {
   font-size:11px;
   top:-18px;
 }
+#addPropWizard .tab-content {min-height:250px;}
 .tabs-left > .nav-tabs > li {
   float: none;
 }
@@ -640,28 +773,35 @@ body.login-content:before {
 
 /**** PROPERTY DETAILS ****/
 .propInfoSidebar .card .card-header {
-    padding: 23px 25px 0;
+  padding: 20px 25px;
 }
 .propAddress {
-    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 }
 .propAddress #cityState {
-    display:block;
-    margin-top:4px;
-    position:relative;
-    left:21px;
+  display:block;
+  margin-top:4px;
+  position:relative;
+  left:21px;
+}
+table tbody .unitInTable {
+  border: 1px solid rgba(88,90,92,.3);
+  border-radius: 50%;
+  padding: 12px;
+  background-color: rgba(108,110,112,.1);
+  box-shadow: 0 3px 12px -2px rgba(32,33,34,.2);
+  margin-right:8px;
 }
 
-
 @media screen and (min-width:768px) {
-	.container .jumbotron {
-		padding: 35px 45px;
-	}
+  .container .jumbotron {
+	padding: 35px 45px;
+  }
 
-	#profile-main .pm-overview {max-width:250px !important;}
-	#profile-main .pm-body {padding-left:250px;}
+  #profile-main .pm-overview {max-width:250px !important;}
+  #profile-main .pm-body {padding-left:250px;}
 
-    #addPropWizard .pager {margin-left:8.3333%;}
+  #addPropWizard .pager {margin-left:8.3333%;}
 }
 
 /**** ANIMATIONS ****/

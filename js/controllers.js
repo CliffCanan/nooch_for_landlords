@@ -240,13 +240,205 @@ noochForLandlords
     })
 
     // ADD PROPERTY Page
-    .controller('addPropertyCtrl', function () {
+    .controller('addPropertyCtrl', function ($scope, $compile) {
 
-        this.selectMultiUnit = function () {
+        $("#example-vertical").steps({
+            headerTag: "h3",
+            bodyTag: "section",
+            stepsOrientation: "vertical",
+            transitionEffect: 'slideLeft',
+            transitionEffectSpeed: 400,
+            enableCancelButton: true,
+
+            /* Events */
+            onStepChanging: function (event, currentIndex, newIndex) 
+            {
+                if (newIndex == 0)
+                {
+                    $('.wizard.vertical > .content').animate({ height: "22em" }, 500)
+                }
+
+                // IF going to Step 2
+                if (newIndex == 1)
+                {
+                    if ($('#propertyName').val().length > 4)
+                    {
+                        updateValidationUi(1, null, true);
+
+                        $('.wizard.vertical > .content').animate({ height: "27em" }, 700)
+                        return true;
+                    }
+                    else
+                    {
+                        updateValidationUi(1, null, false);
+                        return false;
+                    }
+                }
+
+                // IF going to Step 3
+                if (newIndex == 2)
+                {
+                    $('.wizard.vertical > .content').animate({ height: "23em" }, 700)
+                    setTimeout(function () {
+                        $('#address1').focus();
+                    }, 700);
+                    return true;
+                }
+
+                // IF going to Step 4
+                if (newIndex == 3)
+                {
+                    // Check Address Field
+                    if ($('#address1').val().length > 4)
+                    {
+                        updateValidationUi(3, 1, true);
+
+                        // Now check City field
+                        if ($('#city').val().length > 4)
+                        {
+                            updateValidationUi(3, 2, true);
+
+                            // Now check ZIP field
+                            if ($('#zipCode').val().length == 5)
+                            {
+                                updateValidationUi(3, 3, true);
+                                $('.wizard.vertical > .content').animate({ height: "27em" }, 700)
+                                return true;
+                            }
+                            else
+                            {
+                                updateValidationUi(3, 3, false);
+                                return false;
+                            }
+                        }
+                        else
+                        {
+                            updateValidationUi(3, 2, false);
+                            return false;
+                        }
+                    }
+                    else
+                    {
+                        updateValidationUi(3, 1, false);
+                        return false;
+                    }
+                }
+
+                // Allways allow previous action even if the current form is not valid!
+                if (currentIndex > newIndex) {
+                    return true;
+                }
+            },
+            onStepChanged: function (event, currentIndex, priorIndex)
+            {
+                
+            },
+            onCanceled: function (event)
+            {
+                cancelAddProp();
+            }
+        });
+
+
+        updateValidationUi = function (step, substep, success)
+        {
+            console.log("Step: " + step + "; substep: " + substep + "; success: " + success);
+            if (step == 1) {
+                if (success == true) {
+                    $('#propNameGrp').removeClass('has-error').addClass('has-success');
+                    $('#propNameGrp .form-control-feedback').fadeIn();
+                    $('#step1Feedback .alert-danger').slideUp('fast');
+                }
+                else {
+                    $('.form-group#propNameGrp').removeClass('has-success').addClass('has-error');
+                    $('#step1Feedback .alert-danger').slideDown('fast');
+
+                    setTimeout(function () {
+                        $('#propertyName').focus();
+                    }, 200);
+                }
+            }
+
+            else if (step == 3)
+            {
+                if (substep == 1)
+                {
+                    if (success != true) {
+                        $('#addressGrp').removeClass('has-success').addClass('has-error');
+                        $('#step3Feedback span').html('Please enter the <strong>street address</strong> for this property!');
+                        $('#step3Feedback .alert-danger').slideDown('fast');
+                        setTimeout(function () {
+                            $('#address1').focus();
+                        }, 200);
+                    }
+                }
+                else if (substep == 2)
+                {
+                    if (success != true) {
+                        console.log("#1 we are here!");
+                        $('#addressGrp').removeClass('has-success').addClass('has-error');
+                        $('#step3Feedback span').html('Please enter the <strong>city</strong> for this property!');
+                        $('#step3Feedback .alert-danger').slideDown('fast');
+                        setTimeout(function () {
+                            $('#city').focus();
+                        }, 200);
+                    }
+                }
+                else if (substep == 3)
+                {
+                    if (success == true) {
+                        $('#addressGrp').removeClass('has-error').addClass('has-success');
+                        $('#step3Feedback .alert-danger').slideUp('fast');
+                        setTimeout(function () {
+                            var $multiUnitClick = $('#multiUnit').attr('data-ng-click', 'selectMultiUnit()');
+                            $compile($multiUnitClick)($scope);
+                        }, 200);
+                    }
+                    else {
+                        $('#addressGrp').removeClass('has-success').addClass('has-error');
+                        $('#step3Feedback .alert-danger').slideDown('fast');
+                        $('#step3Feedback span').html('Please enter the <strong>ZIP code</strong> for this property!');
+                        setTimeout(function () {
+                            $('#zipCode').focus();
+                        }, 200);
+                    }
+                }
+            }
+        }
+
+        this.cancelGoBack = function () {
+            cancelAddProp();
+        }
+        cancelAddProp = function () {
+            swal({
+                title: "Cancel Adding A Property",
+                text: "Are you sure you want to cancel?  This property will not be added.",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Yes - Cancel",
+                cancelButtonText: "No, go back",
+                closeOnConfirm: true,
+                closeOnCancel: true
+            }, function (isConfirm) {
+                if (isConfirm) {
+                    $('#addNewProperty').addClass('animated').addClass('bounceOut');
+
+                    // Send user back to main Properties page after exist animation completes
+                    setTimeout(function () {
+                        window.location.href = '#/properties';
+                    }, 975);
+                }
+                else { }
+            });
+        }
+
+        $scope.selectMultiUnit = function () {
+            console.log("ARE WE HERE?");
             //$('#singleUnit').addClass('fadeOutLeft');
             $('#singleUnit').css(
-                "margin-left","-250px"
-            );
+                "margin-left", "-250px"
+            ).css("opacity", "0");
             $('#or').css(
                 "margin-left", "-150px"
             );
@@ -304,9 +496,21 @@ noochForLandlords
 
         // Home Layout
         this.home = {
-            "bnkPrmt": 1,
-            "idPrmt": 0,
+            "bnkPrmt": 0,
+            "idPrmt": 1,
             "propPrmt": 0,
+        }
+
+        this.goTo = function(destination) {
+            if (destination == '1') {
+                window.location.href = '#/profile/profile-about';
+            }
+            else if (destination == '2') {
+                window.location.href = '#/profile/profile-bankaccounts';
+            }
+            else if (destination == '3') {
+                window.location.href = '#/add-property';
+            }
         }
 
         // Get Company Info

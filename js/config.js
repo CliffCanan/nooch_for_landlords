@@ -92,16 +92,18 @@ noochForLandlords
                                 files: [
                                     'vendors/bower_components/bootstrap-select/dist/css/bootstrap-select.css',
                                     'vendors/chosen_v1.4.2/chosen.min.css',
+                                    'vendors/bower_components/jquery.steps/build/jquery.steps.css'
                                 ]
                             },
                             {
                                 name: 'vendors',
                                 files: [
-                                    'vendors/bootstrap-wizard/jquery.bootstrap.wizard.min.js',
                                     'vendors/input-mask/input-mask.min.js',
                                     'vendors/bower_components/bootstrap-select/dist/js/bootstrap-select.js',
                                     'vendors/chosen_v1.4.2/chosen.jquery.min.js',
-                                    'vendors/fileinput/fileinput.min.js'
+                                    'vendors/fileinput/fileinput.min.js',
+                                    'vendors/bower_components/jquery.steps/build/jquery.steps.js',
+                                    'vendors/parsleyjs/dist/parsley.min.js',
                                 ]
                             }
                         ])
