@@ -8,6 +8,10 @@
 
         <div class="container" data-ng-controller="propertiesCtrl as propctrl">
 
+            <div data-ng-if="isIdVerified === false">
+                <div data-verify-id-alert></div>
+            </div>
+
             <div class="row m-b-10">
                 <div class="col-xs-12 col-sm-9">
                     <div class="block-header">

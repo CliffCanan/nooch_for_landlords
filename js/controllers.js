@@ -3,7 +3,7 @@ noochForLandlords
     // Base controller for common functions
     // =========================================================================
 
-    .controller('materialadminCtrl', function($timeout, $state, growlService){
+    .controller('noochAdminCtrl', function ($rootScope, $timeout, $state, growlService) {
         //Welcome Message
         growlService.growl('Welcome back Josh!', 'inverse')
         
@@ -30,6 +30,10 @@ noochForLandlords
                 this.sidebarToggle.left = false;
             }
         }
+
+        // Data that needs to be globally accessible (Use sparingly)
+        $rootScope.isIdVerified = false;
+
     })
 
 
@@ -135,7 +139,7 @@ noochForLandlords
 
 
     // =========================================================================
-    // Todo List Widget
+    // Todo List Widget (Came with default Template)
     // =========================================================================
 
     .controller('todoCtrl', function(todoService){
@@ -211,7 +215,6 @@ noochForLandlords
                 element.click(function () {
                     //console.log("DELETE PROPERTY DIRECTIVE");
                     //console.log(element);
-                    //console.log(attrs);
                     //console.log(attrs.propid);
                     var propertyId = attrs.propid;
                     swal({
@@ -242,7 +245,7 @@ noochForLandlords
     // ADD PROPERTY Page
     .controller('addPropertyCtrl', function ($scope, $compile) {
 
-        $("#example-vertical").steps({
+        $("#addPropWiz").steps({
             headerTag: "h3",
             bodyTag: "section",
             stepsOrientation: "vertical",
@@ -469,18 +472,19 @@ noochForLandlords
     // Profile
     //=================================================
 
-    .controller('profileCtrl', function($scope, growlService){
+    .controller('profileCtrl', function($rootScope, $scope, $compile, growlService){
         
-        //Get Profile Information from profileService Service
-        
+        //Get Profile Information from profileService Service (NOT BUILT YET)
+
         // Get User Info
         this.accountStatus = "Identity Verified";
+        this.isIdVerified = $rootScope.isIdVerified;
         this.type = "Landlord";
         this.subtype = "Basic";
         this.firstName = "Josh";
         this.lastName = "Hamilton";
         this.fullName = this.firstName + " " + this.lastName;
-        this.birthDay = "23/06/1982";
+        this.birthDay = "08/05/1988";
         this.mobileNumber = "(215) 711-6789";
         this.isPhoneVerified = 1;
         this.emailAddress = "josh.h@nooch.com";
@@ -491,6 +495,7 @@ noochForLandlords
         this.address1 = "1098 ABC Towers";
         this.addressCity = "Philadelphia, PA";
         this.addressCountry = "United States";
+        this.zip = "27708";
         this.ssnLast4 = "7654";
         this.userPic = "josh";
 
@@ -584,6 +589,209 @@ noochForLandlords
             growlService.growl(message + ' has updated Successfully!', 'success'); 
         }
 
+
+        if ($rootScope.isIdVerified == false) {
+            // SINCE THIS CONTROLLER GETS CALLED ON MULTIPLE PAGES, THIS WILL ATTEMPT TO RUN THE WIZARD ON EVERY PAGE, CAUSING ERRORS SINCE IT'S
+            // ONLY SUPPOSED TO RUN ON THE PROFILE-ABOUT PAGE.  THE INTENT OF THIS BLOCK WAS TO INITIATE THE MODAL W/ THE WIZARD UPON PAGE LOAD
+            // ONLY WHEN ON THE PROFILE-ABOUT PAGE.  BUT I COULDN'T MOVE THE WIZARD CODE TO ANOTHER CONTROLLER BECAUSE I NEED ACCESS TO THE PROFILE
+            // INFO VARIABLES ABOVE... BUT THOSE REALLY SHOULD BE SEPARATED INTO A RE-USABLE 'SERVICE' SO THAT ANY CONTROLLER CAN ACCESS THEM...
+            // NEED TO WORK ON THAT...
+            // runIdWizard();
+        }
+        this.runWizard = function () { runIdWizard(); }
+
+        function runIdWizard() {
+            $('#idVer').modal({
+                'backdrop': 'static',
+            });
+
+            // Setup the ID Verification Wizard
+            // Wizard Plugin Reference: https://github.com/rstaib/jquery-steps/wiki/Settings
+            $("#idVerWiz").steps({
+                headerTag: "h3",
+                bodyTag: "section",
+                stepsOrientation: "horizontal",
+                transitionEffect: 'slideLeft',
+                transitionEffectSpeed: 400,
+
+                /* Events */
+                onInit: function (event, currentIndex) {
+                    $('#idVerWiz > .content').animate({ height: "27em" }, 300)
+
+                    setTimeout(function () {
+                        
+                        $('input#idVer-name').focus();
+
+                        var dobPicker = $('#idVer-dob');
+                        $compile(dobPicker)($scope);
+
+                    },750)
+                },
+                onStepChanging: function (event, currentIndex, newIndex) {
+                    if (newIndex == 0) {
+                        $('#idVerWiz > .content').animate({ height: "29em" }, 500)
+                    }
+
+                    // IF going to Step 2
+                    if (currentIndex == 0) {
+                        // Check Name field for length
+                        if ($('#idVer-name').val().length > 4)
+                        {
+                            var trimmedName = $('#idVer-name').val().trim();
+                            $('#idVer-name').val(trimmedName);
+                            // Check Name Field for a " "
+                            if ($('#idVer-name').val().indexOf(' ') > 1)
+                            {
+                                updateValidationUi("name", true);
+
+                                // Check DOB field
+                                if ($('#idVer-dob').val().length == 10)
+                                {
+                                    updateValidationUi("dob", true);
+
+                                    // Check SSN field
+                                    if ($('#idVer-ssn').val().length == 4)
+                                    {
+                                        updateValidationUi("ssn", true);
+
+                                        // Great, we can finally go to the next step of the wizard :-]
+                                        $('#idVerWiz > .content').animate({ height: "20em" }, 700)
+                                        return true;
+                                    }
+                                    else {
+                                        updateValidationUi("ssn", false);
+                                    }
+                                }
+                                else {
+                                    updateValidationUi("dob", false);
+                                }
+                            }
+                            else {
+                                updateValidationUi("name", false);
+                            }
+                        }
+                        else {
+                            updateValidationUi("name", false);
+                        }
+
+                        return false;
+                    }
+
+                    // IF going to Step 3
+                    if (newIndex == 2) {
+                        // Check Address field
+                        if ($('#idVer-address').val().length > 4) {
+                            updateValidationUi("address", true);
+
+                            // Check ZIP code field
+                            if ($('#idVer-zip').val().length == 5) {
+                                updateValidationUi("zip", true);
+
+                                // Great, go to the next step of the wizard :-]
+                                $('#idVerWiz > .content').animate({ height: "26em" }, 700)
+                                return true;
+                            }
+                            else {
+                                updateValidationUi("zip", false);
+                            }
+                        }
+                        else {
+                            updateValidationUi("address", false);
+                        }
+                    }
+
+                    // Allways allow previous action even if the current form is not valid!
+                    if (currentIndex > newIndex) {
+                        return true;
+                    }
+                },
+                onStepChanged: function (event, currentIndex, priorIndex) {
+                },
+                onCanceled: function (event) {
+                    cancelIdVer();
+                }
+            });
+
+
+            updateValidationUi = function (field, success) {
+                console.log("Field: " + field + "; success: " + success);
+
+                if (success == true)
+                {
+                    $('#' + field + 'Grp .form-group').removeClass('has-error').addClass('has-success');
+                    $('#' + field + 'Grp .help-block').slideUp();
+                }
+
+                else
+                {
+                    $('#' + field + 'Grp .form-group').removeClass('has-success').addClass('has-error');
+
+                    var helpBlockTxt = "";
+                    if (field == "name") {
+                        helpBlockTxt = "Please enter your full legal name.";
+                    }
+                    else if (field == "dob") {
+                        helpBlockTxt = "Please enter your date of birth. We promise nobody ever sees this!"
+                    }
+                    else if (field == "ssn") {
+                        helpBlockTxt = "Please enter just the LAST 4 digits of your SSN. This is used solely to protect your account."
+                    }
+                    else if (field == "address") {
+                        helpBlockTxt = "Please enter the physical street address of where you currently live."
+                    }
+                    else if (field == "zip") {
+                        helpBlockTxt = "Please enter the zip code for the street address above."
+                    }
+
+                    if (!$('#' + field + 'Grp .help-block').length) {
+                        $('#' + field + 'Grp .form-group').append('<small class="help-block" style="display:none">' + helpBlockTxt + '</small>');
+                        $('#' + field + 'Grp .help-block').slideDown();
+                    }
+                    else { $('#' + field + 'Grp .help-block').show() }
+
+                    console.log()
+                    // Now focus on the element that failed validation
+                    setTimeout(function () {
+                        $('#' + field + 'Grp input').focus();
+                    },200)
+                }
+
+            }
+
+
+            cancelIdVer = function () {
+                swal({
+                    title: "Cancel ID Verification",
+                    text: "Are you sure you want to cancel?  You must complete this step before you can begin collecting payments.  It will take less than 60 seconds, and we never share your data with anyone.  Period.",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Yes - Cancel",
+                    cancelButtonText: "No, go back",
+                    closeOnConfirm: true,
+                    closeOnCancel: true
+                }, function (isConfirm) {
+                    if (isConfirm) {
+                    }
+                    else { }
+                });
+            }
+        }
+    })
+
+
+    .controller('profileAboutCtrl', function ($rootScope, $compile) {
+
+    })
+
+
+    // ID Verification Alert
+    .directive('verifyIdAlert', function () {
+        return {
+            restrict: 'A',
+            replace: true,
+            template: '<div class="alert alert-danger alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button><i class="md md-warning m-r-10"></i>Please <a href="index.html#/profile/profile-about" class="alert-link">verify your identity</a> to start accepting payments today!</div>',
+        }
     })
 
     //=================================================
@@ -673,6 +881,13 @@ noochForLandlords
         }
     })
 
+    //=================================================
+    // HISTORY
+    //=================================================
+
+    .controller('historyCtrl', function ($rootScope, $scope) {
+
+    })
 
     //=================================================
     // Account Checklist Widget
@@ -719,7 +934,7 @@ noochForLandlords
         this.forgot = 0;
 
         this.loginAttmpt = function() {
-            window.location.href = 'index.html#/profile/profile-bankaccounts';
+            window.location.href = 'index.html#/profile/profile-about';
         }
     })
 

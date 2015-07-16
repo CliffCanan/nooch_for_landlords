@@ -39,6 +39,7 @@
 }
 
 /**** GENERAL LAYOUT ****/
+a {cursor:pointer;}
 .divider {
   height: 10px;
   margin: 1px 0;
@@ -338,7 +339,16 @@ body.login-content:before {
 .alert {
   border-radius: 5px;
   font-size:15px;
-  padding: 10px 25px !important;
+}
+form .alert {
+  padding: 12px 25px !important;
+}
+.alert-dismissable .close,
+.alert-dismissible .close {
+  position: relative;
+  top: 0px;
+  right: -2px;
+  color: inherit;
 }
 .alert > i.md {
   font-size: 130%;
@@ -359,8 +369,8 @@ body.login-content:before {
 /**** MODALS ****/
 .modal-header .modalclose {
   position: absolute;
-  right: 5%;
-  top: 10px;
+  right: 4%;
+  top: 11px;
 }
 
 /**** TO-DO LIST WIDGET ****/
@@ -415,7 +425,6 @@ body.login-content:before {
 }
 .pmo-stat > .col-xs-6:first-child {
    border-right: 1px solid #eee;
-   padding: 5px 0;
 }
 .pmbb-header  p {
   display: block;
@@ -423,21 +432,138 @@ body.login-content:before {
   margin: 8px 0 20px 30px;
   line-height: 140%;
 }
+.dl-horizontal dt {
+  font-weight:500;
+}
+.dl-horizontal dd {
+  font-weight:300;
+  font-size:15px;
+  }
 .dl-horizontal .label + i {
   position:relative;
   top: 3px;
   font-size:16px;
+}
+.dl-horizontal dt > small {
+  font-size: 13px;
+  display: block;
+  font-weight: 400;
+  letter-spacing: .25px;
 }
 #profileMain .pmbb-body dt button.btn-icon {
     text-transform:none;
     cursor:default;
     margin:0 auto;
 }
+.bootstrap-datetimepicker-widget {
+  top: -20px !important;
+  z-index:9999 !important;
+  background:#fff;
+  min-height:250px;
+}
+.bootstrap-datetimepicker-widget > * > li {
+  list-style-type:none;
+}
 
+
+/** PROFILE - VERIFY ID MDOAL & Wizard**/
+#idVerWiz .content {
+  min-height: 20em;
+  height:27em;
+  box-shadow:0 7px 20px -9px rgba(64,65,66,.45);
+}
+#idVerWiz .content .body {
+    text-align:center;
+}
+#idVerWiz > .steps > ul > li {
+  width: 32%;
+}
+#idVerWiz > .steps .current a {
+    font-size: 15px;
+    padding: 13px 15px;
+}
+#idVerWiz  .form-group {
+  margin-bottom: 20px;
+  -webkit-transition: .25s all ease-in-out;
+  transition: .25s all ease-in-out;
+}
+#idVerWiz  .form-group.has-error {
+  margin-bottom: 2px;
+}
+.form-group .help-block {
+  font-size:13px;
+  font-weight: 400;
+  letter-spacing: .2px;
+  margin-bottom:0px;
+}
+.modal dl {
+  margin-bottom:12px;
+}
+#idVerWiz input#idVer-name {
+  text-transform:capitalize;
+}
+#idVerWiz .input-group .input-group-addon i {
+  position:relative;
+  top:-5px;
+}
+#idVerWiz input#idVer-ssn {
+    padding-left:92px;
+    letter-spacing:1px;
+}
+#idVerWiz #ssnPrefix {
+  position: absolute;
+  left: 5px;
+  bottom: 7px;
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: .75px;
+}
+#idVerWiz .actions {
+  font-size:16px;
+  margin-top:25px;
+}
+#idVerWiz .fileinput .fileinput-preview {
+  width: 180px;
+  height: auto;
+}
+#idVerWiz .fileinput .fileinput-preview img {
+  margin-top: -5px;
+}
+
+/****************************
+/****   MOBILE SCREENS   ****
+ ****************************/
+@media (max-width: 767px) {
+  .modal .modal-body {padding: 0 3px 10px;}
+  #idVer .wizard .content {
+    min-height: 35em;
+  }
+}
+
+
+/******************************
+/*** TABLET & ABOVE SCREENS ***
+ ******************************/
 @media (min-width: 768px) {
-    #profileMain .pmbb-body .dl-horizontal dt {
-        overflow: visible;
-    }
+  #profileMain .pmbb-body .dl-horizontal dt {
+      overflow: visible;
+  }
+
+  .dl-horizontal dd {
+    margin-left: 160px;
+  }
+
+  #profile-main .pmb-block .pmbb-header .actions {
+    right: 20px;
+  }
+
+  .form-group .help-block {
+    font-size:14px;
+  }
+
+  #idVerWiz .content .body {
+    padding: 15px 25px;
+  }
 }
 
 /**** PROFILE - BANKS ****/
@@ -536,7 +662,7 @@ body.login-content:before {
 .wizard, .tabcontrol {
   top: -15px;
 }
-.wizard .content {
+addPropWiz .content {
   min-height:22em;
 }
 .actions > ul > li > a {

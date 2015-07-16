@@ -256,23 +256,6 @@ noochForLandlords
                 templateUrl: 'views/common.html'
             })
 
-            .state ('form.basic-form-elements', {
-                url: '/basic-form-elements',
-                templateUrl: 'views/form-elements.html',
-                resolve: {
-                    loadPlugin: function($ocLazyLoad) {
-                        return $ocLazyLoad.load ([
-                            {
-                                name: 'vendors',
-                                files: [
-                                    'vendors/bower_components/autosize/dist/autosize.min.js'
-                                ]
-                            }
-                        ])
-                    }
-                }
-            })
-
             .state ('form.form-components', {
                 url: '/form-components',
                 templateUrl: 'views/form-components.html',
@@ -373,7 +356,29 @@ noochForLandlords
 
             .state ('profile', {
                 url: '/profile',
-                templateUrl: 'views/profile.html'
+                templateUrl: 'views/profile.html',
+                resolve: {
+                    loadPlugin: function ($ocLazyLoad) {
+                        return $ocLazyLoad.load([
+                            {
+                                name: 'css',
+                                insertBefore: '#app-level',
+                                files: [
+                                    'vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css',
+                                    'vendors/bower_components/jquery.steps/build/jquery.steps.css'
+                                ]
+                            },
+                            {
+                                name: 'vendors',
+                                files: [
+                                    'vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js',
+                                    'vendors/fileinput/fileinput.min.js',
+                                    'vendors/bower_components/jquery.steps/build/jquery.steps.js'
+                                ]
+                            }
+                        ])
+                    }
+                }
             })
 
             .state ('profile.profile-about', {
@@ -388,9 +393,8 @@ noochForLandlords
                                 files: [
                                     'vendors/bower_components/bootstrap-select/dist/css/bootstrap-select.css',
                                     'vendors/chosen_v1.4.2/chosen.min.css',
-                                    'vendors/farbtastic/farbtastic.css',
-                                    'vendors/bower_components/summernote/dist/summernote.css',
-                                    'vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css'
+                                    'vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css',
+                                    'vendors/bower_components/jquery.steps/build/jquery.steps.css'
                                 ]
                             },
                             {
@@ -401,9 +405,8 @@ noochForLandlords
                                     'vendors/chosen_v1.4.2/chosen.jquery.min.js',
                                     'vendors/bower_components/moment/min/moment.min.js',
                                     'vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js',
-                                    'vendors/farbtastic/farbtastic.min.js',
-                                    'vendors/bower_components/summernote/dist/summernote.min.js',
-                                    'vendors/fileinput/fileinput.min.js'
+                                    'vendors/fileinput/fileinput.min.js',
+                                    'vendors/bower_components/jquery.steps/build/jquery.steps.js'
                                 ]
                             }
                         ])
