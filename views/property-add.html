@@ -52,7 +52,7 @@
                                 <div class="row">
                                     <div id="addPropWiz" class="col-sm-12">
 
-                                        <h3>Step 1:</h3>
+                                        <h3>Step 1:  Add A Name</h3>
                                         <section>
 
                                             <div class="well m-b-10">
@@ -81,7 +81,7 @@
                                             </div>
                                         </section>
 
-                                        <h3>Step 2:</h3>
+                                        <h3>Step 2:  Add A Picture</h3>
                                         <section>
                                             <div class="well m-b-25">
                                                 <div class="f-500 f-18 text-center">
@@ -116,7 +116,7 @@
                                             </div>
                                         </section>
 
-                                        <h3>Step 3:</h3>
+                                        <h3>Step 3:  Add An Address</h3>
                                         <section>
                                             <div class="well m-b-10">
                                                 <div class="f-500 f-18 text-center">
@@ -167,7 +167,7 @@
                                             </div>
                                         </section>
 
-                                        <h3>Step 4:</h3>
+                                        <h3>Step 4:  Enter Units</h3>
                                         <section>
                                             <div class="text-center" id="singleOrMulti">
 
@@ -460,7 +460,7 @@
 
 <script>
     $(document).ready(function () {
-        // Setup the wizard plugin
+        // Setup the wizard plugin  (TRIED THIS PLUGIN, BUT DIDN'T LIKE IT, SO USING A DIFFERENT ONE...IT'S SETUP IN 'CONTROLLERS.JS'
       /*$('#addPropWizard').bootstrapWizard({
             'tabClass': 'nav nav-tabs',
             onTabClick: function (tab, navigation, index) {
@@ -524,24 +524,6 @@
                 }
             });
         });*/
-
-		// Setup the slider for selecting Rent Range
-		/*$('#rentRangeSlider').noUiSlider({
-			start: [ 400, 1000 ],
-			connect: true,
-			behaviour: 'drag-tap',
-			margin: 100,
-			step: 50,
-			range: {
-				'min': 100,
-				'max': 2000
-			}
-		});
-
-		$('#rentRangeSlider').Link('lower').to($('#value-lower'));
-		$('#rentRangeSlider').Link('upper').to($('#value-upper'), 'html');*/
-
-        
 
         // Focus on Property Name field on page load
 		setTimeout(function () {

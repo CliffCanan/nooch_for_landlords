@@ -254,7 +254,11 @@ noochForLandlords
             enableCancelButton: true,
 
             /* Events */
-            onStepChanging: function (event, currentIndex, newIndex) 
+            onInit: function (event, curretIndex)
+            {
+                $compile($('.wizard.vertical > .content'))($scope);
+            },
+            onStepChanging: function (event, currentIndex, newIndex)
             {
                 if (newIndex == 0)
                 {
@@ -264,10 +268,11 @@ noochForLandlords
                 // IF going to Step 2
                 if (newIndex == 1)
                 {
-                    if ($('#propertyName').val().length > 4)
+                    if ($('#propertyName').val().length > 3)
                     {
                         updateValidationUi(1, null, true);
 
+                        console.log($('.wizard.vertical > .content').css('height'))
                         $('.wizard.vertical > .content').animate({ height: "27em" }, 700)
                         return true;
                     }
@@ -339,6 +344,39 @@ noochForLandlords
             onCanceled: function (event)
             {
                 cancelAddProp();
+            },
+            onFinished: function (event, currentIndex)
+            {
+                swal({
+                    title: "Awesome - Property Added",
+                    text: "This property has been successfully created.  Would you like to publish it so Nooch users can find it to pay their rent? (You can do this later, too.)",
+                    type: "success",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3fabe1",
+                    confirmButtonText: "Yes, Publish Now",
+                    cancelButtonText: "No, I'll do it later!",
+                    closeOnConfirm: false,
+                    closeOnCancel: false
+                }, function (isConfirm) {
+                    if (isConfirm) {
+                        swal({
+                            title: "You Got It!",
+                            text: "Your property has been published.",
+                            type: "success",
+                        }, function (isConfirm) {
+                            window.location.href = '#/properties';
+                        });
+                    }
+                    else {
+                        swal({
+                            title: "No Problem",
+                            text: "Your property has NOT been published. Before tenants can pay rent for this property, you must publish it, but you can do that later at any time.",
+                            type: "warning",
+                        }, function (isConfirm) {
+                            window.location.href = '#/properties';
+                        });
+                    }
+                });
             }
         });
 
@@ -458,11 +496,13 @@ noochForLandlords
         this.addUnit = function () {
             this.unitInputsShowing += 1;
 
-            var templateUnit = "<div class=\"row\"><div class=\"col-xs-6 m-b-15\"><div class=\"fg-float p-r-10\"><div class=\"fg-line\"><input type=\"text\" class=\"form-control fg-input\" maxlength=\"5\"></div><label class=\"fg-label\">Unit #</label></div></div><div class=\"col-xs-6 m-b-10\"><div class=\"fg-float\"><div class=\"fg-line dollar\"><input type=\"text\" id=\"unit" + this.unitInputsShowing + "\" class=\"form-control fg-input\" maxlength=\"7\"></div><label class=\"fg-label\">Rent Amount</label></div></div></div>";
+            var templateUnit = "<div class=\"row\"><div class=\"col-xs-6 m-b-15\"><div class=\"fg-float p-r-10\"><div class=\"fg-line\"><input type=\"text\" id=\"addUnit_Num\" class=\"form-control fg-input\" maxlength=\"5\"></div><label class=\"fg-label\">Unit #</label></div></div><div class=\"col-xs-6 m-b-10\"><div class=\"fg-float\"><div class=\"fg-line dollar\"><input type=\"text\" id=\"addUnit_Amnt" + this.unitInputsShowing + "\" class=\"form-control fg-input\" maxlength=\"7\"></div><label class=\"fg-label\">Rent Amount</label></div></div></div>";
             var newUnit = "#unit" + this.unitInputsShowing;
 
             $('#addedUnits').append(templateUnit);
 
+            $compile($('#addedUnits input#addUnit_Amnt' + this.unitInputsShowing))($scope);
+            $('#addedUnits input#addUnit_Amnt' + this.unitInputsShowing).mask("#,##0.00", { reverse: true });
             //$(".templateUnitInput").clone().appendTo("#addedUnits");
             //$(".templateUnitInput:last-child").removeClass("templateUnitInput").removeClass("hidden");
         }
@@ -530,7 +570,7 @@ noochForLandlords
         this.unitCount = 18;
         this.tenantRequests = 3;
 
-        //When user Edits one of the sections
+        // When user Edits one of the "Profile - About" sections
         this.editPersonalInfo = 0;
         this.editBusinessInfo = 0;
         this.editContactInfo = 0;
@@ -613,6 +653,11 @@ noochForLandlords
                 stepsOrientation: "horizontal",
                 transitionEffect: 'slideLeft',
                 transitionEffectSpeed: 400,
+
+                /* Labels */
+                labels: {
+                    finish: "Submit"
+                },
 
                 /* Events */
                 onInit: function (event, currentIndex) {
@@ -709,6 +754,31 @@ noochForLandlords
                 },
                 onCanceled: function (event) {
                     cancelIdVer();
+                },
+                onFinishing: function (event, currentIndex) 
+                {
+                    // CHECK TO MAKE SURE ALL FIELDS WERE COMPLETED
+
+                    return true; 
+                },
+                onFinished: function (event, currentIndex) 
+                {
+                    // HIDE THE MODAL CONTAINING THE WIZARD
+                    $('#idVer').modal('hide')
+
+                    // SUBMIT DATA TO NOOCH SERVER
+
+                    // THEN DISPLAY SUCCESS/FAILURE ALERT...
+                    swal({
+                        title: "Awesome - ID Verification Submitted",
+                        text: "You have successfully submitted your information.",
+                        type: "success",
+                        showCancelButton: false,
+                        confirmButtonColor: "#3fabe1",
+                        confirmButtonText: "Terrific",
+                        closeOnConfirm: true,
+                    }, function () {
+                    });
                 }
             });
 
@@ -790,7 +860,7 @@ noochForLandlords
         return {
             restrict: 'A',
             replace: true,
-            template: '<div class="alert alert-danger alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button><i class="md md-warning m-r-10"></i>Please <a href="index.html#/profile/profile-about" class="alert-link">verify your identity</a> to start accepting payments today!</div>',
+            template: '<div class="alert alert-danger alert-dismissible animated flipInX" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button><i class="md md-warning m-r-10"></i>Please <a href="index.html#/profile/profile-about" class="alert-link">verify your identity</a> to start accepting payments today!</div>',
         }
     })
 

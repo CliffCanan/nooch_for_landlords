@@ -39,24 +39,24 @@
                 <div class="pm-overview c-overflow">
 
                     <div class="pmo-pic z-depth-2">
-                        <div class="p-relative">
+                        <div class="p-relative" data-toggle="modal" data-target="#addPic">
                             <a href="">
                                 <img class="img-responsive" src="img/profile-pics/{{pctrl.userPic}}.png" alt="Profile Picture">
                             </a>
 
-                        <!--<div class="dropdown pmop-message">
-                                <button data-toggle="dropdown" class="btn bgm-white btn-float z-depth-1">
-                                    <i class="md md-message"></i>
-                                </button>
+                            <!--<div class="dropdown pmop-message">
+                <button data-toggle="dropdown" class="btn bgm-white btn-float z-depth-1">
+                    <i class="md md-message"></i>
+                </button>
 
-                                <div class="dropdown-menu stop-propagate">
-                                    <textarea placeholder="Write something..."></textarea>
+                <div class="dropdown-menu stop-propagate">
+                    <textarea placeholder="Write something..."></textarea>
 
-                                    <button class="btn bgm-green btn-icon"><i class="md md-send"></i></button>
-                                </div>
-                            </div>-->
+                    <button class="btn bgm-green btn-icon"><i class="md md-send"></i></button>
+                </div>
+            </div>-->
 
-                            <a data-toggle="modal" data-target="#addPic" class="pmop-edit">
+                            <a class="pmop-edit">
                                 <i class="md md-camera-alt"></i> <span class="hidden-xs">Update Profile Picture</span>
                             </a>
                         </div>
@@ -144,6 +144,7 @@
 
                     <ul class="tab-nav tn-justified" data-ng-include="'includes/profile-menu.html'"></ul>
 
+                    <!-- This is where the other Profile sub-pages are injected (profile-bankaccounts, profile-notifications, etc.)-->
                     <data ui-view></data>
 
                 </div>
@@ -156,17 +157,16 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h4 class="modal-title">Change Profile Picture</h4>
+                        <button type="button" class="btn btn-default btn-icon modalclose" data-dismiss="modal"><i class="md md-close"></i></button>
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body text-center">
 
-                        <p class="f-500 c-black m-b-20">Image Preview</p>
-
-                        <div class="fileinput fileinput-new" data-provides="fileinput">
+                        <div class="fileinput fileinput-new p-0" data-provides="fileinput">
                             <div class="fileinput-preview thumbnail" data-trigger="fileinput">
                                 <img class="img-responsive" src="img/profile-pics/{{pctrl.userPic}}.png">
                             </div>
                             <div>
-                                <span class="btn btn-info btn-file">
+                                <span class="btn btn-primary btn-file">
                                     <span class="fileinput-new">Select image</span>
                                     <span class="fileinput-exists">Change</span>
                                     <input type="file" name="...">
@@ -177,8 +177,7 @@
 
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-link">Save changes</button>
-                        <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-link" data-dismiss="modal">Save</button>
                     </div>
                 </div>
             </div>

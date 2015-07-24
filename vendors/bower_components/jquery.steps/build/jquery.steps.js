@@ -1133,7 +1133,6 @@ function renderTitle(wizard, options, state, header, index)
         uniqueHeaderId = uniqueId + _titleSuffix + index,
         stepCollection = wizard.find(".steps > ul"),
         title = renderTemplate(options.titleTemplate, {
-            index: index + 1,
             title: header.html()
         }),
         stepItem = $("<li role=\"tab\"><a id=\"" + uniqueStepId + "\" href=\"#" + uniqueHeaderId + 
@@ -1709,7 +1708,7 @@ var defaults = $.fn.steps.defaults = {
      * @default "<span class=\"number\">#index#.</span> #title#"
      * @for defaults
      **/
-    titleTemplate: "<span class=\"number\">#index#.</span> #title#",
+    titleTemplate: "#title#",
 
     /**
      * The loading template which will be used to create the loading animation.

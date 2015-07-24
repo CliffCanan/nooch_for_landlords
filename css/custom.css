@@ -39,7 +39,9 @@
 }
 
 /**** GENERAL LAYOUT ****/
-a {cursor:pointer;}
+a,
+.btn,
+.btn * {cursor:pointer;}
 .divider {
   height: 10px;
   margin: 1px 0;
