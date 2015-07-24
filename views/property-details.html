@@ -24,56 +24,60 @@
 
             <div class="row">
 
-                <div class="col-xs-12 col-sm-9">
-                    <div class="pull-right">
-                        <small>{{pdctrl.getSelectedProp}}</small>
-
-                        <button class="btn btn-xs btn-default" data-ng-click="pdctrl.getSelectedProp2()">TEST</button>
-                    </div>
+                <div class="col-xs-12 col-sm-8 col-md-9">
 
                     <div class="card z-depth-1">
 
-                        <div class="card-header p-b-0">
-                            <h2>Haverford Towers<small>Smaller text with a note about something could go here.</small></h2>
+                        <div class="card-header p-b-30">
+                            <h2>Haverford Towers</h2>
+
+                            <div class="propDetails_UnitsTenants c-white">
+                                <span class="bgm-gray m-r-20">
+                                    <i class="md-home c-gray"></i>
+                                    <span class="headline">Units</span>
+                                    <span class="value">8</span>
+                                </span>
+                                <span class="bgm-bluegray m-r-20">
+                                    <i class="md-people c-bluegray"></i>
+                                    <span class="headline">Tenants</span>
+                                    <span class="value">14</span>
+                                </span>
+                                <span class="bgm-purple">
+                                    <i class="md-warning c-purple"></i>
+                                    <span class="headline">Past Due</span>
+                                    <span class="value">2</span>
+                                </span>
+                            </div>
                         </div>
 
-                        <div class="card-body card-padding">
+                        <div class="card-body card-padding p-t-30">
                             <div class="row">
 
-                                <div class="col-xs-3">
+                                <div class="col-xs-4">
                                     <div class="dropdown">
                                         <a class="btn btn-link btn-block" href="" data-toggle="dropdown">Charge A Tenant <i class="caret m-l-5"></i></a>
 
                                         <ul class="dropdown-menu dm-icon w-100">
-                                            <li class="dropdown-header">For what?</li>
-                                            <li><a href=""><i class="md md-mail"></i> Security Deposit</a></li>
-                                            <li><a href=""><i class="md md-people"></i> Rent</a></li>
-                                            <li><a href=""><i class="md md-format-list-bulleted"> </i>Damage Fee</a></li>
-                                            <li><a href=""><i class="md md-format-list-bulleted"> </i>Other</a></li>
+                                            <li class="dropdown-header"><i class="md md-attach-money m-r-5"></i>For what?</li>
+                                            <li><a href=""><i class="md md-lock-outline"></i>Security Deposit</a></li>
+                                            <li><a href=""><i class="md md-today"></i>Rent</a></li>
+                                            <li><a href=""><i class="md md-report"></i>Damage Fee</a></li>
+                                            <li><a href=""><i class="md md-format-list-bulleted"></i>Other</a></li>
                                         </ul>
                                     </div>
                                 </div>
 
-                                <div class="col-xs-3">
-                                    <div class="dropdown" >
-                                        <a class="btn btn-primary btn-block" href="" data-toggle="dropdown">Add Unit <i class="caret m-l-5"></i></a>
-
-                                        <ul class="dropdown-menu dm-icon w-100">
-                                            <li class="dropdown-header">-</li>
-                                            <li><a href=""><i class="md md-plus-one"></i> Contacts</a></li>
-                                            <li><a href=""><i class="md md-format-list-bulleted"> </i>Todo Lists</a></li>
-                                        </ul>
-                                    </div>
+                                <div class="col-xs-4">
+                                    <a class="btn btn-primary btn-block" href=""><i class="md md-add m-r-10"></i>Add Unit</i></a>
                                 </div>
 
-                                <div class="col-xs-3">
+                                <div class="col-xs-4">
                                     <div class="dropdown">
                                         <a class="btn btn-primary btn-block" href="" data-toggle="dropdown">Send Message <i class="caret m-l-5"></i></a>
 
                                         <ul class="dropdown-menu dm-icon w-100">
-                                            <li class="dropdown-header">To Who?</li>
-                                            <li><a href=""><i class="md md-people"></i> All Tenants</a></li>
-                                            <li><a href=""><i class="md md-person"> </i>Pick a Tenant</a></li>
+                                            <li><a href=""><i class="md md-people"></i>To All Tenants</a></li>
+                                            <li><a href=""><i class="md md-person"> </i>Pick 1 Tenant</a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -83,12 +87,12 @@
 
                     </div>
 
-                    <div class="card z-depth-1">
+                    <!-- TABLE OF UNITS -->
+                    <div class="card z-depth-1 p-t-20">
 
-                        <div class="card-header">
-                            <h2>Haverford Towers<small>Smaller text with a note about something could go here.</small></h2>
-                        </div>
-
+                        <!--div class="card-header">
+                        </div>-->
+                        <!-- TABLE CONFIGURATION & SETTINGS ARE IN "js/modules/table.js  -->
                         <div class="card-body table-responsive">
                             <table class="table table-striped table-vmiddle" id="propDetailsTbl" data-bootgrid-prop-details-table>
                                 <thead>
@@ -223,37 +227,88 @@
 
                 </div>
 
-                <div class="col-xs-12 col-sm-3 propInfoSidebar">
+                <div class="col-xs-12 col-sm-4 col-md-3 propInfoSidebar">
 
+                    <!-- PROPERTY INFO CARD -->
                     <div class="card z-depth-1" id="">
 
-                        <div class="card-header bgm-blue">
+                        <div class="card-header p-b-5">
                             <h2>Property Info</h2>
                         </div>
 
-                        <div class="card-body p-25">
+                        <div class="card-body p-15">
 
-                            <div class="propAddress m-b-20 f-15 p-b-20">
-                                <span><i class="md md-place"></i> 123 County Line Rd <br /></span>
-                                <span id="cityState">Philadelphia, PA 19123</span>
+                            <div class="propCard">
+                                <div class="card profile-view">
+
+                                    <div class="pv-header">
+                                        <div class="pv-main">
+                                            <img src="img/property-pics/1.png" alt="Property Picture">
+                                        </div>
+                                    </div>
+
+                                    <div class="pv-body p-b-0">
+
+                                        <h2>Haverford Towers</h2>
+
+                                        <div class="m-10 f-15">
+                                            <span><i class="md md-place"></i> 123 County Line Rd <br /></span>
+                                            <span>Philadelphia, PA 19123</span>
+                                        </div>
+
+                                        <div class="pv-follow">
+                                            <div class="row f-23 f-300">
+                                                <div class="col-xs-6 p-r-5">8<div class="f-14">Units</div></div>
+                                                <div class="col-xs-6 p-l-5">14<div class="f-14">Tenants</div></div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                            
+
+                            <div class="bank-container">
+                                <div class="card-header p-0 m-b-15">
+                                    <h2>Bank Account</h2>
+                                </div>
+
+                                <p class="m-b-5">All rent payments for this property will be deposited into:</p>
+
+                                <div class="m-b-15 text-center">
+                                    <img class="media-object" src="img/bank-icons/boa.png">
+
+                                    <div class="media-body p-b-10">
+
+                                        <div class="">
+                                            <h4 class="media-heading">
+                                                Bank of America
+                                                <span class="label label-primary m-l-5">Primary</span>
+                                            </h4>
+                                            Business Checking - 9876
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="m-t-20 m-b-20 f-16 p-b-20">
+                                    <a class="btn btn-link btn-block noExtraWaves"><i class="md md-add"></i> Add Bank Account</a>
+                                </div>
                             </div>
 
                             <div class="">
-                                <div class="" id="">
+                                <div class="card-header p-0 m-b-15">
+                                    <h2>Amenities</h2>
+                                </div>
 
-                                    <div class="card-header p-0 m-b-20">
-                                        <h2>Amenities</h2>
+                                <div class="card-body text-center">
+
+                                    <div class="m-b-20 f-15 p-b-20">
+                                        <a class="btn btn-link noExtraWaves"><i class="md md-add"></i> Add Amenities</a>
                                     </div>
 
-                                    <div class="card-body text-center">
-
-                                        <div class="m-b-20 f-15 p-b-20">
-                                            <a class="btn btn-link noExtraWaves"><i class="md md-add"></i> Add Amenities</a>
-                                        </div>
-
-                                        <div class="">
-
-                                        </div>
+                                    <div class="">
 
                                     </div>
 
@@ -264,10 +319,11 @@
 
                     </div>
 
-                    <div class="card z-depth-1" id="">
+                    <!-- PAST DUE TENANTS CARD -->
+                    <div class="card z-depth-1" id="pastDueTenants">
 
-                        <div class="card-header bgm-red">
-                            <h2>Past Due Tenants</h2>
+                        <div class="card-header p-b-5">
+                            <h2><i class="md md-thumb-down c-red m-r-10"></i>Past Due Tenants</h2>
                         </div>
 
                         <div class="card-body p-25">
@@ -280,20 +336,23 @@
 
                     </div>
 
-                    <div class="card z-depth-1" id="">
+                    <!-- LAST 5 PAYMENTS CARD -->
+                    <div class="card z-depth-1" id="last5payments">
 
-                        <div class="card-header bgm-green">
-                            <h2>Last 5 Payments</h2>
+                        <div class="card-header p-b-5">
+                            <h2><i class="md md-restore c-green m-r-10"></i>Last 5 Payments</h2>
                         </div>
 
                         <div class="card-body p-25">
 
                             <div class="">
-                                1<br />
-                                2<br />
-                                3<br />
-                                4<br />
-                                5<br />
+                                <ul>
+                                    <li>1</li>
+                                    <li>2</li>
+                                    <li>3</li>
+                                    <li>4</li>
+                                    <li>5</li>
+                                </ul>
                             </div>
 
                         </div>
@@ -348,7 +407,6 @@
             });
         });
 
-        // Focus on Property Name field on page load
 		setTimeout(function () {
 		    //$('#propertyName').focus();
 		}, 200);

@@ -610,12 +610,13 @@ form .alert {
 .bank-container .collapse .card-header {padding: 20px 26px;}
 .bank-container .collapse form > .form-group {margin-bottom:15px;}
 
+#bankAdd .modal-dialog {max-width:560px;}
 #bankAdd iframe {
   border: none;
   display: block;
   height: 660px;
   margin: 0 auto;
-  width: 96%;
+  width: 100%;
 }
 
 .addBank-container {height:999px !important;}
@@ -659,8 +660,7 @@ form .alert {
 #propertiesList.lv-lg .lv-title {font-size:16px;}
 #propertiesList.lv-lg .lv-small {font-size:13px;}
 
-
-/***** For the Wizard Plugin *****/
+/** For the Wizard Plugin **/
 .wizard, .tabcontrol {
   top: -15px;
 }
@@ -811,6 +811,8 @@ addPropWiz .content {
   left: -12px;
   top: 6px;
 }
+
+/*
 .progress {
   height: 16px;
   margin-bottom: 20px;
@@ -898,20 +900,59 @@ addPropWiz .content {
 .progress .bar-info{background-color:#4bb1cf;background-image:-moz-linear-gradient(top,#5bc0de,#339bb9);background-image:-webkit-gradient(linear,0 0,0 100%,from(#5bc0de),to(#339bb9));background-image:-webkit-linear-gradient(top,#5bc0de,#339bb9);background-image:-o-linear-gradient(top,#5bc0de,#339bb9);background-image:linear-gradient(to bottom,#5bc0de,#339bb9);background-repeat:repeat-x;filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff5bc0de',endColorstr='#ff339bb9',GradientType=0)}
 .progress-info.progress-striped .bar,
 .progress-striped .bar-info{background-color:#5bc0de;background-image:-webkit-gradient(linear,0 100%,100% 0,color-stop(0.25,rgba(255,255,255,0.15)),color-stop(0.25,transparent),color-stop(0.5,transparent),color-stop(0.5,rgba(255,255,255,0.15)),color-stop(0.75,rgba(255,255,255,0.15)),color-stop(0.75,transparent),to(transparent));background-image:-webkit-linear-gradient(45deg,rgba(255,255,255,0.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,0.15) 50%,rgba(255,255,255,0.15) 75%,transparent 75%,transparent);background-image:-moz-linear-gradient(45deg,rgba(255,255,255,0.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,0.15) 50%,rgba(255,255,255,0.15) 75%,transparent 75%,transparent);background-image:-o-linear-gradient(45deg,rgba(255,255,255,0.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,0.15) 50%,rgba(255,255,255,0.15) 75%,transparent 75%,transparent);background-image:linear-gradient(45deg,rgba(255,255,255,0.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,0.15) 50%,rgba(255,255,255,0.15) 75%,transparent 75%,transparent)}
-
+*/
 /**** PROPERTY DETAILS ****/
+.propDetails_UnitsTenants {
+  color:white;
+  position: absolute;
+  top:12px;
+  right:26px;
+  z-index:99;
+  width:90%;
+  text-align:right;
+}
+.propDetails_UnitsTenants > span {
+  display: inline-block;
+  padding: 10px 15px 2px;
+  max-width: 150px;
+  width: 49%;
+}
+.propDetails_UnitsTenants .headline {
+  display: block;
+  font-size: 1em;
+  font-weight: 300;
+  text-align: right;
+}
+.propDetails_UnitsTenants .value {
+  font-size: 1.8em;
+  font-weight: 500;
+  margin-top: -6px;
+  display: block;
+  text-align: right;
+}
+.propDetails_UnitsTenants i {
+  background-color:white;
+  border-radius: 50%;
+  float:left;
+  font-size: 25px;
+  display: block;
+  float: left;
+  margin-right: 10px;
+  width: 39px;
+  height: 39px;
+  line-height: 39px;
+  text-align: center;
+  background-clip: padding-box;
+}
 .propInfoSidebar .card .card-header {
   padding: 20px 25px;
 }
-.propAddress {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+.propInfoSidebar .bank-container .media-object {
+  border-radius:8px;
+  max-width:100px;
+  margin: 0 auto 5px;
 }
-.propAddress #cityState {
-  display:block;
-  margin-top:4px;
-  position:relative;
-  left:21px;
-}
+
 table tbody .unitInTable {
   border: 1px solid rgba(88,90,92,.3);
   border-radius: 50%;

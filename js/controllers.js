@@ -272,7 +272,6 @@ noochForLandlords
                     {
                         updateValidationUi(1, null, true);
 
-                        console.log($('.wizard.vertical > .content').css('height'))
                         $('.wizard.vertical > .content').animate({ height: "27em" }, 700)
                         return true;
                     }
@@ -899,7 +898,7 @@ noochForLandlords
                     closeOnCancel: true
                 }, function (isConfirm) {
                     if (isConfirm) {
-                        $('#bankAdd iframe').attr("src", "http://54.201.43.89/noochweb/MyAccounts/Add-Bank.aspx?MemberId=B3A6CF&ll=yes");
+                        $('#bankAdd iframe').attr("src", "http://54.201.43.89/noochweb/trans/Add-Bank.aspx?MemberId=B3A6CF&ll=yes");
                         $('#bankAdd').modal({
                             keyboard: false
                         })
@@ -909,7 +908,7 @@ noochForLandlords
             }
             else 
             {
-                $('#bankAdd iframe').attr("src", "http://54.201.43.89/noochweb/MyAccounts/Add-Bank.aspx?MemberId=B3A6CF&ll=yes");
+                $('#bankAdd iframe').attr("src", "http://54.201.43.89/noochweb/trans/Add-Bank.aspx?MemberId=B3A6CF&ll=yes");
                 $('#bankAdd').modal({
                     keyboard: false
                 })
