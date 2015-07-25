@@ -199,11 +199,121 @@ noochForLandlords
     })
 
     // PROPERTY DETAILS CONTROLLER
-    .controller('propDetailsCtrl', function (propertiesService, propDetailsService) {
-        this.propResult = propertiesService.getProperties(this.id, this.img, this.propName, this.address, this.units, this.tenants);
+    .controller('propDetailsCtrl', function ($compile, $scope, propertiesService, propDetailsService) {
+        //this.propResult = propertiesService.getProperties(this.id, this.img, this.propName, this.address, this.units, this.tenants);
 
-        this.getSelectedProp = propDetailsService.get();
-        this.getSelectedProp2 = propDetailsService.get2();
+        //this.getSelectedProp = propDetailsService.get();
+        //this.getSelectedProp2 = propDetailsService.get2();
+
+        this.chargeTenant = function (e) {
+            $('#chargeTenantModal').modal();
+
+            $('#chargeTenantForm #tenant').val('');
+            $('#chargeTenantForm #amount').val('')
+            $('#chargeTenantForm #tenantGrp').removeClass('has-error').removeClass('has-success');
+            $('#chargeTenantForm #amountGrp').removeClass('has-error').removeClass('has-success');
+            $('#chargeTenantForm #memo').val('');
+
+            if ($('#tenantGrp .help-block').length) {
+                $('#tenantGrp .help-block').slideUp();
+            }
+            if ($('#amountGrp .help-block').length) {
+                $('#amountGrp .help-block').slideUp();
+            }
+
+            $('#chargeTenantForm #amount').mask("#,##0.00", { reverse: true });
+        }
+
+        this.chargeTenant_Submit = function ()
+        {
+            // Check Name field for length
+            if ($('#chargeTenantForm #tenant').val().length > 4)
+            {
+                var trimmedName = $('#chargeTenantForm #tenant').val().trim();
+                $('#chargeTenantForm #tenant').val(trimmedName);
+
+                // Check Name Field for a " "
+                if ($('#chargeTenantForm #tenant').val().indexOf(' ') > 1)
+                {
+                    updateValidationUi("tenant", true);
+
+                    // Check Amount field
+                    if ($('#chargeTenantForm #amount').val().length > 2)
+                    {
+                        updateValidationUi("amount", true);
+
+                        $('#chargeTenantModal').modal('hide');
+
+                        // Finally, submit the data and display success alert
+                        swal({
+                            title: "Payment Request Sent",
+                            text: "Your tenant will be notified about your payment request.  We will update you when they complete the payment.",
+                            type: "success",
+                            showCancelButton: false,
+                            //confirmButtonColor: "#DD6B55",
+                            confirmButtonText: "Awesome",
+                            closeOnConfirm: trimmedName,
+                            closeOnCancel: false
+                        }, function () {
+                        });
+                    }
+                    else
+                    {
+                        updateValidationUi("amount", false);
+                    }
+                }
+                else
+                {
+                    updateValidationUi("tenant", false);
+                }
+            }
+            else
+            {
+                updateValidationUi("tenant", false);
+            }
+        }
+
+        updateValidationUi = function (field, success)
+        {
+            console.log("Field: " + field + "; success: " + success);
+
+            if (success == true)
+            {
+                $('#' + field + 'Grp').removeClass('has-error').addClass('has-success');
+                if ($('#' + field + 'Grp .help-block').length)
+                {
+                    $('#' + field + 'Grp .help-block').slideUp();
+                }
+            }
+
+            else
+            {
+                $('#' + field + 'Grp').removeClass('has-success').addClass('has-error');
+
+                var helpBlockTxt = "";
+                if (field == "tenant") {
+                    helpBlockTxt = "Please enter one of your tenant's full name.";
+                }
+                else if (field == "amount") {
+                    helpBlockTxt = "Please enter an amount!"
+                }
+
+                if (!$('#' + field + 'Grp .help-block').length)
+                {
+                    $('#' + field + 'Grp').append('<small class="help-block col-sm-offset-3 col-sm-9" style="display:none">' + helpBlockTxt + '</small>');
+                    $('#' + field + 'Grp .help-block').slideDown();
+                }
+                else { $('#' + field + 'Grp .help-block').show() }
+
+                console.log()
+                // Now focus on the element that failed validation
+                setTimeout(function () {
+                    $('#' + field + 'Grp input').focus();
+                }, 200)
+            }
+
+        }
+
     })
 
 
@@ -241,6 +351,7 @@ noochForLandlords
             }
         }
     })
+
 
     // ADD PROPERTY Page
     .controller('addPropertyCtrl', function ($scope, $compile) {
@@ -301,7 +412,7 @@ noochForLandlords
                         updateValidationUi(3, 1, true);
 
                         // Now check City field
-                        if ($('#city').val().length > 4)
+                        if ($('#city').val().length > 3)
                         {
                             updateValidationUi(3, 2, true);
 
@@ -916,7 +1027,7 @@ noochForLandlords
         }
     })
 
-    // Delete Property Popup
+    // Delete Bank Account Popup
     .directive('deleteBank', function () {
         return {
             restrict: 'A',

@@ -172,20 +172,6 @@ noochForLandlords
                         "unit": function (column, row) {
                             return "<span class=\"f-600 f-22 c-darkblue unitInTable\">" + row.unit + "</span>";
                         },
-                        "status": function (column, row) {
-                            if (row.status == "Paid" || row.status == "paid" || row.status == "completed") {
-                                return "<span class=\"label label-success\">" + row.status + "</span>";
-                            }
-                            else if (row.status.toLowerCase == "pending") {
-                                return "<span class=\"label label-warning\">" + row.status + "</span>";
-                            }
-                            else if (row.status.toLowerCase() == "past due") {
-                                return "<span class=\"label label-danger\">" + row.status + "</span>";
-                            }
-                            else {
-                                return "<span class=\"label label-warning\">" + row.status + "</span>";
-                            }
-                        },
                         "tenant": function (column, row) {
                             var emailStatus = "c-gray";
                             var phoneStatus = "c-gray";
@@ -203,12 +189,29 @@ noochForLandlords
                                    "<small class=\"lv-small f-12\">" + row.email + "</small>" +
                                    "<div class=\"icons\"><i class=\"md md-verified-user " + idStatus + "\"></i><i class=\"md md-email " + emailStatus + "\"></i><i class=\"md md-phone-iphone " + phoneStatus + "\"></i><i class=\"md md-account-balance " + bankStatus + "\"></i></div></div></div>";
                         },
+                        "status": function (column, row) {
+                            var lastDateText = "<br/><span class=\"lastPaymentDate\">(Last: " + row.lastPaymentDate + ")</span>";
+
+                            if (row.status == "Paid" || row.status == "paid" || row.status == "completed") {
+                                return "<span class=\"label label-success\">" + row.status + "</span>" + lastDateText;
+                            }
+                            else if (row.status.toLowerCase == "pending") {
+                                return "<span class=\"label label-warning\">" + row.status + "</span>" + lastDateText;
+                            }
+                            else if (row.status.toLowerCase() == "past due") {
+                                return "<span class=\"label label-danger\">" + row.status + "</span>" + lastDateText;
+                            }
+                            else {
+                                return "<span class=\"label label-warning\">" + row.status + "</span>" + lastDateText;
+                            }
+                        },
                         "amount": function (column, row) {
                             return "<div class=\"f-500 f-15 text-center\">$ " + row.amount + "</div>";
                         },
                         "actions": function (column, row) {
-                            return "<button type=\"button\" class=\"btn btn-icon btn-default command-edit m-r-10\" data-row-id=\"" + row.id + "\"><span class=\"md md-edit\"></span></button> " +
-                                   "<button type=\"button\" class=\"btn btn-icon btn-default command-edit m-r-10\" data-row-id=\"" + row.id + "\"><span class=\"md md-edit\"></span></button> ";
+                            return "<button type=\"button\" class=\"btn btn-icon btn-default command-edit m-r-10\" data-row-id=\"" + row.id + "-1\"><span class=\"md md-edit\"></span></button> " +
+                                   "<button type=\"button\" class=\"btn btn-icon btn-default command-edit m-r-10\" data-row-id=\"" + row.id + "-2\"><span class=\"md md-today\"></span></button> " +
+                                   "<button type=\"button\" class=\"btn btn-icon btn-default command-edit m-r-10\" data-row-id=\"" + row.id + "-3\"><span class=\"md md-more-vert\"></span></button> ";
                         },
                     },
                     columnSelection: false,

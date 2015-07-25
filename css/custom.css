@@ -30,6 +30,7 @@
 .f-23 {font-size:23px !important;}
 .f-24 {font-size:24px !important;}
 .f-25 {font-size:25px !important;}
+.f-30 {font-size:30px !important;}
 .f-600 {font-weight:600;}
 .form-control {font-size:14px;}
 
@@ -73,6 +74,7 @@ a,
 
 .fg-line input {padding-left:5px;}
 
+.bootstrap-datetimepicker-widget
 /**** TABLES ****/
 table tr th:not(:first-child).columnWidth-13pc {
     width:13%;
@@ -190,6 +192,14 @@ table tbody td .label {padding: 3px 9px;}
 #propDetailsTbl tbody .media .icons .md-verified-user.c-gray:hover:after {
   content: "Tenant's ID not verified.";
   width:150px;
+}
+
+#propDetailsTbl tbody td > .media {min-width:200px;}
+#propDetailsTbl .lastPaymentDate {
+  display: block;
+  color:rgba(108,110,112,.96);
+  margin-top: 5px;
+  font-size: 13px;
 }
 /**** LOGIN ****/
 body.login-content:before {
@@ -458,7 +468,7 @@ form .alert {
     margin:0 auto;
 }
 .bootstrap-datetimepicker-widget {
-  top: -20px !important;
+  top: -25px !important;
   z-index:9999 !important;
   background:#fff;
   min-height:250px;
@@ -922,11 +932,13 @@ addPropWiz .content {
   font-size: 1em;
   font-weight: 300;
   text-align: right;
+  position:relative;
+  top:-4px;
 }
 .propDetails_UnitsTenants .value {
   font-size: 1.8em;
   font-weight: 500;
-  margin-top: -6px;
+  margin-top: -8px;
   display: block;
   text-align: right;
 }
@@ -947,10 +959,54 @@ addPropWiz .content {
 .propInfoSidebar .card .card-header {
   padding: 20px 25px;
 }
+.propInfoSidebar .propCard .pv-main {
+  margin: 0px auto;
+  width: 75%;
+  position: relative;
+  top: 20px;
+  left: 0;
+}
+.propInfoSidebar .propCard .address {
+  list-style-type:none;
+  text-align:left;
+}
+.propInfoSidebar .propCard .address li {
+  margin-bottom:5px;
+}
+.propInfoSidebar .propCard .address li i {
+  position:relative;
+  left:-5px;
+}
+.propInfoSidebar .propCard .address li.address2 {
+  padding-left:19px;
+  position: relative;
+  top: -3px;
+}
 .propInfoSidebar .bank-container .media-object {
   border-radius:8px;
   max-width:100px;
   margin: 0 auto 5px;
+}
+
+#chargeTenantForm .toggle-switch label {
+  top:10px;
+}
+#chargeTenantForm .toggle-switch span:first-child {
+  margin-right: 15px;
+  position: relative;
+  top: 8px;
+}
+#chargeTenantForm .toggle-switch span:last-child {
+  margin-left: 15px;
+  position: relative;
+  top: 8px;
+}
+form.form-lg .form-control,
+form.form-lg .control-label {
+  font-size: 16px;
+}
+form.form-lg .form-group {
+  margin-bottom:40px;
 }
 
 table tbody .unitInTable {
