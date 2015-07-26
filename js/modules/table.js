@@ -209,9 +209,9 @@ noochForLandlords
                             return "<div class=\"f-500 f-15 text-center\">$ " + row.amount + "</div>";
                         },
                         "actions": function (column, row) {
-                            return "<button type=\"button\" class=\"btn btn-icon btn-default command-edit m-r-10\" data-row-id=\"" + row.id + "-1\"><span class=\"md md-edit\"></span></button> " +
+                            return "<button type=\"button\" class=\"btn btn-icon btn-default command-edit m-r-10\" data-row-id=\"" + row.id + "-1\" data-ng-click=\"pdctrl.editUnit($event)\"><span class=\"md md-edit\"></span></button> " +
                                    "<button type=\"button\" class=\"btn btn-icon btn-default command-edit m-r-10\" data-row-id=\"" + row.id + "-2\"><span class=\"md md-today\"></span></button> " +
-                                   "<button type=\"button\" class=\"btn btn-icon btn-default command-edit m-r-10\" data-row-id=\"" + row.id + "-3\"><span class=\"md md-more-vert\"></span></button> ";
+                                   "<button type=\"button\" class=\"btn btn-icon btn-default command-edit m-r-10\" data-row-id=\"" + row.id + "-3\" data-ng-click=\"pdctrl.editUnit($event)\"><span class=\"md md-more-vert\"></span></button> ";
                         },
                     },
                     columnSelection: false,

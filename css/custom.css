@@ -201,6 +201,7 @@ table tbody td .label {padding: 3px 9px;}
   margin-top: 5px;
   font-size: 13px;
 }
+
 /**** LOGIN ****/
 body.login-content:before {
   background: #3fabe1;
@@ -279,6 +280,7 @@ body.login-content:before {
 .login-content .login-navigation {
     position: static;
 }
+
 /**** LEFT SIDEBAR ****/
 #sidebar,
 #sidebar .sidebar-inner {width:230px;}

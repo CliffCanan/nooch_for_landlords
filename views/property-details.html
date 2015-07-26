@@ -14,7 +14,7 @@
 
         <div class="container" data-ng-controller="propDetailsCtrl as pdctrl">
 
-            <div class="block-header hide">
+            <div class="block-header hidden">
                 <div class="row">
                     <div class="col-sm-9 col-lg-8">
                         <h2 class="col-xs-9" style="padding:2px 0;">Add a New Property</h2>
@@ -29,7 +29,7 @@
                     <div class="card z-depth-1">
 
                         <div class="card-header p-b-30">
-                            <h2>Haverford Towers</h2>
+                            <h2>Haverford Towers <small>Published &nbsp;|&nbsp; <a href="">Edit</a></small></h2>
 
                             <div class="propDetails_UnitsTenants c-white">
                                 <span class="bgm-gray m-r-20">
@@ -265,7 +265,7 @@
                         <div class="card-body p-15">
 
                             <div class="propCard">
-                                <div class="card profile-view">
+                                <div class="profile-view">
 
                                     <div class="pv-header">
                                         <div class="pv-main">
@@ -274,7 +274,6 @@
                                     </div>
 
                                     <div class="pv-body p-0 p-b-10">
-
                                         <h2>Haverford Towers</h2>
 
                                         <ul class="p-l-10 m-t-15 f-15 address">
@@ -282,17 +281,45 @@
                                             <li class="address2">Philadelphia, PA 19123</li>
                                             <li><i class="md md-call"></i> (215) 321-9876<br /></li>
                                         </ul>
-
                                     </div>
 
                                 </div>
                             </div>
-                            
+
+                        </div>
+
+                    </div>
+
+                    <!-- PROPERTY INFO CARD -->
+                    <div class="card z-depth-1" id="">
+
+                        <div class="card-header p-b-5">
+                            <h2>Bank Account Info</h2>
+                            <ul class="actions hidden-xs">
+                                <li class="dropdown">
+                                    <a href="" data-toggle="dropdown">
+                                        <i class="md md-more-vert"></i>
+                                    </a>
+
+                                    <ul class="dropdown-menu dropdown-menu-right">
+                                        <li>
+                                            <a href="index.html#/profile/profile-bankaccounts"><i class="md md-account-balance m-r-10"></i>Edit Bank Accounts</a>
+                                        </li>
+                                        <li>
+                                            <a data-ng-click="pdctrl.editAchMemo()"><i class="md md-mode-edit m-r-10"></i>Edit ACH Memo</a>
+                                        </li>
+                                        <li class="divider"></li>
+                                        <li>
+                                            <a data-delete-prop><i class="md md-delete m-r-10"></i>Delete</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="card-body p-15">
 
                             <div class="bank-container">
-                                <div class="card-header p-0 m-b-15">
-                                    <h2>Bank Account</h2>
-                                </div>
 
                                 <p class="m-b-5">All rent payments for this property will be deposited into:</p>
 
@@ -312,26 +339,8 @@
                                     </div>
                                 </div>
 
-                                <div class="m-t-20 m-b-20 f-16 p-b-20">
+                                <div class="f-16">
                                     <a href="index.html#/profile/profile-bankaccounts" class="btn btn-link btn-block noExtraWaves"><i class="md md-add"></i> Add Bank Account</a>
-                                </div>
-                            </div>
-
-                            <div class="">
-                                <div class="card-header p-0 m-b-15">
-                                    <h2>Amenities</h2>
-                                </div>
-
-                                <div class="card-body text-center">
-
-                                    <div class="m-b-20 f-15 p-b-20">
-                                        <a class="btn btn-link noExtraWaves"><i class="md md-add"></i> Add Amenities</a>
-                                    </div>
-
-                                    <div class="">
-
-                                    </div>
-
                                 </div>
                             </div>
 
@@ -454,6 +463,69 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                 <button type="button" id="submitChargeTenant" class="btn btn-primary" ng-click="pdctrl.chargeTenant_Submit()">Submit</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- Modal - Edit ACH Memo -->
+<div class="modal fade" id="editAchModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" data-ng-controller="propDetailsCtrl as pdctrl">
+
+            <div class="modal-header">
+                <h4 class="modal-title">Edit ACH Memo for Haverford Towers <i class="md md-assignment-return md-flip-horizontal text-success m-l-10 f-20"></i></h4>
+                <button type="button" class="btn btn-default btn-icon modalclose" data-dismiss="modal"><i class="md md-close"></i></button>
+            </div>
+
+            <div class="modal-body">
+
+                <form id="editAchMemoForm" class="form-horizontal form-lg" role="form">
+
+                    <div class="well well-sm">
+                        <div class="f-16 m-b-15">When your tenants make a paymet to you, you can edit the text of the memo line that appears on your bank statement.  This is useful to more easily keep track of payments from each tenant in your bank or accounting software.</div>
+                        <div class="row">
+                            <img src="../img/achMemoExample2.png" class="col-xs-12" />
+                        </div>
+                    </div>
+
+                    <div class="form-group" id="achMemoGrp">
+                        <label for="achMemoStyle" class="col-sm-2 control-label">ACH Memo</label>
+                        <div class="col-sm-10">
+                            <div class="radio m-b-15">
+                                <label>
+                                    <input type="radio" name="achMemoStyle" value="">
+                                    <i class="input-helper"></i>
+                                    Property name &nbsp;+&nbsp; Unit number
+                                </label>
+                            </div>
+
+                            <div class="radio m-b-15">
+                                <label>
+                                    <input type="radio" name="achMemoStyle" value="">
+                                    <i class="input-helper"></i>
+                                    Property name &nbsp;+&nbsp; Unit number &nbsp;+&nbsp; Month
+                                </label>
+                            </div>
+
+                            <div class="radio ">
+                                <label>
+                                    <input type="radio" name="achMemoStyle" value="">
+                                    <i class="input-helper"></i>
+                                    Property name &nbsp;+&nbsp; Unit number &nbsp;+&nbsp; Tenant Last Name (space permitting)
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button type="button" id="submitChargeTenant" class="btn btn-primary" ng-click="pdctrl.editAchMemo_submit()">Submit</button>
             </div>
 
         </div>

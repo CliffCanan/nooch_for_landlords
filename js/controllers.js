@@ -314,6 +314,11 @@ noochForLandlords
 
         }
 
+
+        this.editAchMemo = function ()
+        {
+            $('#editAchModal').modal();
+        }
     })
 
 
