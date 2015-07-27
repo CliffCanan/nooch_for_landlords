@@ -74,7 +74,9 @@ a,
 
 .fg-line input {padding-left:5px;}
 
-.bootstrap-datetimepicker-widget
+.jumbotron p {
+  font-weight:300;
+}
 /**** TABLES ****/
 table tr th:not(:first-child).columnWidth-13pc {
     width:13%;
@@ -369,9 +371,14 @@ form .alert {
   line-height: 1;
 }
 
+.sweet-alert h2 {
+  line-height:1.5;
+}
 .sweet-alert p {
-    font-size:16px;
-    font-weight:400;
+  font-size:16px;
+  font-weight:400;
+  line-height:1.4;
+  margin-top:10px;
 }
 .sweet-alert button {
   font-size: 16px;
@@ -429,9 +436,12 @@ form .alert {
     padding: 15px;
 }
 #profAbout > .well h2 {
-    margin: 0;
-    font-size: 20px;
-    font-weight: 200;
+  margin: 0;
+  font-size: 20px;
+  font-weight: 300;
+}
+#profile-main .pmb-block .pmbb-header h2 {
+  font-weight:300;
 }
 .pmo-stat > .col-xs-6 {
    float:none;
@@ -673,7 +683,7 @@ form .alert {
   width:61.9%;
   height: auto;
   bottom: -60px;
-  box-shadow: 0 8px 16px -3px rgba(0, 0, 0, 0.2);
+  box-shadow:0 8px 15px -4px rgba(31,32,33, 0.25);
 }
 .propCard .pv-header > .pv-main > img {max-width:100%;}
 #propertiesList.lv-lg .lv-title {font-size:16px;}
@@ -924,7 +934,6 @@ addPropWiz .content {
 .propDetails_UnitsTenants {
   text-align:right;
 }
-
 .propDetails_UnitsTenants .headline {
   display: block;
   color:#fff;
@@ -942,7 +951,6 @@ addPropWiz .content {
   display: block;
   text-align: right;
 }
-
 .propDetails_UnitsTenants .propDetailsStatBadge > div {
   padding: 12px 15px 5px;
 }
@@ -959,6 +967,17 @@ addPropWiz .content {
   height: 34px;
   line-height: 34px;
   text-align: center;
+}
+.form-horizontal .form-group textarea {
+  padding-top:7px;
+}
+
+.propCard .pmbb-edit {
+  font-size:15px;
+  margin-top:80px;
+}
+.propCard .pmbb-edit dt {
+  padding-left:5px;
 }
 
 @media screen and (min-width:768px)

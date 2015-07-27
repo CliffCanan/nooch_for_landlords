@@ -6879,7 +6879,10 @@ button.close {
 @font-face {
   font-family: roboto;
   src: url('../fonts/roboto/Roboto-Light-webfont.eot');
-  src: url('../fonts/roboto/Roboto-Light-webfont.eot?#iefix') format('embedded-opentype'), url('../fonts/roboto/Roboto-Light-webfont.woff') format('woff'), url('../fonts/roboto/Roboto-Light-webfont.ttf') format('truetype'), url('../fonts/roboto/Roboto-Light-webfont.svg#icon') format('svg');
+  src: url('../fonts/roboto/Roboto-Light-webfont.eot?#iefix') format('embedded-opentype'),
+       url('../fonts/roboto/Roboto-Light-webfont.woff') format('woff'),
+       url('../fonts/roboto/Roboto-Light-webfont.ttf') format('truetype'),
+       url('../fonts/roboto/Roboto-Light-webfont.svg#icon') format('svg');
   font-weight: 300;
   font-style: normal;
 }

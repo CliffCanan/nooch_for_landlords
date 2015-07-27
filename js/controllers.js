@@ -199,7 +199,7 @@ noochForLandlords
     })
 
     // PROPERTY DETAILS CONTROLLER
-    .controller('propDetailsCtrl', function ($compile, $scope, propertiesService, propDetailsService, getTenantsService) {
+    .controller('propDetailsCtrl', function ($compile, $scope, propertiesService, propDetailsService, getTenantsService, growlService) {
         //this.propResult = propertiesService.getProperties(this.id, this.img, this.propName, this.address, this.units, this.tenants);
 
         //this.getSelectedProp = propDetailsService.get();
@@ -222,6 +222,13 @@ noochForLandlords
             "defaultBankNickname": "Business Checking - 9876"
         }
 
+        this.editPropInfo = 0;
+        this.updatePropInfo = function()
+        {
+            this.editPropInfo = 0;
+            growlService.growl('Property info updated Successfully!', 'success');
+        }
+
         // Get list of Tenants for this Property
         $scope.tenantList = getTenantsService.getTenants(this.id, this.name, this.nickname, this.logo, this.last, this.status, this.dateAdded, this.notes, this.primary, this.deleted);
 
@@ -230,15 +237,20 @@ noochForLandlords
         this.dropdownPublishedState = function ()
         {
             var alertTitleTxt, alertBodyTxt, actionBtnTxt, cancelBtnTxt;
+            var isAlreadyPublished = false;
+            var shouldCloseOnConfirm = false;
 
             if ($scope.selectedProperty.published == 1)
             {
+                isAlreadyPublished = true;
+                shouldCloseOnConfirm = true;
                 alertTitleTxt = "Hide This Property?";
                 alertBodyTxt = "You can hide this property if it is inactive or you no longer want this property to be included in search results when a tenant searches for their apartment on Nooch.";
                 actionBtnTxt = "No, Keep It Published";
                 cancelBtnTxt = "Yes, Hide It";
             }
-            else {
+            else
+            {
                 alertTitleTxt = "Publish This Property";
                 alertBodyTxt = "You can publish this property which will make this property be included in search results when a tenant searches for their apartment on Nooch.";
                 actionBtnTxt = "Yes, Publish Now";
@@ -252,27 +264,41 @@ noochForLandlords
                 confirmButtonColor: "#3fabe1",
                 confirmButtonText: actionBtnTxt,
                 cancelButtonText: cancelBtnTxt,
-                closeOnConfirm: false,
+                closeOnConfirm: shouldCloseOnConfirm,
                 closeOnCancel: false
             }, function (isConfirm)
             {
                 if (isConfirm)
                 {
-                    setIsPublished(1);
-                    swal({
-                        title: "You Got It!",
-                        text: "Your property has been published.",
-                        type: "success",
-                    });
+                    if (!isAlreadyPublished)
+                    {
+                        setIsPublished(1);
+                        swal({
+                            title: "You Got It!",
+                            text: "Your property has been published.",
+                            type: "success",
+                        });
+                    }
                 }
                 else
                 {
-                    setIsPublished(0);
-                    swal({
-                        title: "No Problem",
-                        text: "Your property has NOT been published. Before tenants can pay rent for this property, you must publish it, but you can do that later at any time.",
-                        type: "warning",
-                    });
+                    if (isAlreadyPublished)
+                    {
+                        setIsPublished(0);
+                        swal({
+                            title: "No Problem",
+                            text: "Your property has been hidden. Before tenants can pay rent for this property, you must publish it.",
+                            type: "success",
+                        });
+                    }
+                    else
+                    {
+                        swal({
+                            title: "No Problem",
+                            text: "Your property will remain hidden. Before tenants can pay rent for this property, you must publish it.",
+                            type: "warning",
+                        });
+                    }
                 }
             });
         }
@@ -299,7 +325,7 @@ noochForLandlords
             }
 
             var $setUpSelectTenantDropdown = $('#chargeTenantForm #tenantGrp select option:last-child').attr('data-ng-repeat', 'tenant in pdctrl.tenantList.tenants');
-           // $compile($setUpSelectTenantDropdown)($scope);
+            // $compile($setUpSelectTenantDropdown)($scope);
             $('#chargeTenantForm #amount').mask("#,##0.00", { reverse: true });
         }
 
@@ -353,50 +379,11 @@ noochForLandlords
             }
         }
 
-        updateValidationUi = function (field, success)
-        {
-            console.log("Field: " + field + "; success: " + success);
-
-            if (success == true)
-            {
-                $('#' + field + 'Grp').removeClass('has-error').addClass('has-success');
-                if ($('#' + field + 'Grp .help-block').length)
-                {
-                    $('#' + field + 'Grp .help-block').slideUp();
-                }
-            }
-
-            else
-            {
-                $('#' + field + 'Grp').removeClass('has-success').addClass('has-error');
-
-                var helpBlockTxt = "";
-                if (field == "tenant") {
-                    helpBlockTxt = "Please enter one of your tenant's full name.";
-                }
-                else if (field == "amount") {
-                    helpBlockTxt = "Please enter an amount!"
-                }
-
-                if (!$('#' + field + 'Grp .help-block').length)
-                {
-                    $('#' + field + 'Grp').append('<small class="help-block col-sm-offset-3 col-sm-9" style="display:none">' + helpBlockTxt + '</small>');
-                    $('#' + field + 'Grp .help-block').slideDown();
-                }
-                else { $('#' + field + 'Grp .help-block').show() }
-
-                // Now focus on the element that failed validation
-                setTimeout(function () {
-                    $('#' + field + 'Grp input').focus();
-                }, 200)
-            }
-
-        }
-
         // Add Unit Button
         $scope.addUnit = function ()
         {
             $('#addUnitModal input').val('');
+            $('#addUnitModal select').val('');
             $('#addUnitModal #unitNumGrp').removeClass('has-error').removeClass('has-success');
             $('#addUnitModal #monthlyRentGrp').removeClass('has-error').removeClass('has-success');
 
@@ -416,7 +403,7 @@ noochForLandlords
             }, 600)
         }
 
-        this.addUnit_Submit = function ()
+        this.addUnit_submit = function ()
         {
             // Check Unit Number field for length
             if ($('#addUnitModal #unitNum').val().length > 0)
@@ -425,7 +412,7 @@ noochForLandlords
                 $('#addUnitModal #unitNum').val(trimmedName);
                 updateValidationUi("unitNum", true);
 
-                    // Now check Monthly Rent Amount field
+                // Now check Monthly Rent Amount field
                 if ($('#addUnitModal #monthlyRent').val().length > 4)// &&
                     //$('#addUnitModal #monthlyRent').val() > 100)
                 {
@@ -463,11 +450,151 @@ noochForLandlords
             }
         }
 
+        // Send Message Modal
+        this.sendMsg = function(howMany)
+        {
+            // Reset each field
+            $('#sndMsgForm #tenantMsgGrp').removeClass('has-error').removeClass('has-success');
+            $('#sndMsgForm #msgGrp').removeClass('has-error').removeClass('has-success');
+            $('#sndMsgForm #msg').val('');
+
+            if ($('#tenantMsgGrp .help-block').length) {
+                $('#tenantMsgGrp .help-block').slideUp();
+            }
+            if ($('#msgGrp .help-block').length) {
+                $('#msgGrp .help-block').slideUp();
+            }
+
+            if (howMany == "all")
+            {
+                $('#sndMsgForm .well div').text('Enter a message below.  This will be emailed to ALL tenants for this property.');
+                $('#sndMsgForm #tenantMsgGrp').addClass('hidden');
+            }
+            else if (howMany == "1")
+            {
+                $('#sndMsgForm .well div').text('Enter your message and select a tenant to send it to.');
+                $('#sndMsgForm #tenantMsgGrp').removeClass('hidden');
+            }
+
+            $('#sendMsgModal').modal();
+        }
+
+        this.sendMsg_submit = function ()
+        {
+            if ((!$('#sndMsgForm #tenantMsgGrp').hasClass('hidden') && $('#sndMsgForm #tenantMsg').val() != '0') ||
+                  $('#sndMsgForm #tenantMsgGrp').hasClass('hidden'))
+            {
+                // Check Message field for length
+                if ($('#sndMsgForm textarea').val().length > 1)
+                {
+                    var trimmedMsg = $('#sndMsgForm textarea').val().trim();
+                    $('#sndMsgForm textarea').val(trimmedMsg);
+                    updateValidationUi("msg", true);
+
+                    $('#sendMsgModal').modal('hide');
+
+                    // Finally, submit the data and display success alert
+                    swal({
+                        title: "Message Sent",
+                        text: "Your message was sent successfully.",
+                        type: "success",
+                        showCancelButton: false,
+                        confirmButtonColor: "#3FABE1",
+                        confirmButtonText: "Great",
+                        closeOnConfirm: true,
+                    });
+                }
+                else
+                {
+                    updateValidationUi("msg", false);
+                }
+            }
+            else if (!$('#sndMsgForm #tenantMsgGrp').hasClass('hidden'))
+            {
+                updateValidationUi("tenantMsg", false);
+            }
+        }
+
         // Edit ACH Memo for all transactions for this property
-        this.editAchMemo = function () {
+        this.editAchMemo = function ()
+        {
+            // Reset each field
+            $('#achMemoGrp').removeClass('has-error').removeClass('has-success');
+
+            if ($('#achMemoGrp .help-block').length) {
+                $('#achMemoGrp .help-block').slideUp();
+            }
+
             $('#editAchModal').modal();
         }
 
+        this.editAchMemo_submit = function ()
+        {
+            if ($('#editAchModal input[name=achMemoStyle]:checked').length)
+            {
+                updateValidationUi('achMemo', true);
+                $('#editAchModal').modal('hide');
+
+                // Finally, submit the data and display success alert
+                swal({
+                    title: "Roger That",
+                    text: "Your ACH Memo settings have been udpated successfully.",
+                    type: "success",
+                    showCancelButton: false,
+                    confirmButtonColor: "#3FABE1",
+                    confirmButtonText: "Great",
+                    closeOnConfirm: true,
+                });
+            }
+            else
+            {
+                updateValidationUi('achMemo', false);
+            }
+        }
+
+        // Utility Function To Update Form Input's UI for Success/Error (Works for all forms on the Property Details page...like 4 of them)
+        updateValidationUi = function (field, success) {
+            console.log("Field: " + field + "; success: " + success);
+
+            if (success == true) {
+                $('#' + field + 'Grp').removeClass('has-error').addClass('has-success');
+                if ($('#' + field + 'Grp .help-block').length) {
+                    $('#' + field + 'Grp .help-block').slideUp();
+                }
+            }
+
+            else {
+                $('#' + field + 'Grp').removeClass('has-success').addClass('has-error');
+
+                var helpBlockTxt = "";
+                if (field == "tenant") {
+                    helpBlockTxt = "Please enter one of your tenant's full name.";
+                }
+                else if (field == "amount") {
+                    helpBlockTxt = "Please enter an amount!"
+                }
+                else if (field == "tenantMsg") {
+                    helpBlockTxt = "Please select a tenant!"
+                }
+                else if (field == "msg") {
+                    helpBlockTxt = "Please enter a message!"
+                }
+                else if (field == "achMemo") {
+                    helpBlockTxt = "Please select one of the options above."
+                }
+
+                if (!$('#' + field + 'Grp .help-block').length) {
+                    $('#' + field + 'Grp').append('<small class="help-block col-sm-offset-3 col-sm-9" style="display:none">' + helpBlockTxt + '</small>');
+                    $('#' + field + 'Grp .help-block').slideDown();
+                }
+                else { $('#' + field + 'Grp .help-block').show() }
+
+                // Now focus on the element that failed validation
+                setTimeout(function () {
+                    $('#' + field + 'Grp input').focus();
+                }, 200)
+            }
+        }
     })
 
 
@@ -1140,20 +1267,16 @@ noochForLandlords
 
         this.addBank = function ()
         {
-            if (this.bankCount > 0) {
+            if ($scope.bankCount > 0)
+            {
                 var plural = "";
-                var num = "one";
-                if (this.bankCount > 1) {
-                    num = "two"
-                    if (this.bankCount > 2) {
-                        num = "three"
-                    }
+                if ($scope.bankCount > 1) {
                     plural = "s";
                 }
 
                 swal({
                     title: "Add A New Bank?",
-                    text: "You already have " + num + " bank account" + plural + " attached.  Would you like to add another?",
+                    text: "You already have " + $scope.bankCount + " bank account" + plural + " attached.  Would you like to add another?",
                     type: "warning",
                     showCancelButton: true,
                     confirmButtonColor: "#DD6B55",
@@ -1162,7 +1285,8 @@ noochForLandlords
                     closeOnConfirm: true,
                     closeOnCancel: true
                 }, function (isConfirm) {
-                    if (isConfirm) {
+                    if (isConfirm)
+                    {
                         $('#bankAdd iframe').attr("src", "http://54.201.43.89/noochweb/trans/Add-Bank.aspx?MemberId=B3A6CF&ll=yes");
                         $('#bankAdd').modal({
                             keyboard: false
@@ -1180,6 +1304,27 @@ noochForLandlords
             }
         }
 
+        this.makePrimary = function(e) 
+        {
+            var bankName = $(e.target).data('bankname');
+            swal({
+                title: "Make " + bankName + " your Primary Bank Account?",
+                text: "This will change your default bank account.  Any new properties or units you create will be assigned to your new default bank.",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Confirm",
+                cancelButtonText: "Cancel",
+                closeOnConfirm: false,
+                closeOnCancel: true
+            }, function (isConfirm) {
+                if (isConfirm) {
+                    swal("You Got It", bankName + " is now your primary bank account.", "success");
+                }
+            });
+        }
+
+        // For demo purposes to toggle First Time view on/off
         this.toggleBankView = function () {
             console.log("ToggleBankView fired, $scope.bankCount now is: " + $scope.bankCount);
             
@@ -1282,92 +1427,4 @@ noochForLandlords
         this.loginAttmpt = function() {
             window.location.href = 'index.html#/profile/profile-about';
         }
-    })
-
-
-    //=================================================
-    // CALENDAR  (Came w/ default template)
-    //=================================================
-
-    .controller('calendarCtrl', function(){
-
-        //Create and add Action button with dropdown in Calendar header. 
-        this.month = 'month';
-
-        this.actionMenu = '<ul class="actions actions-alt" id="fc-actions">' +
-                            '<li class="dropdown">' +
-                                '<a href="" data-toggle="dropdown"><i class="md md-more-vert"></i></a>' +
-                                '<ul class="dropdown-menu dropdown-menu-right">' +
-                                    '<li class="active">' +
-                                        '<a data-calendar-view="month" href="">Month View</a>' +
-                                    '</li>' +
-                                    '<li>' +
-                                        '<a data-calendar-view="basicWeek" href="">Week View</a>' +
-                                    '</li>' +
-                                    '<li>' +
-                                        '<a data-calendar-view="agendaWeek" href="">Agenda Week View</a>' +
-                                    '</li>' +
-                                    '<li>' +
-                                        '<a data-calendar-view="basicDay" href="">Day View</a>' +
-                                    '</li>' +
-                                    '<li>' +
-                                        '<a data-calendar-view="agendaDay" href="">Agenda Day View</a>' +
-                                    '</li>' +
-                                '</ul>' +
-                            '</div>' +
-                        '</li>';
-
-        //Calendar Event Data
-        this.calendarData = {
-            eventName: ''
-        };
-    
-        //Tags
-        this.tags = [
-            'bgm-teal',
-            'bgm-red',
-            'bgm-pink',
-            'bgm-blue',
-            'bgm-lime',
-            'bgm-green',
-            'bgm-cyan',
-            'bgm-orange',
-            'bgm-purple',
-            'bgm-gray',
-            'bgm-black',
-        ]
-        
-        this.onTagClick = function(tag, $index) {
-            this.activeState = $index;
-            this.activeTagColor = tag;
-        } 
-            
-        //Open new event modal on selecting a day
-        this.onSelect = function(argStart, argEnd) {
-            $('#addNew-event').modal('show');   
-            this.calendarData.getStart = argStart;
-            this.calendarData.getEnd = argEnd;
-        }
-        
-        //Add new event
-        this.addEvent = function() {
-            var tagColor = $('.event-tag > span.selected').data('tag');
-
-            if (this.calendarData.eventName.length > 0) {
-
-                //Render Event
-                $('#calendar').fullCalendar('renderEvent',{
-                    title: this.calendarData.eventName,
-                    start: this.calendarData.getStart,
-                    end:  this.calendarData.getEnd,
-                    allDay: true,
-                    className: this.activeTagColor
-
-                },true ); //Stick the event
-
-                this.activeState = -1;
-                this.calendarData.eventName = '';
-                $('#addNew-event').modal('hide');
-            }
-        }        
     })

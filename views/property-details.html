@@ -30,7 +30,7 @@
 
                         <div class="card-header p-b-15">
                             <div class="row">
-                                <h2 class="col-xs-12 col-md-3">
+                                <h2 class="col-xs-12 col-sm-3 col-lg-4">
                                     Haverford Towers
                                     <small class="hidden-xs" data-ng-if="selectedProperty.published === 1">
                                         Published &nbsp;|&nbsp;
@@ -42,23 +42,23 @@
                                     </small>
                                 </h2>
 
-                                <div class="propDetails_UnitsTenants col-xs-12 col-md-9">
+                                <div class="propDetails_UnitsTenants col-xs-12 col-sm-9 col-lg-8">
                                     <div class="row">
-                                        <div class="col-sm-4 propDetailsStatBadge">
+                                        <div class="col-sm-4 p-r-0 propDetailsStatBadge">
                                             <div class="bgm-gray" data-trigger="hover" data-toggle="popover" data-placement="bottom" data-content="There are a total of {{selectedProperty.units}} active units for {{selectedProperty.name}}." data-original-title="# of Units in {{selectedProperty.name}}">
                                                 <i class="md-home c-gray"></i>
                                                 <span class="headline">Units</span>
                                                 <span class="value">{{selectedProperty.units}}</span>
                                             </div>
                                         </div>
-                                        <div class="col-sm-4 propDetailsStatBadge">
+                                        <div class="col-sm-4 p-l-10 p-r-10 propDetailsStatBadge">
                                             <div class="bgm-bluegray" data-trigger="hover" data-toggle="popover" data-placement="bottom" data-content="You have a total of {{selectedProperty.tenants}} active tenants for {{selectedProperty.name}}." data-original-title="# of Tenants in {{selectedProperty.name}}">
                                                 <i class="md-people c-bluegray"></i>
                                                 <span class="headline">Tenants</span>
                                                 <span class="value">{{selectedProperty.tenants}}</span>
                                             </div>
                                         </div>
-                                        <div class="col-sm-4 propDetailsStatBadge">
+                                        <div class="col-sm-4 p-l-0 propDetailsStatBadge">
                                             <div class="bgm-purple" data-trigger="hover" data-toggle="popover" data-placement="bottom" data-content="Oh no! You still have {{selectedProperty.pastDue}} tenants at {{selectedProperty.name}} that have not paid this month's rent!'." data-original-title="# of Past Due Tenants This Month">
                                                 <i class="md-warning c-purple"></i>
                                                 <span class="headline">Past Due</span>
@@ -75,7 +75,7 @@
 
                                 <div class="col-xs-4">
                                     <div class="dropdown">
-                                        <a class="btn btn-lg btn-success btn-block" data-toggle="dropdown">Charge A Tenant <i class="caret m-l-5"></i></a>
+                                        <a class="btn btn-success btn-block" data-toggle="dropdown">Charge A Tenant <i class="caret m-l-5"></i></a>
 
                                         <ul class="dropdown-menu dm-icon w-100">
                                             <li class="dropdown-header"><i class="md md-attach-money m-r-5"></i>For what?</li>
@@ -88,16 +88,16 @@
                                 </div>
 
                                 <div class="col-xs-4">
-                                    <a class="btn btn-lg btn-default btn-block" data-ng-click="addUnit()"><i class="md md-add m-r-10"></i>Add A Unit</i></a>
+                                    <a class="btn btn-default btn-block" data-ng-click="addUnit()"><i class="md md-add m-r-10"></i>Add A Unit</i></a>
                                 </div>
 
                                 <div class="col-xs-4">
                                     <div class="dropdown">
-                                        <a class="btn btn-lg btn-default btn-block" href="" data-toggle="dropdown"><i class="md md-insert-comment m-r-10"></i> Send Message</i></a>
+                                        <a class="btn btn-default btn-block" href="" data-toggle="dropdown"><i class="md md-insert-comment m-r-10"></i> Send Message</i></a>
 
                                         <ul class="dropdown-menu dm-icon w-100">
-                                            <li><a href=""><i class="md md-people"></i>To All Tenants</a></li>
-                                            <li><a href=""><i class="md md-person"> </i>Pick 1 Tenant</a></li>
+                                            <li><a data-ng-click="pdctrl.sendMsg('all')"><i class="md md-people"></i>To All Tenants</a></li>
+                                            <li><a data-ng-click="pdctrl.sendMsg('1')"><i class="md md-person"></i>Pick 1 Tenant</a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -272,7 +272,7 @@
 
                                     <ul class="dropdown-menu dropdown-menu-right">
                                         <li>
-                                            <a href=""><i class="md md-mode-edit m-r-10"></i>Edit</a>
+                                            <a data-ng-click="pdctrl.editPropInfo = 1"><i class="md md-mode-edit m-r-10"></i>Edit</a>
                                         </li>
                                         <li>
                                             <a data-delete-prop><i class="md md-delete m-r-10"></i>Delete</a>
@@ -293,7 +293,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="pv-body p-0 p-b-10">
+                                    <div class="pv-body p-0 p-b-10" data-ng-if="pdctrl.editPropInfo === 0">
                                         <h2>{{selectedProperty.name}}</h2>
 
                                         <ul class="p-l-10 m-t-15 f-15 address">
@@ -302,6 +302,67 @@
                                             <li><i class="md md-call"></i> {{selectedProperty.contactNumber}}</li>
                                         </ul>
                                     </div>
+
+                                    <form data-ng-submit="pdctrl.updatePropInfo()" class="pmbb-edit text-left" data-ng-if="pdctrl.editPropInfo === 1">
+                                        <dl>
+                                            <dt>Property Name</dt>
+                                            <dd>
+                                                <div class="fg-line">
+                                                    <input data-ng-model="selectedProperty.name" type="text" class="form-control" value="{{ selectedProperty.name }}" placeholder="Property Name">
+                                                </div>
+                                            </dd>
+                                        </dl>
+
+                                        <dl>
+                                            <dt>Address</dt>
+                                            <dd>
+                                                <div class="dtp-container dropdown fg-line">
+                                                    <input data-ng-model="selectedProperty.address1" class="form-control" value="{{ selectedProperty.address1 }}" placeholder="Street Address">
+                                                </div>
+                                            </dd>
+                                        </dl>
+
+                                        <dl>
+                                            <dt>City</dt>
+                                            <dd>
+                                                <div class="dtp-container dropdown fg-line">
+                                                    <input data-ng-model="selectedProperty.city" class="form-control" value="{{ selectedProperty.city }}" placeholder="City">
+                                                </div>
+                                            </dd>
+                                        </dl>
+
+                                        <dl>
+                                            <dt>State</dt>
+                                            <dd>
+                                                <div class="dtp-container dropdown fg-line">
+                                                    <input data-ng-model="selectedProperty.state" class="form-control" value="{{ selectedProperty.state }}" placeholder="State">
+                                                </div>
+                                            </dd>
+                                        </dl>
+
+                                        <dl>
+                                            <dt>Zip</dt>
+                                            <dd>
+                                                <div class="dtp-container dropdown fg-line">
+                                                    <input data-ng-model="selectedProperty.zip" class="form-control" value="{{ selectedProperty.zip }}" placeholder="ZIP Code">
+                                                </div>
+                                            </dd>
+                                        </dl>
+
+                                        <dl>
+                                            <dt>Phone</dt>
+                                            <dd>
+                                                <div class="dtp-container dropdown fg-line">
+                                                    <input data-ng-model="selectedProperty.contactNumber" class="form-control" value="{{ selectedProperty.contactNumber }}" placeholder="Phone">
+                                                </div>
+                                            </dd>
+                                        </dl>
+
+                                        <div class="m-t-25">
+                                            <button class="btn btn-primary" type="submit">Save</button>
+                                            <button class="btn btn-link m-l-10" data-ng-click="pdctrl.editPropInfo = 0">Cancel</button>
+                                        </div>
+                                    </form>
 
                                 </div>
                             </div>
@@ -384,7 +445,7 @@
                     </div>
 
                     <!-- LAST 5 PAYMENTS CARD -->
-                    <div class="card z-depth-1" id="last5payments">
+                <!--<div class="card z-depth-1" id="last5payments">
 
                         <div class="card-header p-b-5">
                             <h2><i class="md md-restore c-green m-r-10"></i>Last 5 Payments</h2>
@@ -404,7 +465,7 @@
 
                         </div>
 
-                    </div>
+                    </div>-->
 
                 </div>
 
@@ -483,8 +544,8 @@
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal"><i class="md md-close m-r-5"></i>Cancel</button>
-                <button type="button" id="submitChargeTenant" class="btn btn-primary" ng-click="pdctrl.chargeTenant_Submit()">Submit</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal"><i class="md md-close m-r-10"></i>Cancel</button>
+                <button type="button" id="submitChargeTenant" class="btn btn-primary" ng-click="pdctrl.chargeTenant_Submit()"><i class="md md-check m-r-10"></i>Submit</button>
             </div>
 
         </div>
@@ -540,7 +601,7 @@
                     </div>
 
                     <div class="form-group" id="tenantGrp">
-                        <label for="tenant" class="col-sm-3 control-label">Tenant<small>Optional</small></label>
+                        <label for="tenant" class="col-sm-3 control-label"><i class="md md-person m-r-5"></i>Tenant<small>Optional</small></label>
                         <div class="col-sm-9">
                             <select data-select-picker data-live-search="true">
                                 <option>Select A Tenant</option>
@@ -579,9 +640,62 @@
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-default pull-left" data-dismiss="modal"><i class="md md-close m-r-5"></i>Cancel</button>
-                <button type="button" id="submitChargeTenant" class="btn btn-primary" ng-click="pdctrl.addUnit_Submit()"><i class="md md-plus-one m-r-5"></i>Save & Add Another</button>
-                <button type="button" id="submitChargeTenant" class="btn btn-primary" ng-click="pdctrl.addUnit_Submit()"><i class="md md-check m-r-5"></i>Save</button>
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal"><i class="md md-close m-r-10"></i>Cancel</button>
+                <button type="button" id="submitChargeTenant" class="btn btn-primary" ng-click="pdctrl.addUnit_submit()"><i class="md md-check m-r-10"></i>Save</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- Modal - Send Message -->
+<div class="modal fade" id="sendMsgModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" data-ng-controller="propDetailsCtrl as pdctrl">
+
+            <div class="modal-header">
+                <h4 class="modal-title">Send A Message<i class="md md-chat text-primary m-l-10"></i></h4>
+                <button type="button" class="btn btn-default btn-icon modalclose" data-dismiss="modal"><i class="md md-close"></i></button>
+            </div>
+
+            <div class="modal-body">
+
+                <form id="sndMsgForm" class="form-horizontal form-lg" role="form">
+
+                    <div class="well text-center">
+                        <div class="f-16">Enter your message and select a tenant to send it to.</div>
+                    </div>
+
+                    <div class="form-group" id="tenantMsgGrp">
+                        <label for="tenantMsg" class="col-sm-3 control-label"><i class="md md-person m-r-5"></i>Tenant</label>
+                        <div class="col-sm-9">
+                            <select id="tenantMsg" data-select-picker data-live-search="true">
+                                <option value="0">Select A Tenant</option>
+                                <option data-ng-repeat="tenant in tenantList.tenants">{{tenant.name}} &nbsp;{{tenant.last4}}</option>
+                                <option>NO TENANT YET</option>
+                                <option>Frank Quinterro &nbsp;(quit.frank@gmail.com)</option>
+                                <option>Kareem O'Leary &nbsp;(lighteningbolt@gmail.com)</option>
+                                <option>Usain Quick &nbsp;(lighteningbolt@gmail.com)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group" id="msgGrp">
+                        <label for="msg" class="col-sm-3 control-label"><i class="md md-mode-edit m-r-5"></i>Message</label>
+                        <div class="col-sm-9">
+                            <div class="fg-line">
+                                <textarea id="msg" rows="4" class="form-control auto-size" data-auto-size placeholder="Enter your message here..." maxlength="1000" required></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal"><i class="md md-close m-r-10"></i>Cancel</button>
+                <button type="button" id="submitChargeTenant" class="btn btn-primary" ng-click="pdctrl.sendMsg_submit()"><i class="md md-check m-r-10"></i>Save</button>
             </div>
 
         </div>

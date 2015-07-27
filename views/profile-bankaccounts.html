@@ -52,7 +52,7 @@
                             <h4 class="media-heading">
                                 {{bank.name}}
                                 <span class="label label-primary m-l-15" data-ng-if="bank.primary === 1 && bank.deleted === 0">Primary</span>
-                                <span class="label label-default m-l-15 f-300" data-ng-if="bankCount > 0 && bank.primary === 0 && bank.deleted === 0">Make Primary</span>
+                                <a class="label label-default m-l-15 f-300" id="bank{{bank.id}}" data-bankName="{{bank.name}}" data-ng-if="bankCount > 0 && bank.primary === 0 && bank.deleted === 0" data-ng-click="bctrl.makePrimary($event)">Make Primary</a>
                             </h4>
                             {{bank.nickname}} - {{bank.last4}}
                             <p class="bank-status">Pending</p>
