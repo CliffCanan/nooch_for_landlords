@@ -231,7 +231,6 @@ noochForLandlords
     // =========================================================================
 
     //Basic
-
     .directive('htmlEditor', function(){
         return {
             restrict: 'A',
@@ -244,8 +243,8 @@ noochForLandlords
         }
     })
 
-    //Edit and Save
 
+    //Edit and Save
     .directive('hecButton', function(){
         return {
             restrict: 'A',
@@ -266,8 +265,8 @@ noochForLandlords
         }
     })
 
-    //Air Mode
 
+    //Air Mode
     .directive('hecAirmod', function(){
         return {
             restrict: 'A',

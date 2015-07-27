@@ -121,9 +121,10 @@ noochForLandlords
                                 name: 'css',
                                 insertBefore: '#app-level',
                                 files: [
-                                    'vendors/bower_components/bootstrap-select/dist/css/bootstrap-select.css',
+                                    'vendors/bower_components/bootstrap-select/dist/css/bootstrap-select.min.css',
                                     'vendors/chosen_v1.4.2/chosen.min.css',
                                     'vendors/bower_components/jquery.bootgrid/dist/jquery.bootgrid.min.css',
+                                    'vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css',
                                 ]
                             },
                             {
@@ -133,7 +134,8 @@ noochForLandlords
                                     'vendors/bower_components/bootstrap-select/dist/js/bootstrap-select.js',
                                     'vendors/chosen_v1.4.2/chosen.jquery.min.js',
                                     'vendors/bower_components/jquery.bootgrid/dist/jquery.bootgrid-override.min.js',
-                                    'vendors/fileinput/fileinput.min.js'
+                                    'vendors/fileinput/fileinput.min.js',
+                                    'vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js',
                                 ]
                             }
                         ])
@@ -303,51 +305,6 @@ noochForLandlords
                 templateUrl: 'views/form-validations.html'
             })
         
-            
-            //------------------------------
-            // USER INTERFACE
-            //------------------------------
-
-            .state ('user-interface', {
-                url: '/user-interface',
-                templateUrl: 'views/common.html'
-            })
-
-            .state ('user-interface.notifications-dialogs', {
-                url: '/notifications-dialogs',
-                templateUrl: 'views/notification-dialog.html'
-            })
-
-            .state('user-interface.media', {
-                url: '/media',
-                templateUrl: 'views/media.html',
-                resolve: {
-                    loadPlugin: function($ocLazyLoad) {
-                        return $ocLazyLoad.load ([
-                            {
-                                name: 'css',
-                                insertBefore: '#app-level',
-                                files: [
-                                    'vendors/bower_components/mediaelement/build/mediaelementplayer.css',
-                                    'vendors/bower_components/lightgallery/light-gallery/css/lightGallery.css'
-                                ]
-                            },
-                            {
-                                name: 'vendors',
-                                files: [
-                                    'vendors/bower_components/mediaelement/build/mediaelement-and-player.js',
-                                    'vendors/bower_components/lightgallery/light-gallery/js/lightGallery.min.js'
-                                ]
-                            }
-                        ])
-                    }
-                }
-            })
-
-            .state ('user-interface.components', {
-                url: '/components',
-                templateUrl: 'views/components.html'
-            })
 
 
             //------------------------------

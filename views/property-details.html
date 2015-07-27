@@ -28,25 +28,45 @@
 
                     <div class="card z-depth-1">
 
-                        <div class="card-header p-b-30">
-                            <h2>Haverford Towers <small>Published &nbsp;|&nbsp; <a href="">Edit</a></small></h2>
+                        <div class="card-header p-b-15">
+                            <div class="row">
+                                <h2 class="col-xs-12 col-md-3">
+                                    Haverford Towers
+                                    <small class="hidden-xs" data-ng-if="selectedProperty.published === 1">
+                                        Published &nbsp;|&nbsp;
+                                        <a data-ng-click="pdctrl.dropdownPublishedState()">Edit</a>
+                                    </small>
+                                    <small class="hidden-xs" data-ng-if="selectedProperty.published === 0">
+                                        <span class="">Not Published</span> &nbsp;|&nbsp;
+                                        <a data-ng-click="pdctrl.dropdownPublishedState()">Edit</a>
+                                    </small>
+                                </h2>
 
-                            <div class="propDetails_UnitsTenants c-white">
-                                <span class="bgm-gray m-r-20">
-                                    <i class="md-home c-gray"></i>
-                                    <span class="headline">Units</span>
-                                    <span class="value">8</span>
-                                </span>
-                                <span class="bgm-bluegray m-r-20">
-                                    <i class="md-people c-bluegray"></i>
-                                    <span class="headline">Tenants</span>
-                                    <span class="value">14</span>
-                                </span>
-                                <span class="bgm-purple">
-                                    <i class="md-warning c-purple"></i>
-                                    <span class="headline">Past Due</span>
-                                    <span class="value">2</span>
-                                </span>
+                                <div class="propDetails_UnitsTenants col-xs-12 col-md-9">
+                                    <div class="row">
+                                        <div class="col-sm-4 propDetailsStatBadge">
+                                            <div class="bgm-gray" data-trigger="hover" data-toggle="popover" data-placement="bottom" data-content="There are a total of {{selectedProperty.units}} active units for {{selectedProperty.name}}." data-original-title="# of Units in {{selectedProperty.name}}">
+                                                <i class="md-home c-gray"></i>
+                                                <span class="headline">Units</span>
+                                                <span class="value">{{selectedProperty.units}}</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4 propDetailsStatBadge">
+                                            <div class="bgm-bluegray" data-trigger="hover" data-toggle="popover" data-placement="bottom" data-content="You have a total of {{selectedProperty.tenants}} active tenants for {{selectedProperty.name}}." data-original-title="# of Tenants in {{selectedProperty.name}}">
+                                                <i class="md-people c-bluegray"></i>
+                                                <span class="headline">Tenants</span>
+                                                <span class="value">{{selectedProperty.tenants}}</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4 propDetailsStatBadge">
+                                            <div class="bgm-purple" data-trigger="hover" data-toggle="popover" data-placement="bottom" data-content="Oh no! You still have {{selectedProperty.pastDue}} tenants at {{selectedProperty.name}} that have not paid this month's rent!'." data-original-title="# of Past Due Tenants This Month">
+                                                <i class="md-warning c-purple"></i>
+                                                <span class="headline">Past Due</span>
+                                                <span class="value">{{selectedProperty.pastDue}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
@@ -55,7 +75,7 @@
 
                                 <div class="col-xs-4">
                                     <div class="dropdown">
-                                        <a class="btn btn-success btn-block" href="" data-toggle="dropdown">Charge A Tenant <i class="caret m-l-5"></i></a>
+                                        <a class="btn btn-lg btn-success btn-block" data-toggle="dropdown">Charge A Tenant <i class="caret m-l-5"></i></a>
 
                                         <ul class="dropdown-menu dm-icon w-100">
                                             <li class="dropdown-header"><i class="md md-attach-money m-r-5"></i>For what?</li>
@@ -68,12 +88,12 @@
                                 </div>
 
                                 <div class="col-xs-4">
-                                    <a class="btn bgm-lightblue btn-block" href=""><i class="md md-add m-r-10"></i>Add Unit</i></a>
+                                    <a class="btn btn-lg btn-default btn-block" data-ng-click="addUnit()"><i class="md md-add m-r-10"></i>Add A Unit</i></a>
                                 </div>
 
                                 <div class="col-xs-4">
                                     <div class="dropdown">
-                                        <a class="btn btn-default btn-block" href="" data-toggle="dropdown"><i class="md md-insert-comment m-r-10"></i> Send Message</i></a>
+                                        <a class="btn btn-lg btn-default btn-block" href="" data-toggle="dropdown"><i class="md md-insert-comment m-r-10"></i> Send Message</i></a>
 
                                         <ul class="dropdown-menu dm-icon w-100">
                                             <li><a href=""><i class="md md-people"></i>To All Tenants</a></li>
@@ -268,18 +288,18 @@
                                 <div class="profile-view">
 
                                     <div class="pv-header">
-                                        <div class="pv-main">
-                                            <img src="img/property-pics/1.png" alt="Property Picture">
+                                        <div class="pv-main" data-toggle="modal" data-target="#editPropPic">
+                                            <img src="img/property-pics/{{selectedProperty.imgUrl}}" alt="Property Picture">
                                         </div>
                                     </div>
 
                                     <div class="pv-body p-0 p-b-10">
-                                        <h2>Haverford Towers</h2>
+                                        <h2>{{selectedProperty.name}}</h2>
 
                                         <ul class="p-l-10 m-t-15 f-15 address">
-                                            <li><i class="md md-place"></i> 123 County Line Rd </li>
-                                            <li class="address2">Philadelphia, PA 19123</li>
-                                            <li><i class="md md-call"></i> (215) 321-9876<br /></li>
+                                            <li><i class="md md-place"></i> {{selectedProperty.address1}}</li>
+                                            <li class="address2">{{selectedProperty.city}}, {{selectedProperty.state}} {{selectedProperty.zip}}</li>
+                                            <li><i class="md md-call"></i> {{selectedProperty.contactNumber}}</li>
                                         </ul>
                                     </div>
 
@@ -290,7 +310,7 @@
 
                     </div>
 
-                    <!-- PROPERTY INFO CARD -->
+                    <!-- BANK INFO CARD -->
                     <div class="card z-depth-1" id="">
 
                         <div class="card-header p-b-5">
@@ -327,15 +347,13 @@
                                     <img class="media-object" src="img/bank-icons/boa.png">
 
                                     <div class="media-body p-b-10">
-
                                         <div class="">
                                             <h4 class="media-heading">
-                                                Bank of America
+                                                {{selectedProperty.defaultBankName}}
                                                 <span class="label label-primary m-l-5">Primary</span>
                                             </h4>
-                                            Business Checking - 9876
+                                            {{selectedProperty.defaultBankNickname}}
                                         </div>
-
                                     </div>
                                 </div>
 
@@ -419,9 +437,13 @@
                     <div class="form-group" id="tenantGrp">
                         <label for="tenant" class="col-sm-3 control-label">To</label>
                         <div class="col-sm-9">
-                            <div class="fg-line">
-                                <input type="text" id="tenant" class="form-control" placeholder="eg. Arnold Palmer" required>
-                            </div>
+                            <select id="tenant" data-select-picker data-live-search="true">
+                                <option>Select A Tenant</option>
+                                <option data-ng-repeat="tenant in tenantList.tenants">{{tenant.name}} &nbsp;{{tenant.last4}}</option>
+                                <option>Frank Quinterro &nbsp;(quit.frank@gmail.com)</option>
+                                <option>Kareem O'Leary &nbsp;(lighteningbolt@gmail.com)</option>
+                                <option>Usain Quick &nbsp;(lighteningbolt@gmail.com)</option>
+                            </select>
                         </div>
                     </div>
 
@@ -461,8 +483,105 @@
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal"><i class="md md-close m-r-5"></i>Cancel</button>
                 <button type="button" id="submitChargeTenant" class="btn btn-primary" ng-click="pdctrl.chargeTenant_Submit()">Submit</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- Modal - Add Unit -->
+<div class="modal fade" id="addUnitModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" data-ng-controller="propDetailsCtrl as pdctrl">
+
+            <div class="modal-header">
+                <h4 class="modal-title">Add A New Unit <i class="md md-home text-primary m-l-10 f-18"></i><i class="md md-plus-one text-primary"></i></h4>
+                <button type="button" class="btn btn-default btn-icon modalclose" data-dismiss="modal"><i class="md md-close"></i></button>
+            </div>
+
+            <div class="modal-body">
+
+                <form id="addUnitForm" class="form-horizontal form-lg" role="form">
+
+                    <div class="well">
+                        <div class="f-16">Tell us a little about the unit.</div>
+                    </div>
+
+                    <div class="form-group" id="unitNumGrp">
+                        <label for="unitNum" class="col-sm-3 control-label">Unit Number</label>
+                        <div class="col-sm-9">
+                            <div class="fg-line">
+                                <input type='text' id="unitNum" class="form-control" placeholder="Ex:&nbsp; '3a' or '1st Floor'" maxlength="20" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group" id="monthlyRentGrp">
+                        <label for="monthlyRent" class="col-sm-3 control-label">Monthly Rent</label>
+                        <div class="col-sm-3 p-r-0">
+                            <div class="input-group">
+                                <span class="input-group-addon p-r-0"><i class="md md-attach-money c-green f-30"></i></span>
+                                <div class="fg-line p-l-5">
+                                    <input type='text' id="monthlyRent" class="form-control" placeholder="eg. 50.00" required>
+                                </div>
+                            </div>
+                        </div>
+                        <label for="memo" class="col-sm-2 p-r-0 control-label">Due On:</label>
+                        <div class="col-sm-4">
+                            <select data-select-picker>
+                                <option>1st of Month</option>
+                                <option>Last of Month</option>
+                                <option>15th of Month</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group" id="tenantGrp">
+                        <label for="tenant" class="col-sm-3 control-label">Tenant<small>Optional</small></label>
+                        <div class="col-sm-9">
+                            <select data-select-picker data-live-search="true">
+                                <option>Select A Tenant</option>
+                                <option data-ng-repeat="tenant in tenantList.tenants">{{tenant.name}} &nbsp;{{tenant.last4}}</option>
+                                <option>NO TENANT YET</option>
+                                <option>Frank Quinterro &nbsp;(quit.frank@gmail.com)</option>
+                                <option>Kareem O'Leary &nbsp;(lighteningbolt@gmail.com)</option>
+                                <option>Usain Quick &nbsp;(lighteningbolt@gmail.com)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group" id="memoGrp">
+                        <label for="memo" class="col-sm-3 control-label">Start Date<small>Optional</small></label>
+                        <div class="col-sm-4">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="md md-event"></i></span>
+                                <div class="dtp-container dropdown fg-line">
+                                    <input id="addUnitDatePicker" data-dt-picker data-format="MM/DD/YYYY"  type='text' class="form-control date-picker" data-toggle="dropdown" placeholder="eg. 08/05/1978">
+                                </div>
+                            </div>
+                        </div>
+                        <label for="memo" class="col-sm-1 p-l-0 p-r-0 control-label">Length</label>
+                        <div class="col-sm-4">
+                            <select data-select-picker>
+                                <option>1 Month</option>
+                                <option>6 Months</option>
+                                <option>12 Months</option>
+                                <option>24 Months</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal"><i class="md md-close m-r-5"></i>Cancel</button>
+                <button type="button" id="submitChargeTenant" class="btn btn-primary" ng-click="pdctrl.addUnit_Submit()"><i class="md md-plus-one m-r-5"></i>Save & Add Another</button>
+                <button type="button" id="submitChargeTenant" class="btn btn-primary" ng-click="pdctrl.addUnit_Submit()"><i class="md md-check m-r-5"></i>Save</button>
             </div>
 
         </div>
@@ -532,47 +651,34 @@
     </div>
 </div>
 
-<script>
-    $(document).ready(function ()
-    {
-        $('#addPropWizard .finish').click(function () {
-            swal({
-                title: "Awesome - Unit Added",
-                text: "This property has been successfully created.  Would you like to publish it so Nooch users can find it to pay their rent? (You can do this later, too.)",
-                type: "success",
-                showCancelButton: true,
-                confirmButtonColor: "#3fabe1",
-                confirmButtonText: "Yes, Publish Now",
-                cancelButtonText: "No, I'll do it later!",
-                closeOnConfirm: false,
-                closeOnCancel: false
-            }, function (isConfirm) {
-                if (isConfirm)
-                {
-                    swal({
-                        title: "You Got It!",
-                        text: "Your property has been published.",
-                        type: "success",
-                    }, function (isConfirm) {
-                        window.location.href = '#/properties';
-                    });
-                }
-                else
-                {
-                    swal({
-                        title: "No Problem",
-                        text: "Your property has NOT been published. Before tenants can pay rent for this property, you must publish it, but you can do that later at any time.",
-                        type: "warning",
-                    }, function (isConfirm) {
-                        window.location.href = '#/properties';
-                    });
-                }
-            });
-        });
+<!-- Modal Change Profile Picture -->
+<div class="modal fade" id="editPropPic" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"><i class="md md-insert-photo m-r-10"></i>Change Property Picture</h4>
+                <button type="button" class="btn btn-default btn-icon modalclose" data-dismiss="modal"><i class="md md-close"></i></button>
+            </div>
+            <div class="modal-body text-center" data-ng-controller="propDetailsCtrl">
 
-		setTimeout(function () {
-		    //$('#propertyName').focus();
-		}, 200);
-    });
+                <div class="fileinput fileinput-new p-0" data-provides="fileinput">
+                    <div class="fileinput-preview thumbnail" data-trigger="fileinput">
+                        <img class="img-responsive" src="img/property-pics/{{selectedProperty.imgUrl}}">
+                    </div>
+                    <div class="m-t-15">
+                        <span class="btn btn-primary btn-file">
+                            <span class="fileinput-new"><i class="md md-cloud-upload m-r-10"></i>Upload An Image</span>
+                            <span class="fileinput-exists"><i class="md md-swap-horiz m-r-10"></i>Change</span>
+                            <input type="file" name="">
+                        </span>
+                        <a href="#" class="btn btn-danger fileinput-exists" data-dismiss="fileinput"><i class="md md-remove-circle-outline m-r-10"></i>Remove</a>
+                    </div>
+                </div>
 
-</script>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-link" data-dismiss="modal"><i class="md md-check m-r-10"></i>Save</button>
+            </div>
+        </div>
+    </div>
+</div>

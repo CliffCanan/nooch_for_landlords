@@ -102,6 +102,31 @@ noochForLandlords
 
 
     // =========================================================================
+    // Tenants Service (For Property Details Page)
+    // =========================================================================
+
+    .service('getTenantsService', ['$resource', function ($resource)
+    {
+        this.getTenants = function (id, name, nickname, logo, last4, status, dateAdded, notes)
+        {
+            var tenantList = $resource("data/tenantsList.json");
+
+            console.log("SERVICES for TENANTS reached, Name is: " + tenantList.get({name:name}));
+
+            return tenantList.get({
+                id: id,
+                name: name,
+                nickname: nickname,
+                logo: logo,
+                last4: last4,
+                status: status,
+                dateAdded: dateAdded,
+                notes: notes
+            })
+        }
+    }])
+
+    // =========================================================================
     // Bank Accounts Data
     // =========================================================================
 
@@ -110,7 +135,6 @@ noochForLandlords
         this.getBank = function (id, name, nickname, logo, last4, status, dateAdded, notes)
         {
             var bankList = $resource("data/bankAccountsList.json");
-            //console.log("SERVICES for BANKS reached");
 
             return bankList.get({
                 id: id,

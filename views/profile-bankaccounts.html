@@ -1,10 +1,8 @@
 <div data-ng-controller="banksCtrl as bctrl" id="prof-ba">
 
-    <div class="pull-right"><button class="btn btn-xs btn-default" id="toggleView">Toggle View</button></div>
+    <div class="pull-right"><button class="btn btn-xs btn-default" data-ng-click="bctrl.toggleBankView()">Toggle View</button></div>
 
-<!--<div class="jumbotron text-center" data-ng-if="bctrl.bankCount === 2 || bctrl.bankCount === nil">-->
-    <div class="jumbotron text-center">
-
+    <div class="jumbotron text-center m-b-0" data-ng-if="bankCount === 0 || bankCount === nil">
         <h2>Start Getting Paid</h2>
 
         <p class="m-b-25">
@@ -17,15 +15,13 @@
             </div>
             <button id="addBnkBtn" data-ng-click="bctrl.addBank()" class="btn btn-lg btn-success btn-icon-text waves-effect">&nbsp;<i class="md-add-circle m-r-5"></i> Add A Bank&nbsp;</button>
         </div>
-
     </div>
 
-<!--<div class="pmb-block p-t-30" data-ng-if="bctrl.bankCount > 0">-->
-    <div class="pmb-block p-t-30 hide" id="bankView2">
+    <div class="pmb-block p-t-30" data-ng-if="bankCount > 0">
 
         <div class="pmbb-header">
 
-            <h2><i class="md md-account-balance m-r-5"></i> Manage Your {{bctrl.bankCount}} Bank Account<span data-ng-if="bctrl.bankCount > 1">s</span></h2>
+            <h2><i class="md md-account-balance m-r-5"></i> Manage Your {{bankCount}} Bank Account<span data-ng-if="bankCount > 1">s</span></h2>
 
             <p>Below are the accounts you have already added to Nooch.</p>
 
@@ -56,7 +52,7 @@
                             <h4 class="media-heading">
                                 {{bank.name}}
                                 <span class="label label-primary m-l-15" data-ng-if="bank.primary === 1 && bank.deleted === 0">Primary</span>
-                                <span class="label label-default m-l-15 f-300" data-ng-if="bctrl.bankCount > 0 && bank.primary === 0 && bank.deleted === 0">Make Primary</span>
+                                <span class="label label-default m-l-15 f-300" data-ng-if="bankCount > 0 && bank.primary === 0 && bank.deleted === 0">Make Primary</span>
                             </h4>
                             {{bank.nickname}} - {{bank.last4}}
                             <p class="bank-status">Pending</p>

@@ -199,20 +199,97 @@ noochForLandlords
     })
 
     // PROPERTY DETAILS CONTROLLER
-    .controller('propDetailsCtrl', function ($compile, $scope, propertiesService, propDetailsService) {
+    .controller('propDetailsCtrl', function ($compile, $scope, propertiesService, propDetailsService, getTenantsService) {
         //this.propResult = propertiesService.getProperties(this.id, this.img, this.propName, this.address, this.units, this.tenants);
 
         //this.getSelectedProp = propDetailsService.get();
         //this.getSelectedProp2 = propDetailsService.get2();
 
+        $scope.selectedProperty = {
+            "published": 1,
+            "name": "Haverford Towers",
+            "address1": "123 County Line Rd",
+            "address2": "",
+            "city": "Philadelphia",
+            "state": "PA",
+            "zip": "19123",
+            "contactNumber": "(215) 321-9876",
+            "imgUrl": "2.png",
+            "units": 9,
+            "tenants": 15,
+            "pastDue": 3,
+            "defaultBankName": "Bank of America",
+            "defaultBankNickname": "Business Checking - 9876"
+        }
+
+        // Get list of Tenants for this Property
+        $scope.tenantList = getTenantsService.getTenants(this.id, this.name, this.nickname, this.logo, this.last, this.status, this.dateAdded, this.notes, this.primary, this.deleted);
+
+
+        // Edit Published State (Whether the property should be publicly listed or not)
+        this.dropdownPublishedState = function ()
+        {
+            var alertTitleTxt, alertBodyTxt, actionBtnTxt, cancelBtnTxt;
+
+            if ($scope.selectedProperty.published == 1)
+            {
+                alertTitleTxt = "Hide This Property?";
+                alertBodyTxt = "You can hide this property if it is inactive or you no longer want this property to be included in search results when a tenant searches for their apartment on Nooch.";
+                actionBtnTxt = "No, Keep It Published";
+                cancelBtnTxt = "Yes, Hide It";
+            }
+            else {
+                alertTitleTxt = "Publish This Property";
+                alertBodyTxt = "You can publish this property which will make this property be included in search results when a tenant searches for their apartment on Nooch.";
+                actionBtnTxt = "Yes, Publish Now";
+                cancelBtnTxt = "No, Keep Hidden";
+            }
+            swal({
+                title: alertTitleTxt,
+                text: alertBodyTxt,
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3fabe1",
+                confirmButtonText: actionBtnTxt,
+                cancelButtonText: cancelBtnTxt,
+                closeOnConfirm: false,
+                closeOnCancel: false
+            }, function (isConfirm)
+            {
+                if (isConfirm)
+                {
+                    setIsPublished(1);
+                    swal({
+                        title: "You Got It!",
+                        text: "Your property has been published.",
+                        type: "success",
+                    });
+                }
+                else
+                {
+                    setIsPublished(0);
+                    swal({
+                        title: "No Problem",
+                        text: "Your property has NOT been published. Before tenants can pay rent for this property, you must publish it, but you can do that later at any time.",
+                        type: "warning",
+                    });
+                }
+            });
+        }
+
+        function setIsPublished(newStatus) {
+            $scope.$apply(function () {
+                $scope.selectedProperty['published'] = newStatus;
+            });
+        }
+
+        // Charge Tenant Button
         this.chargeTenant = function (e) {
             $('#chargeTenantModal').modal();
 
-            $('#chargeTenantForm #tenant').val('');
-            $('#chargeTenantForm #amount').val('')
+            $('#chargeTenantForm input').val('');
             $('#chargeTenantForm #tenantGrp').removeClass('has-error').removeClass('has-success');
             $('#chargeTenantForm #amountGrp').removeClass('has-error').removeClass('has-success');
-            $('#chargeTenantForm #memo').val('');
 
             if ($('#tenantGrp .help-block').length) {
                 $('#tenantGrp .help-block').slideUp();
@@ -221,13 +298,15 @@ noochForLandlords
                 $('#amountGrp .help-block').slideUp();
             }
 
+            var $setUpSelectTenantDropdown = $('#chargeTenantForm #tenantGrp select option:last-child').attr('data-ng-repeat', 'tenant in pdctrl.tenantList.tenants');
+           // $compile($setUpSelectTenantDropdown)($scope);
             $('#chargeTenantForm #amount').mask("#,##0.00", { reverse: true });
         }
 
         this.chargeTenant_Submit = function ()
         {
             // Check Name field for length
-            if ($('#chargeTenantForm #tenant').val().length > 4)
+            if ($('#chargeTenantForm #tenant').val())
             {
                 var trimmedName = $('#chargeTenantForm #tenant').val().trim();
                 $('#chargeTenantForm #tenant').val(trimmedName);
@@ -238,7 +317,8 @@ noochForLandlords
                     updateValidationUi("tenant", true);
 
                     // Check Amount field
-                    if ($('#chargeTenantForm #amount').val().length > 2)
+                    if ($('#chargeTenantForm #amount').val().length > 4 &&
+                        $('#chargeTenantForm #amount').val() > 10)
                     {
                         updateValidationUi("amount", true);
 
@@ -250,7 +330,7 @@ noochForLandlords
                             text: "Your tenant will be notified about your payment request.  We will update you when they complete the payment.",
                             type: "success",
                             showCancelButton: false,
-                            //confirmButtonColor: "#DD6B55",
+                            confirmButtonColor: "#3FABE1",
                             confirmButtonText: "Awesome",
                             closeOnConfirm: trimmedName,
                             closeOnCancel: false
@@ -305,7 +385,6 @@ noochForLandlords
                 }
                 else { $('#' + field + 'Grp .help-block').show() }
 
-                console.log()
                 // Now focus on the element that failed validation
                 setTimeout(function () {
                     $('#' + field + 'Grp input').focus();
@@ -314,11 +393,81 @@ noochForLandlords
 
         }
 
-
-        this.editAchMemo = function ()
+        // Add Unit Button
+        $scope.addUnit = function ()
         {
+            $('#addUnitModal input').val('');
+            $('#addUnitModal #unitNumGrp').removeClass('has-error').removeClass('has-success');
+            $('#addUnitModal #monthlyRentGrp').removeClass('has-error').removeClass('has-success');
+
+            if ($('#unitNumGrp .help-block').length) {
+                $('#unitNumGrp .help-block').slideUp();
+            }
+            if ($('#monthlyRentGrp .help-block').length) {
+                $('#monthlyRentGrp .help-block').slideUp();
+            }
+
+            $('#addUnitModal').modal();
+
+            $('#addUnitModal #monthlyRent').mask("#,##0.00", { reverse: true });
+
+            setTimeout(function () {
+                $('#addUnitModal #unitNum').focus();
+            }, 600)
+        }
+
+        this.addUnit_Submit = function ()
+        {
+            // Check Unit Number field for length
+            if ($('#addUnitModal #unitNum').val().length > 0)
+            {
+                var trimmedName = $('#addUnitModal #unitNum').val().trim();
+                $('#addUnitModal #unitNum').val(trimmedName);
+                updateValidationUi("unitNum", true);
+
+                    // Now check Monthly Rent Amount field
+                if ($('#addUnitModal #monthlyRent').val().length > 4)// &&
+                    //$('#addUnitModal #monthlyRent').val() > 100)
+                {
+                    updateValidationUi("monthlyRent", true);
+
+                    $('#addUnitModal').modal('hide');
+
+                    // Finally, submit the data and display success alert
+                    swal({
+                        title: "Unit Added",
+                        text: "This unit has been added successfully.",
+                        type: "success",
+                        showCancelButton: true,
+                        confirmButtonColor: "#3FABE1",
+                        confirmButtonText: "Terrific",
+                        cancelButtonText: "Add Another One",
+                        closeOnConfirm: true,
+                        closeOnCancel: true,
+                    }, function (isConfirm) {
+                        if (!isConfirm)
+                        {
+                            $scope.addUnit();
+                        }
+                    });
+                }
+                else
+                {
+                    updateValidationUi("monthlyRent", false);
+                }
+               
+            }
+            else
+            {
+                updateValidationUi("unitNum", false);
+            }
+        }
+
+        // Edit ACH Memo for all transactions for this property
+        this.editAchMemo = function () {
             $('#editAchModal').modal();
         }
+
     })
 
 
@@ -983,9 +1132,9 @@ noochForLandlords
     // Profile - BANK ACCOUNTS
     //=================================================
 
-    .controller('banksCtrl', function (getBanksService) {
+    .controller('banksCtrl', function ($scope, getBanksService) {
         this.isBankAttached = true;
-        this.bankCount = 2;
+        $scope.bankCount = 2;
 
         this.bankList = getBanksService.getBank(this.id, this.name, this.nickname, this.logo, this.last, this.status, this.dateAdded, this.notes, this.primary, this.deleted);
 
@@ -1030,6 +1179,18 @@ noochForLandlords
                 })
             }
         }
+
+        this.toggleBankView = function () {
+            console.log("ToggleBankView fired, $scope.bankCount now is: " + $scope.bankCount);
+            
+            if ($scope.bankCount > 0) {
+                $scope.bankCount = 0;
+            }
+            else {
+                $scope.bankCount = 1;
+            }
+        }
+
     })
 
     // Delete Bank Account Popup

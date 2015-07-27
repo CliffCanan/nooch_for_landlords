@@ -422,6 +422,7 @@ form .alert {
 .homePromptCard .card-body small {font-size:15px;}
 
 /**** PROFILE - ABOUT ****/
+#profile-main {min-height:400px;}
 #profile-main .pmo-pic .pmop-edit {cursor:pointer;}
 #profAbout > .well {
     margin: 20px 20px 0;
@@ -552,6 +553,11 @@ form .alert {
   #idVer .wizard .content {
     min-height: 35em;
   }
+
+  /**** Property Details ****/
+  .propDetails_UnitsTenants .propDetailsStatBadge {
+      margin-top:10px;
+  }
 }
 
 
@@ -579,6 +585,7 @@ form .alert {
     padding: 15px 25px;
   }
 }
+
 
 /**** PROFILE - BANKS ****/
 .jumbotron div i.md-6x {
@@ -915,57 +922,70 @@ addPropWiz .content {
 */
 /**** PROPERTY DETAILS ****/
 .propDetails_UnitsTenants {
-  color:white;
-  position: absolute;
-  top:12px;
-  right:26px;
-  z-index:99;
-  width:90%;
   text-align:right;
 }
-.propDetails_UnitsTenants > span {
-  display: inline-block;
-  padding: 10px 15px 2px;
-  max-width: 150px;
-  width: 49%;
-}
+
 .propDetails_UnitsTenants .headline {
   display: block;
-  font-size: 1em;
+  color:#fff;
+  font-size: 14px;
   font-weight: 300;
   text-align: right;
   position:relative;
-  top:-4px;
+  top:-3px;
 }
 .propDetails_UnitsTenants .value {
+  color:#fff;
   font-size: 1.8em;
   font-weight: 500;
   margin-top: -8px;
   display: block;
   text-align: right;
 }
+
+.propDetails_UnitsTenants .propDetailsStatBadge > div {
+  padding: 12px 15px 5px;
+}
 .propDetails_UnitsTenants i {
-  background-color:white;
+  background-color: white;
+  background-clip: padding-box;
   border-radius: 50%;
-  float:left;
-  font-size: 25px;
+  float: left;
+  font-size: 20px;
   display: block;
   float: left;
-  margin-right: 10px;
-  width: 39px;
-  height: 39px;
-  line-height: 39px;
+  margin-right: 1px;
+  width: 34px;
+  height: 34px;
+  line-height: 34px;
   text-align: center;
-  background-clip: padding-box;
+}
+
+@media screen and (min-width:768px)
+{
+    .propDetails_UnitsTenants .propDetailsStatBadge > div {
+      padding: 14px 16px 6px;
+    }
+    .propDetails_UnitsTenants .headline {
+      font-size: 14.5px;
+      top:-4px;
+    }
+    .propDetails_UnitsTenants i {
+      font-size: 26px;
+      margin-right: 10px;
+      width: 39px;
+      height: 39px;
+      line-height: 39px;
+    }
 }
 .propInfoSidebar .card .card-header {
   padding: 20px 25px;
 }
 .propInfoSidebar .propCard .pv-main {
   margin: 0px auto;
-  width: 75%;
+  width: 70%;
   position: relative;
-  top: 20px;
+  top: 22px;
   left: 0;
 }
 .propInfoSidebar .propCard .address {
@@ -1003,12 +1023,30 @@ addPropWiz .content {
   position: relative;
   top: 8px;
 }
+
+#editPropPic .fileinput .fileinput-preview {
+  width:initial;
+  max-width: 540px;
+  height: auto;
+  position: relative;
+}
+
+
 form.form-lg .form-control,
 form.form-lg .control-label {
   font-size: 16px;
 }
 form.form-lg .form-group {
   margin-bottom:40px;
+}
+
+.bootstrap-select .dropdown-toggle {
+  font-size:16px;
+  padding: 11px 4px !important;
+  text-transform:none;
+}
+.dropdown-menu {
+  font-size:15px;
 }
 
 table tbody .unitInTable {
