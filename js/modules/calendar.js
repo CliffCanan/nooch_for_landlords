@@ -111,12 +111,6 @@ noochForLandlords
                             className: 'bgm-cyan'
                         },
                         {
-                            title: 'Meeting with client',
-                            start: new Date(y, m, 10),
-                            allDay: true,
-                            className: 'bgm-red'
-                        },
-                        {
                             title: 'Repeat Event',
                             start: new Date(y, m, 18),
                             allDay: true,
@@ -133,49 +127,7 @@ noochForLandlords
                             start: new Date(y, m, 5),
                             end: new Date(y, m, 6),
                             className: 'bgm-purple'
-                        },
-                        {
-                            title: 'Coffee time',
-                            start: new Date(y, m, 21),
-                            className: 'bgm-orange'
-                        },
-                        {
-                            title: 'Job Interview',
-                            start: new Date(y, m, 5),
-                            className: 'bgm-dark'
-                        },
-                        {
-                            title: 'IT Meeting',
-                            start: new Date(y, m, 5),
-                            className: 'bgm-cyan'
-                        },
-                        {
-                            title: 'Brunch at Beach',
-                            start: new Date(y, m, 1),
-                            className: 'bgm-purple'
-                        },
-                        {
-                            title: 'Live TV Show',
-                            start: new Date(y, m, 15),
-                            end: new Date(y, m, 17),
-                            className: 'bgm-orange'
-                        },
-                        {
-                            title: 'Software Conference',
-                            start: new Date(y, m, 25),
-                            end: new Date(y, m, 28),
-                            className: 'bgm-blue'
-                        },
-                        {
-                            title: 'Coffee time',
-                            start: new Date(y, m, 30),
-                            className: 'bgm-orange'
-                        },
-                        {
-                            title: 'Job Interview',
-                            start: new Date(y, m, 30),
-                            className: 'bgm-dark'
-                        },
+                        }
                     ],
 
                     //On Day Select

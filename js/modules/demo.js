@@ -244,11 +244,3 @@ noochForLandlords
             }
         }
     })
-
-
-    
-
-
-
-
-    

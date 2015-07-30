@@ -1,7 +1,7 @@
 noochForLandlords
-    // =========================================================================
+    // ===============================================================
     // Base controller for common functions
-    // =========================================================================
+    // ===============================================================
 
     .controller('noochAdminCtrl', function ($rootScope, $timeout, $state, growlService) {
         //Welcome Message
@@ -37,9 +37,9 @@ noochForLandlords
     })
 
 
-    // =========================================================================
+    // ===============================================================
     // Header
-    // =========================================================================
+    // ===============================================================
     .controller('headerCtrl', function($timeout, messageService){
 
         this.closeSearch = function(){
@@ -138,9 +138,9 @@ noochForLandlords
     })
 
 
-    // =========================================================================
+    // ===============================================================
     // Todo List Widget (Came with default Template)
-    // =========================================================================
+    // ===============================================================
 
     .controller('todoCtrl', function(todoService){
         
@@ -160,9 +160,9 @@ noochForLandlords
     })
 
 
-    // =========================================================================
+    // ===============================================================
     // Recent Items Widget (Came with default Template)
-    // =========================================================================
+    // ===============================================================
 
     .controller('recentitemCtrl', function(recentitemService){
         
@@ -175,13 +175,13 @@ noochForLandlords
     })
 
 
-    // =========================================================================
-    // Properties Widget
-    // =========================================================================
+    // ===============================================================
+    //      PROPERTIES
+    // ===============================================================
     
     .controller('propertiesCtrl', function (propertiesService, propDetailsService)
     {
-        this.propCount = 7;
+        this.propCount = 0;
         this.propResult = propertiesService.getProperties(this.id, this.img, this.propName, this.address, this.units, this.tenants);
 
         // For setting the 'Selected Prop' when going to a Property's Details page
@@ -379,6 +379,7 @@ noochForLandlords
             }
         }
 
+
         // Add Unit Button
         $scope.addUnit = function ()
         {
@@ -450,6 +451,7 @@ noochForLandlords
             }
         }
 
+
         // Send Message Modal
         this.sendMsg = function(howMany)
         {
@@ -514,6 +516,7 @@ noochForLandlords
                 updateValidationUi("tenantMsg", false);
             }
         }
+
 
         // Edit ACH Memo for all transactions for this property
         this.editAchMemo = function ()
@@ -597,6 +600,83 @@ noochForLandlords
         }
     })
 
+    // FOR PROPERTY DETAILS TABLE
+    .directive('propDetailsTable', function ($compile) {
+        return {
+            restrict: 'EA',
+            scope: {
+                editunit: "&"
+            },
+            compile: function (scope, element, attr) {
+                return function (scope, element, attr) {
+                    element.bootgrid({
+                        css: {
+                            icon: 'md-tableHdr',
+                            iconColumns: 'md-view-module',
+                            iconDown: 'md-expand-more',
+                            iconRefresh: 'md-refresh',
+                            iconUp: 'md-expand-less'
+                        },
+                        formatters: {
+                            "unit": function (column, row) {
+                                return "<span class=\"f-600 f-22 c-darkblue unitInTable\">" + row.unit + "</span>";
+                            },
+                            "tenant": function (column, row) {
+                                var emailStatus = "c-gray";
+                                var phoneStatus = "c-gray";
+                                var idStatus = "c-gray";
+                                var bankStatus = "c-gray";
+
+                                if (row.isEmailVer == "1") { emailStatus = "c-blue"; }
+                                if (row.isPhoneVer == "1") { phoneStatus = "c-blue"; }
+                                if (row.isIdVerified == "1") { idStatus = "c-blue"; }
+                                if (row.isBankAttached == "1") { bankStatus = "c-blue"; }
+
+                                return "<div class=\"media\"><div class=\"pull-left\">" +
+                                       "<img class=\"tableUserPic m-r-5\" src=\"img/contacts/" + row.id + ".jpg\"></div>" +
+                                       "<div class=\"media-body\"><div class=\"lv-title f-15 f-500\">" + row.tenant + "</div>" +
+                                       "<small class=\"lv-small f-12\">" + row.email + "</small>" +
+                                       "<div class=\"icons\"><i class=\"md md-verified-user " + idStatus + "\"></i><i class=\"md md-email " + emailStatus + "\"></i><i class=\"md md-phone-iphone " + phoneStatus + "\"></i><i class=\"md md-account-balance " + bankStatus + "\"></i></div></div></div>";
+                            },
+                            "status": function (column, row) {
+                                var lastDateText = "<br/><span class=\"lastPaymentDate\">(Last: " + row.lastPaymentDate + ")</span>";
+
+                                if (row.status == "Paid" || row.status == "paid" || row.status == "completed") {
+                                    return "<span class=\"label label-success\">" + row.status + "</span>" + lastDateText;
+                                }
+                                else if (row.status.toLowerCase == "pending") {
+                                    return "<span class=\"label label-warning\">" + row.status + "</span>" + lastDateText;
+                                }
+                                else if (row.status.toLowerCase() == "past due") {
+                                    return "<span class=\"label label-danger\">" + row.status + "</span>" + lastDateText;
+                                }
+                                else {
+                                    return "<span class=\"label label-warning\">" + row.status + "</span>" + lastDateText;
+                                }
+                            },
+                            "amount": function (column, row) {
+                                return "<div class=\"f-500 f-15 text-center\">$ " + row.amount + "</div>";
+                            },
+                            "actions": function (column, row) {
+                                return "<button type=\'button\' class=\'btn btn-icon btn-default command-edit m-r-10 editUnitBtn\' data-row-id=\'" + row.id + "-1\' data-ng-click=\'addUnit()\'><span class=\'md md-edit\'></span></button> " +
+                                       "<button type=\'button\' class=\'btn btn-icon btn-default command-edit m-r-10\' data-row-id=\'" + row.id + "-2\'><span class=\'md md-today\'></span></button> " +
+                                       "<button type=\'button\' class=\'btn btn-icon btn-default command-edit m-r-10\' data-row-id=\'" + row.id + "-3\' data-ng-click=\'editUnit($event)\'><span class=\'md md-more-vert\'></span></button> ";
+                            },
+                        },
+                        columnSelection: false,
+                        caseSensitive: false,
+                        searchSettings: { characters: 3 },
+                        labels: {
+                            noResults: "No units or tenants match that search, unfortunately."
+                        }
+                    });
+                }
+
+                //element.find('.editUnitBtn').append($compile(scope.actionLinks)(scope));
+                //$compile(element.find('.editUnitBtn'))(scope);
+            }
+        }
+    })
 
     // Delete Property Popup
     .directive('deleteProp', function () {
@@ -649,6 +729,9 @@ noochForLandlords
             onInit: function (event, curretIndex)
             {
                 $compile($('.wizard.vertical > .content'))($scope);
+                setTimeout(function () {
+                    $('#propertyName').focus();
+                }, 900);
             },
             onStepChanging: function (event, currentIndex, newIndex)
             {
@@ -730,7 +813,18 @@ noochForLandlords
             },
             onStepChanged: function (event, currentIndex, priorIndex)
             {
-                
+                if (currentIndex == 3) // Final Step
+                {
+                    setTimeout(function ()
+                    {
+                        var $singleUnitClick = $('#singleUnit').attr('data-ng-click', 'selectSingleUnit()');
+                        $compile($singleUnitClick)($scope);
+
+                        var $multiUnitClick = $('#multiUnit').attr('data-ng-click', 'selectMultiUnit()');
+                        $compile($multiUnitClick)($scope);
+
+                    }, 200);
+                }
             },
             onCanceled: function (event)
             {
@@ -821,10 +915,6 @@ noochForLandlords
                     if (success == true) {
                         $('#addressGrp').removeClass('has-error').addClass('has-success');
                         $('#step3Feedback .alert-danger').slideUp('fast');
-                        setTimeout(function () {
-                            var $multiUnitClick = $('#multiUnit').attr('data-ng-click', 'selectMultiUnit()');
-                            $compile($multiUnitClick)($scope);
-                        }, 200);
                     }
                     else {
                         $('#addressGrp').removeClass('has-success').addClass('has-error');
@@ -865,8 +955,34 @@ noochForLandlords
             });
         }
 
-        $scope.selectMultiUnit = function () {
-            console.log("ARE WE HERE?");
+        $scope.selectSingleUnit = function ()
+        {
+            $('#multiUnit').addClass('bounceOut'); // bounceOut CSS takes 750ms
+
+            $('#or').fadeOut(750);
+
+            setTimeout(function () {
+                $('#multiUnit').addClass('hidden');
+
+                $('#singleUnit').css({
+                    "width": "52%",
+                    "margin-left": "24%"
+                });
+
+                $('#singleUnit-rentAmountBlock').removeClass('hidden');
+                $('#singleUnit-rentAmountBlock').addClass('fadeIn');
+
+                $('#singleUnit-rentAmountBlock input').mask("#,##0.00", { reverse: true });
+
+                setTimeout(function () {
+                    $('#singleUnit-rentAmountBlock input').focus();
+                }, 1000)
+
+            }, 750)
+        }
+
+        $scope.selectMultiUnit = function ()
+        {
             //$('#singleUnit').addClass('fadeOutLeft');
             $('#singleUnit').css(
                 "margin-left", "-250px"
@@ -887,17 +1003,18 @@ noochForLandlords
         this.addUnit = function () {
             this.unitInputsShowing += 1;
 
-            var templateUnit = "<div class=\"row\"><div class=\"col-xs-6 m-b-15\"><div class=\"fg-float p-r-10\"><div class=\"fg-line\"><input type=\"text\" id=\"addUnit_Num\" class=\"form-control fg-input\" maxlength=\"5\"></div><label class=\"fg-label\">Unit #</label></div></div><div class=\"col-xs-6 m-b-10\"><div class=\"fg-float\"><div class=\"fg-line dollar\"><input type=\"text\" id=\"addUnit_Amnt" + this.unitInputsShowing + "\" class=\"form-control fg-input\" maxlength=\"7\"></div><label class=\"fg-label\">Rent Amount</label></div></div></div>";
+            var templateUnit = "<div class=\"row m-b-15\"><div class=\"col-xs-6\"><div class=\"fg-float form-group p-r-20 m-l-15\"><div class=\"fg-line\"><input type=\"text\" id=\"addUnit_Num\" class=\"form-control fg-input\" maxlength=\"5\"></div><label class=\"fg-label\">Unit #</label></div></div>" +
+                                                         "<div class=\"col-xs-6\"><div class=\"fg-float form-group p-r-20 m-l-0\"><div class=\"fg-line dollar\"><input type=\"text\" id=\"addUnit_Amnt" + this.unitInputsShowing + "\" class=\"form-control fg-input\" maxlength=\"7\"></div><label class=\"fg-label\">Rent Amount</label></div></div></div>";
             var newUnit = "#unit" + this.unitInputsShowing;
 
             $('#addedUnits').append(templateUnit);
 
             $compile($('#addedUnits input#addUnit_Amnt' + this.unitInputsShowing))($scope);
             $('#addedUnits input#addUnit_Amnt' + this.unitInputsShowing).mask("#,##0.00", { reverse: true });
-            //$(".templateUnitInput").clone().appendTo("#addedUnits");
-            //$(".templateUnitInput:last-child").removeClass("templateUnitInput").removeClass("hidden");
         }
     })
+
+
 
     //=================================================
     // Profile
@@ -1261,7 +1378,7 @@ noochForLandlords
 
     .controller('banksCtrl', function ($scope, getBanksService) {
         this.isBankAttached = true;
-        $scope.bankCount = 2;
+        $scope.bankCount = 0;
 
         this.bankList = getBanksService.getBank(this.id, this.name, this.nickname, this.logo, this.last, this.status, this.dateAdded, this.notes, this.primary, this.deleted);
 
@@ -1372,6 +1489,8 @@ noochForLandlords
         }
     })
 
+
+
     //=================================================
     // HISTORY
     //=================================================
@@ -1379,6 +1498,54 @@ noochForLandlords
     .controller('historyCtrl', function ($rootScope, $scope) {
 
     })
+
+    // FOR HISTORY TABLE
+    .directive('bootgridHistoryTable', function () {
+        return {
+            restrict: 'A',
+            link: function (scope, element, attr) {
+                element.bootgrid({
+                    css: {
+                        icon: 'md icon',
+                        iconColumns: 'md-view-module',
+                        iconDown: 'md-expand-more',
+                        iconRefresh: 'md-refresh',
+                        iconUp: 'md-expand-less'
+                    },
+                    formatters: {
+                        "commands": function (column, row) {
+                            return "<button type=\"button\" class=\"btn btn-icon btn-default command-edit m-r-10\" data-row-id=\"" + row.id + "\"><span class=\"md md-edit\"></span></button> ";
+                        },
+                        "status": function (column, row) {
+                            if (row.status == "Paid" || row.status == "paid" || row.status == "completed") {
+                                return "<span class=\"label label-success\">" + row.status + "</span>";
+                            }
+                            else if (row.status == "Pending" || row.status == "pending") {
+                                return "<span class=\"label label-warning\">" + row.status + "</span>";
+                            }
+                            else if (row.status == "Rejected" || row.status == "rejected") {
+                                return "<span class=\"label label-danger\">" + row.status + "</span>";
+                            }
+                            else {
+                                return "<span class=\"label label-warning\">" + row.status + "</span>";
+                            }
+                        },
+                        "user": function (column, row) {
+                            return "<div class=\"media\"><div class=\"pull-left\"><img class=\"tableUserPic\" src=\"img/contacts/" + row.id + ".jpg\"></div><div class=\"media-body\"><div class=\"lv-title\">" + row.tenant + "</div><small class=\"lv-small\">" + row.email + "</small></div></div>";
+                        }
+                    },
+                    columnSelection: false,
+                    caseSensitive: false,
+                    searchSettings: { characters: 3 },
+                    labels: {
+                        noResults: "where are my results"
+                    }
+                });
+            }
+        }
+    })
+
+
 
     //=================================================
     // Account Checklist Widget
@@ -1426,5 +1593,72 @@ noochForLandlords
 
         this.loginAttmpt = function() {
             window.location.href = 'index.html#/profile/profile-about';
+        }
+    })
+
+
+    //=================================================
+    // TENANT REQUESTS
+    //=================================================
+
+    // FOR TENANT REQUESTS TABLE
+    .directive('tenantRequests', function () {
+        return {
+            restrict: 'A',
+            link: function (scope, element, attr) {
+                element.bootgrid({
+                    css: {
+                        icon: 'md icon',
+                        iconColumns: 'md-view-module',
+                        iconDown: 'md-expand-more',
+                        iconRefresh: 'md-refresh',
+                        iconUp: 'md-expand-less'
+                    },
+                    formatters: {
+                        "actions": function (column, row) {
+                            if (row.status == "Pending" || row.status == "pending") {
+                                return "<button data-target=\"#test123\" data-toggle=\"modal\" type=\"button\" class=\"btn btn-icon btn-default m-r-15\" data-row-id=\"" + row.id + "\" title=\"Approve\"><span class=\"md md-check c-green\"></span></button> " +
+                                       "<button type=\"button\" class=\"btn btn-icon btn-default\" data-row-id=\"" + row.id + "\"><span class=\"md md-close c-red\"></span></button>";
+                            }
+                            else if (row.status == "Approved" || row.status == "approved") {
+                                return "<button type=\"button\" class=\"btn btn-icon btn-default m-r-15\" data-row-id=\"" + row.id + "\"><span class=\"md md-verified-user c-blue\"></span></button> " +
+                                       "<button type=\"button\" class=\"btn btn-icon btn-default\" data-row-id=\"" + row.id + "\"><span class=\"md md-mail\"></span></button>";
+                            }
+                            else if (row.status == "Rejected" || row.status == "rejected") {
+                                return "<button type=\"button\" class=\"btn btn-icon btn-default m-r-15\" data-row-id=\"" + row.id + "\"><span class=\"md md-undo c-orange\"></span></button> " +
+                                       "<button type=\"button\" class=\"btn btn-icon btn-default\" data-row-id=\"" + row.id + "\"><span class=\"md md-report c-red\"></span></button>";
+                            }
+                        },
+                        "dateColumn": function (column, row) {
+                            return "<span>" + row.dateSubmitted + "</span>";
+                        },
+                        "status": function (column, row) {
+                            if (row.status == "Pending" || row.status == "pending") {
+                                return "<span class=\"label label-warning\">" + row.status + "</span>";
+                            }
+                            else if (row.status == "Approved" || row.status == "approved") {
+                                return "<span class=\"label label-success\">" + row.status + "</span>";
+                            }
+                            else if (row.status == "Rejected" || row.status == "rejected") {
+                                return "<span class=\"label label-danger\">" + row.status + "</span>";
+                            }
+                            else {
+                                return "<span class=\"label label-default\">" + row.status + "</span>";
+                            }
+                        },
+                        "user": function (column, row) {
+                            return "<div class=\"media\"><div class=\"pull-left\"><img class=\"tableUserPic\" src=\"img/profile-pics/" + row.id + ".jpg\"></div><div class=\"media-body\"><div class=\"lv-title\">" + row.user + "</div><small class=\"lv-small\">" + row.email + "</small></div></div>";
+                        },
+                    },
+                    columnSelection: false,
+                    caseSensitive: false,
+                    headerAlign: "center",
+                    searchSettings: { characters: 2 },
+                    labels: {
+                        infos: "Showing {{ctx.start}} to {{ctx.end}} of {{ctx.total}} Tenant Requests",
+                        noResults: "No users found for that name"
+                    }
+                });
+            }
         }
     })

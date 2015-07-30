@@ -111,7 +111,7 @@ noochForLandlords
         {
             var tenantList = $resource("data/tenantsList.json");
 
-            console.log("SERVICES for TENANTS reached, Name is: " + tenantList.get({name:name}));
+            console.log("SERVICES for TENANTS reached");
 
             return tenantList.get({
                 id: id,
@@ -134,6 +134,8 @@ noochForLandlords
     {
         this.getBank = function (id, name, nickname, logo, last4, status, dateAdded, notes)
         {
+            console.log("getBanksService reached");
+
             var bankList = $resource("data/bankAccountsList.json");
 
             return bankList.get({

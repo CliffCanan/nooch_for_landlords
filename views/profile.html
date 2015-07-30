@@ -31,7 +31,7 @@
 
             <div class="alert alert-danger alert-dismissible" role="alert">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                Please <a data-ng-click="pctrl.runWizard()" class="alert-link">verify your identity</a> to start accepting payments today!
+                Please <a data-ng-click="pctrl.runWizard()" class="alert-link" data-toggle="tooltip" data-placement="auto" data-original-title="Launch ID Verification wizard.">verify your identity</a> to start accepting payments today!
             </div>
 
             <div class="card z-depth-1" id="profile-main">
@@ -43,18 +43,6 @@
                             <a href="">
                                 <img class="img-responsive" src="img/profile-pics/{{pctrl.userPic}}.png" alt="Profile Picture">
                             </a>
-
-                            <!--<div class="dropdown pmop-message">
-                <button data-toggle="dropdown" class="btn bgm-white btn-float z-depth-1">
-                    <i class="md md-message"></i>
-                </button>
-
-                <div class="dropdown-menu stop-propagate">
-                    <textarea placeholder="Write something..."></textarea>
-
-                    <button class="btn bgm-green btn-icon"><i class="md md-send"></i></button>
-                </div>
-            </div>-->
 
                             <a class="pmop-edit">
                                 <i class="md md-camera-alt"></i> <span class="hidden-xs">Update Profile Picture</span>

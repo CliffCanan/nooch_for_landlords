@@ -1,8 +1,8 @@
 <div class="sidebar-inner c-overflow" data-ng-controller="profileCtrl as pctrl">
-    <div class="profile-menu">
-        <a href="" toggle-submenu>
+    <div class="profile-menu toggled">
+        <a toggle-submenu>
             <div class="profile-pic">
-                <img src="img/profile-pics/3.jpg" alt="">
+                <img src="img/profile-pics/josh.png">
             </div>
             <div class="profile-info">
                 {{ pctrl.firstName }} {{pctrl.lastName}}
@@ -10,13 +10,13 @@
                 <i class="md md-arrow-drop-down"></i>
             </div>
         </a>
-        <ul class="main-menu">
+        <ul class="main-menu" style="display:block">
             <li>
-                <a data-ui-sref="profile.profile-about"><i class="md md-person"></i> View Profile</a>
-            </li>
+                <a data-ui-sref="profile.profile-about"><i class="md md-person"></i> My Profile</a>
+            </li><!--
             <li>
                 <a href=""><i class="md md-settings"></i> Settings</a>
-            </li>
+            </li>-->
         </ul>
     </div>
 
