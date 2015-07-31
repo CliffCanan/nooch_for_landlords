@@ -1,0 +1,55 @@
+<div class="sidebar-inner c-overflow" data-ng-controller="profileCtrl as pctrl">
+    <div class="profile-menu toggled">
+        <a toggle-submenu>
+            <div class="profile-pic">
+                <img src="img/profile-pics/josh.png">
+            </div>
+            <div class="profile-info">
+                {{ pctrl.firstName }} {{pctrl.lastName}}
+
+                <i class="md md-arrow-drop-down"></i>
+            </div>
+        </a>
+        <ul class="main-menu" style="display:block">
+            <li>
+                <a data-ui-sref="profile.profile-about"><i class="md md-person"></i> My Profile</a>
+            </li><!--
+            <li>
+                <a href=""><i class="md md-settings"></i> Settings</a>
+            </li>-->
+        </ul>
+    </div>
+
+    <ul class="main-menu m-0 m-b-20">
+        <li data-ui-sref-active="active">
+            <a data-ui-sref="home" data-ng-click="mactrl.sidebarStat($event)"><i class="md md-home"></i> Home</a>
+        </li>
+        <li data-ui-sref-active="active">
+            <a data-ui-sref="history" data-ng-click="mactrl.sidebarStat($event)"><i class="md md-history"></i> Payment History</a>
+        </li>
+        <li data-ui-sref-active="active">
+            <a data-ui-sref="properties" data-ng-click="mactrl.sidebarStat($event)"><i class="md md-business"></i> Properties <span class="label label-info pull-right">{{ pctrl.propertyCount }}</span></a>
+        </li>
+        <li data-ui-sref-active="active">
+            <a data-ui-sref="tenant-requests" data-ng-click="mactrl.sidebarStat($event)"><i class="md md-group-add"></i> Tenant Requests <span class="label label-danger pull-right">{{ pctrl.tenantRequests }}</span></a>
+        </li>
+        <li class="divider"></li>
+        <li data-ui-sref-active="active">
+            <a data-ui-sref="faq" data-ng-click="mactrl.sidebarStat($event)"><i class="md md-help"></i> FAQs</a>
+        </li>
+        <li class="divider"></li>
+        <li class="sub-menu" data-ng-class="{ 'active toggled': mactrl.$state.includes('pages') }">
+            <a href="login.html"><i class="md md-input"></i> Login and Sign Up</a>
+            <ul>
+                <li></li>
+            </ul>
+        </li>
+    </ul>
+</div>
+
+<script>
+	// Initialize the 'waves effect' on all elements with '.btn'
+	Waves.attach('.main-menu li:not(.divider)', ['waves-button', 'waves-float']);
+	Waves.attach('.btn:not(.noExtraWaves)', ['waves-button', 'waves-float']);
+    Waves.init();
+</script>
