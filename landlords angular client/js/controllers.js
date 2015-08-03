@@ -1588,20 +1588,33 @@ noochForLandlords
     // LOGIN (Came w/ default template)
     //=================================================
 
-    .controller('loginCtrl', function(){
+    .controller('loginCtrl', function ($scope, authenticationService) {
         //Status
         this.login = 1;
         this.register = 0;
         this.forgot = 0;
-
+        $scope.password = '';
+        $scope.username = '';
         this.loginAttmpt = function () {
 
-            var userObject = {'name':'malkit','id':1}
+            //var userObject = {'name':'malkit','id':1}
 
-            localStorage.setItem('userObject',userObject);
+            //localStorage.setItem('userObject',userObject);
             
 
-            window.location.href = 'index.html#/profile/profile-about';
+            authenticationService.ClearUserData();
+
+            authenticationService.Login($scope.username, $scope.password, function (response) {
+                if (response.IsSuccess==true) {
+                    authenticationService.SetUserDetails($scope.username, response.MemberId, response.AccessToken);
+                    window.location.href = 'index.html#/profile/profile-about';
+                } else {
+                    alert('Error :' + response.ErrorMessage);
+
+                }
+            });
+
+
         }
     })
 

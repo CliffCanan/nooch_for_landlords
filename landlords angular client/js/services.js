@@ -1,14 +1,16 @@
 noochForLandlords
-  
+
+
+
 
     // =========================================================================
     // Header Messages and Notifications list Data
     // =========================================================================
 
-    .service('messageService', ['$resource', function($resource){
-        this.getMessage = function(img, user, text) {
+    .service('messageService', ['$resource', function ($resource) {
+        this.getMessage = function (img, user, text) {
             var gmList = $resource("data/messages-notifications.json");
-            
+
             return gmList.get({
                 img: img,
                 user: user,
@@ -16,16 +18,16 @@ noochForLandlords
             });
         }
     }])
-    
+
 
     // =========================================================================
     // Todo List Widget Data
     // =========================================================================
 
-    .service('todoService', ['$resource', function($resource){
-        this.getTodo = function(todo) {
+    .service('todoService', ['$resource', function ($resource) {
+        this.getTodo = function (todo) {
             var todoList = $resource("data/todo.json");
-            
+
             return todoList.get({
                 todo: todo
             });
@@ -36,12 +38,12 @@ noochForLandlords
     // =========================================================================
     // Recent Items Widget Data
     // =========================================================================
-    
-    .service('recentitemService', ['$resource', function($resource){
-        this.getRecentitem = function(id, name, price) {
+
+    .service('recentitemService', ['$resource', function ($resource) {
+        this.getRecentitem = function (id, name, price) {
             var recentitemList = $resource("data/recent-items.json");
-            
-            return recentitemList.get ({
+
+            return recentitemList.get({
                 id: id,
                 name: name,
                 price: price
@@ -53,15 +55,13 @@ noochForLandlords
     // =========================================================================
     // Properties Widget Data
     // =========================================================================
-    
-    .service('propertiesService', ['$resource', function ($resource)
-    {
-        this.getProperties = function (id, img, propName, address, units, tenants)
-        {
+
+    .service('propertiesService', ['$resource', function ($resource) {
+        this.getProperties = function (id, img, propName, address, units, tenants) {
             var propertyList = $resource("data/properties.json");
 
             return propertyList.get({
-				id: id,
+                id: id,
                 img: img,
                 propName: propName,
                 address: address,
@@ -71,8 +71,7 @@ noochForLandlords
         }
     }])
 
-    .service('propDetailsService', ['$resource', function ($resource)
-    {
+    .service('propDetailsService', ['$resource', function ($resource) {
         // FOR GOING TO THE INDIDVIDUAL PROPERTY'S DETAILS PAGE
         var selectedProp = {};
 
@@ -87,7 +86,7 @@ noochForLandlords
 
         function get2() {
             var User = $resource('data/properties.json/:id', { id: '@id' });
-            console.log(User.get({id:4}));
+            console.log(User.get({ id: 4 }));
             /*var user = User.get({ userId: 123 }, function () {
                 user.abc = true;
                 user.$save();
@@ -106,10 +105,8 @@ noochForLandlords
     // Tenants Service (For Property Details Page)
     // =========================================================================
 
-    .service('getTenantsService', ['$resource', function ($resource)
-    {
-        this.getTenants = function (id, name, nickname, logo, last4, status, dateAdded, notes)
-        {
+    .service('getTenantsService', ['$resource', function ($resource) {
+        this.getTenants = function (id, name, nickname, logo, last4, status, dateAdded, notes) {
             var tenantList = $resource("data/tenantsList.json");
 
             console.log("SERVICES for TENANTS reached");
@@ -131,10 +128,8 @@ noochForLandlords
     // Bank Accounts Data
     // =========================================================================
 
-    .service('getBanksService', ['$resource', function ($resource)
-    {
-        this.getBank = function (id, name, nickname, logo, last4, status, dateAdded, notes)
-        {
+    .service('getBanksService', ['$resource', function ($resource) {
+        this.getBank = function (id, name, nickname, logo, last4, status, dateAdded, notes) {
             console.log("getBanksService reached");
 
             var bankList = $resource("data/bankAccountsList.json");
@@ -156,9 +151,9 @@ noochForLandlords
     // =========================================================================
     // Nice Scroll - Custom Scroll bars
     // =========================================================================
-    .service('nicescrollService', function() {
+    .service('nicescrollService', function () {
         var ns = {};
-        ns.niceScroll = function(selector, color, cursorWidth) {
+        ns.niceScroll = function (selector, color, cursorWidth) {
             $(selector).niceScroll({
                 cursorcolor: color,
                 cursorborder: 0,
@@ -169,7 +164,7 @@ noochForLandlords
                 autohidemode: false
             });
         }
-        
+
         return ns;
     })
 
@@ -178,12 +173,12 @@ noochForLandlords
     // BOOTSTRAP GROWL
     //==============================================
 
-    .service('growlService', function(){
+    .service('growlService', function () {
         var gs = {};
-        gs.growl = function(message, type) {
+        gs.growl = function (message, type) {
             $.growl({
                 message: message
-            },{
+            }, {
                 type: type,
                 allow_dismiss: false,
                 label: 'Cancel',
@@ -194,8 +189,8 @@ noochForLandlords
                 },
                 delay: 2500,
                 animate: {
-                        enter: 'animated bounceIn',
-                        exit: 'animated bounceOut'
+                    enter: 'animated bounceIn',
+                    exit: 'animated bounceOut'
                 },
                 offset: {
                     x: 20,
@@ -203,7 +198,7 @@ noochForLandlords
                 }
             });
         }
-        
+
         return gs;
     })
 
@@ -213,6 +208,36 @@ noochForLandlords
     // Authentication service
     // =========================================================================
 
-    .service('authenticationService',function() {
-    
-    } )
+    .service('authenticationService', function ($http) {
+        $http.defaults.useXDomain = true;
+        var Operations = {};
+        Operations.Login = function (username, password, callback) {
+            $http.post(URLs.Login, { UserName: username, Password: password, Ip:'202.102.222.111' })
+                .success(function (response) {
+                    callback(response);
+                });
+        };
+
+        Operations.SetUserDetails = function (username, memberId, accessToken) {
+            
+            localStorage.setItem('username', username);
+            localStorage.setItem('memberId', memberId);
+            localStorage.setItem('accessToken', accessToken);
+
+        };
+
+        Operations.ClearUserData= function () {
+            localStorage.clear();
+        };
+        Operations.GetUserDetails = function () {
+            var User = {};
+            User.username = localStorage.getItem('username');
+            User.memberId = localStorage.getItem('memberId');
+            User.accessToken = localStorage.getItem('accessToken');
+            return User;
+
+        };
+    return Operations;
+
+
+})
