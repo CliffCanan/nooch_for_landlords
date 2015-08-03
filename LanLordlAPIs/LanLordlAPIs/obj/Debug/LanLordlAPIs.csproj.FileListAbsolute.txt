@@ -34,3 +34,6 @@ C:\nooch_landlordwebapp\LanLordlAPIs\LanLordlAPIs\bin\System.Web.Http.WebHost.xm
 C:\nooch_landlordwebapp\LanLordlAPIs\LanLordlAPIs\obj\Debug\LanLordlAPIs.dll
 C:\nooch_landlordwebapp\LanLordlAPIs\LanLordlAPIs\obj\Debug\LanLordlAPIs.pdb
 C:\nooch_landlordwebapp\LanLordlAPIs\LanLordlAPIs\obj\Debug\LanLordlAPIs.csprojResolveAssemblyReference.cache
+C:\nooch_landlordwebapp\LanLordlAPIs\LanLordlAPIs\bin\System.Web.Cors.dll
+C:\nooch_landlordwebapp\LanLordlAPIs\LanLordlAPIs\bin\System.Web.Http.Cors.dll
+C:\nooch_landlordwebapp\LanLordlAPIs\LanLordlAPIs\bin\System.Web.Http.Cors.xml

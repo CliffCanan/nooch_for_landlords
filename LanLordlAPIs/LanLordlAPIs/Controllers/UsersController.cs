@@ -76,6 +76,7 @@ namespace LanLordlAPIs.Controllers
                         result.IsSuccess = true;
                         result.ErrorMessage = "OK";
                         result.AccessToken = landlordEntity.WebAccessToken;
+                        result.MemberId = landlordEntity.MemberId.ToString();
 
                     }
                     else

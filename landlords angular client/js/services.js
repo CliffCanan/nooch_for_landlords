@@ -209,10 +209,18 @@ noochForLandlords
     // =========================================================================
 
     .service('authenticationService', function ($http) {
-        $http.defaults.useXDomain = true;
+        
         var Operations = {};
         Operations.Login = function (username, password, callback) {
-            $http.post(URLs.Login, { UserName: username, Password: password, Ip:'202.102.222.111' })
+
+            var data = {};
+            data.UserName = 'test';
+            data.Password = 'testasdasd';
+            data.Ip = '202.102.222.111';
+
+            console.log(data);
+
+            $http.post(URLs.Login, data)
                 .success(function (response) {
                     callback(response);
                 });

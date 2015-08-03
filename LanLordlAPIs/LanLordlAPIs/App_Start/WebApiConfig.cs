@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace LanLordlAPIs
 {
@@ -19,6 +20,9 @@ namespace LanLordlAPIs
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+            config.EnableCors(new EnableCorsAttribute("*", "*", "GET"));
+            config.EnableCors(new EnableCorsAttribute("*", "*", "POST"));
+            
         }
     }
 }
