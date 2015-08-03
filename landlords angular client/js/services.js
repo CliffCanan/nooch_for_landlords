@@ -1,4 +1,5 @@
 noochForLandlords
+  
 
     // =========================================================================
     // Header Messages and Notifications list Data
@@ -205,3 +206,13 @@ noochForLandlords
         
         return gs;
     })
+
+
+
+    // =========================================================================
+    // Authentication service
+    // =========================================================================
+
+    .service('authenticationService',function() {
+    
+    } )

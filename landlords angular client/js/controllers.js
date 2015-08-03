@@ -5,8 +5,11 @@ noochForLandlords
 
     .controller('noochAdminCtrl', function ($rootScope, $timeout, $state, growlService) {
         //Welcome Message
-        growlService.growl('Welcome back Josh!', 'inverse')
+        growlService.growl('Welcome back Josh!', 'inverse');
         
+        var obj = localStorage.getItem('userObject');
+        console.log(obj);
+
         
         // Detact Mobile Browser
         if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
@@ -1591,7 +1594,13 @@ noochForLandlords
         this.register = 0;
         this.forgot = 0;
 
-        this.loginAttmpt = function() {
+        this.loginAttmpt = function () {
+
+            var userObject = {'name':'malkit','id':1}
+
+            localStorage.setItem('userObject',userObject);
+            
+
             window.location.href = 'index.html#/profile/profile-about';
         }
     })
