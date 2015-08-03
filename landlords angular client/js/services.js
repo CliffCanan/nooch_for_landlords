@@ -214,8 +214,8 @@ noochForLandlords
         Operations.Login = function (username, password, callback) {
 
             var data = {};
-            data.UserName = 'test';
-            data.Password = 'testasdasd';
+            data.UserName = username;
+            data.Password = password;
             data.Ip = '202.102.222.111';
 
             console.log(data);
@@ -245,6 +245,24 @@ noochForLandlords
             return User;
 
         };
+
+        Operations.IsValidUser = function () {
+            var User = {};
+            User.username = localStorage.getItem('username');
+            User.memberId = localStorage.getItem('memberId');
+            User.accessToken = localStorage.getItem('accessToken');
+            if (User.username == null || User.memberId == null || User.accessToken == null) {
+                return false;
+            }
+            if (User.username.length > 0 && User.memberId.length > 0 && User.accessToken.length > 0)
+                return true;
+            else
+                return false;
+
+
+        };
+
+
     return Operations;
 
 

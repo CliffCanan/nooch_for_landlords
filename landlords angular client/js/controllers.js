@@ -3,12 +3,15 @@ noochForLandlords
     // Base controller for common functions
     // ===============================================================
 
-    .controller('noochAdminCtrl', function ($rootScope, $timeout, $state, growlService) {
+    .controller('noochAdminCtrl', function ($rootScope, $timeout, $state, growlService, authenticationService) {
+        if (!authenticationService.IsValidUser()) {
+            growlService.growl('Please login to continue!', 'inverse');
+            window.location.href = 'login.html';
+        }
         //Welcome Message
-        growlService.growl('Welcome back Josh!', 'inverse');
+        //growlService.growl('Welcome back Josh!', 'inverse');
         
-        var obj = localStorage.getItem('userObject');
-        console.log(obj);
+     
 
         
         // Detact Mobile Browser
@@ -43,7 +46,15 @@ noochForLandlords
     // ===============================================================
     // Header
     // ===============================================================
-    .controller('headerCtrl', function($timeout, messageService){
+    .controller('headerCtrl', function ($timeout, messageService, authenticationService) {
+
+        if (!authenticationService.IsValidUser()) {
+            window.location.href = 'login.html';
+        }
+
+
+
+
 
         this.closeSearch = function(){
             angular.element('#header').removeClass('search-toggled');
@@ -1593,8 +1604,12 @@ noochForLandlords
         this.login = 1;
         this.register = 0;
         this.forgot = 0;
-        $scope.password = '';
-        $scope.username = '';
+
+        $scope.LoginData = {
+            password: '',
+            username :''
+        };
+        
         this.loginAttmpt = function () {
 
             //var userObject = {'name':'malkit','id':1}
@@ -1604,9 +1619,9 @@ noochForLandlords
 
             authenticationService.ClearUserData();
 
-            authenticationService.Login($scope.username, $scope.password, function (response) {
+            authenticationService.Login($scope.LoginData.username, $scope.LoginData.password, function (response) {
                 if (response.IsSuccess==true) {
-                    authenticationService.SetUserDetails($scope.username, response.MemberId, response.AccessToken);
+                    authenticationService.SetUserDetails($scope.LoginData.username, response.MemberId, response.AccessToken);
                     window.location.href = 'index.html#/profile/profile-about';
                 } else {
                     alert('Error :' + response.ErrorMessage);
