@@ -25,7 +25,7 @@
             <a data-ui-sref="home" data-ng-click="mactrl.sidebarStat($event)"><i class="md md-home"></i> Home</a>
         </li>
         <li data-ui-sref-active="active">
-            <a data-ui-sref="history" data-ng-click="mactrl.sidebarStat($event)"><i class="md md-history"></i> Payment History</a>
+            <a data-ui-sref="history" data-ng-click="mactrl.sidebarStat($event)"><i class="md md-history"></i> Payments</a>
         </li>
         <li data-ui-sref-active="active">
             <a data-ui-sref="properties" data-ng-click="mactrl.sidebarStat($event)"><i class="md md-business"></i> Properties <span class="label label-info pull-right">{{ pctrl.propertyCount }}</span></a>
@@ -50,6 +50,6 @@
 <script>
 	// Initialize the 'waves effect' on all elements with '.btn'
 	Waves.attach('.main-menu li:not(.divider)', ['waves-button', 'waves-float']);
-	Waves.attach('.btn:not(.noExtraWaves)', ['waves-button', 'waves-float']);
+	Waves.attach(':not(.input-group-btn) > .btn:not(.noExtraWaves)', ['waves-button', 'waves-float']);
     Waves.init();
 </script>

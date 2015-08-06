@@ -26,15 +26,14 @@
     "amd",
     "node"
   ],
-  "version": "3.0.6",
-  "_release": "3.0.6",
+  "version": "3.0.8",
+  "_release": "3.0.8",
   "_resolution": {
     "type": "version",
-    "tag": "3.0.6",
-    "commit": "e515a2fa78c7eb1b5fe59a389fc2e19c37d4613f"
+    "tag": "3.0.8",
+    "commit": "ade6092d59008ab1b934ab4349a93c38b36de9a2"
   },
   "_source": "git://github.com/jackmoore/autosize.git",
   "_target": "~3.0.6",
-  "_originalSource": "autosize",
-  "_direct": true
+  "_originalSource": "autosize"
 }

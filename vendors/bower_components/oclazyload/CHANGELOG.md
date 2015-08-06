@@ -1,3 +1,43 @@
+<a name="1.0.4"></a>
+# 1.0.4 (2015-07-30)
+
+
+## Bug Fixes
+
+- don't let unmet dependencies slip through (thank you unit tests!)
+ ([23eb666d](https://github.com/ocombe/ocLazyLoad/commit/23eb666d6627416e40aaa97783b9e81ec7153fe9))
+- don't try to call angular.module on config names
+ ([52219f92](https://github.com/ocombe/ocLazyLoad/commit/52219f923319e0856da47a6bce064b6ffb361641),
+ [#217](https://github.com/ocombe/ocLazyLoad/issues/217), [#218](https://github.com/ocombe/ocLazyLoad/issues/218))
+
+
+<a name="1.0.3"></a>
+# 1.0.3 (2015-07-24)
+
+
+## Bug Fixes
+
+- check for config names when needed
+ ([023e4bb1](https://github.com/ocombe/ocLazyLoad/commit/023e4bb1e43a922ac4b9a4ef09ff475f1fec867a),
+ [#214](https://github.com/ocombe/ocLazyLoad/issues/214), [#198](https://github.com/ocombe/ocLazyLoad/issues/198))
+
+
+<a name="1.0.2"></a>
+# 1.0.2 (2015-07-10)
+
+
+## Bug Fixes
+
+- add extra condition to improve karma testing
+ ([f0c33aae](https://github.com/ocombe/ocLazyLoad/commit/f0c33aaea84511a276dd946dd48bfe2cb20d1e73))
+
+
+## Features
+
+- add interoperability with CommonJS
+ ([b0536ad4](https://github.com/ocombe/ocLazyLoad/commit/b0536ad4104467922c36bcf55a8a072343d102bc))
+
+
 <a name="1.0.1"></a>
 # 1.0.1 (2015-06-01)
 

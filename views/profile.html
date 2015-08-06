@@ -39,7 +39,7 @@
                 <div class="pm-overview c-overflow">
 
                     <div class="pmo-pic z-depth-2">
-                        <div class="p-relative" data-toggle="modal" data-target="#addPic">
+                        <div class="p-relative" data-ng-click="pctrl.editProfilePic()">
                             <a href="">
                                 <img class="img-responsive" src="img/profile-pics/{{pctrl.userPic}}.png" alt="Profile Picture">
                             </a>
@@ -140,8 +140,8 @@
         </div>
 
         <!-- Modal Change Profile Picture -->
-        <div class="modal fade" id="addPic" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog modal-sm">
+        <div class="modal fade" id="editProfilePic" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog" style="max-width:420px;">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h4 class="modal-title">Change Profile Picture</h4>
@@ -149,23 +149,13 @@
                     </div>
                     <div class="modal-body text-center">
 
-                        <div class="fileinput fileinput-new p-0" data-provides="fileinput">
-                            <div class="fileinput-preview thumbnail" data-trigger="fileinput">
-                                <img class="img-responsive" src="img/profile-pics/{{pctrl.userPic}}.png">
-                            </div>
-                            <div>
-                                <span class="btn btn-primary btn-file">
-                                    <span class="fileinput-new">Select image</span>
-                                    <span class="fileinput-exists">Change</span>
-                                    <input type="file" name="...">
-                                </span>
-                                <a href="#" class="btn btn-danger fileinput-exists" data-dismiss="fileinput">Remove</a>
-                            </div>
+                        <div>
+                            <input id="profilePicFileInput" type="file">
                         </div>
 
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-link" data-dismiss="modal">Save</button>
+                        <button type="button" class="btn btn-link" data-dismiss="modal"><i class="md md-check m-r-10"></i>Save</button>
                     </div>
                 </div>
             </div>

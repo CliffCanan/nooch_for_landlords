@@ -301,6 +301,7 @@ form .alert {
 .popover {
   box-shadow:0 4px 12px -1px rgba(0, 0, 0, 0.35);
   padding:15px;
+  min-width:150px;
 }
 .popover-title {
   font-size:13px;
@@ -311,7 +312,34 @@ form .alert {
 .popover-content {
   padding:0;
 }
-
+#addUnitModal .popover {
+  background-color: #2196f3;
+  border-color: #2196f3;
+  color:#fff;
+}
+#addUnitModal .popover .popover-title {
+  background: none;
+  color:#fff;
+}
+#addUnitModal .popover.bottom > .arrow {
+  border-bottom-color: #2196f3;
+}
+.placeholder-sm::-webkit-input-placeholder {
+   color: red;
+   font-size: 14px;
+}
+.placeholder-sm:-moz-placeholder { /* Firefox 18- */
+   color: red;
+   font-size: 14px; 
+}
+.placeholder-sm::-moz-placeholder {  /* Firefox 19+ */
+   color: red;
+   font-size: 14px;
+}
+.placeholder-sm:-ms-input-placeholder {  
+   color: red;
+   font-size: 14px;
+}
 /**** TO-DO LIST WIDGET ****/
 .listview .lv-item .media-body {padding-top:5px;}
 
@@ -628,6 +656,10 @@ body.login-content:before {
 
   #idVerWiz .content .body {
     padding: 15px 25px;
+  }
+
+  .popover {
+    min-width:200px;
   }
 }
 
@@ -1024,6 +1056,10 @@ addPropWiz .content {
 .propCard .pmbb-edit dt {
   padding-left:5px;
 }
+.file-caption-name {
+  padding-top: 5px;
+}
+.file-input .btn > i {margin-right:10px;}
 
 @media screen and (min-width:768px)
 {

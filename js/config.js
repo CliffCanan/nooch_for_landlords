@@ -69,7 +69,7 @@ noochForLandlords
                                 name: 'vendors',
                                 files: [
                                     'vendors/sparklines/jquery.sparkline.min.js',
-                                    'vendors/bower_components/jquery.bootgrid/dist/jquery.bootgrid-override.min.js'
+                                    'vendors/bower_components/jquery.bootgrid/dist/jquery.bootgrid.min.js'
                                 ]
                             }
                         ])
@@ -99,7 +99,9 @@ noochForLandlords
                                 files: [
                                     'vendors/bower_components/bootstrap-select/dist/css/bootstrap-select.css',
                                     'vendors/chosen_v1.4.2/chosen.min.css',
-                                    'vendors/bower_components/jquery.steps/build/jquery.steps.css'
+                                    'vendors/bower_components/jquery.steps/build/jquery.steps.css',
+                                    'vendors/bower_components/bootstrap-fileinput/css/fileinput.min.css',
+                                    'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css',
                                 ]
                             },
                             {
@@ -108,9 +110,8 @@ noochForLandlords
                                     'vendors/input-mask/input-mask.min.js',
                                     'vendors/bower_components/bootstrap-select/dist/js/bootstrap-select.js',
                                     'vendors/chosen_v1.4.2/chosen.jquery.min.js',
-                                    'vendors/fileinput/fileinput.min.js',
                                     'vendors/bower_components/jquery.steps/build/jquery.steps.js',
-                                    'vendors/parsleyjs/dist/parsley.min.js',
+                                    'vendors/bower_components/bootstrap-fileinput/js/fileinput.min.js',
                                 ]
                             }
                         ])
@@ -132,6 +133,8 @@ noochForLandlords
                                     'vendors/chosen_v1.4.2/chosen.min.css',
                                     'vendors/bower_components/jquery.bootgrid/dist/jquery.bootgrid.min.css',
                                     'vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css',
+                                    'vendors/bower_components/bootstrap-fileinput/css/fileinput.min.css',
+                                    'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css',
                                 ]
                             },
                             {
@@ -140,9 +143,9 @@ noochForLandlords
                                     'vendors/input-mask/input-mask.min.js',
                                     'vendors/bower_components/bootstrap-select/dist/js/bootstrap-select.js',
                                     'vendors/chosen_v1.4.2/chosen.jquery.min.js',
-                                    'vendors/bower_components/jquery.bootgrid/dist/jquery.bootgrid-override.min.js',
-                                    'vendors/fileinput/fileinput.min.js',
+                                    'vendors/bower_components/jquery.bootgrid/dist/jquery.bootgrid.min.js',
                                     'vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js',
+                                    'vendors/bower_components/bootstrap-fileinput/js/fileinput.min.js',
                                 ]
                             }
                         ])
@@ -170,146 +173,12 @@ noochForLandlords
                             {
                                 name: 'vendors',
                                 files: [
-                                    'vendors/bower_components/jquery.bootgrid/dist/jquery.bootgrid-override.min.js'
+                                    'vendors/bower_components/jquery.bootgrid/dist/jquery.bootgrid.min.js'
                                 ]
                             }
                         ])
                     }
                 }
-            })
-
-
-            //------------------------------
-            // WIDGETS
-            //------------------------------
-        
-            .state ('widgets', {
-                url: '/widgets',
-                templateUrl: 'views/common.html'
-            })
-
-            .state ('widgets.widgets', {
-                url: '/widgets',
-                templateUrl: 'views/widgets.html',
-                resolve: {
-                    loadPlugin: function($ocLazyLoad) {
-                        return $ocLazyLoad.load ([
-                            {
-                                name: 'css',
-                                insertBefore: '#app-level',
-                                files: [
-                                    'vendors/bower_components/mediaelement/build/mediaelementplayer.css',
-                                ]
-                            },
-                            {
-                                name: 'vendors',
-                                files: [
-                                    'vendors/bower_components/mediaelement/build/mediaelement-and-player.js'
-                                ]
-                            }
-                        ])
-                    }
-                }
-            })
-
-            .state ('widgets.widget-templates', {
-                url: '/widget-templates',
-                templateUrl: 'views/widget-templates.html'
-            })
-
-
-            //------------------------------
-            // TABLES
-            //------------------------------
-        
-            .state ('tables', {
-                url: '/tables',
-                templateUrl: 'views/common.html'
-            })
-
-            .state ('tables.tables', {
-                url: '/tables',
-                templateUrl: 'views/tables.html'
-            })
-
-            .state ('tables.data-tables', {
-                url: '/data-tables',
-                templateUrl: 'views/data-tables.html',
-                resolve: {
-                    loadPlugin: function($ocLazyLoad) {
-                        return $ocLazyLoad.load ([
-                            {
-                                name: 'css',
-                                insertBefore: '#app-level',
-                                files: [
-                                    'vendors/bower_components/jquery.bootgrid/dist/jquery.bootgrid.min.css',
-                                ]
-                            },
-                            {
-                                name: 'vendors',
-                                files: [
-                                    'vendors/bower_components/jquery.bootgrid/dist/jquery.bootgrid-override.min.js'
-                                ]
-                            }
-                        ])
-                    }
-                }
-            })
-
-        
-            //------------------------------
-            // FORMS
-            //------------------------------
-            .state ('form', {
-                url: '/form',
-                templateUrl: 'views/common.html'
-            })
-
-            .state ('form.form-components', {
-                url: '/form-components',
-                templateUrl: 'views/form-components.html',
-                resolve: {
-                    loadPlugin: function($ocLazyLoad) {
-                        return $ocLazyLoad.load ([
-                            {
-                                name: 'css',
-                                insertBefore: '#app-level',
-                                files: [
-                                    'vendors/bower_components/bootstrap-select/dist/css/bootstrap-select.css',
-                                    'vendors/chosen_v1.4.2/chosen.min.css',
-                                    'vendors/bower_components/nouislider/distribute/jquery.nouislider.min.css',
-                                    'vendors/farbtastic/farbtastic.css',
-                                    'vendors/bower_components/summernote/dist/summernote.css',
-                                    'vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css'
-                                ]
-                            },
-                            {
-                                name: 'vendors',
-                                files: [
-                                    'vendors/input-mask/input-mask.min.js',
-                                    'vendors/bower_components/bootstrap-select/dist/js/bootstrap-select.js',
-                                    'vendors/chosen_v1.4.2/chosen.jquery.min.js',
-                                    'vendors/bower_components/nouislider/distribute/jquery.nouislider.all.min.js',
-                                    'vendors/bower_components/moment/min/moment.min.js',
-                                    'vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js',
-                                    'vendors/farbtastic/farbtastic.min.js',
-                                    'vendors/bower_components/summernote/dist/summernote.min.js',
-                                    'vendors/fileinput/fileinput.min.js'
-                                ]
-                            }
-                        ])
-                    }
-                }
-            })
-        
-            .state ('form.form-examples', {
-                url: '/form-examples',
-                templateUrl: 'views/form-examples.html'
-            })
-   
-            .state ('form.form-validations', {
-                url: '/form-validations',
-                templateUrl: 'views/form-validations.html'
             })
         
 
@@ -329,15 +198,17 @@ noochForLandlords
                                 insertBefore: '#app-level',
                                 files: [
                                     'vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css',
-                                    'vendors/bower_components/jquery.steps/build/jquery.steps.css'
+                                    'vendors/bower_components/jquery.steps/build/jquery.steps.css',
+                                    'vendors/bower_components/bootstrap-fileinput/css/fileinput.min.css',
+                                    'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css',
                                 ]
                             },
                             {
                                 name: 'vendors',
                                 files: [
                                     'vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js',
-                                    'vendors/fileinput/fileinput.min.js',
-                                    'vendors/bower_components/jquery.steps/build/jquery.steps.js'
+                                    'vendors/bower_components/jquery.steps/build/jquery.steps.js',
+                                    'vendors/bower_components/bootstrap-fileinput/js/fileinput.min.js',
                                 ]
                             }
                         ])
@@ -369,7 +240,6 @@ noochForLandlords
                                     'vendors/chosen_v1.4.2/chosen.jquery.min.js',
                                     'vendors/bower_components/moment/min/moment.min.js',
                                     'vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js',
-                                    'vendors/fileinput/fileinput.min.js',
                                     'vendors/bower_components/jquery.steps/build/jquery.steps.js'
                                 ]
                             }

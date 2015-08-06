@@ -1,0 +1,35 @@
+{  
+   "list":[
+        {  
+
+            "id":1,
+            "img": "1.jpg",
+            "user": "David Belle",
+            "text": "June rent paid: $600"
+        },
+        {
+            "id":2,
+            "img": "2.jpg",
+            "user": "Jonathan Morris",
+            "text": "June rent paid: $600"
+        },
+        {
+            "id":3,
+            "img": "3.jpg",
+            "user": "Fredric Mitchell Jr",
+            "text": "June rent paid: $480"
+        },
+        {
+            "id":4,
+            "img": "4.jpg",
+            "user": "Glenn Jecobs",
+            "text": "June rent paid: $700"
+        },
+        {
+            "id":5,
+            "img": "5.jpg",
+            "user": "Bill Phillips",
+            "text": "June rent paid: $850"
+        }
+   ]
+}

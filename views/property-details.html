@@ -59,7 +59,7 @@
                                             </div>
                                         </div>
                                         <div class="col-sm-4 p-l-0 propDetailsStatBadge">
-                                            <div class="bgm-purple" data-trigger="hover" data-toggle="popover" data-placement="bottom" data-content="Oh no! You still have {{selectedProperty.pastDue}} tenants at {{selectedProperty.name}} that have not paid this month's rent!'." data-original-title="# of Past Due Tenants This Month">
+                                            <div class="bgm-purple" data-trigger="hover" data-toggle="popover" data-placement="bottom" data-content="Oh no! You still have {{selectedProperty.pastDue}} tenants at {{selectedProperty.name}} that have not paid this month's rent!" data-original-title="# of Past Due Tenants This Month">
                                                 <i class="md-warning c-purple"></i>
                                                 <span class="headline">Past Due</span>
                                                 <span class="value">{{selectedProperty.pastDue}}</span>
@@ -110,8 +110,6 @@
                     <!-- TABLE OF UNITS -->
                     <div class="card z-depth-1 p-t-20">
 
-                        <!--div class="card-header">
-                        </div>-->
                         <!-- TABLE CONFIGURATION & SETTINGS ARE IN "js/modules/table.js  -->
                         <div class="card-body table-responsive">
                             <table class="table table-striped table-vmiddle" id="propDetailsTbl" data-prop-details-table data-editunit="addUnit()">
@@ -288,7 +286,7 @@
                                 <div class="profile-view">
 
                                     <div class="pv-header">
-                                        <div class="pv-main" data-toggle="modal" data-target="#editPropPic">
+                                        <div class="pv-main" data-ng-click="pdctrl.editPropPic()">
                                             <img src="img/property-pics/{{selectedProperty.imgUrl}}" alt="Property Picture">
                                         </div>
                                     </div>
@@ -298,6 +296,7 @@
 
                                         <ul class="p-l-10 m-t-15 f-15 address">
                                             <li><i class="md md-place"></i> {{selectedProperty.address1}}</li>
+                                            <li class="address2">{{selectedProperty.address2}}</li>
                                             <li class="address2">{{selectedProperty.city}}, {{selectedProperty.state}} {{selectedProperty.zip}}</li>
                                             <li><i class="md md-call"></i> {{selectedProperty.contactNumber}}</li>
                                         </ul>
@@ -318,6 +317,15 @@
                                             <dd>
                                                 <div class="dtp-container dropdown fg-line">
                                                     <input data-ng-model="selectedProperty.address1" class="form-control" value="{{ selectedProperty.address1 }}" placeholder="Street Address">
+                                                </div>
+                                            </dd>
+                                        </dl>
+
+                                        <dl>
+                                            <dt>Address 2</dt>
+                                            <dd>
+                                                <div class="dtp-container dropdown fg-line">
+                                                    <input data-ng-model="selectedProperty.address2" class="form-control" value="{{ selectedProperty.address2 }}" placeholder="Street Address 2">
                                                 </div>
                                             </dd>
                                         </dl>
@@ -572,15 +580,29 @@
 
                     <div class="form-group" id="unitNumGrp">
                         <label for="unitNum" class="col-sm-3 control-label">Unit Number</label>
-                        <div class="col-sm-9">
+
+                        <div class="col-sm-3">
                             <div class="fg-line">
-                                <input type='text' id="unitNum" class="form-control" placeholder="Ex:&nbsp; '3a' or '1st Floor'" maxlength="20" required>
+                                <input type='text' id="unitNum" class="form-control placeholder-sm" placeholder="'3a' or '1st Floor'" maxlength="20" required>
                             </div>
                         </div>
+
+                        <label for="nickname" class="col-sm-2 p-r-0 control-label">
+                            Nickname 
+                            <small>
+                                <i class="md md-info-outline" data-trigger="click" data-toggle="popover" data-placement="auto" data-content="Instead of a unit #, use this field to enter a name to identify this unit." data-original-title="No Unit Number?"></i>
+                            </small>
+                        </label>
+                        <div class="col-sm-4">
+                            <div class="fg-line">
+                                <input type='text' id="nickname" class="form-control placeholder-sm" placeholder="'Attic', 'Nancy's House'" maxlength="20" required>
+                            </div>
+                        </div>
+
                     </div>
 
                     <div class="form-group" id="monthlyRentGrp">
-                        <label for="monthlyRent" class="col-sm-3 control-label">Monthly Rent</label>
+                        <label for="monthlyRent" class="col-sm-3 control-label">Monthly Rent*</label>
                         <div class="col-sm-3 p-r-0">
                             <div class="input-group">
                                 <span class="input-group-addon p-r-0"><i class="md md-attach-money c-green f-30"></i></span>
@@ -589,7 +611,7 @@
                                 </div>
                             </div>
                         </div>
-                        <label for="memo" class="col-sm-2 p-r-0 control-label">Due On:</label>
+                        <label for="memo" class="col-sm-2 p-r-0 control-label">Due On</label>
                         <div class="col-sm-4">
                             <select data-select-picker>
                                 <option>1st of Month</option>
@@ -641,7 +663,7 @@
 
             <div class="modal-footer">
                 <button type="button" class="btn btn-default pull-left" data-dismiss="modal"><i class="md md-close m-r-10"></i>Cancel</button>
-                <button type="button" id="submitChargeTenant" class="btn btn-primary" ng-click="pdctrl.addUnit_submit()"><i class="md md-check m-r-10"></i>Save</button>
+                <button type="button" id="submitChargeTenant" class="btn btn-primary" ng-click="pdctrl.addUnit_submit()"><i class="md md-check m-r-10"></i>Save Unit</button>
             </div>
 
         </div>
@@ -695,7 +717,7 @@
 
             <div class="modal-footer">
                 <button type="button" class="btn btn-default pull-left" data-dismiss="modal"><i class="md md-close m-r-10"></i>Cancel</button>
-                <button type="button" id="submitChargeTenant" class="btn btn-primary" ng-click="pdctrl.sendMsg_submit()"><i class="md md-check m-r-10"></i>Save</button>
+                <button type="button" id="submitChargeTenant" class="btn btn-primary" ng-click="pdctrl.sendMsg_submit()"><i class="md md-check m-r-10"></i>Send Message</button>
             </div>
 
         </div>
@@ -767,32 +789,24 @@
 
 <!-- Modal Change Profile Picture -->
 <div class="modal fade" id="editPropPic" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog" style="max-width:500px;">
         <div class="modal-content">
+
             <div class="modal-header">
                 <h4 class="modal-title"><i class="md md-insert-photo m-r-10"></i>Change Property Picture</h4>
                 <button type="button" class="btn btn-default btn-icon modalclose" data-dismiss="modal"><i class="md md-close"></i></button>
             </div>
+
             <div class="modal-body text-center" data-ng-controller="propDetailsCtrl">
-
-                <div class="fileinput fileinput-new p-0" data-provides="fileinput">
-                    <div class="fileinput-preview thumbnail" data-trigger="fileinput">
-                        <img class="img-responsive" src="img/property-pics/{{selectedProperty.imgUrl}}">
-                    </div>
-                    <div class="m-t-15">
-                        <span class="btn btn-primary btn-file">
-                            <span class="fileinput-new"><i class="md md-cloud-upload m-r-10"></i>Upload An Image</span>
-                            <span class="fileinput-exists"><i class="md md-swap-horiz m-r-10"></i>Change</span>
-                            <input type="file" name="">
-                        </span>
-                        <a href="#" class="btn btn-danger fileinput-exists" data-dismiss="fileinput"><i class="md md-remove-circle-outline m-r-10"></i>Remove</a>
-                    </div>
+                <div>
+                    <input id="propPicFileInput" type="file">
                 </div>
-
             </div>
+
             <div class="modal-footer">
                 <button type="button" class="btn btn-link" data-dismiss="modal"><i class="md md-check m-r-10"></i>Save</button>
             </div>
+
         </div>
     </div>
 </div>

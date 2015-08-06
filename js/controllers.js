@@ -6,13 +6,8 @@ noochForLandlords
     .controller('noochAdminCtrl', function ($rootScope, $timeout, $state, growlService, authenticationService) {
         if (!authenticationService.IsValidUser()) {
             growlService.growl('Please login to continue!', 'inverse');
-            window.location.href = 'login.html';
+            //window.location.href = 'login.html';
         }
-        //Welcome Message
-        //growlService.growl('Welcome back Josh!', 'inverse');
-        
-     
-
         
         // Detact Mobile Browser
         if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
@@ -48,13 +43,9 @@ noochForLandlords
     // ===============================================================
     .controller('headerCtrl', function ($timeout, messageService, authenticationService) {
 
-        if (!authenticationService.IsValidUser()) {
-            window.location.href = 'login.html';
-        }
-
-
-
-
+        //if (!authenticationService.IsValidUser()) {
+            //window.location.href = 'login.html'; CLIFF: COMMENTING OUT FOR TESTING LOCALLY B/ AUTHENTICATION SERVICE WON'T WORK
+        //}
 
         this.closeSearch = function(){
             angular.element('#header').removeClass('search-toggled');
@@ -241,6 +232,26 @@ noochForLandlords
         {
             this.editPropInfo = 0;
             growlService.growl('Property info updated Successfully!', 'success');
+        }
+
+        this.editPropPic = function () {
+            $('#editPropPic').modal();
+
+            // FILE INPUT DOCUMENTATION: http://plugins.krajee.com/file-input#options
+            $("#propPicFileInput").fileinput({
+                allowedFileTypes: ['image'],
+                initialPreview: [
+                    "<img src='/img/property-pics/" + $scope.selectedProperty.imgUrl + "' class='file-preview-image' alt='Desert' title='Desert'>",
+                ],
+                initialCaption: $scope.selectedProperty.imgUrl,
+                initialPreviewShowDelete: false,
+                layoutTemplates: {
+                    icon: '<span class="md md-panorama m-r-10 kv-caption-icon"></span>',
+                },
+                maxFileSize: 500,
+                msgSizeTooLarge: "File '{name}' ({size} KB) exceeds the maximum allowed file size of {maxSize} KB. Please try a slightly smaller picture!",
+                showUpload: false,
+            });
         }
 
         // Get list of Tenants for this Property
@@ -682,6 +693,9 @@ noochForLandlords
                         searchSettings: { characters: 3 },
                         labels: {
                             noResults: "No units or tenants match that search, unfortunately."
+                        },
+                        statusMappings: {
+
                         }
                     });
                 }
@@ -743,9 +757,12 @@ noochForLandlords
             onInit: function (event, curretIndex)
             {
                 $compile($('.wizard.vertical > .content'))($scope);
+
                 setTimeout(function () {
                     $('#propertyName').focus();
                 }, 900);
+
+                $scope.unitInputsShowing = 0;
             },
             onStepChanging: function (event, currentIndex, newIndex)
             {
@@ -761,7 +778,22 @@ noochForLandlords
                     {
                         updateValidationUi(1, null, true);
 
-                        $('.wizard.vertical > .content').animate({ height: "27em" }, 700)
+                        addPropPicFileInput
+                        // FILE INPUT DOCUMENTATION: http://plugins.krajee.com/file-input#options
+                        $("#addPropPicFileInput").fileinput({
+                            allowedFileTypes: ['image'],
+                            previewSettings: {
+                                image: { width: "auto", height: "150px" }
+                            },
+                            layoutTemplates: {
+                                icon: '<span class="md md-panorama m-r-10 kv-caption-icon"></span>',
+                            },
+                            maxFileSize: 500,
+                            msgSizeTooLarge: "File '{name}' ({size} KB) exceeds the maximum allowed file size of {maxSize} KB. Please try a slightly smaller picture!",
+                            showUpload: false,
+                        });
+
+                        $('.wizard.vertical > .content').animate({ height: "32em" }, 750)
                         return true;
                     }
                     else
@@ -798,7 +830,9 @@ noochForLandlords
                             if ($('#zipCode').val().length == 5)
                             {
                                 updateValidationUi(3, 3, true);
-                                $('.wizard.vertical > .content').animate({ height: "27em" }, 700)
+
+                                setWizardContentHeight();
+
                                 return true;
                             }
                             else
@@ -848,7 +882,7 @@ noochForLandlords
             {
                 swal({
                     title: "Awesome - Property Added",
-                    text: "This property has been successfully created.  Would you like to publish it so Nooch users can find it to pay their rent? (You can do this later, too.)",
+                    text: "This property has been created successfully.  Would you like to \"publish\" this property so your tenants can pay their rent? (You can do this later, too.)",
                     type: "success",
                     showCancelButton: true,
                     confirmButtonColor: "#3fabe1",
@@ -869,7 +903,7 @@ noochForLandlords
                     else {
                         swal({
                             title: "No Problem",
-                            text: "Your property has NOT been published. Before tenants can pay rent for this property, you must publish it, but you can do that later at any time.",
+                            text: "Your property has NOT been published. Before tenants can pay rent for this property, you must \"publish\" it, but you can do that later at any time.",
                             type: "warning",
                         }, function (isConfirm) {
                             window.location.href = '#/properties';
@@ -1013,18 +1047,52 @@ noochForLandlords
             },800)
         }
 
-        this.unitInputsShowing = 0;
         this.addUnit = function () {
-            this.unitInputsShowing += 1;
+            $scope.unitInputsShowing += 1;
 
-            var templateUnit = "<div class=\"row m-b-15\"><div class=\"col-xs-6\"><div class=\"fg-float form-group p-r-20 m-l-15\"><div class=\"fg-line\"><input type=\"text\" id=\"addUnit_Num\" class=\"form-control fg-input\" maxlength=\"5\"></div><label class=\"fg-label\">Unit #</label></div></div>" +
-                                                         "<div class=\"col-xs-6\"><div class=\"fg-float form-group p-r-20 m-l-0\"><div class=\"fg-line dollar\"><input type=\"text\" id=\"addUnit_Amnt" + this.unitInputsShowing + "\" class=\"form-control fg-input\" maxlength=\"7\"></div><label class=\"fg-label\">Rent Amount</label></div></div></div>";
-            var newUnit = "#unit" + this.unitInputsShowing;
+            setWizardContentHeight();
+
+            var templateUnit = "<div class=\"row m-b-15\"><div class=\"col-xs-6\"><div class=\"fg-float form-group p-r-20 m-b-10 m-l-15\"><div class=\"fg-line\"><input type=\"text\" id=\"addUnit_Num\" class=\"form-control fg-input\" maxlength=\"5\"></div><label class=\"fg-label\">Unit #</label></div></div>" +
+                                                         "<div class=\"col-xs-6\"><div class=\"fg-float form-group p-r-20 m-b-10 m-l-0\"><div class=\"fg-line dollar\"><input type=\"text\" id=\"addUnit_Amnt" + $scope.unitInputsShowing + "\" class=\"form-control fg-input\" maxlength=\"7\"></div><label class=\"fg-label\">Rent Amount</label></div></div></div>";
+            var newUnit = "#unit" + $scope.unitInputsShowing;
 
             $('#addedUnits').append(templateUnit);
 
-            $compile($('#addedUnits input#addUnit_Amnt' + this.unitInputsShowing))($scope);
-            $('#addedUnits input#addUnit_Amnt' + this.unitInputsShowing).mask("#,##0.00", { reverse: true });
+            $compile($('#addedUnits input#addUnit_Amnt' + $scope.unitInputsShowing))($scope);
+            $('#addedUnits input#addUnit_Amnt' + $scope.unitInputsShowing).mask("#,##0.00", { reverse: true });
+        }
+
+        function setWizardContentHeight() {
+            if ($scope.unitInputsShowing > 1)
+            {
+                if ($scope.unitInputsShowing > 12) {
+                    $('.wizard.vertical > .content').animate({ height: "75em" }, 600)
+                }
+                else if ($scope.unitInputsShowing > 10)
+                {
+                    $('.wizard.vertical > .content').animate({ height: "65em" }, 600)
+                }
+                else if ($scope.unitInputsShowing > 8)
+                {
+                    $('.wizard.vertical > .content').animate({ height: "60em" }, 600)
+                }
+                else if ($scope.unitInputsShowing > 4)
+                {
+                    $('.wizard.vertical > .content').animate({ height: "46em" }, 600)
+                }
+                else if ($scope.unitInputsShowing > 2)
+                {
+                    $('.wizard.vertical > .content').animate({ height: "32em" }, 600)
+                }
+                else
+                {
+                    $('.wizard.vertical > .content').animate({ height: "28em" }, 600)
+                }
+            }
+            else
+            {
+                $('.wizard.vertical > .content').animate({ height: "25em" }, 700)
+            }
         }
     })
 
@@ -1061,7 +1129,7 @@ noochForLandlords
         this.ssnLast4 = "7654";
         this.userPic = "josh";
 
-        // Home Layout
+        // Home Layout -- JUST FOR TESTING/DEMO PURPOSES
         this.home = {
             "bnkPrmt": 0,
             "idPrmt": 1,
@@ -1151,6 +1219,25 @@ noochForLandlords
             growlService.growl(message + ' has updated Successfully!', 'success'); 
         }
 
+        this.editProfilePic = function () {
+            $('#editProfilePic').modal();
+
+            // FILE INPUT DOCUMENTATION: http://plugins.krajee.com/file-input#options
+            $("#profilePicFileInput").fileinput({
+                allowedFileTypes: ['image'],
+                initialPreview: [
+                    "<img src='/img/profile-pics/" + "josh.png" + "' class='file-preview-image' alt='Desert' title='Desert'>",
+                ],
+                initialCaption: 'josh.png',
+                initialPreviewShowDelete: false,
+                layoutTemplates: {
+                    icon: '<span class="md md-panorama m-r-10 kv-caption-icon"></span>',
+                },
+                maxFileSize: 500,
+                msgSizeTooLarge: "File '{name}' ({size} KB) exceeds the maximum allowed file size of {maxSize} KB. Please try a slightly smaller picture!",
+                showUpload: false,
+            });
+        }
 
         if ($rootScope.isIdVerified == false) {
             // SINCE THIS CONTROLLER GETS CALLED ON MULTIPLE PAGES, THIS WILL ATTEMPT TO RUN THE WIZARD ON EVERY PAGE, CAUSING ERRORS SINCE IT'S
@@ -1616,18 +1703,22 @@ noochForLandlords
 
             //localStorage.setItem('userObject',userObject);
             
+            window.location.href = 'index.html#/profile/profile-about'; // FOR TESTING LOCALLY B/C AUTHENTICATION SERVICE WON'T WORK
 
-            authenticationService.ClearUserData();
+            /*authenticationService.ClearUserData();
 
-            authenticationService.Login($scope.LoginData.username, $scope.LoginData.password, function (response) {
-                if (response.IsSuccess==true) {
+            authenticationService.Login($scope.LoginData.username, $scope.LoginData.password, function (response)
+            {
+                if (response.IsSuccess == true)
+                {
                     authenticationService.SetUserDetails($scope.LoginData.username, response.MemberId, response.AccessToken);
                     window.location.href = 'index.html#/profile/profile-about';
-                } else {
-                    alert('Error :' + response.ErrorMessage);
-
                 }
-            });
+                else 
+                {
+                    alert('Error :' + response.ErrorMessage);
+                }
+            });*/
 
 
         }
