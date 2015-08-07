@@ -262,8 +262,49 @@ noochForLandlords
 
         };
 
+        Operations.ManageToken = function (tokenResponse) {
+
+            if (tokenResponse.IsTokenUpdated == true) {
+                localStorage.setItem('accessToken', tokenResponse.AccessToken);
+            }
+        };
+
+
+
 
     return Operations;
 
 
-})
+    })
+
+
+
+    // =========================================================================
+    // Profile data read service
+    // =========================================================================
+
+    .service('getProfileService', function ($http, authenticationService) {
+
+        var Operations = {};
+        Operations.GetData = function (landlordId,accessToken, callback) {
+
+            var data = {};
+            data.LandlorId = landlordId;
+            data.AccessToken = accessToken;
+            
+            $http.post(URLs.GetProfileData, data)
+                .success(function (response) {
+                    if (response.IsSuccess && response.IsSuccess==true) {
+                        authenticationService.ManageToken(response.AuthTokenValidation);
+                    }
+                    callback(response);
+                });
+        };
+
+        
+        return Operations;
+
+
+    })
+
+

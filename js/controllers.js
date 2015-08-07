@@ -6,7 +6,7 @@ noochForLandlords
     .controller('noochAdminCtrl', function ($rootScope, $timeout, $state, growlService, authenticationService) {
         if (!authenticationService.IsValidUser()) {
             growlService.growl('Please login to continue!', 'inverse');
-            //window.location.href = 'login.html';
+            window.location.href = 'login.html';
         }
         
         // Detact Mobile Browser
@@ -43,9 +43,9 @@ noochForLandlords
     // ===============================================================
     .controller('headerCtrl', function ($timeout, messageService, authenticationService) {
 
-        //if (!authenticationService.IsValidUser()) {
-            //window.location.href = 'login.html'; CLIFF: COMMENTING OUT FOR TESTING LOCALLY B/ AUTHENTICATION SERVICE WON'T WORK
-        //}
+        if (!authenticationService.IsValidUser()) {
+            window.location.href = 'login.html'; //; CLIFF: COMMENTING OUT FOR TESTING LOCALLY B/ AUTHENTICATION SERVICE WON'T WORK
+        }
 
         this.closeSearch = function(){
             angular.element('#header').removeClass('search-toggled');
@@ -1102,9 +1102,24 @@ noochForLandlords
     // Profile
     //=================================================
 
-    .controller('profileCtrl', function($rootScope, $scope, $compile, growlService){
+    .controller('profileCtrl', function ($rootScope, $scope, $compile, growlService, getProfileService, authenticationService) {
         
         //Get Profile Information from profileService Service (NOT BUILT YET)
+
+        // Getting user info from db
+        if (authenticationService.IsValidUser() == true) {
+            var userdetails = authenticationService.GetUserDetails();
+            getProfileService.GetData(userdetails.memberId, userdetails.accessToken, function(response) {
+                console.log('came in get user profile method and data -> ' + response);
+            });
+
+            
+
+
+        } else {
+            window.location.href = 'login.html';
+        }
+
 
         // Get User Info
         this.accountStatus = "Identity Verified";
@@ -1699,26 +1714,20 @@ noochForLandlords
         
         this.loginAttmpt = function () {
 
-            //var userObject = {'name':'malkit','id':1}
-
-            //localStorage.setItem('userObject',userObject);
+          
             
-            window.location.href = 'index.html#/profile/profile-about'; // FOR TESTING LOCALLY B/C AUTHENTICATION SERVICE WON'T WORK
+          //  window.location.href = 'index.html#/profile/profile-about'; // FOR TESTING LOCALLY B/C AUTHENTICATION SERVICE WON'T WORK
 
-            /*authenticationService.ClearUserData();
+            authenticationService.ClearUserData();
 
-            authenticationService.Login($scope.LoginData.username, $scope.LoginData.password, function (response)
-            {
-                if (response.IsSuccess == true)
-                {
+            authenticationService.Login($scope.LoginData.username, $scope.LoginData.password, function(response) {
+                if (response.IsSuccess == true) {
                     authenticationService.SetUserDetails($scope.LoginData.username, response.MemberId, response.AccessToken);
                     window.location.href = 'index.html#/profile/profile-about';
-                }
-                else 
-                {
+                } else {
                     alert('Error :' + response.ErrorMessage);
                 }
-            });*/
+            });
 
 
         }
