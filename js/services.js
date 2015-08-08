@@ -296,6 +296,7 @@ noochForLandlords
                 .success(function (response) {
                     if (response.IsSuccess && response.IsSuccess==true) {
                         authenticationService.ManageToken(response.AuthTokenValidation);
+                        console.log('came in success');
                     }
                     callback(response);
                 });

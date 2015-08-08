@@ -1105,12 +1105,41 @@ noochForLandlords
     .controller('profileCtrl', function ($rootScope, $scope, $compile, growlService, getProfileService, authenticationService) {
         
         //Get Profile Information from profileService Service (NOT BUILT YET)
-
+        console.log('user account type before -> ' );
+        $scope.userInfo = { type: 'sds' };
         // Getting user info from db
         if (authenticationService.IsValidUser() == true) {
             var userdetails = authenticationService.GetUserDetails();
             getProfileService.GetData(userdetails.memberId, userdetails.accessToken, function(response) {
-                console.log('came in get user profile method and data -> ' + response);
+                console.log('came in get user profile method and data -> ' + JSON.stringify(response));
+
+                // binding user information
+                $scope.userInfo.type = response.AccountType;
+                console.log('user account type -> ' + $scope.userInfo.type);
+
+                this.subtype = response.SubType;
+                this.firstName = response.FirstName;
+                this.lastName = response.LastName;
+                this.fullName = this.firstName + " " + this.lastName;
+                this.birthDay = response.DOB;
+                this.mobileNumber = response.MobileNumber;
+
+                this.isPhoneVerified = response.IsPhoneVerified;
+                this.emailAddress = response.UserEmail;
+                this.isEmailVerified = response.IsEmailVerified;
+                this.fb = response.FbUrl;
+                this.twitter = response.TwitterHandle;
+
+
+                this.insta = response.InstaUrl;
+                this.address1 = response.AddressLine1;
+                this.addressCity = response.City;
+                this.addressCountry = response.Country;
+                this.zip = response.Zip;
+                this.ssnLast4 = response.SSN;
+                this.userPic = "josh";
+
+
             });
 
             
@@ -1120,35 +1149,21 @@ noochForLandlords
             window.location.href = 'login.html';
         }
 
-
+        console.log('user account type after -> ' );
         // Get User Info
         this.accountStatus = "Identity Verified";
         this.isIdVerified = $rootScope.isIdVerified;
-        this.type = "Landlord";
-        this.subtype = "Basic";
-        this.firstName = "Josh";
-        this.lastName = "Hamilton";
-        this.fullName = this.firstName + " " + this.lastName;
-        this.birthDay = "08/05/1988";
-        this.mobileNumber = "(215) 711-6789";
-        this.isPhoneVerified = 1;
-        this.emailAddress = "josh.h@nooch.com";
-        this.isEmailVerified = 1;
-        this.fb = "NoochMoney";
-        this.twitter = "@NoochMoney";
-        this.insta = "NoochMoney";
-        this.address1 = "1098 ABC Towers";
-        this.addressCity = "Philadelphia, PA";
-        this.addressCountry = "United States";
-        this.zip = "27708";
-        this.ssnLast4 = "7654";
-        this.userPic = "josh";
+        
+        
+       
+      
+       
 
         // Home Layout -- JUST FOR TESTING/DEMO PURPOSES
         this.home = {
             "bnkPrmt": 0,
             "idPrmt": 1,
-            "propPrmt": 0,
+            "propPrmt": 0
         }
 
         this.goTo = function(destination) {
@@ -1166,7 +1181,7 @@ noochForLandlords
         // Get Company Info
         this.company = {
             "name": "ABC Rental LLC",
-            "ein": "10-2273413",
+            "ein": "10-2273413"
         }
 
         // Account Info
@@ -1474,7 +1489,48 @@ noochForLandlords
     })
 
 
-    .controller('profileAboutCtrl', function ($rootScope, $compile) {
+    .controller('profileAboutCtrl', function ($rootScope, $compile, etProfileService,getProfileService, authenticationService, $scope) {
+        $scope.userInfo = {type : 'sds'};
+
+        // Getting user info from db
+        if (authenticationService.IsValidUser() == true) {
+            var userdetails = authenticationService.GetUserDetails();
+            getProfileService.GetData(userdetails.memberId, userdetails.accessToken, function (response) {
+                console.log('came in get user profile method and data -> ' + JSON.stringify(response));
+
+                // binding user information
+                $scope.userInfo.type = response.AccountType;
+                this.subtype = response.SubType;
+                this.firstName = response.FirstName;
+                this.lastName = response.LastName;
+                this.fullName = this.firstName + " " + this.lastName;
+                this.birthDay = response.DOB;
+                this.mobileNumber = response.MobileNumber;
+
+                this.isPhoneVerified = response.IsPhoneVerified;
+                this.emailAddress = response.UserEmail;
+                this.isEmailVerified = response.IsEmailVerified;
+                this.fb = response.FbUrl;
+                this.twitter = response.TwitterHandle;
+
+
+                this.insta = response.InstaUrl;
+                this.address1 = response.AddressLine1;
+                this.addressCity = response.City;
+                this.addressCountry = response.Country;
+                this.zip = response.Zip;
+                this.ssnLast4 = response.SSN;
+                this.userPic = "josh";
+
+
+            });
+
+
+
+
+        } else {
+            window.location.href = 'login.html';
+        }
 
     })
 
