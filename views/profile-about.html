@@ -7,7 +7,7 @@
         <div class="p-l-30">
             <dl class="dl-horizontal m-b-10">
                 <dt>Account Type</dt>
-                <dd>{{ pctrl.userInfo.type }} - {{ pctrl.subtype }}</dd>
+                <dd>{{ userInfo.type }} - {{ userInfo.subtype }}</dd>
             </dl>
             <dl class="dl-horizontal m-b-0">
                 <dt>
@@ -43,15 +43,15 @@
                     <div class="pmbb-view" data-ng-if="pctrl.editPersonalInfo === 0">
                         <dl class="dl-horizontal">
                             <dt>Full Name</dt>
-                            <dd>{{ pctrl.firstName }} {{pctrl.lastName}}</dd>
+                            <dd>{{ userInfo.firstName }} {{userInfo.lastName}}</dd>
                         </dl>
                         <dl class="dl-horizontal">
                             <dt>Date of Birth</dt>
-                            <dd>{{ pctrl.birthDay }}</dd>
+                            <dd>{{ userInfo.birthDay }}</dd>
                         </dl>
                         <dl class="dl-horizontal">
                             <dt>SSN - Last 4*</dt>
-                            <dd>{{ pctrl.ssnLast4 }}</dd>
+                            <dd>{{ userInfo.ssnLast4 }}</dd>
                         </dl>
                     </div>
 
@@ -60,7 +60,7 @@
                             <dt class="p-t-10">Full Name</dt>
                             <dd>
                                 <div class="fg-line">
-                                    <input data-ng-model="pctrl.fullName" type="text" class="form-control" value="{{ pctrl.fullName }}" placeholder="eg. Arnold Palmer">
+                                    <input data-ng-model="userInfo.fullName" type="text" class="form-control" value="{{ userInfo.fullName }}" placeholder="eg Arnold Palmer">
                                 </div>
 
                             </dd>
@@ -69,7 +69,7 @@
                             <dt class="p-t-10">Birthday</dt>
                             <dd>
                                 <div class="dtp-container dropdown fg-line">
-                                    <input data-ng-model="pctrl.birthDay" type='text' class="form-control" value="{{ pctrl.birthDay }}" data-dt-picker data-format="MM/DD/YYYY" data-toggle="dropdown" placeholder="eg. 08/05/1988">
+                                    <input data-ng-model="userInfo.birthDay" type='text' class="form-control" value="{{ userInfo.birthDay}}" data-dt-picker data-format="MM/DD/YYYY" data-toggle="dropdown" placeholder="eg. 08/05/1988">
                                 </div>
                             </dd>
                         </dl>
@@ -78,7 +78,7 @@
                             <dt class="p-t-10">SSN - <em>Last 4 Digits Only</em>*</dt>
                             <dd>
                                 <div class="dtp-container dropdown fg-line">
-                                    <input data-ng-model="pctrl.ssnLast4" type='num' class="form-control" value="{{ pctrl.ssnLast4 }}" placeholder="eg. 1234" data-input-mask="{mask: '0000'}">
+                                    <input data-ng-model="userInfo.ssnLast4" type='num' class="form-control" value="{{ userInfo.ssnLast4 }}" placeholder="eg. 1234" data-input-mask="{mask: '0000'}">
                                 </div>
                             </dd>
                         </dl>
@@ -110,11 +110,11 @@
                     <div class="pmbb-view" data-ng-if="pctrl.editBusinessInfo === 0">
                         <dl class="dl-horizontal">
                             <dt>Company Name</dt>
-                            <dd>{{ pctrl.company.name }}</dd>
+                            <dd>{{ company.name }}</dd>
                         </dl>
                         <dl class="dl-horizontal">
                             <dt>EIN (Tax ID #)</dt>
-                            <dd>{{ pctrl.company.ein }}</dd>
+                            <dd>{{ company.ein }}</dd>
                         </dl>
                     </div>
 
@@ -123,7 +123,7 @@
                             <dt class="p-t-10">Company Name</dt>
                             <dd>
                                 <div class="fg-line">
-                                    <input id="compName" data-ng-model="pctrl.company.name" type="text" class="form-control" value="{{ pctrl.company.name }}" placeholder="eg. ABC Rental LLC">
+                                    <input id="compName" data-ng-model="company.name" type="text" class="form-control" value="{{ company.name }}" placeholder="eg. ABC Rental LLC">
                                 </div>
 
                             </dd>
@@ -133,7 +133,7 @@
                             <dt class="p-t-10">EIN (Tax ID #)</dt>
                             <dd>
                                 <div class="dtp-container dropdown fg-line">
-                                    <input id="compEin" data-ng-model="pctrl.company.ein" type='num' class="form-control" value="{{ pctrl.company.ein }}" data-input-mask="{mask: '00-0000000'}">
+                                    <input id="compEin" data-ng-model="company.ein" type='num' class="form-control" value="{{ company.ein }}" data-input-mask="{mask: '00-0000000'}">
                                 </div>
                             </dd>
                         </dl>
@@ -168,25 +168,25 @@
                     <div class="pmbb-view" data-ng-if="pctrl.editContactInfo === 0">
                         <dl class="dl-horizontal">
                             <dt>Email Address</dt>
-                            <dd>{{ pctrl.emailAddress }}</dd>
+                            <dd>{{ userInfo.emailAddress }}</dd>
                         </dl>
                         <dl class="dl-horizontal">
                             <dt>Mobile Phone</dt>
-                            <dd>{{ pctrl.mobileNumber }}</dd>
+                            <dd>{{ userInfo.mobileNumber }}</dd>
                         </dl>
                         <dl class="dl-horizontal">
                             <dt>Address</dt>
                             <dd>
                                 <address class="m-b-0">
-                                    {{ pctrl.address1 }} <br />
-                                    {{ pctrl.addressCity }} {{pctrl.zip}} <br />
-                                    {{ pctrl.addressCountry }}
+                                    {{ userInfo.address1 }} <br />
+                                    {{ userInfo.addressCity }} {{userInfo.zip}} <br />
+                                    {{ userInfo.addressCountry }}
                                 </address>
                             </dd>
                         </dl>
                         <dl class="dl-horizontal">
                             <dt>Twitter</dt>
-                            <dd>{{ pctrl.twitter }}</dd>
+                            <dd>{{ userInfo.twitter }}</dd>
                         </dl>
                     </div>
 
@@ -195,7 +195,7 @@
                             <dt class="p-t-10">Email Address*</dt>
                             <dd>
                                 <div class="fg-line">
-                                    <input data-ng-model="pctrl.emailAddress" type="email" class="form-control" placeholder="eg. cliff@nooch.com">
+                                    <input data-ng-model="userInfo.emailAddress" type="email" class="form-control" placeholder="eg. cliff@nooch.com">
                                 </div>
                             </dd>
                         </dl>
@@ -203,7 +203,7 @@
                             <dt class="p-t-10">Mobile Phone*</dt>
                             <dd>
                                 <div class="fg-line">
-                                    <input data-ng-model="pctrl.mobileNumber" type="text" class="form-control" placeholder="ex: (215) 804-4226" data-input-mask="{mask: '(000) 000-0000'}">
+                                    <input data-ng-model="userInfo.mobileNumber" type="text" class="form-control" placeholder="ex: (215) 804-4226" data-input-mask="{mask: '(000) 000-0000'}">
                                 </div>
                             </dd>
                         </dl>
@@ -211,7 +211,7 @@
                             <dt class="p-t-10">Address*</dt>
                             <dd>
                                 <div class="fg-line">
-                                    <input data-ng-model="pctrl.addressSuite" type="text" class="form-control" placeholder="eg. 123 W. Main St.">
+                                    <input data-ng-model="userInfo.address1" type="text" class="form-control" placeholder="eg. 123 W. Main St.">
                                 </div>
                             </dd>
                         </dl>
@@ -219,7 +219,7 @@
                             <dt class="p-t-10">Twitter</dt>
                             <dd>
                                 <div class="fg-line">
-                                    <input data-ng-model="pctrl.twitter" type="text" class="form-control" placeholder="eg. @NoochMoney" data-input-mask="{mask: '@000) 000-0000'}">
+                                    <input data-ng-model="userInfo.twitter" type="text" class="form-control" placeholder="eg. @NoochMoney" data-input-mask="{mask: '@000) 000-0000'}">
                                 </div>
                             </dd>
                         </dl>
@@ -248,15 +248,15 @@
                     <div class="pmbb-view" data-ng-if="pctrl.editSocialInfo === 0">
                         <dl class="dl-horizontal">
                             <dt><button class="btn btn-icon btn-primary show"><i class="md socicon socicon-facebook"></i></button></dt>
-                            <dd>{{ pctrl.fb }}</dd>
+                            <dd>{{ userInfo.fb }}</dd>
                         </dl>
                         <dl class="dl-horizontal">
                             <dt><button class="btn btn-icon bgm-lightblue show"><i class="md socicon socicon-twitter"></i></button></dt>
-                            <dd>{{ pctrl.twitter }}</dd>
+                            <dd>{{ userInfo.twitter }}</dd>
                         </dl>
                         <dl class="dl-horizontal">
                             <dt><button class="btn btn-icon bgm-deeppurple show"><i class="md socicon socicon-instagram"></i></button></dt>
-                            <dd>{{ pctrl.insta }}</dd>
+                            <dd>{{ userInfo.insta }}</dd>
                         </dl>
                     </div>
 
@@ -265,7 +265,7 @@
                             <dt class="p-t-10">Facebook</dt>
                             <dd>
                                 <div class="fg-line">
-                                    <input data-ng-model="pctrl.fb" type="text" class="form-control" placeholder="">
+                                    <input data-ng-model="userInfo.fb" type="text" class="form-control" placeholder="">
                                 </div>
                             </dd>
                         </dl>
@@ -273,7 +273,7 @@
                             <dt class="p-t-10">Twitter</dt>
                             <dd>
                                 <div class="fg-line">
-                                    <input data-ng-model="pctrl.twitter" type="text" class="form-control" placeholder="eg. @NoochMoney" data-input-mask="{mask: '@AAAAAAAAAAAAAAAAAAAAAAAA'}">
+                                    <input data-ng-model="userInfo.twitter" type="text" class="form-control" placeholder="eg. @NoochMoney" data-input-mask="{mask: '@AAAAAAAAAAAAAAAAAAAAAAAA'}">
                                 </div>
                             </dd>
                         </dl>
@@ -281,7 +281,7 @@
                             <dt class="p-t-10">Instagram</dt>
                             <dd>
                                 <div class="fg-line">
-                                    <input data-ng-model="pctrl.insta" type="text" class="form-control" placeholder="eg. NoochMoney">
+                                    <input data-ng-model="userInfo.insta" type="text" class="form-control" placeholder="eg. NoochMoney">
                                 </div>
                             </dd>
                         </dl>
@@ -405,7 +405,7 @@
 
                             <div class="fileinput fileinput-new p-0" data-provides="fileinput">
                                 <div class="fileinput-preview thumbnail" data-trigger="fileinput">
-                                    <img class="img-responsive" src="img/profile-pics/{{pctrl.userPic}}.png">
+                                    <img class="img-responsive" src="img/profile-pics/{{userInfo.userPic}}.png">
                                 </div>
                                 <div>
                                     <span class="btn btn-info btn-file">
