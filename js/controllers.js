@@ -744,6 +744,13 @@ noochForLandlords
 
     // ADD PROPERTY Page
     .controller('addPropertyCtrl', function ($scope, $compile) {
+        $scope.inputData = {};
+        $scope.inputData.propertyName = '';
+        $scope.inputData.propertyImage = '';
+        $scope.inputData.IsPropertyImageSelected = false;
+
+      
+
 
         $("#addPropWiz").steps({
             headerTag: "h3",
@@ -778,6 +785,10 @@ noochForLandlords
                     {
                         updateValidationUi(1, null, true);
 
+
+
+
+                        
                         addPropPicFileInput
                         // FILE INPUT DOCUMENTATION: http://plugins.krajee.com/file-input#options
                         $("#addPropPicFileInput").fileinput({
@@ -790,8 +801,54 @@ noochForLandlords
                             },
                             maxFileSize: 500,
                             msgSizeTooLarge: "File '{name}' ({size} KB) exceeds the maximum allowed file size of {maxSize} KB. Please try a slightly smaller picture!",
-                            showUpload: false,
+                            showUpload: false
                         });
+
+
+                        // event will be fired after file is selected
+                        $('#addPropPicFileInput').on('fileloaded', function (event, file, previewId, index, reader) {
+                            console.log('file loaded ----XXXXXXXXXXXXXXXXXXXXXXXXXXXX');
+                            
+                            
+                            console.log('file itself ---- >>> ' + file.name);
+                            var readerN = new FileReader();
+                            //readerN.readAsText(file);
+                            readerN.readAsDataURL(file);
+                            readerN.onload = function (e) {
+                                // browser completed reading file - display it
+                                
+                                console.log(e.target.result);
+                                var splittable = e.target.result.split(',');
+                                var string1 = splittable[0];
+                                var string2 = splittable[1];
+                                console.log(string2);
+                            };
+                            
+                          
+                        });
+
+
+
+                        //none of these methods are triggering after removing selected file
+                        ////event fired after deleting selected file
+                        //$('#addPropPicFileInput').on('filedeleted', function (event, key) {
+                        //    console.log('file removed ----XXXXXXXXXXXXXXXXXXXXXXXXXXXX');
+                            
+                        //});
+
+
+                        //$('#addPropPicFileInput').on('filesuccessremove', function (event, id) {
+                        //    if (some_processing_function(id)) {
+                        //        console.log('Uploaded thumbnail successfully removed');
+                        //    } else {
+                        //        return false; // abort the thumbnail removal
+                        //    }
+                        //});
+
+
+                        //$('#addPropPicFileInput').on('filereset', function (event) {
+                        //    console.log('Uploaded thumbnail successfully removed');
+                        //});
 
                         $('.wizard.vertical > .content').animate({ height: "32em" }, 750)
                         return true;
