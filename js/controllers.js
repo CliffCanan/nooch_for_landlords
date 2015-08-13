@@ -748,6 +748,17 @@ noochForLandlords
         $scope.inputData.propertyName = '';
         $scope.inputData.propertyImage = '';
         $scope.inputData.IsPropertyImageSelected = false;
+        $scope.inputData.IsSingleUnitProperty = false;
+
+        $scope.inputData.IsMultiUnitProperty = false;
+
+        $scope.inputData.propertyAddress = '';
+        $scope.inputData.propertyCity = '';
+        $scope.inputData.propertyZip = '';
+
+        $scope.inputData.SingleUnitRent = true;
+
+        $scope.inputData.allUnits = [];
 
       
 
@@ -781,14 +792,10 @@ noochForLandlords
                 // IF going to Step 2
                 if (newIndex == 1)
                 {
-                    if ($('#propertyName').val().length > 3)
-                    {
+                    if ($('#propertyName').val().length > 3) {
+                        console.log($scope.inputData.propertyName);
                         updateValidationUi(1, null, true);
-
-
-
-
-                        
+                     
                         addPropPicFileInput
                         // FILE INPUT DOCUMENTATION: http://plugins.krajee.com/file-input#options
                         $("#addPropPicFileInput").fileinput({
@@ -807,10 +814,7 @@ noochForLandlords
 
                         // event will be fired after file is selected
                         $('#addPropPicFileInput').on('fileloaded', function (event, file, previewId, index, reader) {
-                            console.log('file loaded ----XXXXXXXXXXXXXXXXXXXXXXXXXXXX');
-                            
-                            
-                            console.log('file itself ---- >>> ' + file.name);
+                            $scope.inputData.IsPropertyImageSelected = true;
                             var readerN = new FileReader();
                             //readerN.readAsText(file);
                             readerN.readAsDataURL(file);
@@ -821,7 +825,8 @@ noochForLandlords
                                 var splittable = e.target.result.split(',');
                                 var string1 = splittable[0];
                                 var string2 = splittable[1];
-                                console.log(string2);
+                                //console.log(string2);
+                                $scope.inputData.propertyImage = string2;
                             };
                             
                           
@@ -935,41 +940,92 @@ noochForLandlords
             {
                 cancelAddProp();
             },
-            onFinished: function (event, currentIndex)
-            {
-                swal({
-                    title: "Awesome - Property Added",
-                    text: "This property has been created successfully.  Would you like to \"publish\" this property so your tenants can pay their rent? (You can do this later, too.)",
-                    type: "success",
-                    showCancelButton: true,
-                    confirmButtonColor: "#3fabe1",
-                    confirmButtonText: "Yes, Publish Now",
-                    cancelButtonText: "No, I'll do it later!",
-                    closeOnConfirm: false,
-                    closeOnCancel: false
-                }, function (isConfirm) {
-                    if (isConfirm) {
-                        swal({
-                            title: "You Got It!",
-                            text: "Your property has been published.",
-                            type: "success",
-                        }, function (isConfirm) {
-                            window.location.href = '#/properties';
-                        });
-                    }
-                    else {
-                        swal({
-                            title: "No Problem",
-                            text: "Your property has NOT been published. Before tenants can pay rent for this property, you must \"publish\" it, but you can do that later at any time.",
-                            type: "warning",
-                        }, function (isConfirm) {
-                            window.location.href = '#/properties';
-                        });
-                    }
-                });
+            onFinished: function (event, currentIndex) {
+                saveProperty();
+                //swal({
+                //    title: "Awesome - Property Added",
+                //    text: "This property has been created successfully.  Would you like to \"publish\" this property so your tenants can pay their rent? (You can do this later, too.)",
+                //    type: "success",
+                //    showCancelButton: true,
+                //    confirmButtonColor: "#3fabe1",
+                //    confirmButtonText: "Yes, Publish Now",
+                //    cancelButtonText: "No, I'll do it later!",
+                //    closeOnConfirm: false,
+                //    closeOnCancel: false
+                //}, function (isConfirm) {
+                //    if (isConfirm) {
+                //        swal({
+                //            title: "You Got It!",
+                //            text: "Your property has been published.",
+                //            type: "success",
+                //        }, function (isConfirm) {
+                //            window.location.href = '#/properties';
+                //        });
+                //    }
+                //    else {
+                //        swal({
+                //            title: "No Problem",
+                //            text: "Your property has NOT been published. Before tenants can pay rent for this property, you must \"publish\" it, but you can do that later at any time.",
+                //            type: "warning",
+                //        }, function (isConfirm) {
+                //            window.location.href = '#/properties';
+                //        });
+                //    }
+                //});
             }
         });
 
+
+        saveProperty = function() {
+            // time to save data to server
+
+
+            console.log('val before going in  ' + $scope.inputData.allUnits.length);
+
+            if ($scope.inputData.IsMultiUnitProperty==true) {
+                // iterating through all units
+               
+
+                
+
+                $('#addedUnits > div').each(function (da, ht) {
+                    var unitObject = {};
+                    console.log(ht);
+                    var temp = 0;
+                    $(ht).find('input[type=text]').each(function (ini, dtt) {
+                        //console.log(dtt);
+                        temp = temp + 1;
+                        if (temp==1) {
+                            unitObject.UnitNum = $(this).val();
+                        }
+                        if (temp == 2) {
+                            unitObject.Rent = $(this).val();
+                        }
+
+                        
+                       console.log();
+                    });
+                    unitObject.IsAddedWithProperty = true;
+                    $scope.inputData.allUnits.push(unitObject);
+
+                });
+
+
+                console.log('val after going in  ' + $scope.inputData.allUnits.length);
+                
+      
+
+            }
+
+            if ($scope.inputData.IsSingleUnitProperty == true) {
+                // send json for single unit only
+
+
+
+            }
+
+
+        }
 
         updateValidationUi = function (step, substep, success)
         {
@@ -1060,13 +1116,18 @@ noochForLandlords
             });
         }
 
-        $scope.selectSingleUnit = function ()
-        {
+        $scope.selectSingleUnit = function () {
+            
+
+            $scope.inputData.IsSingleUnitProperty = true;
+
+            $scope.inputData.IsMultiUnitProperty = false;
+
             $('#multiUnit').addClass('bounceOut'); // bounceOut CSS takes 750ms
 
             $('#or').fadeOut(750);
 
-            setTimeout(function () {
+            setTimeout(function() {
                 $('#multiUnit').addClass('hidden');
 
                 $('#singleUnit').css({
@@ -1079,15 +1140,19 @@ noochForLandlords
 
                 $('#singleUnit-rentAmountBlock input').mask("#,##0.00", { reverse: true });
 
-                setTimeout(function () {
+                setTimeout(function() {
                     $('#singleUnit-rentAmountBlock input').focus();
-                }, 1000)
+                }, 1000);
 
-            }, 750)
+            }, 750);
         }
 
         $scope.selectMultiUnit = function ()
         {
+
+            $scope.inputData.IsSingleUnitProperty = false;
+
+            $scope.inputData.IsMultiUnitProperty = true;
             //$('#singleUnit').addClass('fadeOutLeft');
             $('#singleUnit').css(
                 "margin-left", "-250px"
@@ -1098,10 +1163,10 @@ noochForLandlords
             $('#multiUnit').css(
                 "width", "27%"
             );
-            setTimeout(function () {
+            setTimeout(function() {
                 $('#addUnitContainer').removeClass('hidden');
                 $('#addUnitContainer').fadeIn();
-            },800)
+            }, 800);
         }
 
         this.addUnit = function () {
@@ -1109,7 +1174,7 @@ noochForLandlords
 
             setWizardContentHeight();
 
-            var templateUnit = "<div class=\"row m-b-15\"><div class=\"col-xs-6\"><div class=\"fg-float form-group p-r-20 m-b-10 m-l-15\"><div class=\"fg-line\"><input type=\"text\" id=\"addUnit_Num\" class=\"form-control fg-input\" maxlength=\"5\"></div><label class=\"fg-label\">Unit #</label></div></div>" +
+            var templateUnit = "<div class=\"row m-b-15\"><div class=\"col-xs-6\"><div class=\"fg-float form-group p-r-20 m-b-10 m-l-15\"><div class=\"fg-line\"><input type=\"text\" id=\"addUnit_Num"+ $scope.unitInputsShowing +"\" class=\"form-control fg-input\" maxlength=\"5\"></div><label class=\"fg-label\">Unit #</label></div></div>" +
                                                          "<div class=\"col-xs-6\"><div class=\"fg-float form-group p-r-20 m-b-10 m-l-0\"><div class=\"fg-line dollar\"><input type=\"text\" id=\"addUnit_Amnt" + $scope.unitInputsShowing + "\" class=\"form-control fg-input\" maxlength=\"7\"></div><label class=\"fg-label\">Rent Amount</label></div></div></div>";
             var newUnit = "#unit" + $scope.unitInputsShowing;
 
@@ -1123,32 +1188,26 @@ noochForLandlords
             if ($scope.unitInputsShowing > 1)
             {
                 if ($scope.unitInputsShowing > 12) {
-                    $('.wizard.vertical > .content').animate({ height: "75em" }, 600)
+                    $('.wizard.vertical > .content').animate({ height: "75em" }, 600);
                 }
-                else if ($scope.unitInputsShowing > 10)
-                {
-                    $('.wizard.vertical > .content').animate({ height: "65em" }, 600)
+                else if ($scope.unitInputsShowing > 10) {
+                    $('.wizard.vertical > .content').animate({ height: "65em" }, 600);
                 }
-                else if ($scope.unitInputsShowing > 8)
-                {
-                    $('.wizard.vertical > .content').animate({ height: "60em" }, 600)
+                else if ($scope.unitInputsShowing > 8) {
+                    $('.wizard.vertical > .content').animate({ height: "60em" }, 600);
                 }
-                else if ($scope.unitInputsShowing > 4)
-                {
-                    $('.wizard.vertical > .content').animate({ height: "46em" }, 600)
+                else if ($scope.unitInputsShowing > 4) {
+                    $('.wizard.vertical > .content').animate({ height: "46em" }, 600);
                 }
-                else if ($scope.unitInputsShowing > 2)
-                {
-                    $('.wizard.vertical > .content').animate({ height: "32em" }, 600)
+                else if ($scope.unitInputsShowing > 2) {
+                    $('.wizard.vertical > .content').animate({ height: "32em" }, 600);
                 }
-                else
-                {
-                    $('.wizard.vertical > .content').animate({ height: "28em" }, 600)
+                else {
+                    $('.wizard.vertical > .content').animate({ height: "28em" }, 600);
                 }
             }
-            else
-            {
-                $('.wizard.vertical > .content').animate({ height: "25em" }, 700)
+            else {
+                $('.wizard.vertical > .content').animate({ height: "25em" }, 700);
             }
         }
     })
