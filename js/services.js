@@ -56,19 +56,66 @@ noochForLandlords
     // Properties Widget Data
     // =========================================================================
 
-    .service('propertiesService', ['$resource', function ($resource) {
-        this.getProperties = function (id, img, propName, address, units, tenants) {
-            var propertyList = $resource("data/properties.json");
+    .service('propertiesService', ['$http','$resource', function ($http,$resource, authenticationService) {
+        //this.getProperties = function(id, img, propName, address, units, tenants) {
+        //    var propertyList = $resource("data/properties.json");
 
-            return propertyList.get({
-                id: id,
-                img: img,
-                propName: propName,
-                address: address,
-                units: units,
-                tenants: tenants
-            })
-        }
+        //    return propertyList.get({
+        //        id: id,
+        //        img: img,
+        //        propName: propName,
+        //        address: address,
+        //        units: units,
+        //        tenants: tenants
+        //    });
+        //};
+        var Operations = {};
+
+        Operations.SaveProperty = function (propertyData,memberId, accessToken, callback) {
+
+            var data = {};
+            data.PropertyName = propertyData.propertyName;
+            data.Address = propertyData.propertyAddress;
+
+            data.City = propertyData.propertyCity;
+            data.Zip = propertyData.propertyZip;
+
+            data.IsPropertyImageAdded = propertyData.IsPropertyImageSelected;
+            data.PropertyImage = propertyData.propertyImage;
+
+          
+            
+            data.User = {
+            LandlorId: memberId,
+            AccessToken : accessToken
+            };
+
+
+            if (propertyData.IsMultiUnitProperty == true) {
+                data.Unit = propertyData.allUnits;
+            } else {
+                data.Unit = new [
+                {
+                    UnitNumber: propertyData.propertyName,
+                    UnitRent: propertyData.SingleUnitRent
+
+                }];
+            }
+
+            $http.post(URLs.AddProperty, data)
+                .success(function (response) {
+                    if (response.IsSuccess && response.IsSuccess == true) {
+                        authenticationService.ManageToken(response.AuthTokenValidation);
+                        console.log('came in success');
+                    }
+                    callback(response);
+                });
+        };
+
+
+        return Operations;
+
+
     }])
 
     .service('propDetailsService', ['$resource', function ($resource) {

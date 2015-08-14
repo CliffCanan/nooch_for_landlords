@@ -743,7 +743,7 @@ noochForLandlords
 
 
     // ADD PROPERTY Page
-    .controller('addPropertyCtrl', function ($scope, $compile) {
+    .controller('addPropertyCtrl', function ($scope, $compile, authenticationService,propertiesService) {
         $scope.inputData = {};
         $scope.inputData.propertyName = '';
         $scope.inputData.propertyImage = '';
@@ -756,12 +756,13 @@ noochForLandlords
         $scope.inputData.propertyCity = '';
         $scope.inputData.propertyZip = '';
 
-        $scope.inputData.SingleUnitRent = true;
+        $scope.inputData.SingleUnitRent = '';
 
         $scope.inputData.allUnits = [];
 
       
-
+        var userdetails = authenticationService.GetUserDetails();
+        
 
         $("#addPropWiz").steps({
             headerTag: "h3",
@@ -1017,12 +1018,46 @@ noochForLandlords
 
             }
 
-            if ($scope.inputData.IsSingleUnitProperty == true) {
-                // send json for single unit only
+
+            propertiesService.SaveProperty($scope.inputData, userdetails.memberId, userdetails.accessToken, function(data) {
+                console.log(data);
+
+                if (data.IsSuccess == false) {
+                    //swal({
+                    //    title: "Awesome - Property Added",
+                    //    text: "This property has been created successfully.  Would you like to \"publish\" this property so your tenants can pay their rent? (You can do this later, too.)",
+                    //    type: "success",
+                    //    showCancelButton: true,
+                    //    confirmButtonColor: "#3fabe1",
+                    //    confirmButtonText: "Yes, Publish Now",
+                    //    cancelButtonText: "No, I'll do it later!",
+                    //    closeOnConfirm: false,
+                    //    closeOnCancel: false
+                    //}, function (isConfirm) {
+                    //    if (isConfirm) {
+                    //        swal({
+                    //            title: "You Got It!",
+                    //            text: "Your property has been published.",
+                    //            type: "success",
+                    //        }, function (isConfirm) {
+                    //            window.location.href = '#/properties';
+                    //        });
+                    //    }
+                    //    else {
+                    //        swal({
+                    //            title: "No Problem",
+                    //            text: "Your property has NOT been published. Before tenants can pay rent for this property, you must \"publish\" it, but you can do that later at any time.",
+                    //            type: "warning",
+                    //        }, function (isConfirm) {
+                    //            window.location.href = '#/properties';
+                    //        });
+                    //    }
+                    //});
 
 
-
-            }
+                    alert(data.ErrorMessage);
+                }
+            });
 
 
         }
