@@ -187,7 +187,7 @@ noochForLandlords
     .controller('propertiesCtrl', function (propertiesService, propDetailsService)
     {
         this.propCount = 0;
-        this.propResult = propertiesService.getProperties(this.id, this.img, this.propName, this.address, this.units, this.tenants);
+       // this.propResult = propertiesService.getProperties(this.id, this.img, this.propName, this.address, this.units, this.tenants);
 
         // For setting the 'Selected Prop' when going to a Property's Details page
         this.selectedPropId = "";
@@ -943,36 +943,7 @@ noochForLandlords
             },
             onFinished: function (event, currentIndex) {
                 saveProperty();
-                //swal({
-                //    title: "Awesome - Property Added",
-                //    text: "This property has been created successfully.  Would you like to \"publish\" this property so your tenants can pay their rent? (You can do this later, too.)",
-                //    type: "success",
-                //    showCancelButton: true,
-                //    confirmButtonColor: "#3fabe1",
-                //    confirmButtonText: "Yes, Publish Now",
-                //    cancelButtonText: "No, I'll do it later!",
-                //    closeOnConfirm: false,
-                //    closeOnCancel: false
-                //}, function (isConfirm) {
-                //    if (isConfirm) {
-                //        swal({
-                //            title: "You Got It!",
-                //            text: "Your property has been published.",
-                //            type: "success",
-                //        }, function (isConfirm) {
-                //            window.location.href = '#/properties';
-                //        });
-                //    }
-                //    else {
-                //        swal({
-                //            title: "No Problem",
-                //            text: "Your property has NOT been published. Before tenants can pay rent for this property, you must \"publish\" it, but you can do that later at any time.",
-                //            type: "warning",
-                //        }, function (isConfirm) {
-                //            window.location.href = '#/properties';
-                //        });
-                //    }
-                //});
+                
             }
         });
 
@@ -980,82 +951,88 @@ noochForLandlords
         saveProperty = function() {
             // time to save data to server
 
-
-            console.log('val before going in  ' + $scope.inputData.allUnits.length);
-
-            if ($scope.inputData.IsMultiUnitProperty==true) {
+            if ($scope.inputData.IsMultiUnitProperty == true) {
                 // iterating through all units
-               
 
-                
 
-                $('#addedUnits > div').each(function (da, ht) {
+                $scope.inputData.IsSingleUnitProperty = false;
+                $scope.inputData.IsMultiUnitProperty = true;
+
+
+                $('#addedUnits > div').each(function(da, ht) {
                     var unitObject = {};
-                    console.log(ht);
+                    
                     var temp = 0;
-                    $(ht).find('input[type=text]').each(function (ini, dtt) {
+                    $(ht).find('input[type=text]').each(function(ini, dtt) {
                         //console.log(dtt);
                         temp = temp + 1;
-                        if (temp==1) {
+                        if (temp == 1) {
                             unitObject.UnitNum = $(this).val();
                         }
                         if (temp == 2) {
                             unitObject.Rent = $(this).val();
                         }
 
+
                         
-                       console.log();
                     });
                     unitObject.IsAddedWithProperty = true;
                     $scope.inputData.allUnits.push(unitObject);
 
                 });
 
+            } else {
+                $scope.inputData.IsSingleUnitProperty = true;
+                $scope.inputData.IsMultiUnitProperty = false;
+                $scope.inputData.SingleUnitRent = $('#singleUnitRentInput').val();
+                console.log('single unit val ' + $scope.inputData.SingleUnitRent);
 
-                console.log('val after going in  ' + $scope.inputData.allUnits.length);
                 
-      
-
             }
 
-
             propertiesService.SaveProperty($scope.inputData, userdetails.memberId, userdetails.accessToken, function(data) {
-                console.log(data);
-
-                if (data.IsSuccess == false) {
-                    //swal({
-                    //    title: "Awesome - Property Added",
-                    //    text: "This property has been created successfully.  Would you like to \"publish\" this property so your tenants can pay their rent? (You can do this later, too.)",
-                    //    type: "success",
-                    //    showCancelButton: true,
-                    //    confirmButtonColor: "#3fabe1",
-                    //    confirmButtonText: "Yes, Publish Now",
-                    //    cancelButtonText: "No, I'll do it later!",
-                    //    closeOnConfirm: false,
-                    //    closeOnCancel: false
-                    //}, function (isConfirm) {
-                    //    if (isConfirm) {
-                    //        swal({
-                    //            title: "You Got It!",
-                    //            text: "Your property has been published.",
-                    //            type: "success",
-                    //        }, function (isConfirm) {
-                    //            window.location.href = '#/properties';
-                    //        });
-                    //    }
-                    //    else {
-                    //        swal({
-                    //            title: "No Problem",
-                    //            text: "Your property has NOT been published. Before tenants can pay rent for this property, you must \"publish\" it, but you can do that later at any time.",
-                    //            type: "warning",
-                    //        }, function (isConfirm) {
-                    //            window.location.href = '#/properties';
-                    //        });
-                    //    }
-                    //});
-
-
-                    alert(data.ErrorMessage);
+              if (data.IsSuccess == false) {
+             
+                    swal({
+                        title: "Ooops Error!",
+                        text: data.ErrorMessage,
+                        type: "warning"
+                    }, function (isConfirm) {
+                        window.location.href = '#/properties';
+                    });
+                    //alert(data.ErrorMessage);
+                }
+                if (data.IsSuccess == true) {
+                    swal({
+                        title: "Awesome - Property Added",
+                        text: "This property has been created successfully.  Would you like to \"publish\" this property so your tenants can pay their rent? (You can do this later, too.)",
+                        type: "success",
+                        showCancelButton: true,
+                        confirmButtonColor: "#3fabe1",
+                        confirmButtonText: "Yes, Publish Now",
+                        cancelButtonText: "No, I'll do it later!",
+                        closeOnConfirm: false,
+                        closeOnCancel: false
+                    }, function (isConfirm) {
+                        if (isConfirm) {
+                            swal({
+                                title: "You Got It!",
+                                text: "Your property has been published.",
+                                type: "success"
+                            }, function (isConfirm) {
+                                window.location.href = '#/properties';
+                            });
+                        }
+                        else {
+                            swal({
+                                title: "No Problem",
+                                text: "Your property has NOT been published. Before tenants can pay rent for this property, you must \"publish\" it, but you can do that later at any time.",
+                                type: "warning"
+                            }, function (isConfirm) {
+                                window.location.href = '#/properties';
+                            });
+                        }
+                    }); 
                 }
             });
 

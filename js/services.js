@@ -56,7 +56,7 @@ noochForLandlords
     // Properties Widget Data
     // =========================================================================
 
-    .service('propertiesService', ['$http','$resource', function ($http,$resource, authenticationService) {
+    .service('propertiesService', ['$http', '$resource', 'authenticationService', function ($http, $resource, authenticationService) {
         //this.getProperties = function(id, img, propName, address, units, tenants) {
         //    var propertyList = $resource("data/properties.json");
 
@@ -82,6 +82,7 @@ noochForLandlords
 
             data.IsPropertyImageAdded = propertyData.IsPropertyImageSelected;
             data.PropertyImage = propertyData.propertyImage;
+            data.IsMultipleUnitsAdded = propertyData.IsMultipleUnitsAdded;
 
           
             
@@ -94,12 +95,17 @@ noochForLandlords
             if (propertyData.IsMultiUnitProperty == true) {
                 data.Unit = propertyData.allUnits;
             } else {
-                data.Unit = new [
-                {
-                    UnitNumber: propertyData.propertyName,
-                    UnitRent: propertyData.SingleUnitRent
 
-                }];
+                var data1 = {
+                    UnitNum: propertyData.propertyName,
+                    Rent: propertyData.SingleUnitRent,
+                    IsAddedWithProperty : true
+
+                };
+
+                data.Unit = new Array();
+
+                data.Unit.push(data1);
             }
 
             $http.post(URLs.AddProperty, data)
