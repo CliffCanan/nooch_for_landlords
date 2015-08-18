@@ -84,8 +84,6 @@ noochForLandlords
             data.PropertyImage = propertyData.propertyImage;
             data.IsMultipleUnitsAdded = propertyData.IsMultipleUnitsAdded;
 
-          
-            
             data.User = {
             LandlorId: memberId,
             AccessToken : accessToken
@@ -119,8 +117,31 @@ noochForLandlords
         };
 
 
-        return Operations;
 
+        Operations.SetPropertyStatus = function (propertyId, propertyStatus,memberId, accessToken, callback) {
+
+            var data = {};
+            
+            data.PropertyId = propertyId;
+            data.PropertyStatusToSet = propertyStatus;
+
+            data.User = {
+                LandlorId: memberId,
+                AccessToken: accessToken
+            };
+
+
+            $http.post(URLs.SetPropertyStatus, data)
+                .success(function (response) {
+                    if (response.IsSuccess && response.IsSuccess == true) {
+                        authenticationService.ManageToken(response.AuthTokenValidation);
+                        //console.log('came in success');
+                    }
+                    callback(response);
+                });
+        };
+
+        return Operations;
 
     }])
 

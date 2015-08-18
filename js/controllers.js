@@ -1015,13 +1015,42 @@ noochForLandlords
                         closeOnCancel: false
                     }, function (isConfirm) {
                         if (isConfirm) {
-                            swal({
-                                title: "You Got It!",
-                                text: "Your property has been published.",
-                                type: "success"
-                            }, function (isConfirm) {
-                                window.location.href = '#/properties';
+
+
+                            propertiesService.SetPropertyStatus(data.PropertyIdGenerated, true, userdetails.memberId,userdetails.accessToken, function (data2) {
+
+                                if (data2.IsSuccess == false) {
+             
+                                    swal({
+                                        title: "Ooops Error!",
+                                        text: data2.ErrorMessage,
+                                        type: "warning"
+                                    }, function (isConfirm) {
+                                        window.location.href = '#/properties';
+                                    });
+                                    //alert(data.ErrorMessage);
+                                }
+                                if (data2.IsSuccess == true) {
+
+                                    swal({
+                                        title: "You Got It!",
+                                        text: "Your property has been published.",
+                                        type: "success"
+                                    }, function (isConfirm) {
+                                        window.location.href = '#/properties';
+                                    });
+                                }
+
+
+                                
+
                             });
+
+
+
+
+
+                            
                         }
                         else {
                             swal({
