@@ -92,6 +92,7 @@ noochForLandlords
 
             if (propertyData.IsMultiUnitProperty == true) {
                 data.Unit = propertyData.allUnits;
+                data.IsMultipleUnitsAdded = true;
             } else {
 
                 var data1 = {
@@ -104,6 +105,7 @@ noochForLandlords
                 data.Unit = new Array();
 
                 data.Unit.push(data1);
+                data.IsMultipleUnitsAdded = false;
             }
 
             $http.post(URLs.AddProperty, data)
