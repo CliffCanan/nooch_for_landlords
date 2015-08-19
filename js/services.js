@@ -112,7 +112,7 @@ noochForLandlords
                 .success(function (response) {
                     if (response.IsSuccess && response.IsSuccess == true) {
                         authenticationService.ManageToken(response.AuthTokenValidation);
-                        console.log('came in success');
+                       // console.log('came in success');
                     }
                     callback(response);
                 });
@@ -134,6 +134,25 @@ noochForLandlords
 
 
             $http.post(URLs.SetPropertyStatus, data)
+                .success(function (response) {
+                    if (response.IsSuccess && response.IsSuccess == true) {
+                        authenticationService.ManageToken(response.AuthTokenValidation);
+                        //console.log('came in success');
+                    }
+                    callback(response);
+                });
+        };
+
+
+        Operations.GetProperties = function (memberId, accessToken, callback) {
+            console.log('get properties called user details -> ' + memberId + ' ' + accessToken);
+            var data = {};
+
+            data.LandlorId = memberId;
+            data.AccessToken = accessToken;
+
+
+            $http.post(URLs.GetProperties, data)
                 .success(function (response) {
                     if (response.IsSuccess && response.IsSuccess == true) {
                         authenticationService.ManageToken(response.AuthTokenValidation);
@@ -372,7 +391,7 @@ noochForLandlords
                 .success(function (response) {
                     if (response.IsSuccess && response.IsSuccess==true) {
                         authenticationService.ManageToken(response.AuthTokenValidation);
-                        console.log('came in success');
+                       // console.log('came in success');
                     }
                     callback(response);
                 });

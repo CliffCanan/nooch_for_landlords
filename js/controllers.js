@@ -184,23 +184,64 @@ noochForLandlords
     //      PROPERTIES
     // ===============================================================
     
-    .controller('propertiesCtrl', function (propertiesService, propDetailsService)
+    .controller('propertiesCtrl', function ($scope, authenticationService, propertiesService, propDetailsService, $timeout)
     {
-        this.propCount = 0;
+        var userdetails = authenticationService.GetUserDetails();
+        
+
+        $scope.propCount = 0;
+        $scope.propResult = new Array();
        // this.propResult = propertiesService.getProperties(this.id, this.img, this.propName, this.address, this.units, this.tenants);
 
         // For setting the 'Selected Prop' when going to a Property's Details page
-        this.selectedPropId = "";
-        this.setSelectedId = function ($event) {
-            this.selectedPropId = $event.target.id;
+        $scope.selectedPropId = "";
+        $scope.setSelectedId = function ($event) {
+            $scope.selectedPropId = $event.target.id;
 
-            propDetailsService.set(this.selectedPropId);
+            propDetailsService.set($scope.selectedPropId);
             window.location.href = '#/property-details';
         }
 
         // Just for toggling views for demo purposes...
-        this.firstTimeView = 0;
-        this.propsAddedAlreadyView = 1;
+        $scope.firstTimeView = 0;
+        $scope.propsAddedAlreadyView = 1;
+
+
+        getProperties = function() {
+            //console.log('get properties called user details -> ' + userdetails.memberId + ' ' + userdetails.accessToken);
+
+            propertiesService.GetProperties(userdetails.memberId, userdetails.accessToken, function(data) {
+                if (data.IsSuccess==true) {
+                    // data binding goes in here
+
+                    $scope.propCount = data.AllProperties.length;
+                    var index;
+                    for (index = 0; index < data.AllProperties.length; ++index) {
+                        console.log(data.AllProperties[index]);
+                        var propItem = {
+                            id: data.AllProperties[index].PropertyId,
+                            img: data.AllProperties[index].PropertyImage,
+                            address: data.AllProperties[index].AddressLineOne,
+                            units: data.AllProperties[index].UnitsCount,
+                            tenants: data.AllProperties[index].TenantsCount
+
+                    };
+                        $scope.propResult.push(propItem);
+                    }
+                    //console.log('items count ' + $scope.propCount);
+                    //console.log('items [0]' + $scope.propResult[0]);
+
+
+                }
+            });
+
+
+        };
+
+        $timeout(function () { getProperties(); }, 1000);
+
+        
+
     })
 
     // PROPERTY DETAILS CONTROLLER

@@ -10,7 +10,8 @@ var URLs = {
     Login: PATH + 'Users/Login',
     GetProfileData: PATH + 'Users/GetUserInfo',
     AddProperty: PATH + 'Properties/AddNewProperty',
-    SetPropertyStatus: PATH + 'Properties/SetPropertyStatus'
+    SetPropertyStatus: PATH + 'Properties/SetPropertyStatus',
+    GetProperties: PATH + 'Properties/LoadProperties'
     
 
 };
