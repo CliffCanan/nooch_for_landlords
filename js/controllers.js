@@ -202,6 +202,9 @@ noochForLandlords
             window.location.href = '#/property-details';
         }
 
+
+        
+
         // Just for toggling views for demo purposes...
         $scope.firstTimeView = 0;
         $scope.propsAddedAlreadyView = 1;
@@ -748,7 +751,7 @@ noochForLandlords
     })
 
     // Delete Property Popup
-    .directive('deleteProp', function () {
+    .directive('deleteProp', function (propertiesService, authenticationService) {
         return {
             restrict: 'A',
             link: function (scope, element, attrs) {
@@ -757,6 +760,8 @@ noochForLandlords
                     //console.log(element);
                     //console.log(attrs.propid);
                     var propertyId = attrs.propid;
+                    var userdetails = authenticationService.GetUserDetails();
+                    console.log('member id -> ' + userdetails.memberId);
                     swal({
                         title: "Are you sure?",
                         text: "This will delete this property from your account.  Your tenants will no longer be able to pay you rent for this property.",
@@ -769,9 +774,28 @@ noochForLandlords
                         closeOnCancel: false
                     }, function (isConfirm) {
                         if (isConfirm) {
-                            swal("Deleted!", "That property has been deleted.", "success");
 
-                            $('.propCard#property' + propertyId).fadeOut();
+                            propertiesService.RemoveProperty(propertyId, userdetails.memberId, userdetails.accessToken, function (data2) {
+
+                                if (data2.IsSuccess == false) {
+
+                                    swal({
+                                        title: "Ooops Error!",
+                                        text: data2.ErrorMessage,
+                                        type: "warning"
+                                    }, function(isConfirm) {
+                                        window.location.href = '#/properties';
+                                    });
+                                    //alert(data.ErrorMessage);
+                                }
+                                if (data2.IsSuccess == true) {
+
+                                    swal("Deleted!", "That property has been deleted.", "success");
+                                    $('.propCard#property' + propertyId).fadeOut();
+                                }
+
+                                
+                            });
                         }
                         else {
                             swal("Cancelled", "No worries, this property is safe :)");

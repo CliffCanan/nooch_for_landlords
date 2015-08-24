@@ -162,6 +162,31 @@ noochForLandlords
                 });
         };
 
+        // to remove property
+        Operations.RemoveProperty = function (propertyId, memberId, accessToken, callback) {
+
+            var data = {};
+
+            data.PropertyId = propertyId;
+            data.PropertyStatusToSet = false;
+            
+
+            data.User = {
+                LandlorId: memberId,
+                AccessToken: accessToken
+            };
+
+
+            $http.post(URLs.RemoveProperty, data)
+                .success(function (response) {
+                    if (response.IsSuccess && response.IsSuccess == true) {
+                        authenticationService.ManageToken(response.AuthTokenValidation);
+                        //console.log('came in success');
+                    }
+                    callback(response);
+                });
+        };
+
         return Operations;
 
     }])

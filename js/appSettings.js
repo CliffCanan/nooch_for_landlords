@@ -11,7 +11,8 @@ var URLs = {
     GetProfileData: PATH + 'Users/GetUserInfo',
     AddProperty: PATH + 'Properties/AddNewProperty',
     SetPropertyStatus: PATH + 'Properties/SetPropertyStatus',
-    GetProperties: PATH + 'Properties/LoadProperties'
+    GetProperties: PATH + 'Properties/LoadProperties',
+    RemoveProperty: PATH + 'Properties/DeleteProperty'
     
 
 };
