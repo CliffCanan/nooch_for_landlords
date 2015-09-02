@@ -119,6 +119,37 @@ noochForLandlords
         };
 
 
+        Operations.EditProperty = function (propertyData, memberId, accessToken, callback) {
+
+            var data = {};
+            data.PropertyName = propertyData.propertyName;
+            data.Address = propertyData.propertyAddress;
+
+            data.City = propertyData.propertyCity;
+            data.Zip = propertyData.propertyZip;
+            data.State = propertyData.state;
+            data.ContactNumber = propertyData.contactNum;
+            data.PropertyId = propertyData.propId;
+
+        
+            data.User = {
+                LandlorId: memberId,
+                AccessToken: accessToken
+            };
+
+
+        
+            $http.post(URLs.EditProperty, data)
+                .success(function (response) {
+                    if (response.IsSuccess && response.IsSuccess == true) {
+                        authenticationService.ManageToken(response.AuthTokenValidation);
+                        // console.log('came in success');
+                    }
+                    callback(response);
+                });
+        };
+
+
 
         Operations.SetPropertyStatus = function (propertyId, propertyStatus,memberId, accessToken, callback) {
 

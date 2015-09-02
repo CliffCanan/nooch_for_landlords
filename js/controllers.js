@@ -249,11 +249,7 @@ noochForLandlords
 
     // PROPERTY DETAILS CONTROLLER
     .controller('propDetailsCtrl', function ($compile, authenticationService, $scope, propertiesService, propDetailsService, getTenantsService, growlService) {
-        //this.propResult = propertiesService.getProperties(this.id, this.img, this.propName, this.address, this.units, this.tenants);
-
-        //this.getSelectedProp = propDetailsService.get();
-        //this.getSelectedProp2 = propDetailsService.get2();
-
+    
         $scope.selectedProperty = {
 
         };
@@ -262,7 +258,7 @@ noochForLandlords
         var userdetails = authenticationService.GetUserDetails();
         function getPropertyDetails() {
             //console.log('get properties called user details -> ' + userdetails.memberId + ' ' + userdetails.accessToken);
-            console.log('called getPropertyDetails method.');
+            
             var propId = propDetailsService.get();
 
             if (propId.length > 0) {
@@ -272,7 +268,7 @@ noochForLandlords
                         // data binding goes in here
 
 
-                        console.log('came in get property details success service.');
+                      
                         var propStatus = 0;
                         if (data.PropertyDetails.PropStatus == "Published") {
                             propStatus = 1;
@@ -295,7 +291,8 @@ noochForLandlords
                             "pastDue": 3,
                             "defaultBankName": data.BankAccountDetails.BankName,
                             "defaultBankNickname": data.BankAccountDetails.BankAccountNick + " - " + data.BankAccountDetails.BankAccountNumString,
-                            "bankImage": data.BankAccountDetails.BankIcon
+                            "bankImage": data.BankAccountDetails.BankIcon,
+                            "propertyId": data.PropertyDetails.PropertyId
                         }
 
 
@@ -338,11 +335,33 @@ noochForLandlords
         //    "defaultBankNickname": "Business Checking - 9876"
         //}
 
-        this.editPropInfo = 0;
-        this.updatePropInfo = function()
+        $scope.editPropInfo = 0;
+        $scope.updatePropInfo = function()
         {
-            this.editPropInfo = 0;
-            growlService.growl('Property info updated Successfully!', 'success');
+            if ($scope.editPropInfo == 1) {
+
+
+                //preparing data to be sent for updating property
+                $scope.inputData = {};
+                $scope.inputData.propertyName = $scope.selectedProperty.name;
+                $scope.inputData.propertyAddress = $scope.selectedProperty.address1;
+                $scope.inputData.propertyCity = $scope.selectedProperty.city;
+                $scope.inputData.propertyZip = $scope.selectedProperty.contactNumber;
+                $scope.inputData.contactNum = $scope.selectedProperty.contactNumber;
+                $scope.inputData.state = $scope.selectedProperty.state;
+                $scope.inputData.propId = $scope.selectedProperty.propertyId;
+
+                propertiesService.EditProperty($scope.inputData, userdetails.memberId, userdetails.accessToken, function(data) {
+                    if (data.IsSuccess == true) {
+                        $scope.editPropInfo = 0;
+                        growlService.growl('Property info updated Successfully!', 'success');
+                    } else {
+                        $scope.editPropInfo = 0;
+                        growlService.growl(data.ErrorMessage, 'warning');
+                    }
+                });
+            }
+
         }
 
         this.editPropPic = function () {

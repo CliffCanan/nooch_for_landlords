@@ -13,7 +13,10 @@ var URLs = {
     SetPropertyStatus: PATH + 'Properties/SetPropertyStatus',
     GetProperties: PATH + 'Properties/LoadProperties',
     RemoveProperty: PATH + 'Properties/DeleteProperty',
-    GetPropertyDetails: PATH + 'Properties/GetPropertyDetailsPageData'
+    GetPropertyDetails: PATH + 'Properties/GetPropertyDetailsPageData',
+    EditProperty: PATH + 'Properties/EditProperty'
+
+    
     
 
 };

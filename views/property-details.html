@@ -273,10 +273,10 @@
 
                                         <ul class="dropdown-menu dropdown-menu-right">
                                             <li>
-                                                <a data-ng-click="pdctrl.editPropInfo = 1"><i class="md md-mode-edit m-r-10"></i>Edit</a>
+                                                <a data-ng-click="editPropInfo = 1"><i class="md md-mode-edit m-r-10"></i>Edit</a>
                                             </li>
                                             <li>
-                                                <a data-delete-prop><i class="md md-delete m-r-10"></i>Delete</a>
+                                                <a data-delete-prop data-propid="{{selectedProperty.propertyId}}"><i class="md md-delete m-r-10"></i>Delete</a>
                                             </li>
                                         </ul>
                                     </li>
@@ -290,11 +290,10 @@
 
                                         <div class="pv-header">
                                             <div class="pv-main" data-ng-click="pdctrl.editPropPic()">
-                                                <img src="{{selectedProperty.imgUrl}}" alt="Property Picture">
-                                            </div>
+                                                <img src="{{selectedProperty.imgU}}" alt="Property Picture"></div>
                                         </div>
 
-                                        <div class="pv-body p-0 p-b-10" data-ng-if="pdctrl.editPropInfo === 0">
+                                        <div class="pv-body p-0 p-b-10" data-ng-if="editPropInfo === 0">
                                             <h2>{{selectedProperty.name}}</h2>
 
                                             <ul class="p-l-10 m-t-15 f-15 address">
@@ -305,7 +304,7 @@
                                             </ul>
                                         </div>
 
-                                        <form data-ng-submit="pdctrl.updatePropInfo()" class="pmbb-edit text-left" data-ng-if="pdctrl.editPropInfo === 1">
+                                        <form data-ng-submit="updatePropInfo()" class="pmbb-edit text-left" data-ng-if="editPropInfo === 1">
                                             <dl>
                                                 <dt>Property Name</dt>
                                                 <dd>
@@ -371,7 +370,7 @@
 
                                             <div class="m-t-25">
                                                 <button class="btn btn-primary" type="submit">Save</button>
-                                                <button class="btn btn-link m-l-10" data-ng-click="pdctrl.editPropInfo = 0">Cancel</button>
+                                                <button class="btn btn-link m-l-10" data-ng-click=" $scope.editPropInfo = 0" type="button">Cancel</button>
                                             </div>
                                         </form>
 
