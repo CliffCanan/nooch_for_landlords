@@ -191,17 +191,40 @@ noochForLandlords
 
     }])
 
-    .service('propDetailsService', ['$resource', function ($resource) {
+    .service('propDetailsService', ['$http', 'authenticationService', '$resource', function ($http, authenticationService,$resource) {
         // FOR GOING TO THE INDIDVIDUAL PROPERTY'S DETAILS PAGE
         var selectedProp = {};
-
+        var selectedPropDetails = {};
         function set(propId) {
-            selectedProp = propId;
-            console.log(selectedProp);
+            selectedProp.propId = propId;
+            console.log('selected prop id -> '+selectedProp.propId );
         }
 
         function get() {
-            return selectedProp;
+            return selectedProp.propId;
+        }
+
+        function getPropertyDetailsFromDB(propertyId, memberId, accessToken, callback) {
+            var data = {};
+
+            data.PropertyId = propertyId;
+            data.PropertyStatusToSet = false;
+
+            data.User = {
+                LandlorId: memberId,
+                AccessToken: accessToken
+            };
+
+
+            $http.post(URLs.GetPropertyDetails, data)
+                .success(function (response) {
+                    if (response.IsSuccess && response.IsSuccess == true) {
+                        authenticationService.ManageToken(response.AuthTokenValidation);
+                        //console.log('came in success');
+                    }
+                    callback(response);
+                });
+            
         }
 
         function get2() {
@@ -216,7 +239,8 @@ noochForLandlords
         return {
             set: set,
             get: get,
-            get2: get2
+            get2: get2,
+            getPropFromDb: getPropertyDetailsFromDB
         }
     }])
 

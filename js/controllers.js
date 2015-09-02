@@ -199,7 +199,7 @@ noochForLandlords
             $scope.selectedPropId = $event.target.id;
 
             propDetailsService.set($scope.selectedPropId);
-            window.location.href = '#/property-details';
+            window.location.href = '#/property-details';    
         }
 
 
@@ -248,28 +248,95 @@ noochForLandlords
     })
 
     // PROPERTY DETAILS CONTROLLER
-    .controller('propDetailsCtrl', function ($compile, $scope, propertiesService, propDetailsService, getTenantsService, growlService) {
+    .controller('propDetailsCtrl', function ($compile, authenticationService, $scope, propertiesService, propDetailsService, getTenantsService, growlService) {
         //this.propResult = propertiesService.getProperties(this.id, this.img, this.propName, this.address, this.units, this.tenants);
 
         //this.getSelectedProp = propDetailsService.get();
         //this.getSelectedProp2 = propDetailsService.get2();
 
         $scope.selectedProperty = {
-            "published": 1,
-            "name": "Haverford Towers",
-            "address1": "123 County Line Rd",
-            "address2": "",
-            "city": "Philadelphia",
-            "state": "PA",
-            "zip": "19123",
-            "contactNumber": "(215) 321-9876",
-            "imgUrl": "2.png",
-            "units": 9,
-            "tenants": 15,
-            "pastDue": 3,
-            "defaultBankName": "Bank of America",
-            "defaultBankNickname": "Business Checking - 9876"
-        }
+
+        };
+
+
+        var userdetails = authenticationService.GetUserDetails();
+        function getPropertyDetails() {
+            //console.log('get properties called user details -> ' + userdetails.memberId + ' ' + userdetails.accessToken);
+            console.log('called getPropertyDetails method.');
+            var propId = propDetailsService.get();
+
+            if (propId.length > 0) {
+
+                propDetailsService.getPropFromDb(propId,userdetails.memberId, userdetails.accessToken, function (data) {
+                    if (data.IsSuccess == true) {
+                        // data binding goes in here
+
+
+                        console.log('came in get property details success service.');
+                        var propStatus = 0;
+                        if (data.PropertyDetails.PropStatus == "Published") {
+                            propStatus = 1;
+                        } else {
+                            propStatus = 0;
+                        }
+                        $scope.selectedProperty = {
+                            "published":propStatus ,
+                            "name": data.PropertyDetails.PropName,
+                            "address1": data.PropertyDetails.AddressLineOne,
+                            "address2": "",
+                            "city": data.PropertyDetails.City,
+                            "state": data.PropertyDetails.State,
+                            "zip": data.PropertyDetails.Zip,
+                            "contactNumber": data.PropertyDetails.ContactNumber,
+                            "imgUrl": data.PropertyDetails.PropertyImage,
+                            "units": data.PropertyDetails.UnitsCount,
+                            "tenants": data.PropertyDetails.TenantsCount,
+                            "propertyStatus": data.PropertyDetails.PropStatus,
+                            "pastDue": 3,
+                            "defaultBankName": data.BankAccountDetails.BankName,
+                            "defaultBankNickname": data.BankAccountDetails.BankAccountNick + " - " + data.BankAccountDetails.BankAccountNumString,
+                            "bankImage": data.BankAccountDetails.BankIcon
+                        }
+
+
+                        //console.log('items [0]' + $scope.propResult[0]);
+
+
+                    } else {
+                        console.log('Erro while getting  property details.');
+                    }
+                });
+
+
+            } else {
+                //send back to home page 
+            }
+
+          
+
+
+        };
+
+        //$timeout(function () { getProperties(); }, 1000);
+        getPropertyDetails();
+
+
+        //$scope.selectedProperty = {
+        //    "published": 1,
+        //    "name": "Haverford Towers",
+        //    "address1": "123 County Line Rd",
+        //    "address2": "",
+        //    "city": "Philadelphia",
+        //    "state": "PA",
+        //    "zip": "19123",
+        //    "contactNumber": "(215) 321-9876",
+        //    "imgUrl": "2.png",
+        //    "units": 9,
+        //    "tenants": 15,
+        //    "pastDue": 3,
+        //    "defaultBankName": "Bank of America",
+        //    "defaultBankNickname": "Business Checking - 9876"
+        //}
 
         this.editPropInfo = 0;
         this.updatePropInfo = function()
@@ -303,8 +370,10 @@ noochForLandlords
 
 
         // Edit Published State (Whether the property should be publicly listed or not)
-        this.dropdownPublishedState = function ()
-        {
+        $scope.dropdownPublishedState = function () {
+
+            console.log('came in dropdown method');
+
             var alertTitleTxt, alertBodyTxt, actionBtnTxt, cancelBtnTxt;
             var isAlreadyPublished = false;
             var shouldCloseOnConfirm = false;
@@ -341,31 +410,77 @@ noochForLandlords
                 {
                     if (!isAlreadyPublished)
                     {
-                        setIsPublished(1);
-                        swal({
-                            title: "You Got It!",
-                            text: "Your property has been published.",
-                            type: "success",
+
+
+                        propertiesService.SetPropertyStatus(propDetailsService.get(), true, userdetails.memberId, userdetails.accessToken, function (data2) {
+
+                            if (data2.IsSuccess == false) {
+
+                                swal({
+                                    title: "Ooops Error!",
+                                    text: data2.ErrorMessage,
+                                    type: "warning"
+                                });
+                                //alert(data.ErrorMessage);
+                            }
+                            if (data2.IsSuccess == true) {
+
+                                setIsPublished(1);
+                                swal({
+                                    title: "You Got It!",
+                                    text: "Your property has been published.",
+                                    type: "success"
+                                });
+                            }
+
+
+
+
                         });
+
+
+                        
                     }
                 }
                 else
                 {
                     if (isAlreadyPublished)
                     {
-                        setIsPublished(0);
-                        swal({
-                            title: "No Problem",
-                            text: "Your property has been hidden. Before tenants can pay rent for this property, you must publish it.",
-                            type: "success",
+
+                        propertiesService.SetPropertyStatus(propDetailsService.get(), false, userdetails.memberId, userdetails.accessToken, function (data2) {
+
+                            if (data2.IsSuccess == false) {
+
+                                swal({
+                                    title: "Ooops Error!",
+                                    text: data2.ErrorMessage,
+                                    type: "warning"
+                                });
+                                //alert(data.ErrorMessage);
+                            }
+                            if (data2.IsSuccess == true) {
+
+                                setIsPublished(0);
+                                swal({
+                                    title: "No Problem",
+                                    text: "Your property has been hidden. Before tenants can pay rent for this property, you must publish it.",
+                                    type: "success"
+                                });
+                            }
+
+
+
+
                         });
+
+                     
                     }
                     else
                     {
                         swal({
                             title: "No Problem",
                             text: "Your property will remain hidden. Before tenants can pay rent for this property, you must publish it.",
-                            type: "warning",
+                            type: "warning"
                         });
                     }
                 }
@@ -373,9 +488,9 @@ noochForLandlords
         }
 
         function setIsPublished(newStatus) {
-            $scope.$apply(function () {
-                $scope.selectedProperty['published'] = newStatus;
-            });
+          
+                $scope.selectedProperty.published= newStatus;
+          
         }
 
         // Charge Tenant Button

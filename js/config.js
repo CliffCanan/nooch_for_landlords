@@ -142,7 +142,7 @@ noochForLandlords
                                 'vendors/bower_components/bootstrap-fileinput/js/fileinput.min.js',
                             ]
                         }
-                    ])
+                    ]);
                 }
             }
         })
