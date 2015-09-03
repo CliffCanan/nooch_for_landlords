@@ -477,6 +477,51 @@ noochForLandlords
                 });
         };
 
+        // to update profile info of user
+        Operations.UpdateInfo = function (userInfo,deviceInfo, callback) {
+
+            var data = {};
+
+            var userInfoObj = {};
+            var deviceInfoObj = {
+                LandlorId: deviceInfo.deviceInfo,
+                AccessToken: deviceInfo.AccessToken
+            };
+
+            var userInfoObj = {
+                DOB: userInfo.birthDay,
+                SSN: userInfo.ssnLast4,
+                FullName: userInfo.fullName,
+
+                CompanyName: userInfo.companyName,
+                CompanyEID: userInfo.compein,
+
+                UserEmail: userInfo.deviceInfo,
+                MobileNumber: userInfo.deviceInfo,
+                AddressLine1: userInfo.deviceInfo,
+                
+                TwitterHandle: userInfo.deviceInfo,
+
+
+                FbUrl: userInfo.deviceInfo,
+                InstaUrl: userInfo.deviceInfo,
+
+                InfoType: userInfo.InfoType
+            };
+
+            data.DeviceInfo = deviceInfoObj;
+            data.UserInfo = userInfoObj;
+            
+            $http.post(URLs.EditProfileData, data)
+                .success(function (response) {
+                    if (response.IsSuccess && response.IsSuccess == true) {
+                        authenticationService.ManageToken(response.AuthTokenValidation);
+                        // console.log('came in success');
+                    }
+                    callback(response);
+                });
+        };
+
         
         return Operations;
 

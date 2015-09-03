@@ -336,6 +336,13 @@ noochForLandlords
         //}
 
         $scope.editPropInfo = 0;
+
+
+        $scope.resetEditForm = function () {
+            console.log('came in rest');
+            $scope.editPropInfo = 0;
+        }
+
         $scope.updatePropInfo = function()
         {
             if ($scope.editPropInfo == 1) {
@@ -513,7 +520,7 @@ noochForLandlords
         }
 
         // Charge Tenant Button
-        this.chargeTenant = function (e) {
+        $scope.chargeTenant = function (e) {
             $('#chargeTenantModal').modal();
 
             $('#chargeTenantForm input').val('');
@@ -656,7 +663,7 @@ noochForLandlords
 
 
         // Send Message Modal
-        this.sendMsg = function(howMany)
+        $scope.sendMsg = function (howMany)
         {
             // Reset each field
             $('#sndMsgForm #tenantMsgGrp').removeClass('has-error').removeClass('has-success');
@@ -1488,8 +1495,9 @@ noochForLandlords
         //// Getting user info from db
         if (authenticationService.IsValidUser() == true) {
             var userdetails = authenticationService.GetUserDetails();
+            $scope.userInfoInSession = userdetails;
             getProfileService.GetData(userdetails.memberId, userdetails.accessToken, function(response) {
-                console.log('came in get user profile method and data -> ' + JSON.stringify(response));
+                //console.log('came in get user profile method and data -> ' + JSON.stringify(response));
 
                 // binding user information
                 $scope.userInfo.type = response.AccountType;
@@ -1527,7 +1535,6 @@ noochForLandlords
 
             });
 
-            
 
 
         } else {
@@ -1612,14 +1619,95 @@ noochForLandlords
         this.submit = function (item, message)
         {
             if (item === 'personalInfo') {
+
+                
+                var userInfo = {
+                    fullName: $scope.userInfo.fullName,
+                    ssnLast4: $scope.userInfo.ssnLast4,
+                    birthDay: $scope.userInfo.birthDay,
+                    InfoType: 'Personal'
+                };
+
+                
+                var deviceInfo = {
+
+                    deviceInfo: $scope.userInfoInSession.memberId,
+                    AccessToken: $scope.userInfoInSession.accessToken
+                    
+                };
+
+                getProfileService.UpdateInfo(userInfo, deviceInfo, function (response) {
+
+                    if (response.IsSuccess==true) {
+                        growlService.growl(message + ' has updated Successfully!', 'success');
+                    } else {
+                        growlService.growl(response.ErrorMessage , 'danger');
+                    }
+                    
+
+                });
+
                 this.editPersonalInfo = 0;
             }
 
             if (item === 'businessInfo') {
+
+                var userInfo = {
+                    companyName: $scope.company.name,
+                    compein: $scope.company.ein,
+                    InfoType: 'Company'
+
+                }
+                
+                var deviceInfo = {
+
+                    deviceInfo: $scope.userInfoInSession.memberId,
+                    AccessToken: $scope.userInfoInSession.accessToken
+
+                };
+
+                getProfileService.UpdateInfo(userInfo, deviceInfo, function (response) {
+
+                    if (response.IsSuccess == true) {
+                        growlService.growl(message + ' has updated Successfully!', 'success');
+                    } else {
+                        growlService.growl(response.ErrorMessage, 'danger');
+                    }
+
+
+                });
+
+
                 this.editBusinessInfo = 0;
             }
 
             if (item === 'profileContact') {
+
+                var userInfo = {
+                    companyName: $scope.company.name,
+                    compein: $scope.company.ein,
+                    InfoType: 'Company'
+
+                }
+
+                var deviceInfo = {
+
+                    deviceInfo: $scope.userInfoInSession.memberId,
+                    AccessToken: $scope.userInfoInSession.accessToken
+
+                };
+
+                getProfileService.UpdateInfo(userInfo, deviceInfo, function (response) {
+
+                    if (response.IsSuccess == true) {
+                        growlService.growl(message + ' has updated Successfully!', 'success');
+                    } else {
+                        growlService.growl(response.ErrorMessage, 'danger');
+                    }
+
+
+                });
+
                 this.editContactInfo = 0;
             }
 
@@ -1627,7 +1715,7 @@ noochForLandlords
                 this.editSocialInfo = 0;
             }
 
-            growlService.growl(message + ' has updated Successfully!', 'success'); 
+          //  growlService.growl(message + ' has updated Successfully!', 'success'); 
         }
 
         this.editProfilePic = function () {

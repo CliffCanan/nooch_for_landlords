@@ -9,6 +9,7 @@ var PATH = 'http://localhost:42865/db/api/';
 var URLs = {
     Login: PATH + 'Users/Login',
     GetProfileData: PATH + 'Users/GetUserInfo',
+    EditProfileData: PATH + 'Users/EditUserInfo',
     AddProperty: PATH + 'Properties/AddNewProperty',
     SetPropertyStatus: PATH + 'Properties/SetPropertyStatus',
     GetProperties: PATH + 'Properties/LoadProperties',

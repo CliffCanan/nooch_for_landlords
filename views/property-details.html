@@ -82,10 +82,10 @@
 
                                             <ul class="dropdown-menu dm-icon w-100">
                                                 <li class="dropdown-header"><i class="md md-attach-money m-r-5"></i>For what?</li>
-                                                <li><a id="secDeposit" ng-click="pdctrl.chargeTenant($event)"><i class="md md-lock-outline"></i>Security Deposit</a></li>
-                                                <li><a id="rent" ng-click="pdctrl.chargeTenant($event)"><i class="md md-today"></i>Rent</a></li>
-                                                <li><a id="damage" ng-click="pdctrl.chargeTenant($event)"><i class="md md-report"></i>Damage Fee</a></li>
-                                                <li><a id="other" ng-click="pdctrl.chargeTenant($event)"><i class="md md-format-list-bulleted"></i>Other</a></li>
+                                                <li><a id="secDeposit" ng-click="chargeTenant($event)"><i class="md md-lock-outline"></i>Security Deposit</a></li>
+                                                <li><a id="rent" ng-click="chargeTenant($event)"><i class="md md-today"></i>Rent</a></li>
+                                                <li><a id="damage" ng-click="chargeTenant($event)"><i class="md md-report"></i>Damage Fee</a></li>
+                                                <li><a id="other" ng-click="chargeTenant($event)"><i class="md md-format-list-bulleted"></i>Other</a></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -99,8 +99,8 @@
                                             <a class="btn btn-default btn-block" href="" data-toggle="dropdown"><i class="md md-insert-comment m-r-10"></i> Send Message</a>
 
                                             <ul class="dropdown-menu dm-icon w-100">
-                                                <li><a data-ng-click="pdctrl.sendMsg('all')"><i class="md md-people"></i>To All Tenants</a></li>
-                                                <li><a data-ng-click="pdctrl.sendMsg('1')"><i class="md md-person"></i>Pick 1 Tenant</a></li>
+                                                <li><a data-ng-click="sendMsg('all')"><i class="md md-people"></i>To All Tenants</a></li>
+                                                <li><a data-ng-click="sendMsg('1')"><i class="md md-person"></i>Pick 1 Tenant</a></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -370,7 +370,7 @@
 
                                             <div class="m-t-25">
                                                 <button class="btn btn-primary" type="submit">Save</button>
-                                                <button class="btn btn-link m-l-10" data-ng-click=" $scope.editPropInfo = 0" type="button">Cancel</button>
+                                                <button class="btn btn-link m-l-10" data-ng-click="resetEditForm()" type="button">Cancel</button>
                                             </div>
                                         </form>
 
