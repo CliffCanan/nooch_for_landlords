@@ -56,32 +56,206 @@ noochForLandlords
     // Properties Widget Data
     // =========================================================================
 
-    .service('propertiesService', ['$resource', function ($resource) {
-        this.getProperties = function (id, img, propName, address, units, tenants) {
-            var propertyList = $resource("data/properties.json");
+    .service('propertiesService', ['$http', '$resource', 'authenticationService', function ($http, $resource, authenticationService) {
+        //this.getProperties = function(id, img, propName, address, units, tenants) {
+        //    var propertyList = $resource("data/properties.json");
 
-            return propertyList.get({
-                id: id,
-                img: img,
-                propName: propName,
-                address: address,
-                units: units,
-                tenants: tenants
-            })
-        }
+        //    return propertyList.get({
+        //        id: id,
+        //        img: img,
+        //        propName: propName,
+        //        address: address,
+        //        units: units,
+        //        tenants: tenants
+        //    });
+        //};
+        var Operations = {};
+
+        Operations.SaveProperty = function (propertyData,memberId, accessToken, callback) {
+
+            var data = {};
+            data.PropertyName = propertyData.propertyName;
+            data.Address = propertyData.propertyAddress;
+
+            data.City = propertyData.propertyCity;
+            data.Zip = propertyData.propertyZip;
+
+            data.IsPropertyImageAdded = propertyData.IsPropertyImageSelected;
+            data.PropertyImage = propertyData.propertyImage;
+            data.IsMultipleUnitsAdded = propertyData.IsMultipleUnitsAdded;
+
+            data.User = {
+            LandlorId: memberId,
+            AccessToken : accessToken
+            };
+
+
+            if (propertyData.IsMultiUnitProperty == true) {
+                data.Unit = propertyData.allUnits;
+                data.IsMultipleUnitsAdded = true;
+            } else {
+
+                var data1 = {
+                    UnitNum: propertyData.propertyName,
+                    Rent: propertyData.SingleUnitRent,
+                    IsAddedWithProperty : true
+
+                };
+
+                data.Unit = new Array();
+
+                data.Unit.push(data1);
+                data.IsMultipleUnitsAdded = false;
+            }
+
+            $http.post(URLs.AddProperty, data)
+                .success(function (response) {
+                    if (response.IsSuccess && response.IsSuccess == true) {
+                        authenticationService.ManageToken(response.AuthTokenValidation);
+                       // console.log('came in success');
+                    }
+                    callback(response);
+                });
+        };
+
+
+        Operations.EditProperty = function (propertyData, memberId, accessToken, callback) {
+
+            var data = {};
+            data.PropertyName = propertyData.propertyName;
+            data.Address = propertyData.propertyAddress;
+
+            data.City = propertyData.propertyCity;
+            data.Zip = propertyData.propertyZip;
+            data.State = propertyData.state;
+            data.ContactNumber = propertyData.contactNum;
+            data.PropertyId = propertyData.propId;
+
+        
+            data.User = {
+                LandlorId: memberId,
+                AccessToken: accessToken
+            };
+
+
+        
+            $http.post(URLs.EditProperty, data)
+                .success(function (response) {
+                    if (response.IsSuccess && response.IsSuccess == true) {
+                        authenticationService.ManageToken(response.AuthTokenValidation);
+                        // console.log('came in success');
+                    }
+                    callback(response);
+                });
+        };
+
+
+
+        Operations.SetPropertyStatus = function (propertyId, propertyStatus,memberId, accessToken, callback) {
+
+            var data = {};
+            
+            data.PropertyId = propertyId;
+            data.PropertyStatusToSet = propertyStatus;
+
+            data.User = {
+                LandlorId: memberId,
+                AccessToken: accessToken
+            };
+
+
+            $http.post(URLs.SetPropertyStatus, data)
+                .success(function (response) {
+                    if (response.IsSuccess && response.IsSuccess == true) {
+                        authenticationService.ManageToken(response.AuthTokenValidation);
+                        //console.log('came in success');
+                    }
+                    callback(response);
+                });
+        };
+
+
+        Operations.GetProperties = function (memberId, accessToken, callback) {
+            console.log('get properties called user details -> ' + memberId + ' ' + accessToken);
+            var data = {};
+
+            data.LandlorId = memberId;
+            data.AccessToken = accessToken;
+
+
+            $http.post(URLs.GetProperties, data)
+                .success(function (response) {
+                    if (response.IsSuccess && response.IsSuccess == true) {
+                        authenticationService.ManageToken(response.AuthTokenValidation);
+                        //console.log('came in success');
+                    }
+                    callback(response);
+                });
+        };
+
+        // to remove property
+        Operations.RemoveProperty = function (propertyId, memberId, accessToken, callback) {
+
+            var data = {};
+
+            data.PropertyId = propertyId;
+            data.PropertyStatusToSet = false;
+            
+
+            data.User = {
+                LandlorId: memberId,
+                AccessToken: accessToken
+            };
+
+
+            $http.post(URLs.RemoveProperty, data)
+                .success(function (response) {
+                    if (response.IsSuccess && response.IsSuccess == true) {
+                        authenticationService.ManageToken(response.AuthTokenValidation);
+                        //console.log('came in success');
+                    }
+                    callback(response);
+                });
+        };
+
+        return Operations;
+
     }])
 
-    .service('propDetailsService', ['$resource', function ($resource) {
+    .service('propDetailsService', ['$http', 'authenticationService', '$resource', function ($http, authenticationService,$resource) {
         // FOR GOING TO THE INDIDVIDUAL PROPERTY'S DETAILS PAGE
         var selectedProp = {};
-
+        var selectedPropDetails = {};
         function set(propId) {
-            selectedProp = propId;
-            console.log(selectedProp);
+            selectedProp.propId = propId;
+            console.log('selected prop id -> '+selectedProp.propId );
         }
 
         function get() {
-            return selectedProp;
+            return selectedProp.propId;
+        }
+
+        function getPropertyDetailsFromDB(propertyId, memberId, accessToken, callback) {
+            var data = {};
+
+            data.PropertyId = propertyId;
+            data.PropertyStatusToSet = false;
+
+            data.User = {
+                LandlorId: memberId,
+                AccessToken: accessToken
+            };
+
+
+            $http.post(URLs.GetPropertyDetails, data)
+                .success(function (response) {
+                    if (response.IsSuccess && response.IsSuccess == true) {
+                        authenticationService.ManageToken(response.AuthTokenValidation);
+                        //console.log('came in success');
+                    }
+                    callback(response);
+                });
+            
         }
 
         function get2() {
@@ -96,7 +270,8 @@ noochForLandlords
         return {
             set: set,
             get: get,
-            get2: get2
+            get2: get2,
+            getPropFromDb: getPropertyDetailsFromDB
         }
     }])
 
@@ -296,7 +471,7 @@ noochForLandlords
                 .success(function (response) {
                     if (response.IsSuccess && response.IsSuccess==true) {
                         authenticationService.ManageToken(response.AuthTokenValidation);
-                        console.log('came in success');
+                       // console.log('came in success');
                     }
                     callback(response);
                 });

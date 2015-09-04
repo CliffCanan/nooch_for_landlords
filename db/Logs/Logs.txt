@@ -1,0 +1,750 @@
+﻿INFO  2015-08-11 05:22:37,091 89650ms Logger                 Info               - Landlords API -> Users -> Login. Login requested by [cliff@nooch.com]
+INFO  2015-08-11 05:22:52,192 104751ms Logger                 Info               - Landlords API -> Users -> Login. Login requested by [cliff@nooch.com]
+INFO  2015-08-11 05:25:59,902 292461ms Logger                 Info               - Landlords API -> Users -> Login. Login requested by [malkit.singh@venturepact.com]
+INFO  2015-08-11 05:26:13,770 306329ms Logger                 Info               - Landlords API -> Users -> Login. Login requested by [malkit.singh@venturepact.com]
+INFO  2015-08-11 18:41:21,137   343ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-11 18:41:50,402 29608ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-11 18:42:04,379 43585ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-11 18:42:04,457 43663ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-11 18:42:17,655 56860ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-11 18:42:17,764 56969ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-11 18:42:19,558 58763ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-11 18:42:19,605 58810ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-11 18:42:35,438 74644ms Logger                 Info               - Landlords API -> Users -> Login. Login requested by [cliff@nooch.com]
+INFO  2015-08-11 18:42:36,062 75268ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-11 18:42:36,125 75330ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-12 04:29:51,852   608ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-12 04:29:51,867   623ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-12 04:30:06,484 15241ms Logger                 Info               - Landlords API -> Users -> Login. Login requested by [cliff@nooch.com]
+INFO  2015-08-12 04:30:09,261 18017ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-12 04:30:09,386 18142ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-12 04:30:13,177 21933ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-12 04:30:13,223 21980ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-12 04:30:17,763 26519ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-12 04:30:17,841 26597ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-12 04:30:35,734 44490ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-12 04:30:37,684 46440ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-12 04:31:11,473 80230ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-12 04:31:19,773 88529ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-12 04:31:23,797 92554ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-12 04:31:30,739 99496ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-12 04:31:34,000 102756ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-12 04:31:52,969 121726ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-12 04:31:53,016 121772ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-12 04:31:54,919 123676ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-12 04:31:54,982 123738ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-12 04:32:15,745 144501ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-12 04:32:15,839 144595ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-12 05:23:17,371   358ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-12 05:23:17,386   374ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-12 05:23:19,087  2074ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-12 05:23:23,283  6271ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-12 05:23:31,348 14336ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-12 05:23:33,906 16894ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-12 05:34:27,971 670958ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-12 05:59:23,358   389ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-12 05:59:23,982  1013ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-12 05:59:26,135  3166ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-12 05:59:26,213  3244ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-12 07:35:09,786   343ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-12 07:35:10,707  1263ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-13 05:44:01,878   764ms Logger                 Info               - Landlords API -> Users -> Login. Login requested by [cliff@nooch.com]
+INFO  2015-08-13 05:46:38,546 157432ms Logger                 Info               - Landlords API -> Users -> Login. Login requested by [cliff@nooch.com]
+INFO  2015-08-13 05:47:37,903 216789ms Logger                 Info               - Landlords API -> Users -> Login. Login requested by [cliff@nooch.com]
+INFO  2015-08-13 05:59:34,694 933579ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-13 06:00:37,873 996758ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-18 09:44:51,489 16348ms Logger                 Info               - Landlords API -> Users -> Login. Login requested by [cliff@nooch.com]
+INFO  2015-08-18 09:44:51,536 16395ms Logger                 Info               - Landlords API -> Users -> Login. Login requested by [cliff@nooch.com]
+INFO  2015-08-18 09:45:01,067 25926ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-18 09:45:01,473 26332ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-18 09:47:33,507 178365ms Logger                 Info               - Landlords API -> Users -> Login. Login requested by [cliff@nooch.com]
+INFO  2015-08-18 09:47:38,218 183076ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-18 09:47:38,623 183482ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-18 09:47:55,861 200720ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-18 09:49:40,269 305128ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-18 09:50:44,103 368961ms Logger                 GetUserInfo        - Landlords API -> Properties -> AddNewProperty. AddNewProperty requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-18 09:50:48,595 373454ms Logger                 SetPropertyStatus  - Landlords API -> Properties -> SetPropertyStatus. SetPropertyStatus requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-18 09:50:51,481 376340ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-18 16:47:52,698   311ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-18 16:48:00,326  7940ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-18 16:48:04,382 11996ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-18 16:48:04,460 12074ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-18 16:48:08,220 15833ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-18 16:48:11,339 18953ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-18 16:48:56,984 64597ms Logger                 GetUserInfo        - Landlords API -> Properties -> AddNewProperty. AddNewProperty requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-18 16:49:02,912 70525ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-18 16:50:06,652 134265ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-18 16:50:10,068 137682ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-18 16:50:12,205 139819ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-18 16:50:13,547 141160ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-18 16:50:21,924 149537ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-18 16:50:23,608 151222ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-18 16:50:56,290 183903ms Logger                 GetUserInfo        - Landlords API -> Properties -> AddNewProperty. AddNewProperty requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-18 16:52:01,324 248938ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-18 16:53:12,396 320010ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-19 03:38:06,293   390ms Logger                 Info               - Landlords API -> Users -> Login. Login requested by [cliff@nooch.com]
+INFO  2015-08-19 03:38:09,179  3276ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-19 03:38:09,506  3603ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-19 03:38:12,517  6614ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-19 03:38:14,312  8408ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-19 03:38:43,002 37099ms Logger                 GetUserInfo        - Landlords API -> Properties -> AddNewProperty. AddNewProperty requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-19 03:39:12,551 66648ms Logger                 SetPropertyStatus  - Landlords API -> Properties -> SetPropertyStatus. SetPropertyStatus requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-19 03:39:31,101 85198ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-19 03:42:17,690 251787ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-19 03:42:52,949 287046ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-19 03:47:37,701 571798ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-19 03:47:39,090 573187ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-19 09:37:14,325   670ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-19 09:38:27,082 73427ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-19 09:38:51,199 97544ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-19 09:39:32,694 139039ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-19 09:39:58,215 164560ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-19 09:40:44,296 210641ms Logger                 Info               - Landlords API -> Users -> Login. Login requested by [malkit.singh@venturepact.com]
+INFO  2015-08-19 10:37:56,445   327ms Logger                 Info               - Landlords API -> Users -> Login. Login requested by [cliff@nooch.com]
+INFO  2015-08-19 10:37:58,863  2745ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-19 10:37:59,019  2901ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-19 10:38:01,671  5553ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-19 10:38:10,094 13977ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-19 10:38:11,015 14897ms Logger                 Info               - Landlords API -> Properties -> LoadProperties. LoadProperties requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-19 10:38:38,673 42555ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-19 10:38:39,562 43444ms Logger                 Info               - Landlords API -> Properties -> LoadProperties. LoadProperties requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-19 10:38:48,189 52071ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-19 10:39:43,255 107138ms Logger                 GetUserInfo        - Landlords API -> Properties -> AddNewProperty. AddNewProperty requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-19 10:39:45,080 108963ms Logger                 SetPropertyStatus  - Landlords API -> Properties -> SetPropertyStatus. SetPropertyStatus requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-19 10:39:47,108 110991ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-19 10:39:47,779 111661ms Logger                 Info               - Landlords API -> Properties -> LoadProperties. LoadProperties requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-19 16:46:23,791   358ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-19 16:46:24,493  1060ms Logger                 Info               - Landlords API -> Properties -> LoadProperties. LoadProperties requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-19 16:46:46,863 23430ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-19 16:46:47,814 24382ms Logger                 Info               - Landlords API -> Properties -> LoadProperties. LoadProperties requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-19 16:46:49,265 25832ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-19 16:47:23,085 59652ms Logger                 GetUserInfo        - Landlords API -> Properties -> AddNewProperty. AddNewProperty requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-19 16:47:30,214 66781ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-19 16:47:31,056 67624ms Logger                 Info               - Landlords API -> Properties -> LoadProperties. LoadProperties requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-19 16:48:43,111 139678ms Logger                 Info               - Landlords API -> Users -> Login. Login requested by [cliff@nooch.com]
+INFO  2015-08-19 16:48:44,031 140599ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-19 16:48:44,094 140661ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-19 16:48:47,853 144421ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-19 16:48:48,836 145403ms Logger                 Info               - Landlords API -> Properties -> LoadProperties. LoadProperties requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-19 16:48:59,787 156354ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-19 16:49:56,819 213386ms Logger                 GetUserInfo        - Landlords API -> Properties -> AddNewProperty. AddNewProperty requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-19 16:50:02,263 218831ms Logger                 SetPropertyStatus  - Landlords API -> Properties -> SetPropertyStatus. SetPropertyStatus requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-19 16:50:04,338 220905ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-19 16:50:05,180 221748ms Logger                 Info               - Landlords API -> Properties -> LoadProperties. LoadProperties requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-19 16:50:10,968 227535ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-19 18:53:55,445   358ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-19 18:53:56,897  1810ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-19 18:53:57,864  2777ms Logger                 Info               - Landlords API -> Properties -> LoadProperties. LoadProperties requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-19 18:54:02,794  7707ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-19 18:54:05,446 10359ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-19 18:54:06,304 11217ms Logger                 Info               - Landlords API -> Properties -> LoadProperties. LoadProperties requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-20 00:17:03,096   530ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-20 11:03:35,533   889ms Logger                 Info               - Landlords API -> Users -> Login. Login requested by [cliff@nooch.com]
+INFO  2015-08-20 11:03:41,367  6723ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-20 11:03:41,788  7144ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-20 11:03:46,889 12245ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-20 11:03:47,856 13212ms Logger                 Info               - Landlords API -> Properties -> LoadProperties. LoadProperties requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-20 11:03:57,871 23227ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-20 11:04:51,113 76469ms Logger                 GetUserInfo        - Landlords API -> Properties -> AddNewProperty. AddNewProperty requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-20 11:04:56,900 82256ms Logger                 SetPropertyStatus  - Landlords API -> Properties -> SetPropertyStatus. SetPropertyStatus requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-20 11:05:00,457 85813ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-20 11:05:01,065 86421ms Logger                 Info               - Landlords API -> Properties -> LoadProperties. LoadProperties requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-21 05:43:53,553   390ms Logger                 Info               - Landlords API -> Users -> Login. Login requested by [cliff@nooch.com]
+INFO  2015-08-21 05:43:55,269  2106ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-21 05:43:55,487  2325ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-21 05:44:15,626 22464ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-21 05:44:16,578 23416ms Logger                 Info               - Landlords API -> Properties -> LoadProperties. LoadProperties requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-21 06:31:40,700 16769ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+ERROR 2015-08-21 06:31:57,751 33820ms Logger                 Error              - Landlords API -> Users -> GetUserInfo. Error while GetUserInfo request from LandlorgId  - [ 21d4e1ee-865c-40dd-b841-15807546daae ] . Exception details [ System.Data.EntityException: The underlying provider failed on Open. ---> System.Data.SqlClient.SqlException: A connection was successfully established with the server, but then an error occurred during the pre-login handshake. (provider: SSL Provider, error: 0 - The wait operation timed out.) ---> System.ComponentModel.Win32Exception: The wait operation timed out
+   --- End of inner exception stack trace ---
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.ConsumePreLoginHandshake(Boolean encrypt, Boolean trustServerCert, Boolean integratedSecurity, Boolean& marsCapable)
+   at System.Data.SqlClient.TdsParser.Connect(ServerInfo serverInfo, SqlInternalConnectionTds connHandler, Boolean ignoreSniOpenTimeout, Int64 timerExpire, Boolean encrypt, Boolean trustServerCert, Boolean integratedSecurity, Boolean withFailover)
+   at System.Data.SqlClient.SqlInternalConnectionTds.AttemptOneLogin(ServerInfo serverInfo, String newPassword, SecureString newSecurePassword, Boolean ignoreSniOpenTimeout, TimeoutTimer timeout, Boolean withFailover)
+   at System.Data.SqlClient.SqlInternalConnectionTds.LoginNoFailover(ServerInfo serverInfo, String newPassword, SecureString newSecurePassword, Boolean redirectedUserInstance, SqlConnectionString connectionOptions, SqlCredential credential, TimeoutTimer timeout)
+   at System.Data.SqlClient.SqlInternalConnectionTds.OpenLoginEnlist(TimeoutTimer timeout, SqlConnectionString connectionOptions, SqlCredential credential, String newPassword, SecureString newSecurePassword, Boolean redirectedUserInstance)
+   at System.Data.SqlClient.SqlInternalConnectionTds..ctor(DbConnectionPoolIdentity identity, SqlConnectionString connectionOptions, SqlCredential credential, Object providerInfo, String newPassword, SecureString newSecurePassword, Boolean redirectedUserInstance, SqlConnectionString userConnectionOptions, SessionData reconnectSessionData)
+   at System.Data.SqlClient.SqlConnectionFactory.CreateConnection(DbConnectionOptions options, DbConnectionPoolKey poolKey, Object poolGroupProviderInfo, DbConnectionPool pool, DbConnection owningConnection, DbConnectionOptions userOptions)
+   at System.Data.ProviderBase.DbConnectionFactory.CreatePooledConnection(DbConnectionPool pool, DbConnection owningObject, DbConnectionOptions options, DbConnectionPoolKey poolKey, DbConnectionOptions userOptions)
+   at System.Data.ProviderBase.DbConnectionPool.CreateObject(DbConnection owningObject, DbConnectionOptions userOptions, DbConnectionInternal oldConnection)
+   at System.Data.ProviderBase.DbConnectionPool.UserCreateRequest(DbConnection owningObject, DbConnectionOptions userOptions, DbConnectionInternal oldConnection)
+   at System.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, UInt32 waitForMultipleObjectsTimeout, Boolean allowCreate, Boolean onlyOneCheckConnection, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at System.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at System.Data.ProviderBase.DbConnectionFactory.TryGetConnection(DbConnection owningConnection, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal oldConnection, DbConnectionInternal& connection)
+   at System.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   at System.Data.ProviderBase.DbConnectionClosed.TryOpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   at System.Data.SqlClient.SqlConnection.TryOpenInner(TaskCompletionSource`1 retry)
+   at System.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry)
+   at System.Data.SqlClient.SqlConnection.Open()
+   at System.Data.EntityClient.EntityConnection.OpenStoreConnectionIf(Boolean openCondition, DbConnection storeConnectionToOpen, DbConnection originalConnection, String exceptionCode, String attemptedOperation, Boolean& closeStoreConnectionOnFailure)
+   --- End of inner exception stack trace ---
+   at System.Data.EntityClient.EntityConnection.OpenStoreConnectionIf(Boolean openCondition, DbConnection storeConnectionToOpen, DbConnection originalConnection, String exceptionCode, String attemptedOperation, Boolean& closeStoreConnectionOnFailure)
+   at System.Data.EntityClient.EntityConnection.Open()
+   at System.Data.Objects.ObjectContext.EnsureConnection()
+   at System.Data.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
+   at System.Data.Objects.ObjectQuery`1.System.Collections.Generic.IEnumerable<T>.GetEnumerator()
+   at System.Linq.Enumerable.FirstOrDefault[TSource](IEnumerable`1 source)
+   at System.Data.Objects.ELinq.ObjectQueryProvider.<GetElementFunction>b__1[TResult](IEnumerable`1 sequence)
+   at System.Data.Objects.ELinq.ObjectQueryProvider.ExecuteSingle[TResult](IEnumerable`1 query, Expression queryRoot)
+   at System.Data.Objects.ELinq.ObjectQueryProvider.System.Linq.IQueryProvider.Execute[S](Expression expression)
+   at System.Data.Entity.Internal.Linq.DbQueryProvider.Execute[TResult](Expression expression)
+   at System.Linq.Queryable.FirstOrDefault[TSource](IQueryable`1 source)
+   at LanLordlAPIs.Classes.Utility.CommonHelper.AuthTokenValidation(Guid LandlorId, String accesstoken)
+   at LanLordlAPIs.Controllers.UsersController.GetUserInfo(GetProfileDataInput User) ]
+INFO  2015-08-21 17:45:26,107   374ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-25 05:27:57,157   608ms Logger                 Info               - Landlords API -> Users -> Login. Login requested by [cliff@nooch.com]
+INFO  2015-08-25 05:28:01,634  5085ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-25 05:28:02,008  5460ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-25 05:28:04,333  7784ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-25 05:28:05,300  8751ms Logger                 Info               - Landlords API -> Properties -> LoadProperties. LoadProperties requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-25 05:28:12,601 16052ms Logger                 DeleteProperty     - Landlords API -> DeleteProperty -> DeleteProperty. SetPropertyStatus requested by [21d4e1ee-865c-40dd-b841-15807546daae] and Property Id - [ ed2e930e-21e7-4d40-9608-dadeaade2fe9 ]
+INFO  2015-08-25 05:28:18,232 21684ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-25 05:28:19,168 22620ms Logger                 Info               - Landlords API -> Properties -> LoadProperties. LoadProperties requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-25 07:40:39,007   436ms Logger                 Info               - Landlords API -> Users -> Login. Login requested by [cliff@nooch.com]
+INFO  2015-08-25 07:40:41,175  2605ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-25 07:40:41,316  2745ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-25 07:41:06,120 27549ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-25 07:41:06,166 27596ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-25 07:41:15,168 36597ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-25 07:41:16,150 37580ms Logger                 Info               - Landlords API -> Properties -> LoadProperties. LoadProperties requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-25 07:41:39,051 60481ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-25 07:41:47,538 68967ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-25 07:41:48,255 69685ms Logger                 Info               - Landlords API -> Properties -> LoadProperties. LoadProperties requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-25 07:41:49,254 70683ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-25 07:41:51,157 72586ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-25 07:41:51,999 73429ms Logger                 Info               - Landlords API -> Properties -> LoadProperties. LoadProperties requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-25 07:41:55,260 76689ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-26 04:23:55,330   389ms Logger                 Info               - Landlords API -> Users -> Login. Login requested by [cliff@nooch.com]
+INFO  2015-08-26 04:23:57,405  2464ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-26 04:23:57,529  2589ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-26 04:24:03,176  8235ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-26 04:24:04,127  9187ms Logger                 Info               - Landlords API -> Properties -> LoadProperties. LoadProperties requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-26 04:24:18,134 23194ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-26 09:16:20,456   358ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-26 09:16:20,784   686ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-26 09:16:26,759  6661ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-26 09:16:27,273  7176ms Logger                 Info               - Landlords API -> Properties -> LoadProperties. LoadProperties requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-26 09:16:32,250 12152ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-26 09:24:52,542 512444ms Logger                 DeleteProperty     - Landlords API -> DeleteProperty -> DeleteProperty. SetPropertyStatus requested by [21d4e1ee-865c-40dd-b841-15807546daae] and Property Id - [  ]
+INFO  2015-08-26 09:24:54,695 514597ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-26 09:24:55,272 515174ms Logger                 Info               - Landlords API -> Properties -> LoadProperties. LoadProperties requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-26 09:25:03,618 523520ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-27 05:16:32,955   748ms Logger                 Info               - Landlords API -> Users -> Login. Login requested by [cliff@nooch.com]
+INFO  2015-08-27 05:16:37,791  5584ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-27 05:16:38,212  6006ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-27 05:16:41,473  9266ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-27 05:16:42,424 10218ms Logger                 Info               - Landlords API -> Properties -> LoadProperties. LoadProperties requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-27 05:16:49,366 17160ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-28 00:33:41,332   343ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-28 04:02:07,558   327ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-30 21:40:58,999   343ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-30 21:41:05,505  6848ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-30 21:41:22,587 23930ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-30 21:41:23,554 24897ms Logger                 Info               - Landlords API -> Properties -> LoadProperties. LoadProperties requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-30 21:41:35,925 37268ms Logger                 Info               - Landlords API -> Users -> Login. Login requested by [cliff@nooch.com]
+INFO  2015-08-30 21:41:36,736 38079ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-30 21:41:36,892 38235ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-30 21:41:54,223 55567ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-30 21:41:54,286 55629ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-30 21:41:55,581 56924ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-30 21:42:12,070 73413ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-30 21:42:15,705 77048ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-30 21:42:15,767 77110ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-30 21:42:16,609 77953ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-30 21:42:17,670 79014ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-30 21:42:18,637 79981ms Logger                 Info               - Landlords API -> Properties -> LoadProperties. LoadProperties requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-30 21:42:22,818 84162ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-30 22:23:32,376   390ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-30 22:38:24,525 892538ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-30 22:38:24,540 892554ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-30 22:38:58,595 926608ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-30 22:38:59,297 927310ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-30 22:38:59,359 927373ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-30 22:39:00,373 928387ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-30 22:39:00,405 928418ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-31 01:12:25,403   390ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-31 01:12:26,854  1840ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-31 01:12:27,696  2683ms Logger                 Info               - Landlords API -> Properties -> LoadProperties. LoadProperties requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-31 01:12:42,688 17674ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-31 01:12:43,561 18548ms Logger                 Info               - Landlords API -> Properties -> LoadProperties. LoadProperties requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-31 02:19:15,555   390ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-31 02:19:16,210  1045ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-31 02:20:06,005 50840ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-31 02:20:06,021 50856ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-31 02:20:06,847 51682ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-31 02:20:07,159 51994ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-31 11:15:34,683   592ms Logger                 Info               - Landlords API -> Users -> Login. Login requested by [cliff@nooch.com]
+INFO  2015-08-31 11:15:40,237  6146ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-31 11:15:40,705  6614ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-31 11:15:45,198 11107ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-31 11:15:46,134 12043ms Logger                 Info               - Landlords API -> Properties -> LoadProperties. LoadProperties requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-31 11:15:52,358 18267ms Logger                 Info               - Landlords API -> Properties -> LoadProperties. LoadProperties requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-31 11:15:52,389 18298ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+ERROR 2015-08-31 11:15:52,436 18345ms Logger                 Error              - Landlords API -> Properties -> LoadProperties. LoadProperties requested by- [ 21d4e1ee-865c-40dd-b841-15807546daae ] . Exception details [ System.Data.EntityCommandExecutionException: An error occurred while executing the command definition. See the inner exception for details. ---> System.Data.SqlClient.SqlException: Could not find stored procedure 'dbo.GetTenantsCountInGivenPropertyId'.
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, SqlDataReader ds)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean asyncWrite)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   at System.Data.Common.DbCommand.ExecuteReader(CommandBehavior behavior)
+   at System.Data.EntityClient.EntityCommandDefinition.ExecuteStoreCommands(EntityCommand entityCommand, CommandBehavior behavior)
+   --- End of inner exception stack trace ---
+   at System.Data.EntityClient.EntityCommandDefinition.ExecuteStoreCommands(EntityCommand entityCommand, CommandBehavior behavior)
+   at System.Data.Objects.ObjectContext.CreateFunctionObjectResult[TElement](EntityCommand entityCommand, ReadOnlyMetadataCollection`1 entitySets, EdmType[] edmTypes, MergeOption mergeOption)
+   at System.Data.Objects.ObjectContext.ExecuteFunction[TElement](String functionName, MergeOption mergeOption, ObjectParameter[] parameters)
+   at LanLordlAPIs.Models.db_Model.NOOCHEntities.GetTenantsCountInGivenPropertyId(String vPropertyId)
+   at LanLordlAPIs.Controllers.PropertiesController.GetPropertyDetailsPageData(SetPropertyStatusClass Property) ]
+INFO  2015-08-31 11:16:04,526 30435ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-31 11:16:04,666 30576ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-31 11:16:04,713 30622ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-31 11:16:05,056 30966ms Logger                 Info               - Landlords API -> Properties -> LoadProperties. LoadProperties requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-31 11:16:09,393 35302ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-31 11:16:09,924 35833ms Logger                 Info               - Landlords API -> Properties -> LoadProperties. LoadProperties requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-31 11:16:13,184 39093ms Logger                 Info               - Landlords API -> Properties -> LoadProperties. LoadProperties requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+ERROR 2015-08-31 11:16:13,184 39093ms Logger                 Error              - Landlords API -> Properties -> LoadProperties. LoadProperties requested by- [ 21d4e1ee-865c-40dd-b841-15807546daae ] . Exception details [ System.Data.EntityCommandExecutionException: An error occurred while executing the command definition. See the inner exception for details. ---> System.Data.SqlClient.SqlException: Could not find stored procedure 'dbo.GetTenantsCountInGivenPropertyId'.
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, SqlDataReader ds)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean asyncWrite)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   at System.Data.Common.DbCommand.ExecuteReader(CommandBehavior behavior)
+   at System.Data.EntityClient.EntityCommandDefinition.ExecuteStoreCommands(EntityCommand entityCommand, CommandBehavior behavior)
+   --- End of inner exception stack trace ---
+   at System.Data.EntityClient.EntityCommandDefinition.ExecuteStoreCommands(EntityCommand entityCommand, CommandBehavior behavior)
+   at System.Data.Objects.ObjectContext.CreateFunctionObjectResult[TElement](EntityCommand entityCommand, ReadOnlyMetadataCollection`1 entitySets, EdmType[] edmTypes, MergeOption mergeOption)
+   at System.Data.Objects.ObjectContext.ExecuteFunction[TElement](String functionName, MergeOption mergeOption, ObjectParameter[] parameters)
+   at LanLordlAPIs.Models.db_Model.NOOCHEntities.GetTenantsCountInGivenPropertyId(String vPropertyId)
+   at LanLordlAPIs.Controllers.PropertiesController.GetPropertyDetailsPageData(SetPropertyStatusClass Property) ]
+INFO  2015-08-31 11:16:13,231 39140ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-31 11:16:42,278 68187ms Logger                 Info               - Landlords API -> Users -> Login. Login requested by [cliff@nooch.com]
+INFO  2015-08-31 11:16:48,346 74256ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-31 11:16:48,830 74739ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-31 11:16:55,039 80948ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-31 11:16:55,990 81900ms Logger                 Info               - Landlords API -> Properties -> LoadProperties. LoadProperties requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-31 11:17:04,446 90355ms Logger                 Info               - Landlords API -> Properties -> LoadProperties. LoadProperties requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+ERROR 2015-08-31 11:17:04,446 90355ms Logger                 Error              - Landlords API -> Properties -> LoadProperties. LoadProperties requested by- [ 21d4e1ee-865c-40dd-b841-15807546daae ] . Exception details [ System.Data.EntityCommandExecutionException: An error occurred while executing the command definition. See the inner exception for details. ---> System.Data.SqlClient.SqlException: Could not find stored procedure 'dbo.GetTenantsCountInGivenPropertyId'.
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, SqlDataReader ds)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean asyncWrite)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   at System.Data.Common.DbCommand.ExecuteReader(CommandBehavior behavior)
+   at System.Data.EntityClient.EntityCommandDefinition.ExecuteStoreCommands(EntityCommand entityCommand, CommandBehavior behavior)
+   --- End of inner exception stack trace ---
+   at System.Data.EntityClient.EntityCommandDefinition.ExecuteStoreCommands(EntityCommand entityCommand, CommandBehavior behavior)
+   at System.Data.Objects.ObjectContext.CreateFunctionObjectResult[TElement](EntityCommand entityCommand, ReadOnlyMetadataCollection`1 entitySets, EdmType[] edmTypes, MergeOption mergeOption)
+   at System.Data.Objects.ObjectContext.ExecuteFunction[TElement](String functionName, MergeOption mergeOption, ObjectParameter[] parameters)
+   at LanLordlAPIs.Models.db_Model.NOOCHEntities.GetTenantsCountInGivenPropertyId(String vPropertyId)
+   at LanLordlAPIs.Controllers.PropertiesController.GetPropertyDetailsPageData(SetPropertyStatusClass Property) ]
+INFO  2015-08-31 11:17:04,492 90402ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-31 11:21:55,464 381373ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-31 11:21:55,885 381794ms Logger                 Info               - Landlords API -> Properties -> LoadProperties. LoadProperties requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-31 11:22:01,563 387472ms Logger                 Info               - Landlords API -> Properties -> LoadProperties. LoadProperties requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+ERROR 2015-08-31 11:22:01,563 387472ms Logger                 Error              - Landlords API -> Properties -> LoadProperties. LoadProperties requested by- [ 21d4e1ee-865c-40dd-b841-15807546daae ] . Exception details [ System.Data.EntityCommandExecutionException: An error occurred while executing the command definition. See the inner exception for details. ---> System.Data.SqlClient.SqlException: Could not find stored procedure 'dbo.GetTenantsCountInGivenPropertyId'.
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, SqlDataReader ds)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean asyncWrite)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   at System.Data.Common.DbCommand.ExecuteReader(CommandBehavior behavior)
+   at System.Data.EntityClient.EntityCommandDefinition.ExecuteStoreCommands(EntityCommand entityCommand, CommandBehavior behavior)
+   --- End of inner exception stack trace ---
+   at System.Data.EntityClient.EntityCommandDefinition.ExecuteStoreCommands(EntityCommand entityCommand, CommandBehavior behavior)
+   at System.Data.Objects.ObjectContext.CreateFunctionObjectResult[TElement](EntityCommand entityCommand, ReadOnlyMetadataCollection`1 entitySets, EdmType[] edmTypes, MergeOption mergeOption)
+   at System.Data.Objects.ObjectContext.ExecuteFunction[TElement](String functionName, MergeOption mergeOption, ObjectParameter[] parameters)
+   at LanLordlAPIs.Models.db_Model.NOOCHEntities.GetTenantsCountInGivenPropertyId(String vPropertyId)
+   at LanLordlAPIs.Controllers.PropertiesController.GetPropertyDetailsPageData(SetPropertyStatusClass Property) ]
+INFO  2015-08-31 11:22:01,610 387519ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-31 11:24:54,723 560632ms Logger                 Info               - Landlords API -> Properties -> LoadProperties. LoadProperties requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-31 11:32:48,636 1034545ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-31 11:32:48,838 1034748ms Logger                 Info               - Landlords API -> Properties -> LoadProperties. LoadProperties requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-31 11:32:58,760 1044669ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-31 11:32:59,774 1045683ms Logger                 Info               - Landlords API -> Properties -> LoadProperties. LoadProperties requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-31 11:33:05,031 1050940ms Logger                 Info               - Landlords API -> Properties -> LoadProperties. LoadProperties requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+ERROR 2015-08-31 11:33:05,047 1050956ms Logger                 Error              - Landlords API -> Properties -> LoadProperties. LoadProperties requested by- [ 21d4e1ee-865c-40dd-b841-15807546daae ] . Exception details [ System.Data.EntityCommandExecutionException: An error occurred while executing the command definition. See the inner exception for details. ---> System.Data.SqlClient.SqlException: Could not find stored procedure 'dbo.GetTenantsCountInGivenPropertyId'.
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, SqlDataReader ds)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean asyncWrite)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   at System.Data.Common.DbCommand.ExecuteReader(CommandBehavior behavior)
+   at System.Data.EntityClient.EntityCommandDefinition.ExecuteStoreCommands(EntityCommand entityCommand, CommandBehavior behavior)
+   --- End of inner exception stack trace ---
+   at System.Data.EntityClient.EntityCommandDefinition.ExecuteStoreCommands(EntityCommand entityCommand, CommandBehavior behavior)
+   at System.Data.Objects.ObjectContext.CreateFunctionObjectResult[TElement](EntityCommand entityCommand, ReadOnlyMetadataCollection`1 entitySets, EdmType[] edmTypes, MergeOption mergeOption)
+   at System.Data.Objects.ObjectContext.ExecuteFunction[TElement](String functionName, MergeOption mergeOption, ObjectParameter[] parameters)
+   at LanLordlAPIs.Models.db_Model.NOOCHEntities.GetTenantsCountInGivenPropertyId(String vPropertyId)
+   at LanLordlAPIs.Controllers.PropertiesController.GetPropertyDetailsPageData(SetPropertyStatusClass Property) ]
+INFO  2015-08-31 11:33:05,109 1051018ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-31 11:33:06,061 1051970ms Logger                 Info               - Landlords API -> Properties -> LoadProperties. LoadProperties requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-31 11:36:51,184 1277094ms Logger                 Info               - Landlords API -> Properties -> LoadProperties. LoadProperties requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-31 18:20:23,882   390ms Logger                 Info               - Landlords API -> Users -> Login. Login requested by [cliff@nooch.com]
+INFO  2015-08-31 18:20:33,055  9562ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-31 18:20:33,492  9999ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-31 18:20:36,175 12682ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-31 18:20:37,126 13634ms Logger                 Info               - Landlords API -> Properties -> LoadProperties. LoadProperties requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-31 18:20:40,824 17331ms Logger                 Info               - Landlords API -> Properties -> LoadProperties. LoadProperties requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+ERROR 2015-08-31 18:20:40,839 17347ms Logger                 Error              - Landlords API -> Properties -> LoadProperties. LoadProperties requested by- [ 21d4e1ee-865c-40dd-b841-15807546daae ] . Exception details [ System.Data.EntityCommandExecutionException: An error occurred while executing the command definition. See the inner exception for details. ---> System.Data.SqlClient.SqlException: Could not find stored procedure 'dbo.GetTenantsCountInGivenPropertyId'.
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, SqlDataReader ds)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean asyncWrite)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   at System.Data.Common.DbCommand.ExecuteReader(CommandBehavior behavior)
+   at System.Data.EntityClient.EntityCommandDefinition.ExecuteStoreCommands(EntityCommand entityCommand, CommandBehavior behavior)
+   --- End of inner exception stack trace ---
+   at System.Data.EntityClient.EntityCommandDefinition.ExecuteStoreCommands(EntityCommand entityCommand, CommandBehavior behavior)
+   at System.Data.Objects.ObjectContext.CreateFunctionObjectResult[TElement](EntityCommand entityCommand, ReadOnlyMetadataCollection`1 entitySets, EdmType[] edmTypes, MergeOption mergeOption)
+   at System.Data.Objects.ObjectContext.ExecuteFunction[TElement](String functionName, MergeOption mergeOption, ObjectParameter[] parameters)
+   at LanLordlAPIs.Models.db_Model.NOOCHEntities.GetTenantsCountInGivenPropertyId(String vPropertyId)
+   at LanLordlAPIs.Controllers.PropertiesController.GetPropertyDetailsPageData(SetPropertyStatusClass Property) ]
+INFO  2015-08-31 18:20:40,870 17378ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-31 18:21:24,535 61042ms Logger                 Info               - Landlords API -> Properties -> LoadProperties. LoadProperties requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-31 18:23:05,670 162177ms Logger                 Info               - Landlords API -> Properties -> LoadProperties. LoadProperties requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+ERROR 2015-08-31 18:23:05,670 162177ms Logger                 Error              - Landlords API -> Properties -> LoadProperties. LoadProperties requested by- [ 21d4e1ee-865c-40dd-b841-15807546daae ] . Exception details [ System.Data.EntityCommandExecutionException: An error occurred while executing the command definition. See the inner exception for details. ---> System.Data.SqlClient.SqlException: Could not find stored procedure 'dbo.GetTenantsCountInGivenPropertyId'.
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, SqlDataReader ds)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean asyncWrite)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   at System.Data.Common.DbCommand.ExecuteReader(CommandBehavior behavior)
+   at System.Data.EntityClient.EntityCommandDefinition.ExecuteStoreCommands(EntityCommand entityCommand, CommandBehavior behavior)
+   --- End of inner exception stack trace ---
+   at System.Data.EntityClient.EntityCommandDefinition.ExecuteStoreCommands(EntityCommand entityCommand, CommandBehavior behavior)
+   at System.Data.Objects.ObjectContext.CreateFunctionObjectResult[TElement](EntityCommand entityCommand, ReadOnlyMetadataCollection`1 entitySets, EdmType[] edmTypes, MergeOption mergeOption)
+   at System.Data.Objects.ObjectContext.ExecuteFunction[TElement](String functionName, MergeOption mergeOption, ObjectParameter[] parameters)
+   at LanLordlAPIs.Models.db_Model.NOOCHEntities.GetTenantsCountInGivenPropertyId(String vPropertyId)
+   at LanLordlAPIs.Controllers.PropertiesController.GetPropertyDetailsPageData(SetPropertyStatusClass Property) ]
+INFO  2015-08-31 18:25:50,655 327163ms Logger                 Info               - Landlords API -> Users -> Login. Login requested by [cliff@nooch.com]
+INFO  2015-08-31 18:25:56,646 333153ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-31 18:25:57,441 333949ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-31 18:26:02,870 339378ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-31 18:26:03,806 340314ms Logger                 Info               - Landlords API -> Properties -> LoadProperties. LoadProperties requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-31 18:26:08,673 345181ms Logger                 Info               - Landlords API -> Properties -> LoadProperties. LoadProperties requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+ERROR 2015-08-31 18:26:08,673 345181ms Logger                 Error              - Landlords API -> Properties -> LoadProperties. LoadProperties requested by- [ 21d4e1ee-865c-40dd-b841-15807546daae ] . Exception details [ System.Data.EntityCommandExecutionException: An error occurred while executing the command definition. See the inner exception for details. ---> System.Data.SqlClient.SqlException: Could not find stored procedure 'dbo.GetTenantsCountInGivenPropertyId'.
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, SqlDataReader ds)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean asyncWrite)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   at System.Data.Common.DbCommand.ExecuteReader(CommandBehavior behavior)
+   at System.Data.EntityClient.EntityCommandDefinition.ExecuteStoreCommands(EntityCommand entityCommand, CommandBehavior behavior)
+   --- End of inner exception stack trace ---
+   at System.Data.EntityClient.EntityCommandDefinition.ExecuteStoreCommands(EntityCommand entityCommand, CommandBehavior behavior)
+   at System.Data.Objects.ObjectContext.CreateFunctionObjectResult[TElement](EntityCommand entityCommand, ReadOnlyMetadataCollection`1 entitySets, EdmType[] edmTypes, MergeOption mergeOption)
+   at System.Data.Objects.ObjectContext.ExecuteFunction[TElement](String functionName, MergeOption mergeOption, ObjectParameter[] parameters)
+   at LanLordlAPIs.Models.db_Model.NOOCHEntities.GetTenantsCountInGivenPropertyId(String vPropertyId)
+   at LanLordlAPIs.Controllers.PropertiesController.GetPropertyDetailsPageData(SetPropertyStatusClass Property) ]
+INFO  2015-08-31 18:26:08,720 345228ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-08-31 18:27:17,610 414117ms Logger                 Info               - Landlords API -> Properties -> LoadProperties. LoadProperties requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+ERROR 2015-08-31 18:27:17,625 414133ms Logger                 Error              - Landlords API -> Properties -> LoadProperties. LoadProperties requested by- [ 21d4e1ee-865c-40dd-b841-15807546daae ] . Exception details [ System.Data.EntityCommandExecutionException: An error occurred while executing the command definition. See the inner exception for details. ---> System.Data.SqlClient.SqlException: Could not find stored procedure 'dbo.GetTenantsCountInGivenPropertyId'.
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, SqlDataReader ds)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean asyncWrite)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   at System.Data.Common.DbCommand.ExecuteReader(CommandBehavior behavior)
+   at System.Data.EntityClient.EntityCommandDefinition.ExecuteStoreCommands(EntityCommand entityCommand, CommandBehavior behavior)
+   --- End of inner exception stack trace ---
+   at System.Data.EntityClient.EntityCommandDefinition.ExecuteStoreCommands(EntityCommand entityCommand, CommandBehavior behavior)
+   at System.Data.Objects.ObjectContext.CreateFunctionObjectResult[TElement](EntityCommand entityCommand, ReadOnlyMetadataCollection`1 entitySets, EdmType[] edmTypes, MergeOption mergeOption)
+   at System.Data.Objects.ObjectContext.ExecuteFunction[TElement](String functionName, MergeOption mergeOption, ObjectParameter[] parameters)
+   at LanLordlAPIs.Models.db_Model.NOOCHEntities.GetTenantsCountInGivenPropertyId(String vPropertyId)
+   at LanLordlAPIs.Controllers.PropertiesController.GetPropertyDetailsPageData(SetPropertyStatusClass Property) ]
+INFO  2015-09-02 04:22:19,069   717ms Logger                 Info               - Landlords API -> Users -> Login. Login requested by [cliff@nooch.com]
+INFO  2015-09-02 04:22:26,775  8424ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-02 04:22:27,196  8845ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-02 04:22:30,722 12370ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-02 04:22:31,673 13322ms Logger                 Info               - Landlords API -> Properties -> LoadProperties. LoadProperties requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-02 04:22:39,333 20982ms Logger                 Info               - Landlords API -> Properties -> LoadProperties. LoadProperties requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-02 04:22:39,364 21013ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+ERROR 2015-09-02 04:22:39,411 21060ms Logger                 Error              - Landlords API -> Properties -> LoadProperties. LoadProperties requested by- [ 21d4e1ee-865c-40dd-b841-15807546daae ] . Exception details [ System.Data.EntityCommandExecutionException: An error occurred while executing the command definition. See the inner exception for details. ---> System.Data.SqlClient.SqlException: Could not find stored procedure 'dbo.GetTenantsCountInGivenPropertyId'.
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, SqlDataReader ds)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean asyncWrite)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   at System.Data.Common.DbCommand.ExecuteReader(CommandBehavior behavior)
+   at System.Data.EntityClient.EntityCommandDefinition.ExecuteStoreCommands(EntityCommand entityCommand, CommandBehavior behavior)
+   --- End of inner exception stack trace ---
+   at System.Data.EntityClient.EntityCommandDefinition.ExecuteStoreCommands(EntityCommand entityCommand, CommandBehavior behavior)
+   at System.Data.Objects.ObjectContext.CreateFunctionObjectResult[TElement](EntityCommand entityCommand, ReadOnlyMetadataCollection`1 entitySets, EdmType[] edmTypes, MergeOption mergeOption)
+   at System.Data.Objects.ObjectContext.ExecuteFunction[TElement](String functionName, MergeOption mergeOption, ObjectParameter[] parameters)
+   at LanLordlAPIs.Models.db_Model.NOOCHEntities.GetTenantsCountInGivenPropertyId(String vPropertyId)
+   at LanLordlAPIs.Controllers.PropertiesController.GetPropertyDetailsPageData(SetPropertyStatusClass Property) ]
+INFO  2015-09-02 04:22:44,107 25755ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-02 04:22:44,731 26379ms Logger                 Info               - Landlords API -> Properties -> LoadProperties. LoadProperties requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-02 04:22:46,993 28641ms Logger                 Info               - Landlords API -> Properties -> LoadProperties. LoadProperties requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+ERROR 2015-09-02 04:22:47,008 28657ms Logger                 Error              - Landlords API -> Properties -> LoadProperties. LoadProperties requested by- [ 21d4e1ee-865c-40dd-b841-15807546daae ] . Exception details [ System.Data.EntityCommandExecutionException: An error occurred while executing the command definition. See the inner exception for details. ---> System.Data.SqlClient.SqlException: Could not find stored procedure 'dbo.GetTenantsCountInGivenPropertyId'.
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, SqlDataReader ds)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean asyncWrite)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   at System.Data.Common.DbCommand.ExecuteReader(CommandBehavior behavior)
+   at System.Data.EntityClient.EntityCommandDefinition.ExecuteStoreCommands(EntityCommand entityCommand, CommandBehavior behavior)
+   --- End of inner exception stack trace ---
+   at System.Data.EntityClient.EntityCommandDefinition.ExecuteStoreCommands(EntityCommand entityCommand, CommandBehavior behavior)
+   at System.Data.Objects.ObjectContext.CreateFunctionObjectResult[TElement](EntityCommand entityCommand, ReadOnlyMetadataCollection`1 entitySets, EdmType[] edmTypes, MergeOption mergeOption)
+   at System.Data.Objects.ObjectContext.ExecuteFunction[TElement](String functionName, MergeOption mergeOption, ObjectParameter[] parameters)
+   at LanLordlAPIs.Models.db_Model.NOOCHEntities.GetTenantsCountInGivenPropertyId(String vPropertyId)
+   at LanLordlAPIs.Controllers.PropertiesController.GetPropertyDetailsPageData(SetPropertyStatusClass Property) ]
+INFO  2015-09-02 04:22:47,071 28719ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-02 04:28:11,083 352731ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-02 04:28:11,473 353121ms Logger                 Info               - Landlords API -> Properties -> LoadProperties. LoadProperties requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-02 04:28:18,290 359938ms Logger                 Info               - Landlords API -> Properties -> LoadProperties. LoadProperties requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+ERROR 2015-09-02 04:28:18,290 359938ms Logger                 Error              - Landlords API -> Properties -> LoadProperties. LoadProperties requested by- [ 21d4e1ee-865c-40dd-b841-15807546daae ] . Exception details [ System.Data.EntityCommandExecutionException: An error occurred while executing the command definition. See the inner exception for details. ---> System.Data.SqlClient.SqlException: Could not find stored procedure 'dbo.GetTenantsCountInGivenPropertyId'.
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, SqlDataReader ds)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean asyncWrite)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   at System.Data.Common.DbCommand.ExecuteReader(CommandBehavior behavior)
+   at System.Data.EntityClient.EntityCommandDefinition.ExecuteStoreCommands(EntityCommand entityCommand, CommandBehavior behavior)
+   --- End of inner exception stack trace ---
+   at System.Data.EntityClient.EntityCommandDefinition.ExecuteStoreCommands(EntityCommand entityCommand, CommandBehavior behavior)
+   at System.Data.Objects.ObjectContext.CreateFunctionObjectResult[TElement](EntityCommand entityCommand, ReadOnlyMetadataCollection`1 entitySets, EdmType[] edmTypes, MergeOption mergeOption)
+   at System.Data.Objects.ObjectContext.ExecuteFunction[TElement](String functionName, MergeOption mergeOption, ObjectParameter[] parameters)
+   at LanLordlAPIs.Models.db_Model.NOOCHEntities.GetTenantsCountInGivenPropertyId(String vPropertyId)
+   at LanLordlAPIs.Controllers.PropertiesController.GetPropertyDetailsPageData(SetPropertyStatusClass Property) ]
+INFO  2015-09-02 04:28:18,617 360266ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-02 04:28:40,005 381654ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-02 04:28:40,613 382262ms Logger                 Info               - Landlords API -> Properties -> LoadProperties. LoadProperties requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-02 04:28:42,860 384508ms Logger                 Info               - Landlords API -> Properties -> LoadProperties. LoadProperties requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+ERROR 2015-09-02 04:28:42,875 384524ms Logger                 Error              - Landlords API -> Properties -> LoadProperties. LoadProperties requested by- [ 21d4e1ee-865c-40dd-b841-15807546daae ] . Exception details [ System.Data.EntityCommandExecutionException: An error occurred while executing the command definition. See the inner exception for details. ---> System.Data.SqlClient.SqlException: Could not find stored procedure 'dbo.GetTenantsCountInGivenPropertyId'.
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, SqlDataReader ds)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean asyncWrite)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   at System.Data.Common.DbCommand.ExecuteReader(CommandBehavior behavior)
+   at System.Data.EntityClient.EntityCommandDefinition.ExecuteStoreCommands(EntityCommand entityCommand, CommandBehavior behavior)
+   --- End of inner exception stack trace ---
+   at System.Data.EntityClient.EntityCommandDefinition.ExecuteStoreCommands(EntityCommand entityCommand, CommandBehavior behavior)
+   at System.Data.Objects.ObjectContext.CreateFunctionObjectResult[TElement](EntityCommand entityCommand, ReadOnlyMetadataCollection`1 entitySets, EdmType[] edmTypes, MergeOption mergeOption)
+   at System.Data.Objects.ObjectContext.ExecuteFunction[TElement](String functionName, MergeOption mergeOption, ObjectParameter[] parameters)
+   at LanLordlAPIs.Models.db_Model.NOOCHEntities.GetTenantsCountInGivenPropertyId(String vPropertyId)
+   at LanLordlAPIs.Controllers.PropertiesController.GetPropertyDetailsPageData(SetPropertyStatusClass Property) ]
+INFO  2015-09-02 04:28:42,907 384555ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-02 04:30:41,217 502866ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-02 04:30:41,810 503458ms Logger                 Info               - Landlords API -> Properties -> LoadProperties. LoadProperties requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-02 04:30:58,424 520072ms Logger                 Info               - Landlords API -> Properties -> LoadProperties. LoadProperties requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-02 04:30:58,486 520135ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-02 10:06:48,180   390ms Logger                 Info               - Landlords API -> Users -> Login. Login requested by [cliff@nooch.com]
+INFO  2015-09-02 10:06:50,427  2636ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-02 10:06:50,536  2745ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-02 10:06:52,049  4258ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-02 10:06:53,001  5210ms Logger                 Info               - Landlords API -> Properties -> LoadProperties. LoadProperties requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-02 10:06:57,369  9578ms Logger                 Info               - Landlords API -> Properties -> LoadProperties. LoadProperties requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-02 10:06:57,416  9625ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-02 10:07:05,403 17612ms Logger                 SetPropertyStatus  - Landlords API -> Properties -> SetPropertyStatus. SetPropertyStatus requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-02 10:07:25,854 38064ms Logger                 SetPropertyStatus  - Landlords API -> Properties -> SetPropertyStatus. SetPropertyStatus requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-02 10:08:43,636 115845ms Logger                 DeleteProperty     - Landlords API -> DeleteProperty -> DeleteProperty. SetPropertyStatus requested by [21d4e1ee-865c-40dd-b841-15807546daae] and Property Id - [  ]
+INFO  2015-09-02 10:08:47,380 119589ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-02 10:08:47,957 120166ms Logger                 Info               - Landlords API -> Properties -> LoadProperties. LoadProperties requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-02 10:08:55,118 127327ms Logger                 Info               - Landlords API -> Properties -> LoadProperties. LoadProperties requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-02 10:08:55,164 127374ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-02 10:09:05,273 137482ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-02 10:09:05,336 137545ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-03 04:58:14,705   374ms Logger                 Info               - Landlords API -> Users -> Login. Login requested by [cliff@nooch.com]
+INFO  2015-09-03 04:58:16,515  2184ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-03 04:58:16,624  2293ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-03 04:58:18,902  4570ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-03 04:58:19,869  5538ms Logger                 Info               - Landlords API -> Properties -> LoadProperties. LoadProperties requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-03 04:58:22,583  8252ms Logger                 Info               - Landlords API -> Properties -> LoadProperties. LoadProperties requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-03 04:58:22,630  8299ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-03 04:59:51,612 97281ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-03 04:59:52,205 97874ms Logger                 Info               - Landlords API -> Properties -> LoadProperties. LoadProperties requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-03 05:00:00,442 106111ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-03 05:00:00,801 106470ms Logger                 Info               - Landlords API -> Properties -> LoadProperties. LoadProperties requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-03 05:01:45,290 210958ms Logger                 Info               - Landlords API -> Properties -> LoadProperties. LoadProperties requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-03 05:01:45,336 211005ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-03 05:25:10,647 1616316ms Logger                 Info               - Landlords API -> Users -> Login. Login requested by [cliff@nooch.com]
+INFO  2015-09-03 05:25:17,417 1623086ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-03 05:25:17,901 1623570ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-03 05:25:25,420 1631089ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-03 05:25:26,356 1632025ms Logger                 Info               - Landlords API -> Properties -> LoadProperties. LoadProperties requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-03 05:25:30,896 1636564ms Logger                 Info               - Landlords API -> Properties -> LoadProperties. LoadProperties requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-03 05:25:30,942 1636611ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-03 05:25:43,173 1648842ms Logger                 EditProperty       - Landlords API -> Properties -> AddNewProperty. AddNewProperty requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-03 05:27:30,641 1756310ms Logger                 EditProperty       - Landlords API -> Properties -> AddNewProperty. AddNewProperty requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-03 05:31:36,138 2001807ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-03 05:31:36,216 2001885ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-03 05:31:42,737 2008406ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-03 05:31:43,330 2008999ms Logger                 Info               - Landlords API -> Properties -> LoadProperties. LoadProperties requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-03 05:36:15,098   358ms Logger                 Info               - Landlords API -> Users -> Login. Login requested by [cliff@nooch.com]
+INFO  2015-09-03 05:36:16,689  1950ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-03 05:36:18,686  3946ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-03 05:45:42,423 567684ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-03 05:45:42,938 568198ms Logger                 Info               - Landlords API -> Properties -> LoadProperties. LoadProperties requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-03 05:54:44,694 1109955ms Logger                 Info               - Landlords API -> Properties -> LoadProperties. LoadProperties requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-03 05:54:44,960 1110220ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-03 05:55:09,186 1134447ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-03 05:55:09,514 1134775ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-03 05:55:12,041 1137302ms Logger                 Info               - Landlords API -> Properties -> LoadProperties. LoadProperties requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-03 05:55:12,088 1137349ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-03 06:09:48,668 2013928ms Logger                 Info               - Landlords API -> Users -> Login. Login requested by [cliff@nooch.com]
+INFO  2015-09-03 06:09:49,791 2015052ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-03 06:09:49,931 2015192ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-03 06:10:38,556 2063817ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-03 06:10:39,477 2064738ms Logger                 Info               - Landlords API -> Properties -> LoadProperties. LoadProperties requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-03 06:10:40,460 2065720ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-03 06:10:46,216 2071477ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-03 06:10:46,278 2071539ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-03 06:10:57,417 2082678ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-03 06:10:58,025 2083286ms Logger                 Info               - Landlords API -> Properties -> LoadProperties. LoadProperties requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-03 06:34:33,460 3498721ms Logger                 Info               - Landlords API -> Users -> Login. Login requested by [cliff@nooch.com]
+INFO  2015-09-03 06:34:34,583 3499844ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-03 06:34:34,692 3499953ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-03 06:34:57,266 3522526ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-03 06:34:58,217 3523478ms Logger                 Info               - Landlords API -> Properties -> LoadProperties. LoadProperties requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-03 06:35:07,702 3532963ms Logger                 Info               - Landlords API -> Properties -> LoadProperties. LoadProperties requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-03 06:35:07,733 3532994ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-03 06:38:12,125 3717386ms Logger                 EditProperty       - Landlords API -> Properties -> AddNewProperty. AddNewProperty requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-03 06:38:20,627 3725888ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-03 06:38:21,485 3726746ms Logger                 Info               - Landlords API -> Properties -> LoadProperties. LoadProperties requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-03 06:38:25,136 3730396ms Logger                 Info               - Landlords API -> Properties -> LoadProperties. LoadProperties requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-03 06:38:25,182 3730443ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-03 06:44:42,281 4107542ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-03 06:44:42,328 4107589ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-03 06:44:45,978 4111239ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-03 06:44:47,398 4112659ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-03 06:44:48,272 4113532ms Logger                 Info               - Landlords API -> Properties -> LoadProperties. LoadProperties requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-03 06:48:52,630 4357891ms Logger                 Info               - Landlords API -> Properties -> LoadProperties. LoadProperties requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-03 06:48:52,942 4358203ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-03 06:49:17,621 4382882ms Logger                 Info               - Landlords API -> Users -> Login. Login requested by [cliff@nooch.com]
+INFO  2015-09-03 06:49:18,791 4384052ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-03 06:49:18,932 4384192ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-03 06:49:21,272 4386532ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-03 06:49:22,223 4387484ms Logger                 Info               - Landlords API -> Properties -> LoadProperties. LoadProperties requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-03 06:49:24,501 4389762ms Logger                 Info               - Landlords API -> Properties -> LoadProperties. LoadProperties requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-03 06:49:24,563 4389824ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-03 06:50:25,762 4451023ms Logger                 EditProperty       - Landlords API -> Properties -> AddNewProperty. AddNewProperty requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-03 06:50:30,380 4455640ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-03 06:50:30,910 4456171ms Logger                 Info               - Landlords API -> Properties -> LoadProperties. LoadProperties requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-03 06:50:33,858 4459119ms Logger                 Info               - Landlords API -> Properties -> LoadProperties. LoadProperties requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-03 06:50:33,905 4459166ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-03 06:50:49,973 4475234ms Logger                 EditProperty       - Landlords API -> Properties -> AddNewProperty. AddNewProperty requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-03 06:50:53,748 4479009ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-03 06:50:54,622 4479883ms Logger                 Info               - Landlords API -> Properties -> LoadProperties. LoadProperties requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-03 06:51:01,112 4486372ms Logger                 Info               - Landlords API -> Properties -> LoadProperties. LoadProperties requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-03 06:51:01,174 4486435ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-03 09:39:15,996   405ms Logger                 Info               - Landlords API -> Users -> Login. Login requested by [cliff@nooch.com]
+INFO  2015-09-03 09:39:18,414  2823ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-03 09:39:18,726  3135ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-03 18:25:23,954   343ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [b3a6cf7b-561f-4105-99e4-406a215ccf60]
+INFO  2015-09-03 18:25:24,266   655ms Logger                 Info               - Landlords API -> Properties -> LoadProperties. LoadProperties requested by [b3a6cf7b-561f-4105-99e4-406a215ccf60]
+INFO  2015-09-03 18:25:43,173 19562ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [b3a6cf7b-561f-4105-99e4-406a215ccf60]
+INFO  2015-09-03 18:25:43,298 19687ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [b3a6cf7b-561f-4105-99e4-406a215ccf60]
+INFO  2015-09-04 02:07:48,398   343ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-04 02:07:48,522   468ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-04 02:07:52,079  4024ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-04 02:07:54,700  6645ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-04 02:07:54,747  6692ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-04 02:08:04,278 16224ms Logger                 Info               - Landlords API -> Users -> Login. Login requested by [cliff@nooch.com]
+INFO  2015-09-04 02:08:04,778 16723ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-04 02:08:04,840 16785ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-04 02:53:23,421   343ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-04 02:53:24,076   998ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-04 03:20:53,503 1650425ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-04 03:20:53,565 1650487ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-04 03:21:09,212 1666134ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-04 03:21:09,243 1666165ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-04 03:21:23,517 1680439ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-04 03:21:23,533 1680455ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-04 03:38:18,251 2695173ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-04 03:38:18,297 2695219ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-04 03:45:06,237 3103159ms Logger                 Info               - Landlords API -> Users -> GetUserInfo. GetUserInfo requested by [21d4e1ee-865c-40dd-b841-15807546daae]
+INFO  2015-09-04 03:45:07,111 3104033ms Logger                 Info               - Landlords API -> Properties -> LoadProperties. LoadProperties requested by [21d4e1ee-865c-40dd-b841-15807546daae]
