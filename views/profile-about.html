@@ -184,10 +184,6 @@
                                 </address>
                             </dd>
                         </dl>
-                        <dl class="dl-horizontal">
-                            <dt>Twitter</dt>
-                            <dd>{{ userInfo.twitter }}</dd>
-                        </dl>
                     </div>
 
                     <form data-ng-submit="pctrl.submit('contactInfo', 'Profile Contact Information')" class="pmbb-edit" data-ng-if="pctrl.editContactInfo === 1">
@@ -212,14 +208,6 @@
                             <dd>
                                 <div class="fg-line">
                                     <input data-ng-model="userInfo.address1" type="text" class="form-control" placeholder="eg. 123 W. Main St.">
-                                </div>
-                            </dd>
-                        </dl>
-                        <dl class="dl-horizontal">
-                            <dt class="p-t-10">Twitter</dt>
-                            <dd>
-                                <div class="fg-line">
-                                    <input data-ng-model="userInfo.twitter" type="text" class="form-control" placeholder="eg. @NoochMoney" data-input-mask="{mask: '@000) 000-0000'}">
                                 </div>
                             </dd>
                         </dl>
@@ -248,15 +236,15 @@
                     <div class="pmbb-view socialContainer" data-ng-if="pctrl.editSocialInfo === 0">
                         <dl class="dl-horizontal">
                             <dt><button class="btn btn-icon btn-primary show"><i class="md socicon socicon-facebook"></i></button></dt>
-                            <dd><a href="" target="_blank">{{ userInfo.fb }}</a></dd>
+                            <dd><a href="https://facebook.com/{{ userInfo.fb }}" target="_blank">{{ userInfo.fb }}</a></dd>
                         </dl>
                         <dl class="dl-horizontal">
                             <dt><button class="btn btn-icon bgm-lightblue show"><i class="md socicon socicon-twitter"></i></button></dt>
-                            <dd><a href="" target="_blank">{{ userInfo.twitter }}</a></dd>
+                            <dd><a href="https://twitter.com/{{ userInfo.twitter }}" target="_blank">{{ userInfo.twitter }}</a></dd>
                         </dl>
                         <dl class="dl-horizontal">
                             <dt><button class="btn btn-icon bgm-deeppurple show"><i class="md socicon socicon-instagram"></i></button></dt>
-                            <dd><a href="" target="_blank">{{ userInfo.insta }}</a></dd>
+                            <dd><a href="https://instagram.com/{{ userInfo.insta }}" target="_blank">{{ userInfo.insta }}</a></dd>
                         </dl>
                     </div>
 

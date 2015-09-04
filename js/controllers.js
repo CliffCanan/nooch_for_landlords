@@ -186,10 +186,8 @@ noochForLandlords
     .controller('propertiesCtrl', function ($scope, authenticationService, propertiesService, propDetailsService, $timeout) {
         var userdetails = authenticationService.GetUserDetails();
 
-
         $scope.propCount = 0;
         $scope.propResult = new Array();
-        // this.propResult = propertiesService.getProperties(this.id, this.img, this.propName, this.address, this.units, this.tenants);
 
         // For setting the 'Selected Prop' when going to a Property's Details page
         $scope.selectedPropId = "";
@@ -199,8 +197,6 @@ noochForLandlords
             propDetailsService.set($scope.selectedPropId);
             window.location.href = '#/property-details';
         }
-
-
 
 
         // Just for toggling views for demo purposes...
@@ -216,34 +212,31 @@ noochForLandlords
                     // data binding goes in here
 
                     $scope.propCount = data.AllProperties.length;
+
                     var index;
+
                     for (index = 0; index < data.AllProperties.length; ++index) {
                         console.log(data.AllProperties[index]);
+
                         var propItem = {
                             id: data.AllProperties[index].PropertyId,
                             img: data.AllProperties[index].PropertyImage,
                             address: data.AllProperties[index].AddressLineOne,
                             units: data.AllProperties[index].UnitsCount,
                             tenants: data.AllProperties[index].TenantsCount
-
                         };
+
                         $scope.propResult.push(propItem);
                     }
                     //console.log('items count ' + $scope.propCount);
                     //console.log('items [0]' + $scope.propResult[0]);
-
-
                 }
             });
-
-
         };
 
         $timeout(function () { getProperties(); }, 1000);
-
-
-
     })
+
 
     // PROPERTY DETAILS CONTROLLER
     .controller('propDetailsCtrl', function ($compile, authenticationService, $scope, propertiesService, propDetailsService, getTenantsService, growlService) {
@@ -252,8 +245,8 @@ noochForLandlords
 
         };
 
-
         var userdetails = authenticationService.GetUserDetails();
+
         function getPropertyDetails() {
             //console.log('get properties called user details -> ' + userdetails.memberId + ' ' + userdetails.accessToken);
 
@@ -265,12 +258,12 @@ noochForLandlords
                     if (data.IsSuccess == true) {
                         // data binding goes in here
 
-
-
                         var propStatus = 0;
+
                         if (data.PropertyDetails.PropStatus == "Published") {
                             propStatus = 1;
-                        } else {
+                        }
+                        else {
                             propStatus = 0;
                         }
                         $scope.selectedProperty = {
@@ -292,27 +285,18 @@ noochForLandlords
                             "bankImage": data.BankAccountDetails.BankIcon,
                             "propertyId": data.PropertyDetails.PropertyId
                         }
-
-
                         //console.log('items [0]' + $scope.propResult[0]);
-
-
-                    } else {
+                    }
+                    else {
                         console.log('Erro while getting  property details.');
                     }
                 });
-
-
-            } else {
+            }
+            else {
                 //send back to home page 
             }
-
-
-
-
         };
 
-        //$timeout(function () { getProperties(); }, 1000);
         getPropertyDetails();
 
 
@@ -365,7 +349,6 @@ noochForLandlords
                     }
                 });
             }
-
         }
 
         this.editPropPic = function () {
@@ -429,7 +412,6 @@ noochForLandlords
                 if (isConfirm) {
                     if (!isAlreadyPublished) {
 
-
                         propertiesService.SetPropertyStatus(propDetailsService.get(), true, userdetails.memberId, userdetails.accessToken, function (data2) {
 
                             if (data2.IsSuccess == false) {
@@ -439,7 +421,6 @@ noochForLandlords
                                     text: data2.ErrorMessage,
                                     type: "warning"
                                 });
-                                //alert(data.ErrorMessage);
                             }
                             if (data2.IsSuccess == true) {
 
@@ -450,14 +431,7 @@ noochForLandlords
                                     type: "success"
                                 });
                             }
-
-
-
-
                         });
-
-
-
                     }
                 }
                 else {
@@ -483,13 +457,7 @@ noochForLandlords
                                     type: "success"
                                 });
                             }
-
-
-
-
                         });
-
-
                     }
                     else {
                         swal({
@@ -503,9 +471,7 @@ noochForLandlords
         }
 
         function setIsPublished(newStatus) {
-
             $scope.selectedProperty.published = newStatus;
-
         }
 
         // Charge Tenant Button
@@ -918,8 +884,8 @@ noochForLandlords
         $scope.inputData.propertyName = '';
         $scope.inputData.propertyImage = '';
         $scope.inputData.IsPropertyImageSelected = false;
-        $scope.inputData.IsSingleUnitProperty = false;
 
+        $scope.inputData.IsSingleUnitProperty = false;
         $scope.inputData.IsMultiUnitProperty = false;
 
         $scope.inputData.propertyAddress = '';
@@ -1097,7 +1063,6 @@ noochForLandlords
             },
             onFinished: function (event, currentIndex) {
                 saveProperty();
-
             }
         });
 
@@ -1108,10 +1073,8 @@ noochForLandlords
             if ($scope.inputData.IsMultiUnitProperty == true) {
                 // iterating through all units
 
-
                 $scope.inputData.IsSingleUnitProperty = false;
                 $scope.inputData.IsMultiUnitProperty = true;
-
 
                 $('#addedUnits > div').each(function (da, ht) {
                     var unitObject = {};
@@ -1126,9 +1089,6 @@ noochForLandlords
                         if (temp == 2) {
                             unitObject.Rent = $(this).val();
                         }
-
-
-
                     });
                     unitObject.IsAddedWithProperty = true;
                     $scope.inputData.allUnits.push(unitObject);
@@ -1139,9 +1099,8 @@ noochForLandlords
                 $scope.inputData.IsSingleUnitProperty = true;
                 $scope.inputData.IsMultiUnitProperty = false;
                 $scope.inputData.SingleUnitRent = $('#singleUnitRentInput').val();
+
                 console.log('single unit val ' + $scope.inputData.SingleUnitRent);
-
-
             }
 
             propertiesService.SaveProperty($scope.inputData, userdetails.memberId, userdetails.accessToken, function (data) {
@@ -1154,7 +1113,6 @@ noochForLandlords
                     }, function (isConfirm) {
                         window.location.href = '#/properties';
                     });
-                    //alert(data.ErrorMessage);
                 }
                 if (data.IsSuccess == true) {
                     swal({
@@ -1170,7 +1128,6 @@ noochForLandlords
                     }, function (isConfirm) {
                         if (isConfirm) {
 
-
                             propertiesService.SetPropertyStatus(data.PropertyIdGenerated, true, userdetails.memberId, userdetails.accessToken, function (data2) {
 
                                 if (data2.IsSuccess == false) {
@@ -1182,7 +1139,6 @@ noochForLandlords
                                     }, function (isConfirm) {
                                         window.location.href = '#/properties';
                                     });
-                                    //alert(data.ErrorMessage);
                                 }
                                 if (data2.IsSuccess == true) {
 
@@ -1195,15 +1151,7 @@ noochForLandlords
                                     });
                                 }
 
-
-
-
                             });
-
-
-
-
-
 
                         }
                         else {
@@ -1218,8 +1166,6 @@ noochForLandlords
                     });
                 }
             });
-
-
         }
 
         updateValidationUi = function (step, substep, success) {
@@ -1308,9 +1254,7 @@ noochForLandlords
 
         $scope.selectSingleUnit = function () {
 
-
             $scope.inputData.IsSingleUnitProperty = true;
-
             $scope.inputData.IsMultiUnitProperty = false;
 
             $('#multiUnit').addClass('bounceOut'); // bounceOut CSS takes 750ms
@@ -1433,38 +1377,42 @@ noochForLandlords
         //this.userPic = "josh";
 
         $scope.userInfo = {};
-        //// Getting user info from db
+
+        // Get User's Info from DB
         if (authenticationService.IsValidUser() == true) {
             var userdetails = authenticationService.GetUserDetails();
             $scope.userInfoInSession = userdetails;
+
             getProfileService.GetData(userdetails.memberId, userdetails.accessToken, function (response) {
                 //console.log('came in get user profile method and data -> ' + JSON.stringify(response));
 
                 // binding user information
                 $scope.userInfo.type = response.AccountType;
-
-
                 $scope.userInfo.subtype = response.SubType;
+
                 $scope.userInfo.firstName = response.FirstName;
                 // console.log('user name -> ' + $scope.userInfo.firstName);
                 $scope.userInfo.lastName = response.LastName;
                 $scope.userInfo.fullName = $scope.userInfo.firstName + " " + $scope.userInfo.lastName;
-                $scope.userInfo.birthDay = response.DOB;
-                $scope.userInfo.mobileNumber = response.MobileNumber;
 
+                $scope.userInfo.birthDay = response.DOB;
+                $scope.userInfo.ssnLast4 = response.SSN;
+
+                $scope.userInfo.mobileNumber = response.MobileNumber;
                 $scope.userInfo.isPhoneVerified = response.IsPhoneVerified;
+
                 $scope.userInfo.emailAddress = response.UserEmail;
                 $scope.userInfo.isEmailVerified = response.IsEmailVerified;
+
                 $scope.userInfo.fb = response.FbUrl;
                 $scope.userInfo.twitter = response.TwitterHandle;
-
-
                 $scope.userInfo.insta = response.InstaUrl;
+
                 $scope.userInfo.address1 = response.AddressLine1;
                 $scope.userInfo.addressCity = response.City;
                 $scope.userInfo.addressCountry = response.Country;
                 $scope.userInfo.zip = response.Zip;
-                $scope.userInfo.ssnLast4 = response.SSN;
+
                 $scope.userInfo.userPic = "josh";
 
                 // Get Company Info
@@ -1472,13 +1420,9 @@ noochForLandlords
                     name: response.CompanyName,
                     ein: response.CompanyEID
                 }
-
-
             });
-
-
-
-        } else {
+        }
+        else {
             window.location.href = 'login.html';
         }
 
@@ -1486,11 +1430,6 @@ noochForLandlords
         // Get User Info
         this.accountStatus = "Identity Verified";
         this.isIdVerified = $rootScope.isIdVerified;
-
-
-
-
-
 
         // Home Layout -- JUST FOR TESTING/DEMO PURPOSES
         this.home = {
@@ -1509,8 +1448,13 @@ noochForLandlords
             else if (destination == '3') {
                 window.location.href = '#/add-property';
             }
+            else if (destination == 'props') {
+                window.location.href = '#/properties';
+            }
+            else if (destination == 'hist') {
+                window.location.href = '#/history';
+            }
         }
-
 
 
         // Account Info
@@ -1559,7 +1503,6 @@ noochForLandlords
         this.submit = function (item, message) {
             if (item === 'personalInfo') {
 
-
                 var userInfo = {
                     fullName: $scope.userInfo.fullName,
                     ssnLast4: $scope.userInfo.ssnLast4,
@@ -1567,22 +1510,19 @@ noochForLandlords
                     InfoType: 'Personal'
                 };
 
-
                 var deviceInfo = {
-
                     deviceInfo: $scope.userInfoInSession.memberId,
                     AccessToken: $scope.userInfoInSession.accessToken
-
                 };
 
                 getProfileService.UpdateInfo(userInfo, deviceInfo, function (response) {
 
                     if (response.IsSuccess == true) {
                         growlService.growl(message + ' has updated Successfully!', 'success');
-                    } else {
+                    }
+                    else {
                         growlService.growl(response.ErrorMessage, 'danger');
                     }
-
 
                 });
 
@@ -1599,21 +1539,18 @@ noochForLandlords
                 }
 
                 var deviceInfo = {
-
                     deviceInfo: $scope.userInfoInSession.memberId,
                     AccessToken: $scope.userInfoInSession.accessToken
-
                 };
 
                 getProfileService.UpdateInfo(userInfo, deviceInfo, function (response) {
 
                     if (response.IsSuccess == true) {
                         growlService.growl(message + ' has updated Successfully!', 'success');
-                    } else {
+                    }
+                    else {
                         growlService.growl(response.ErrorMessage, 'danger');
                     }
-
-
                 });
 
 
@@ -1628,25 +1565,21 @@ noochForLandlords
                     InfoType: 'Contact',
                     addressLine1: $scope.userInfo.address1,
                     twitterHandle: $scope.userInfo.twitter
-
                 }
 
                 var deviceInfo = {
-
                     deviceInfo: $scope.userInfoInSession.memberId,
                     AccessToken: $scope.userInfoInSession.accessToken
-
                 };
 
                 getProfileService.UpdateInfo(userInfo, deviceInfo, function (response) {
 
                     if (response.IsSuccess == true) {
                         growlService.growl(message + ' has updated Successfully!', 'success');
-                    } else {
+                    }
+                    else {
                         growlService.growl(response.ErrorMessage, 'danger');
                     }
-
-
                 });
 
                 this.editContactInfo = 0;
@@ -1659,32 +1592,24 @@ noochForLandlords
                     twitterHandle: $scope.userInfo.twitter,
                     InfoType: 'Social',
                     insta: $scope.userInfo.insta
-
                 }
 
                 var deviceInfo = {
-
                     deviceInfo: $scope.userInfoInSession.memberId,
                     AccessToken: $scope.userInfoInSession.accessToken
-
                 };
 
                 getProfileService.UpdateInfo(userInfo, deviceInfo, function (response) {
-
                     if (response.IsSuccess == true) {
                         growlService.growl(message + ' has updated Successfully!', 'success');
-                    } else {
+                    }
+                    else {
                         growlService.growl(response.ErrorMessage, 'danger');
                     }
-
-
                 });
-
 
                 this.editSocialInfo = 0;
             }
-
-            //  growlService.growl(message + ' has updated Successfully!', 'success'); 
         }
 
         this.editProfilePic = function () {

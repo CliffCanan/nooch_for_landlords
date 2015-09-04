@@ -1,8 +1,5 @@
 noochForLandlords
 
-
-
-
     // =========================================================================
     // Header Messages and Notifications list Data
     // =========================================================================
@@ -57,26 +54,14 @@ noochForLandlords
     // =========================================================================
 
     .service('propertiesService', ['$http', '$resource', 'authenticationService', function ($http, $resource, authenticationService) {
-        //this.getProperties = function(id, img, propName, address, units, tenants) {
-        //    var propertyList = $resource("data/properties.json");
 
-        //    return propertyList.get({
-        //        id: id,
-        //        img: img,
-        //        propName: propName,
-        //        address: address,
-        //        units: units,
-        //        tenants: tenants
-        //    });
-        //};
         var Operations = {};
 
-        Operations.SaveProperty = function (propertyData,memberId, accessToken, callback) {
+        Operations.SaveProperty = function (propertyData, memberId, accessToken, callback) {
 
             var data = {};
             data.PropertyName = propertyData.propertyName;
             data.Address = propertyData.propertyAddress;
-
             data.City = propertyData.propertyCity;
             data.Zip = propertyData.propertyZip;
 
@@ -85,21 +70,21 @@ noochForLandlords
             data.IsMultipleUnitsAdded = propertyData.IsMultipleUnitsAdded;
 
             data.User = {
-            LandlorId: memberId,
-            AccessToken : accessToken
+                LandlorId: memberId,
+                AccessToken: accessToken
             };
 
 
             if (propertyData.IsMultiUnitProperty == true) {
                 data.Unit = propertyData.allUnits;
                 data.IsMultipleUnitsAdded = true;
-            } else {
+            }
+            else {
 
                 var data1 = {
                     UnitNum: propertyData.propertyName,
                     Rent: propertyData.SingleUnitRent,
-                    IsAddedWithProperty : true
-
+                    IsAddedWithProperty: true
                 };
 
                 data.Unit = new Array();
@@ -112,7 +97,7 @@ noochForLandlords
                 .success(function (response) {
                     if (response.IsSuccess && response.IsSuccess == true) {
                         authenticationService.ManageToken(response.AuthTokenValidation);
-                       // console.log('came in success');
+                        // console.log('came in success');
                     }
                     callback(response);
                 });
@@ -124,21 +109,17 @@ noochForLandlords
             var data = {};
             data.PropertyName = propertyData.propertyName;
             data.Address = propertyData.propertyAddress;
-
             data.City = propertyData.propertyCity;
             data.Zip = propertyData.propertyZip;
             data.State = propertyData.state;
             data.ContactNumber = propertyData.contactNum;
             data.PropertyId = propertyData.propId;
 
-        
             data.User = {
                 LandlorId: memberId,
                 AccessToken: accessToken
             };
 
-
-        
             $http.post(URLs.EditProperty, data)
                 .success(function (response) {
                     if (response.IsSuccess && response.IsSuccess == true) {
@@ -150,11 +131,10 @@ noochForLandlords
         };
 
 
-
-        Operations.SetPropertyStatus = function (propertyId, propertyStatus,memberId, accessToken, callback) {
+        Operations.SetPropertyStatus = function (propertyId, propertyStatus, memberId, accessToken, callback) {
 
             var data = {};
-            
+
             data.PropertyId = propertyId;
             data.PropertyStatusToSet = propertyStatus;
 
@@ -182,7 +162,6 @@ noochForLandlords
             data.LandlorId = memberId;
             data.AccessToken = accessToken;
 
-
             $http.post(URLs.GetProperties, data)
                 .success(function (response) {
                     if (response.IsSuccess && response.IsSuccess == true) {
@@ -200,13 +179,11 @@ noochForLandlords
 
             data.PropertyId = propertyId;
             data.PropertyStatusToSet = false;
-            
 
             data.User = {
                 LandlorId: memberId,
                 AccessToken: accessToken
             };
-
 
             $http.post(URLs.RemoveProperty, data)
                 .success(function (response) {
@@ -219,16 +196,16 @@ noochForLandlords
         };
 
         return Operations;
-
     }])
 
-    .service('propDetailsService', ['$http', 'authenticationService', '$resource', function ($http, authenticationService,$resource) {
+    .service('propDetailsService', ['$http', 'authenticationService', '$resource', function ($http, authenticationService, $resource) {
         // FOR GOING TO THE INDIDVIDUAL PROPERTY'S DETAILS PAGE
         var selectedProp = {};
         var selectedPropDetails = {};
+
         function set(propId) {
             selectedProp.propId = propId;
-            console.log('selected prop id -> '+selectedProp.propId );
+            console.log('selected prop id -> ' + selectedProp.propId);
         }
 
         function get() {
@@ -246,7 +223,6 @@ noochForLandlords
                 AccessToken: accessToken
             };
 
-
             $http.post(URLs.GetPropertyDetails, data)
                 .success(function (response) {
                     if (response.IsSuccess && response.IsSuccess == true) {
@@ -255,7 +231,7 @@ noochForLandlords
                     }
                     callback(response);
                 });
-            
+
         }
 
         function get2() {
@@ -331,8 +307,8 @@ noochForLandlords
         ns.niceScroll = function (selector, color, cursorWidth) {
             $(selector).niceScroll({
                 cursorcolor: '#4fabe1',
-                cursorborder: 0,
-                cursorborderradius: 0,
+                cursorborder: '8px',
+                cursorborderradius: '8px',
                 cursorwidth: cursorWidth,
                 bouncescroll: true,
                 mousescrollstep: 100,
@@ -384,7 +360,7 @@ noochForLandlords
     // =========================================================================
 
     .service('authenticationService', function ($http) {
-        
+
         var Operations = {};
         Operations.Login = function (username, password, callback) {
 
@@ -402,23 +378,22 @@ noochForLandlords
         };
 
         Operations.SetUserDetails = function (username, memberId, accessToken) {
-            
             localStorage.setItem('username', username);
             localStorage.setItem('memberId', memberId);
             localStorage.setItem('accessToken', accessToken);
-
         };
 
-        Operations.ClearUserData= function () {
+        Operations.ClearUserData = function () {
             localStorage.clear();
         };
+
         Operations.GetUserDetails = function () {
             var User = {};
             User.username = localStorage.getItem('username');
             User.memberId = localStorage.getItem('memberId');
             User.accessToken = localStorage.getItem('accessToken');
-            return User;
 
+            return User;
         };
 
         Operations.IsValidUser = function () {
@@ -426,6 +401,7 @@ noochForLandlords
             User.username = localStorage.getItem('username');
             User.memberId = localStorage.getItem('memberId');
             User.accessToken = localStorage.getItem('accessToken');
+
             if (User.username == null || User.memberId == null || User.accessToken == null) {
                 return false;
             }
@@ -433,23 +409,15 @@ noochForLandlords
                 return true;
             else
                 return false;
-
-
         };
 
         Operations.ManageToken = function (tokenResponse) {
-
             if (tokenResponse.IsTokenUpdated == true) {
                 localStorage.setItem('accessToken', tokenResponse.AccessToken);
             }
         };
 
-
-
-
-    return Operations;
-
-
+        return Operations;
     })
 
 
@@ -461,24 +429,24 @@ noochForLandlords
     .service('getProfileService', function ($http, authenticationService) {
 
         var Operations = {};
-        Operations.GetData = function (landlordId,accessToken, callback) {
+        Operations.GetData = function (landlordId, accessToken, callback) {
 
             var data = {};
             data.LandlorId = landlordId;
             data.AccessToken = accessToken;
-            
+
             $http.post(URLs.GetProfileData, data)
                 .success(function (response) {
-                    if (response.IsSuccess && response.IsSuccess==true) {
+                    if (response.IsSuccess && response.IsSuccess == true) {
                         authenticationService.ManageToken(response.AuthTokenValidation);
-                       // console.log('came in success');
+                        // console.log('came in success');
                     }
                     callback(response);
                 });
         };
 
         // to update profile info of user
-        Operations.UpdateInfo = function (userInfo,deviceInfo, callback) {
+        Operations.UpdateInfo = function (userInfo, deviceInfo, callback) {
 
             var data = {};
 
@@ -499,10 +467,8 @@ noochForLandlords
                 UserEmail: userInfo.email,
                 MobileNumber: userInfo.mobileNum,
                 AddressLine1: userInfo.addressLine1,
-                
+
                 TwitterHandle: userInfo.twitterHandle,
-
-
                 FbUrl: userInfo.fb,
                 InstaUrl: userInfo.insta,
 
@@ -511,7 +477,7 @@ noochForLandlords
 
             data.DeviceInfo = deviceInfoObj;
             data.UserInfo = userInfoObj;
-            
+
             $http.post(URLs.EditProfileData, data)
                 .success(function (response) {
                     if (response.IsSuccess && response.IsSuccess == true) {
@@ -522,10 +488,6 @@ noochForLandlords
                 });
         };
 
-        
+
         return Operations;
-
-
     })
-
-
