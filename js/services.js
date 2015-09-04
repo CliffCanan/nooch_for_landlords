@@ -222,6 +222,7 @@ noochForLandlords
                 AccessToken: accessToken
             };
 
+
             $http.post(URLs.GetPropertyDetails, data)
                 .success(function (response) {
                     if (response.IsSuccess && response.IsSuccess == true) {

@@ -1157,6 +1157,8 @@ noochForLandlords
             onFinished: function (event, currentIndex)
             {
                 saveProperty();
+            onFinished: function (event, currentIndex) {
+                saveProperty();
             }
         });
 
@@ -1253,6 +1255,7 @@ noochForLandlords
                                     });
                                 }
                             });
+
                         }
                         else {
                             swal({

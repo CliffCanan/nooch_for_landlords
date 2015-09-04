@@ -4,7 +4,8 @@
 var PATH = 'http://localhost:42865/db/api/';
 
 //for dev server
-//var PATH = 'http://54.201.43.89/Landlord_APIs/api/';
+// var PATH = 'http://54.201.43.89/Landlord_APIs/api/';
+var PATH = 'http://54.201.43.89/landlords/db/api/';
 
 var URLs = {
     Login: PATH + 'Users/Login',
@@ -16,8 +17,5 @@ var URLs = {
     RemoveProperty: PATH + 'Properties/DeleteProperty',
     GetPropertyDetails: PATH + 'Properties/GetPropertyDetailsPageData',
     EditProperty: PATH + 'Properties/EditProperty'
-
-    
-    
 
 };
