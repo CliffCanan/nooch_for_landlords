@@ -325,20 +325,16 @@ form .alert {
   border-bottom-color: #2196f3;
 }
 .placeholder-sm::-webkit-input-placeholder {
-   color: red;
-   font-size: 14px;
+   font-size: 15px;
 }
 .placeholder-sm:-moz-placeholder { /* Firefox 18- */
-   color: red;
-   font-size: 14px; 
+   font-size: 15px; 
 }
 .placeholder-sm::-moz-placeholder {  /* Firefox 19+ */
-   color: red;
-   font-size: 14px;
+   font-size: 15px;
 }
 .placeholder-sm:-ms-input-placeholder {  
-   color: red;
-   font-size: 14px;
+   font-size: 15px;
 }
 /**** TO-DO LIST WIDGET ****/
 .listview .lv-item .media-body {padding-top:5px;}
@@ -373,6 +369,8 @@ form .alert {
     box-shadow:0 10px 17px -11px rgba(32,33,34,.3);
 }
 .homePromptCard .card-body small {font-size:15px;}
+
+.mini-charts-item:not(.nolink) { cursor: pointer; }
 
 /**** LOGIN ****/
 body.login-content:before {
@@ -520,9 +518,6 @@ body.login-content:before {
   margin: 8px 0 20px 30px;
   line-height: 140%;
 }
-.dl-horizontal dt {
-  font-weight:500;
-}
 .dl-horizontal dd {
   font-weight:300;
   font-size:15px;
@@ -553,6 +548,13 @@ body.login-content:before {
   list-style-type:none;
 }
 
+.socialContainer dl > dt { max-width: 60px; }
+.socialContainer > .dl-horizontal dd { margin-left: 80px; }
+@media (min-width: 768px) {}
+    .dl-horizontal dt {
+        width: 140px;
+    }
+}
 
 /** PROFILE - VERIFY ID MDOAL & Wizard**/
 #idVerWiz .content {

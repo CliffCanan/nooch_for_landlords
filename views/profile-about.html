@@ -43,7 +43,7 @@
                     <div class="pmbb-view" data-ng-if="pctrl.editPersonalInfo === 0">
                         <dl class="dl-horizontal">
                             <dt>Full Name</dt>
-                            <dd>{{ userInfo.firstName }} {{userInfo.lastName}}</dd>
+                            <dd>{{ userInfo.firstName | capitalize }} {{userInfo.lastName | capitalize }}</dd>
                         </dl>
                         <dl class="dl-horizontal">
                             <dt>Date of Birth</dt>
@@ -60,7 +60,7 @@
                             <dt class="p-t-10">Full Name</dt>
                             <dd>
                                 <div class="fg-line">
-                                    <input data-ng-model="userInfo.fullName" type="text" class="form-control" value="{{ userInfo.fullName }}" placeholder="eg Arnold Palmer">
+                                    <input data-ng-model="userInfo.fullName" type="text" class="form-control" value="{{ userInfo.fullName | capitalize }}" placeholder="eg Arnold Palmer">
                                 </div>
 
                             </dd>
@@ -110,7 +110,7 @@
                     <div class="pmbb-view" data-ng-if="pctrl.editBusinessInfo === 0">
                         <dl class="dl-horizontal">
                             <dt>Company Name</dt>
-                            <dd>{{ company.name }}</dd>
+                            <dd>{{ company.name | capitalize  }}</dd>
                         </dl>
                         <dl class="dl-horizontal">
                             <dt>EIN (Tax ID #)</dt>
@@ -123,7 +123,7 @@
                             <dt class="p-t-10">Company Name</dt>
                             <dd>
                                 <div class="fg-line">
-                                    <input id="compName" data-ng-model="company.name" type="text" class="form-control" value="{{ company.name }}" placeholder="eg. ABC Rental LLC">
+                                    <input id="compName" data-ng-model="company.name" type="text" class="form-control" value="{{ company.name | capitalize  }}" placeholder="eg. ABC Rental LLC">
                                 </div>
 
                             </dd>
@@ -178,15 +178,11 @@
                             <dt>Address</dt>
                             <dd>
                                 <address class="m-b-0">
-                                    {{ userInfo.address1 }} <br />
-                                    {{ userInfo.addressCity }} {{userInfo.zip}} <br />
-                                    {{ userInfo.addressCountry }}
+                                    {{ userInfo.address1 | capitalize  }} <br />
+                                    {{ userInfo.addressCity | capitalize  }} {{userInfo.zip}} <br />
+                                    {{ userInfo.addressCountry | capitalize  }}
                                 </address>
                             </dd>
-                        </dl>
-                        <dl class="dl-horizontal">
-                            <dt>Twitter</dt>
-                            <dd>{{ userInfo.twitter }}</dd>
                         </dl>
                     </div>
 
@@ -215,14 +211,6 @@
                                 </div>
                             </dd>
                         </dl>
-                        <dl class="dl-horizontal">
-                            <dt class="p-t-10">Twitter</dt>
-                            <dd>
-                                <div class="fg-line">
-                                    <input data-ng-model="userInfo.twitter" type="text" class="form-control" placeholder="eg. @NoochMoney" data-input-mask="{mask: '@000) 000-0000'}">
-                                </div>
-                            </dd>
-                        </dl>
 
                         <div class="m-t-30">
                             <button class="btn btn-primary" type="submit">Save</button>
@@ -245,18 +233,18 @@
                     </ul>
                 </div>
                 <div class="pmbb-body">
-                    <div class="pmbb-view" data-ng-if="pctrl.editSocialInfo === 0">
+                    <div class="pmbb-view socialContainer" data-ng-if="pctrl.editSocialInfo === 0">
                         <dl class="dl-horizontal">
                             <dt><button class="btn btn-icon btn-primary show"><i class="md socicon socicon-facebook"></i></button></dt>
-                            <dd>{{ userInfo.fb }}</dd>
+                            <dd><a href="" target="_blank">{{ userInfo.fb }}</a></dd>
                         </dl>
                         <dl class="dl-horizontal">
                             <dt><button class="btn btn-icon bgm-lightblue show"><i class="md socicon socicon-twitter"></i></button></dt>
-                            <dd>{{ userInfo.twitter }}</dd>
+                            <dd><a href="" target="_blank">{{ userInfo.twitter }}</a></dd>
                         </dl>
                         <dl class="dl-horizontal">
                             <dt><button class="btn btn-icon bgm-deeppurple show"><i class="md socicon socicon-instagram"></i></button></dt>
-                            <dd>{{ userInfo.insta }}</dd>
+                            <dd><a href="" target="_blank">{{ userInfo.insta }}</a></dd>
                         </dl>
                     </div>
 
