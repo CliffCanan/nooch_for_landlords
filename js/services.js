@@ -57,18 +57,7 @@ noochForLandlords
     // =========================================================================
 
     .service('propertiesService', ['$http', '$resource', 'authenticationService', function ($http, $resource, authenticationService) {
-        //this.getProperties = function(id, img, propName, address, units, tenants) {
-        //    var propertyList = $resource("data/properties.json");
 
-        //    return propertyList.get({
-        //        id: id,
-        //        img: img,
-        //        propName: propName,
-        //        address: address,
-        //        units: units,
-        //        tenants: tenants
-        //    });
-        //};
         var Operations = {};
 
         Operations.SaveProperty = function (propertyData,memberId, accessToken, callback) {
@@ -76,30 +65,27 @@ noochForLandlords
             var data = {};
             data.PropertyName = propertyData.propertyName;
             data.Address = propertyData.propertyAddress;
-
             data.City = propertyData.propertyCity;
             data.Zip = propertyData.propertyZip;
-
             data.IsPropertyImageAdded = propertyData.IsPropertyImageSelected;
             data.PropertyImage = propertyData.propertyImage;
             data.IsMultipleUnitsAdded = propertyData.IsMultipleUnitsAdded;
 
             data.User = {
-            LandlorId: memberId,
-            AccessToken : accessToken
+                LandlorId: memberId,
+                AccessToken: accessToken
             };
 
 
             if (propertyData.IsMultiUnitProperty == true) {
                 data.Unit = propertyData.allUnits;
                 data.IsMultipleUnitsAdded = true;
-            } else {
-
+            }
+            else {
                 var data1 = {
                     UnitNum: propertyData.propertyName,
                     Rent: propertyData.SingleUnitRent,
                     IsAddedWithProperty : true
-
                 };
 
                 data.Unit = new Array();
@@ -124,21 +110,18 @@ noochForLandlords
             var data = {};
             data.PropertyName = propertyData.propertyName;
             data.Address = propertyData.propertyAddress;
-
             data.City = propertyData.propertyCity;
             data.Zip = propertyData.propertyZip;
             data.State = propertyData.state;
             data.ContactNumber = propertyData.contactNum;
             data.PropertyId = propertyData.propId;
 
-        
             data.User = {
                 LandlorId: memberId,
                 AccessToken: accessToken
             };
 
 
-        
             $http.post(URLs.EditProperty, data)
                 .success(function (response) {
                     if (response.IsSuccess && response.IsSuccess == true) {
@@ -148,7 +131,6 @@ noochForLandlords
                     callback(response);
                 });
         };
-
 
 
         Operations.SetPropertyStatus = function (propertyId, propertyStatus,memberId, accessToken, callback) {
@@ -162,7 +144,6 @@ noochForLandlords
                 LandlorId: memberId,
                 AccessToken: accessToken
             };
-
 
             $http.post(URLs.SetPropertyStatus, data)
                 .success(function (response) {
@@ -182,7 +163,6 @@ noochForLandlords
             data.LandlorId = memberId;
             data.AccessToken = accessToken;
 
-
             $http.post(URLs.GetProperties, data)
                 .success(function (response) {
                     if (response.IsSuccess && response.IsSuccess == true) {
@@ -200,13 +180,11 @@ noochForLandlords
 
             data.PropertyId = propertyId;
             data.PropertyStatusToSet = false;
-            
 
             data.User = {
                 LandlorId: memberId,
                 AccessToken: accessToken
             };
-
 
             $http.post(URLs.RemoveProperty, data)
                 .success(function (response) {
@@ -217,9 +195,7 @@ noochForLandlords
                     callback(response);
                 });
         };
-
         return Operations;
-
     }])
 
     .service('propDetailsService', ['$http', 'authenticationService', '$resource', function ($http, authenticationService,$resource) {
@@ -245,7 +221,6 @@ noochForLandlords
                 LandlorId: memberId,
                 AccessToken: accessToken
             };
-
 
             $http.post(URLs.GetPropertyDetails, data)
                 .success(function (response) {
@@ -330,13 +305,13 @@ noochForLandlords
         var ns = {};
         ns.niceScroll = function (selector, color, cursorWidth) {
             $(selector).niceScroll({
-                cursorcolor: color,
+                cursorcolor: '#4fabe1',
                 cursorborder: 0,
-                cursorborderradius: 0,
-                cursorwidth: cursorWidth,
+                cursorborderradius: '8px',
+                cursorwidth: '8px',
                 bouncescroll: true,
                 mousescrollstep: 100,
-                autohidemode: false
+                horizrailenabled: false
             });
         }
 
