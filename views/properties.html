@@ -17,18 +17,18 @@
                     <div class="block-header">
                         <h2>All Properties</h2>
 
-                        <!--<ul class="actions">
+                        <ul class="actions">
                             <li>
                                 <button class="btn btn-primary pull-right" data-ng-click="propctrl.setSelectedId($event)">FOR TESTING: SEE PROPERTY DETAILS PAGE <i class="md md-chevron-right m-l-5"></i></button>
                             </li>
-                        </ul>-->
-
-                        <ul class="actions" style="top:-8px" data-ng-if="propCount > 0">
+                        </ul>
+                        
+                        <ul class="actions" style="top:-8px" data-ng-if="propctrl.propCount > 0">
                             <li>
-                                <button class="btn btn-xs btn-default" data-ng-click="firstTimeView = 1; propsAddedAlreadyView = 0;">1</button>
+                                <button class="btn btn-xs btn-default" data-ng-click="propctrl.firstTimeView = 1; propctrl.propsAddedAlreadyView = 0;">1</button>
                             </li>
                             <li>
-                                <button class="btn btn-xs btn-default" data-ng-click="firstTimeView = 0; propsAddedAlreadyView = 1;">2</button>
+                                <button class="btn btn-xs btn-default" data-ng-click="propctrl.firstTimeView = 0; propctrl.propsAddedAlreadyView = 1;">2</button>
                             </li>
                             <li class="m-l-30">
                                 <div>
@@ -36,19 +36,6 @@
                                 </div>
                             </li>
                         </ul>
-                        <!--<ul class="actions" style="top:-8px" >
-                            <li>
-                                <button class="btn btn-xs btn-default" >1</button>
-                            </li>
-                            <li>
-                                <button class="btn btn-xs btn-default" >2</button>
-                            </li>
-                            <li class="m-l-30">
-                                <div>
-                                    <a data-ui-sref="add-property" class="btn btn-primary noExtraWaves"><i class="md md-add m-r-5"></i>Add Property</a>
-                                </div>
-                            </li>
-                        </ul>-->
                     </div>
                 </div>
             </div>
@@ -150,21 +137,18 @@
                     </div>
 
                     <!-- Property View -->
-                    <div class="row" data-ng-if="propCount > 0">
-                        <div class="col-sm-4 propCard" data-ng-repeat="w in propResult" id="property{{w.id}}">
+                    <div class="row" data-ng-if="propctrl.propCount > 0">
+                        <div class="col-sm-4 propCard" data-ng-repeat="w in propctrl.propResult.list" id="property{{w.id}}">
 
                             <div class="card profile-view">
 
                                 <div>
-                                    <button data-delete-prop class="btn btn-icon btn-danger closeFloat" data-propid="{{w.id}}" data-toggle="tooltip" data-placement="top" data-original-title="Delete this property"><i class="md md-close">
-
-
-</i></button>
+                                    <button data-delete-prop class="btn btn-icon btn-danger closeFloat" data-propid="{{w.id}}" data-toggle="tooltip" data-placement="top" data-original-title="Delete this property"><i class="md md-close"></i></button>
                                 </div>
 
                                 <div class="pv-header">
                                     <div class="pv-main">
-                                        <img src="{{w.img}}" alt="Property Picture">
+                                        <img src="img/property-pics/{{w.img}}" alt="Property Picture">
                                     </div>
                                 </div>
 
@@ -181,7 +165,7 @@
                                         </div>
                                     </div>
 
-                                    <button class="btn btn-primary btn-lg btn-block" id="{{w.id}}" data-ng-click="setSelectedId($event)">Manage</button>
+                                    <button class="btn btn-primary btn-lg btn-block" id="{{w.id}}" data-ng-click="propctrl.setSelectedId($event)">Manage</button>
                                 </div>
 
                             </div>

@@ -56,6 +56,7 @@ noochForLandlords
     // Properties Widget Data
     // =========================================================================
 
+<<<<<<< HEAD
     .service('propertiesService', ['$http', '$resource', 'authenticationService', function ($http, $resource, authenticationService) {
 
         var Operations = {};
@@ -196,42 +197,34 @@ noochForLandlords
                 });
         };
         return Operations;
+=======
+    .service('propertiesService', ['$resource', function ($resource) {
+        this.getProperties = function (id, img, propName, address, units, tenants) {
+            var propertyList = $resource("data/properties.json");
+
+            return propertyList.get({
+                id: id,
+                img: img,
+                propName: propName,
+                address: address,
+                units: units,
+                tenants: tenants
+            })
+        }
+>>>>>>> parent of da70f96... • Saving what's already on the Dev server to a new repo before merging in some changes I made on my local machine then pushed to BitBucket
     }])
 
-    .service('propDetailsService', ['$http', 'authenticationService', '$resource', function ($http, authenticationService,$resource) {
+    .service('propDetailsService', ['$resource', function ($resource) {
         // FOR GOING TO THE INDIDVIDUAL PROPERTY'S DETAILS PAGE
         var selectedProp = {};
-        var selectedPropDetails = {};
+
         function set(propId) {
-            selectedProp.propId = propId;
-            console.log('selected prop id -> '+selectedProp.propId );
+            selectedProp = propId;
+            console.log(selectedProp);
         }
 
         function get() {
-            return selectedProp.propId;
-        }
-
-        function getPropertyDetailsFromDB(propertyId, memberId, accessToken, callback) {
-            var data = {};
-
-            data.PropertyId = propertyId;
-            data.PropertyStatusToSet = false;
-
-            data.User = {
-                LandlorId: memberId,
-                AccessToken: accessToken
-            };
-
-
-            $http.post(URLs.GetPropertyDetails, data)
-                .success(function (response) {
-                    if (response.IsSuccess && response.IsSuccess == true) {
-                        authenticationService.ManageToken(response.AuthTokenValidation);
-                        //console.log('came in success');
-                    }
-                    callback(response);
-                });
-            
+            return selectedProp;
         }
 
         function get2() {
@@ -246,8 +239,7 @@ noochForLandlords
         return {
             set: set,
             get: get,
-            get2: get2,
-            getPropFromDb: getPropertyDetailsFromDB
+            get2: get2
         }
     }])
 
@@ -447,7 +439,7 @@ noochForLandlords
                 .success(function (response) {
                     if (response.IsSuccess && response.IsSuccess==true) {
                         authenticationService.ManageToken(response.AuthTokenValidation);
-                       // console.log('came in success');
+                        console.log('came in success');
                     }
                     callback(response);
                 });

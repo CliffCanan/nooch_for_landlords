@@ -193,68 +193,31 @@ noochForLandlords
     //      PROPERTIES
     // ===============================================================
     
-    .controller('propertiesCtrl', function ($scope, authenticationService, propertiesService, propDetailsService, $timeout)
+    .controller('propertiesCtrl', function (propertiesService, propDetailsService)
     {
-        var userdetails = authenticationService.GetUserDetails();
-        
-
-        $scope.propCount = 0;
-        $scope.propResult = new Array();
-       // this.propResult = propertiesService.getProperties(this.id, this.img, this.propName, this.address, this.units, this.tenants);
+        this.propCount = 0;
+        this.propResult = propertiesService.getProperties(this.id, this.img, this.propName, this.address, this.units, this.tenants);
 
         // For setting the 'Selected Prop' when going to a Property's Details page
-        $scope.selectedPropId = "";
-        $scope.setSelectedId = function ($event) {
-            $scope.selectedPropId = $event.target.id;
+        this.selectedPropId = "";
+        this.setSelectedId = function ($event) {
+            this.selectedPropId = $event.target.id;
 
-            propDetailsService.set($scope.selectedPropId);
-            window.location.href = '#/property-details';    
+            propDetailsService.set(this.selectedPropId);
+            window.location.href = '#/property-details';
         }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> parent of da70f96... • Saving what's already on the Dev server to a new repo before merging in some changes I made on my local machine then pushed to BitBucket
         // Just for toggling views for demo purposes...
-        $scope.firstTimeView = 0;
-        $scope.propsAddedAlreadyView = 1;
-
-
-        getProperties = function() {
-            //console.log('get properties called user details -> ' + userdetails.memberId + ' ' + userdetails.accessToken);
-
-            propertiesService.GetProperties(userdetails.memberId, userdetails.accessToken, function(data) {
-                if (data.IsSuccess==true) {
-                    // data binding goes in here
-
-                    $scope.propCount = data.AllProperties.length;
-                    var index;
-                    for (index = 0; index < data.AllProperties.length; ++index) {
-                        console.log(data.AllProperties[index]);
-                        var propItem = {
-                            id: data.AllProperties[index].PropertyId,
-                            img: data.AllProperties[index].PropertyImage,
-                            address: data.AllProperties[index].AddressLineOne,
-                            units: data.AllProperties[index].UnitsCount,
-                            tenants: data.AllProperties[index].TenantsCount
-
-                    };
-                        $scope.propResult.push(propItem);
-                    }
-                    //console.log('items count ' + $scope.propCount);
-                    //console.log('items [0]' + $scope.propResult[0]);
-
-
-                }
-            });
-
-
-        };
-
-        $timeout(function () { getProperties(); }, 1000);
-
-        
-
+        this.firstTimeView = 0;
+        this.propsAddedAlreadyView = 1;
     })
 
     // PROPERTY DETAILS CONTROLLER
+<<<<<<< HEAD
     .controller('propDetailsCtrl', function ($compile, authenticationService, $scope, propertiesService, propDetailsService, getTenantsService, growlService) {
     
         $scope.selectedProperty = {
@@ -347,34 +310,36 @@ noochForLandlords
         $scope.resetEditForm = function () {
             console.log('came in rest');
             $scope.editPropInfo = 0;
+=======
+    .controller('propDetailsCtrl', function ($compile, $scope, propertiesService, propDetailsService, getTenantsService, growlService) {
+        //this.propResult = propertiesService.getProperties(this.id, this.img, this.propName, this.address, this.units, this.tenants);
+
+        //this.getSelectedProp = propDetailsService.get();
+        //this.getSelectedProp2 = propDetailsService.get2();
+
+        $scope.selectedProperty = {
+            "published": 1,
+            "name": "Haverford Towers",
+            "address1": "123 County Line Rd",
+            "address2": "",
+            "city": "Philadelphia",
+            "state": "PA",
+            "zip": "19123",
+            "contactNumber": "(215) 321-9876",
+            "imgUrl": "2.png",
+            "units": 9,
+            "tenants": 15,
+            "pastDue": 3,
+            "defaultBankName": "Bank of America",
+            "defaultBankNickname": "Business Checking - 9876"
+>>>>>>> parent of da70f96... • Saving what's already on the Dev server to a new repo before merging in some changes I made on my local machine then pushed to BitBucket
         }
 
-        $scope.updatePropInfo = function()
+        this.editPropInfo = 0;
+        this.updatePropInfo = function()
         {
-            if ($scope.editPropInfo == 1) {
-
-
-                //preparing data to be sent for updating property
-                $scope.inputData = {};
-                $scope.inputData.propertyName = $scope.selectedProperty.name;
-                $scope.inputData.propertyAddress = $scope.selectedProperty.address1;
-                $scope.inputData.propertyCity = $scope.selectedProperty.city;
-                $scope.inputData.propertyZip = $scope.selectedProperty.contactNumber;
-                $scope.inputData.contactNum = $scope.selectedProperty.contactNumber;
-                $scope.inputData.state = $scope.selectedProperty.state;
-                $scope.inputData.propId = $scope.selectedProperty.propertyId;
-
-                propertiesService.EditProperty($scope.inputData, userdetails.memberId, userdetails.accessToken, function(data) {
-                    if (data.IsSuccess == true) {
-                        $scope.editPropInfo = 0;
-                        growlService.growl('Property info updated Successfully!', 'success');
-                    } else {
-                        $scope.editPropInfo = 0;
-                        growlService.growl(data.ErrorMessage, 'warning');
-                    }
-                });
-            }
-
+            this.editPropInfo = 0;
+            growlService.growl('Property info updated Successfully!', 'success');
         }
 
         this.editPropPic = function () {
@@ -402,10 +367,8 @@ noochForLandlords
 
 
         // Edit Published State (Whether the property should be publicly listed or not)
-        $scope.dropdownPublishedState = function () {
-
-            console.log('came in dropdown method');
-
+        this.dropdownPublishedState = function ()
+        {
             var alertTitleTxt, alertBodyTxt, actionBtnTxt, cancelBtnTxt;
             var isAlreadyPublished = false;
             var shouldCloseOnConfirm = false;
@@ -442,77 +405,31 @@ noochForLandlords
                 {
                     if (!isAlreadyPublished)
                     {
-
-
-                        propertiesService.SetPropertyStatus(propDetailsService.get(), true, userdetails.memberId, userdetails.accessToken, function (data2) {
-
-                            if (data2.IsSuccess == false) {
-
-                                swal({
-                                    title: "Ooops Error!",
-                                    text: data2.ErrorMessage,
-                                    type: "warning"
-                                });
-                                //alert(data.ErrorMessage);
-                            }
-                            if (data2.IsSuccess == true) {
-
-                                setIsPublished(1);
-                                swal({
-                                    title: "You Got It!",
-                                    text: "Your property has been published.",
-                                    type: "success"
-                                });
-                            }
-
-
-
-
+                        setIsPublished(1);
+                        swal({
+                            title: "You Got It!",
+                            text: "Your property has been published.",
+                            type: "success",
                         });
-
-
-                        
                     }
                 }
                 else
                 {
                     if (isAlreadyPublished)
                     {
-
-                        propertiesService.SetPropertyStatus(propDetailsService.get(), false, userdetails.memberId, userdetails.accessToken, function (data2) {
-
-                            if (data2.IsSuccess == false) {
-
-                                swal({
-                                    title: "Ooops Error!",
-                                    text: data2.ErrorMessage,
-                                    type: "warning"
-                                });
-                                //alert(data.ErrorMessage);
-                            }
-                            if (data2.IsSuccess == true) {
-
-                                setIsPublished(0);
-                                swal({
-                                    title: "No Problem",
-                                    text: "Your property has been hidden. Before tenants can pay rent for this property, you must publish it.",
-                                    type: "success"
-                                });
-                            }
-
-
-
-
+                        setIsPublished(0);
+                        swal({
+                            title: "No Problem",
+                            text: "Your property has been hidden. Before tenants can pay rent for this property, you must publish it.",
+                            type: "success",
                         });
-
-                     
                     }
                     else
                     {
                         swal({
                             title: "No Problem",
                             text: "Your property will remain hidden. Before tenants can pay rent for this property, you must publish it.",
-                            type: "warning"
+                            type: "warning",
                         });
                     }
                 }
@@ -520,9 +437,9 @@ noochForLandlords
         }
 
         function setIsPublished(newStatus) {
-          
-                $scope.selectedProperty.published= newStatus;
-          
+            $scope.$apply(function () {
+                $scope.selectedProperty['published'] = newStatus;
+            });
         }
 
         // Charge Tenant Button
@@ -898,7 +815,7 @@ noochForLandlords
     })
 
     // Delete Property Popup
-    .directive('deleteProp', function (propertiesService, authenticationService) {
+    .directive('deleteProp', function () {
         return {
             restrict: 'A',
             link: function (scope, element, attrs) {
@@ -907,8 +824,6 @@ noochForLandlords
                     //console.log(element);
                     //console.log(attrs.propid);
                     var propertyId = attrs.propid;
-                    var userdetails = authenticationService.GetUserDetails();
-                    console.log('member id -> ' + userdetails.memberId);
                     swal({
                         title: "Are you sure?",
                         text: "This will delete this property from your account.  Your tenants will no longer be able to pay you rent for this property.",
@@ -921,28 +836,9 @@ noochForLandlords
                         closeOnCancel: false
                     }, function (isConfirm) {
                         if (isConfirm) {
+                            swal("Deleted!", "That property has been deleted.", "success");
 
-                            propertiesService.RemoveProperty(propertyId, userdetails.memberId, userdetails.accessToken, function (data2) {
-
-                                if (data2.IsSuccess == false) {
-
-                                    swal({
-                                        title: "Ooops Error!",
-                                        text: data2.ErrorMessage,
-                                        type: "warning"
-                                    }, function(isConfirm) {
-                                        window.location.href = '#/properties';
-                                    });
-                                    //alert(data.ErrorMessage);
-                                }
-                                if (data2.IsSuccess == true) {
-
-                                    swal("Deleted!", "That property has been deleted.", "success");
-                                    $('.propCard#property' + propertyId).fadeOut();
-                                }
-
-                                
-                            });
+                            $('.propCard#property' + propertyId).fadeOut();
                         }
                         else {
                             swal("Cancelled", "No worries, this property is safe :)");
@@ -955,6 +851,7 @@ noochForLandlords
 
 
     // ADD PROPERTY Page
+<<<<<<< HEAD
     .controller('addPropertyCtrl', function ($scope, $compile, authenticationService,propertiesService) {
 
         $scope.inputData = {};
@@ -976,6 +873,9 @@ noochForLandlords
       
         var userdetails = authenticationService.GetUserDetails();
         
+=======
+    .controller('addPropertyCtrl', function ($scope, $compile) {
+>>>>>>> parent of da70f96... • Saving what's already on the Dev server to a new repo before merging in some changes I made on my local machine then pushed to BitBucket
 
         $("#addPropWiz").steps({
             headerTag: "h3",
@@ -1006,10 +906,10 @@ noochForLandlords
                 // IF going to Step 2
                 if (newIndex == 1)
                 {
-                    if ($('#propertyName').val().length > 3) {
-                        console.log($scope.inputData.propertyName);
+                    if ($('#propertyName').val().length > 3)
+                    {
                         updateValidationUi(1, null, true);
-                     
+
                         addPropPicFileInput
                         // FILE INPUT DOCUMENTATION: http://plugins.krajee.com/file-input#options
                         $("#addPropPicFileInput").fileinput({
@@ -1022,52 +922,8 @@ noochForLandlords
                             },
                             maxFileSize: 500,
                             msgSizeTooLarge: "File '{name}' ({size} KB) exceeds the maximum allowed file size of {maxSize} KB. Please try a slightly smaller picture!",
-                            showUpload: false
+                            showUpload: false,
                         });
-
-
-                        // event will be fired after file is selected
-                        $('#addPropPicFileInput').on('fileloaded', function (event, file, previewId, index, reader) {
-                            $scope.inputData.IsPropertyImageSelected = true;
-                            var readerN = new FileReader();
-                            //readerN.readAsText(file);
-                            readerN.readAsDataURL(file);
-                            readerN.onload = function (e) {
-                                // browser completed reading file - display it
-                                
-                                console.log(e.target.result);
-                                var splittable = e.target.result.split(',');
-                                var string1 = splittable[0];
-                                var string2 = splittable[1];
-                                //console.log(string2);
-                                $scope.inputData.propertyImage = string2;
-                            };
-                            
-                          
-                        });
-
-
-
-                        //none of these methods are triggering after removing selected file
-                        ////event fired after deleting selected file
-                        //$('#addPropPicFileInput').on('filedeleted', function (event, key) {
-                        //    console.log('file removed ----XXXXXXXXXXXXXXXXXXXXXXXXXXXX');
-                            
-                        //});
-
-
-                        //$('#addPropPicFileInput').on('filesuccessremove', function (event, id) {
-                        //    if (some_processing_function(id)) {
-                        //        console.log('Uploaded thumbnail successfully removed');
-                        //    } else {
-                        //        return false; // abort the thumbnail removal
-                        //    }
-                        //});
-
-
-                        //$('#addPropPicFileInput').on('filereset', function (event) {
-                        //    console.log('Uploaded thumbnail successfully removed');
-                        //});
 
                         $('.wizard.vertical > .content').animate({ height: "32em" }, 750)
                         return true;
@@ -1156,6 +1012,7 @@ noochForLandlords
             },
             onFinished: function (event, currentIndex)
             {
+<<<<<<< HEAD
                 saveProperty();
             onFinished: function (event, currentIndex) {
                 saveProperty();
@@ -1203,8 +1060,42 @@ noochForLandlords
                 $scope.inputData.SingleUnitRent = $('#singleUnitRentInput').val();
 
                 console.log('single unit val ' + $scope.inputData.SingleUnitRent);
+=======
+                swal({
+                    title: "Awesome - Property Added",
+                    text: "This property has been created successfully.  Would you like to \"publish\" this property so your tenants can pay their rent? (You can do this later, too.)",
+                    type: "success",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3fabe1",
+                    confirmButtonText: "Yes, Publish Now",
+                    cancelButtonText: "No, I'll do it later!",
+                    closeOnConfirm: false,
+                    closeOnCancel: false
+                }, function (isConfirm) {
+                    if (isConfirm) {
+                        swal({
+                            title: "You Got It!",
+                            text: "Your property has been published.",
+                            type: "success",
+                        }, function (isConfirm) {
+                            window.location.href = '#/properties';
+                        });
+                    }
+                    else {
+                        swal({
+                            title: "No Problem",
+                            text: "Your property has NOT been published. Before tenants can pay rent for this property, you must \"publish\" it, but you can do that later at any time.",
+                            type: "warning",
+                        }, function (isConfirm) {
+                            window.location.href = '#/properties';
+                        });
+                    }
+                });
+>>>>>>> parent of da70f96... • Saving what's already on the Dev server to a new repo before merging in some changes I made on my local machine then pushed to BitBucket
             }
+        });
 
+<<<<<<< HEAD
             propertiesService.SaveProperty($scope.inputData, userdetails.memberId, userdetails.accessToken, function(data) {
                 if (data.IsSuccess == false)
                 {
@@ -1272,6 +1163,8 @@ noochForLandlords
 
 
         }
+=======
+>>>>>>> parent of da70f96... • Saving what's already on the Dev server to a new repo before merging in some changes I made on my local machine then pushed to BitBucket
 
         updateValidationUi = function (step, substep, success)
         {
@@ -1362,17 +1255,22 @@ noochForLandlords
             });
         }
 
+<<<<<<< HEAD
 
         $scope.selectSingleUnit = function () {
             
             $scope.inputData.IsSingleUnitProperty = true;
             $scope.inputData.IsMultiUnitProperty = false;
 
+=======
+        $scope.selectSingleUnit = function ()
+        {
+>>>>>>> parent of da70f96... • Saving what's already on the Dev server to a new repo before merging in some changes I made on my local machine then pushed to BitBucket
             $('#multiUnit').addClass('bounceOut'); // bounceOut CSS takes 750ms
 
             $('#or').fadeOut(750);
 
-            setTimeout(function() {
+            setTimeout(function () {
                 $('#multiUnit').addClass('hidden');
 
                 $('#singleUnit').css({
@@ -1385,18 +1283,21 @@ noochForLandlords
 
                 $('#singleUnit-rentAmountBlock input').mask("#,##0.00", { reverse: true });
 
-                setTimeout(function() {
+                setTimeout(function () {
                     $('#singleUnit-rentAmountBlock input').focus();
-                }, 1000);
+                }, 1000)
 
-            }, 750);
+            }, 750)
         }
 
         $scope.selectMultiUnit = function ()
         {
+<<<<<<< HEAD
             $scope.inputData.IsSingleUnitProperty = false;
             $scope.inputData.IsMultiUnitProperty = true;
 
+=======
+>>>>>>> parent of da70f96... • Saving what's already on the Dev server to a new repo before merging in some changes I made on my local machine then pushed to BitBucket
             //$('#singleUnit').addClass('fadeOutLeft');
 
             $('#singleUnit').css(
@@ -1408,10 +1309,10 @@ noochForLandlords
             $('#multiUnit').css(
                 "width", "27%"
             );
-            setTimeout(function() {
+            setTimeout(function () {
                 $('#addUnitContainer').removeClass('hidden');
                 $('#addUnitContainer').fadeIn();
-            }, 800);
+            },800)
         }
 
         this.addUnit = function () {
@@ -1419,7 +1320,7 @@ noochForLandlords
 
             setWizardContentHeight();
 
-            var templateUnit = "<div class=\"row m-b-15\"><div class=\"col-xs-6\"><div class=\"fg-float form-group p-r-20 m-b-10 m-l-15\"><div class=\"fg-line\"><input type=\"text\" id=\"addUnit_Num"+ $scope.unitInputsShowing +"\" class=\"form-control fg-input\" maxlength=\"5\"></div><label class=\"fg-label\">Unit #</label></div></div>" +
+            var templateUnit = "<div class=\"row m-b-15\"><div class=\"col-xs-6\"><div class=\"fg-float form-group p-r-20 m-b-10 m-l-15\"><div class=\"fg-line\"><input type=\"text\" id=\"addUnit_Num\" class=\"form-control fg-input\" maxlength=\"5\"></div><label class=\"fg-label\">Unit #</label></div></div>" +
                                                          "<div class=\"col-xs-6\"><div class=\"fg-float form-group p-r-20 m-b-10 m-l-0\"><div class=\"fg-line dollar\"><input type=\"text\" id=\"addUnit_Amnt" + $scope.unitInputsShowing + "\" class=\"form-control fg-input\" maxlength=\"7\"></div><label class=\"fg-label\">Rent Amount</label></div></div></div>";
             var newUnit = "#unit" + $scope.unitInputsShowing;
 
@@ -1433,26 +1334,32 @@ noochForLandlords
             if ($scope.unitInputsShowing > 1)
             {
                 if ($scope.unitInputsShowing > 12) {
-                    $('.wizard.vertical > .content').animate({ height: "75em" }, 600);
+                    $('.wizard.vertical > .content').animate({ height: "75em" }, 600)
                 }
-                else if ($scope.unitInputsShowing > 10) {
-                    $('.wizard.vertical > .content').animate({ height: "65em" }, 600);
+                else if ($scope.unitInputsShowing > 10)
+                {
+                    $('.wizard.vertical > .content').animate({ height: "65em" }, 600)
                 }
-                else if ($scope.unitInputsShowing > 8) {
-                    $('.wizard.vertical > .content').animate({ height: "60em" }, 600);
+                else if ($scope.unitInputsShowing > 8)
+                {
+                    $('.wizard.vertical > .content').animate({ height: "60em" }, 600)
                 }
-                else if ($scope.unitInputsShowing > 4) {
-                    $('.wizard.vertical > .content').animate({ height: "46em" }, 600);
+                else if ($scope.unitInputsShowing > 4)
+                {
+                    $('.wizard.vertical > .content').animate({ height: "46em" }, 600)
                 }
-                else if ($scope.unitInputsShowing > 2) {
-                    $('.wizard.vertical > .content').animate({ height: "32em" }, 600);
+                else if ($scope.unitInputsShowing > 2)
+                {
+                    $('.wizard.vertical > .content').animate({ height: "32em" }, 600)
                 }
-                else {
-                    $('.wizard.vertical > .content').animate({ height: "28em" }, 600);
+                else
+                {
+                    $('.wizard.vertical > .content').animate({ height: "28em" }, 600)
                 }
             }
-            else {
-                $('.wizard.vertical > .content').animate({ height: "25em" }, 700);
+            else
+            {
+                $('.wizard.vertical > .content').animate({ height: "25em" }, 700)
             }
         }
     })

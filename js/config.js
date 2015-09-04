@@ -4,10 +4,10 @@ noochForLandlords
           $http.get('includes/templates.html', {cache:$templateCache});
     })
 
-    .config(function ($stateProvider, $urlRouterProvider) {
+    .config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
         
         
-       // delete $httpProvider.defaults.headers.common['X-Requested-With'];
+        delete $httpProvider.defaults.headers.common['X-Requested-With'];
 
 
 
