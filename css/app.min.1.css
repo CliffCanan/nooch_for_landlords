@@ -9628,6 +9628,11 @@ a.waves-effect .waves-ripple {
   opacity: 1;
   filter: alpha(opacity=100);
 }
+
+.dl-horizontal dt {
+  text-align: left;
+}
+
 *,
 button,
 input,

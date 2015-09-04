@@ -60,7 +60,7 @@
                             <dt class="p-t-10">Full Name</dt>
                             <dd>
                                 <div class="fg-line">
-                                    <input data-ng-model="userInfo.fullName" type="text" class="form-control" value="{{ userInfo.fullName | capitalize }}" placeholder="eg Arnold Palmer">
+                                    <input data-ng-model="userInfo.fullName" type="text" class="form-control" value="{{ userInfo.fullName | capitalize}}" placeholder="eg Arnold Palmer">
                                 </div>
 
                             </dd>
@@ -110,7 +110,7 @@
                     <div class="pmbb-view" data-ng-if="pctrl.editBusinessInfo === 0">
                         <dl class="dl-horizontal">
                             <dt>Company Name</dt>
-                            <dd>{{ company.name | capitalize  }}</dd>
+                            <dd>{{ company.name | capitalize }}</dd>
                         </dl>
                         <dl class="dl-horizontal">
                             <dt>EIN (Tax ID #)</dt>
@@ -123,7 +123,7 @@
                             <dt class="p-t-10">Company Name</dt>
                             <dd>
                                 <div class="fg-line">
-                                    <input id="compName" data-ng-model="company.name" type="text" class="form-control" value="{{ company.name | capitalize  }}" placeholder="eg. ABC Rental LLC">
+                                    <input id="compName" data-ng-model="company.name" type="text" class="form-control" value="{{ company.name | capitalize }}" placeholder="eg. ABC Rental LLC">
                                 </div>
 
                             </dd>
@@ -178,11 +178,15 @@
                             <dt>Address</dt>
                             <dd>
                                 <address class="m-b-0">
-                                    {{ userInfo.address1 | capitalize  }} <br />
-                                    {{ userInfo.addressCity | capitalize  }} {{userInfo.zip}} <br />
-                                    {{ userInfo.addressCountry | capitalize  }}
+                                    {{ userInfo.address1 | capitalize }} <br />
+                                    {{ userInfo.addressCity | capitalize }} {{userInfo.zip}} <br />
+                                    {{ userInfo.addressCountry | capitalize }}
                                 </address>
                             </dd>
+                        </dl>
+                        <dl class="dl-horizontal">
+                            <dt>Twitter</dt>
+                            <dd>{{ userInfo.twitter }}</dd>
                         </dl>
                     </div>
 
@@ -208,6 +212,14 @@
                             <dd>
                                 <div class="fg-line">
                                     <input data-ng-model="userInfo.address1" type="text" class="form-control" placeholder="eg. 123 W. Main St.">
+                                </div>
+                            </dd>
+                        </dl>
+                        <dl class="dl-horizontal">
+                            <dt class="p-t-10">Twitter</dt>
+                            <dd>
+                                <div class="fg-line">
+                                    <input data-ng-model="userInfo.twitter" type="text" class="form-control" placeholder="eg. @NoochMoney" data-input-mask="{mask: '@000) 000-0000'}">
                                 </div>
                             </dd>
                         </dl>
@@ -261,7 +273,7 @@
                             <dt class="p-t-10">Twitter</dt>
                             <dd>
                                 <div class="fg-line">
-                                    <input data-ng-model="userInfo.twitter" type="text" class="form-control" placeholder="eg. @NoochMoney" data-input-mask="{mask: '@AAAAAAAAAAAAAAAAAAAAAAAA'}">
+                                    <input data-ng-model="userInfo.twitter" type="text" class="form-control" placeholder="eg. @NoochMoney" >
                                 </div>
                             </dd>
                         </dl>

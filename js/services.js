@@ -56,9 +56,19 @@ noochForLandlords
     // Properties Widget Data
     // =========================================================================
 
-<<<<<<< HEAD
     .service('propertiesService', ['$http', '$resource', 'authenticationService', function ($http, $resource, authenticationService) {
+        //this.getProperties = function(id, img, propName, address, units, tenants) {
+        //    var propertyList = $resource("data/properties.json");
 
+        //    return propertyList.get({
+        //        id: id,
+        //        img: img,
+        //        propName: propName,
+        //        address: address,
+        //        units: units,
+        //        tenants: tenants
+        //    });
+        //};
         var Operations = {};
 
         Operations.SaveProperty = function (propertyData,memberId, accessToken, callback) {
@@ -66,27 +76,30 @@ noochForLandlords
             var data = {};
             data.PropertyName = propertyData.propertyName;
             data.Address = propertyData.propertyAddress;
+
             data.City = propertyData.propertyCity;
             data.Zip = propertyData.propertyZip;
+
             data.IsPropertyImageAdded = propertyData.IsPropertyImageSelected;
             data.PropertyImage = propertyData.propertyImage;
             data.IsMultipleUnitsAdded = propertyData.IsMultipleUnitsAdded;
 
             data.User = {
-                LandlorId: memberId,
-                AccessToken: accessToken
+            LandlorId: memberId,
+            AccessToken : accessToken
             };
 
 
             if (propertyData.IsMultiUnitProperty == true) {
                 data.Unit = propertyData.allUnits;
                 data.IsMultipleUnitsAdded = true;
-            }
-            else {
+            } else {
+
                 var data1 = {
                     UnitNum: propertyData.propertyName,
                     Rent: propertyData.SingleUnitRent,
                     IsAddedWithProperty : true
+
                 };
 
                 data.Unit = new Array();
@@ -111,18 +124,21 @@ noochForLandlords
             var data = {};
             data.PropertyName = propertyData.propertyName;
             data.Address = propertyData.propertyAddress;
+
             data.City = propertyData.propertyCity;
             data.Zip = propertyData.propertyZip;
             data.State = propertyData.state;
             data.ContactNumber = propertyData.contactNum;
             data.PropertyId = propertyData.propId;
 
+        
             data.User = {
                 LandlorId: memberId,
                 AccessToken: accessToken
             };
 
 
+        
             $http.post(URLs.EditProperty, data)
                 .success(function (response) {
                     if (response.IsSuccess && response.IsSuccess == true) {
@@ -132,6 +148,7 @@ noochForLandlords
                     callback(response);
                 });
         };
+
 
 
         Operations.SetPropertyStatus = function (propertyId, propertyStatus,memberId, accessToken, callback) {
@@ -145,6 +162,7 @@ noochForLandlords
                 LandlorId: memberId,
                 AccessToken: accessToken
             };
+
 
             $http.post(URLs.SetPropertyStatus, data)
                 .success(function (response) {
@@ -164,6 +182,7 @@ noochForLandlords
             data.LandlorId = memberId;
             data.AccessToken = accessToken;
 
+
             $http.post(URLs.GetProperties, data)
                 .success(function (response) {
                     if (response.IsSuccess && response.IsSuccess == true) {
@@ -181,11 +200,13 @@ noochForLandlords
 
             data.PropertyId = propertyId;
             data.PropertyStatusToSet = false;
+            
 
             data.User = {
                 LandlorId: memberId,
                 AccessToken: accessToken
             };
+
 
             $http.post(URLs.RemoveProperty, data)
                 .success(function (response) {
@@ -196,35 +217,45 @@ noochForLandlords
                     callback(response);
                 });
         };
-        return Operations;
-=======
-    .service('propertiesService', ['$resource', function ($resource) {
-        this.getProperties = function (id, img, propName, address, units, tenants) {
-            var propertyList = $resource("data/properties.json");
 
-            return propertyList.get({
-                id: id,
-                img: img,
-                propName: propName,
-                address: address,
-                units: units,
-                tenants: tenants
-            })
-        }
->>>>>>> parent of da70f96... • Saving what's already on the Dev server to a new repo before merging in some changes I made on my local machine then pushed to BitBucket
+        return Operations;
+
     }])
 
-    .service('propDetailsService', ['$resource', function ($resource) {
+    .service('propDetailsService', ['$http', 'authenticationService', '$resource', function ($http, authenticationService,$resource) {
         // FOR GOING TO THE INDIDVIDUAL PROPERTY'S DETAILS PAGE
         var selectedProp = {};
-
+        var selectedPropDetails = {};
         function set(propId) {
-            selectedProp = propId;
-            console.log(selectedProp);
+            selectedProp.propId = propId;
+            console.log('selected prop id -> '+selectedProp.propId );
         }
 
         function get() {
-            return selectedProp;
+            return selectedProp.propId;
+        }
+
+        function getPropertyDetailsFromDB(propertyId, memberId, accessToken, callback) {
+            var data = {};
+
+            data.PropertyId = propertyId;
+            data.PropertyStatusToSet = false;
+
+            data.User = {
+                LandlorId: memberId,
+                AccessToken: accessToken
+            };
+
+
+            $http.post(URLs.GetPropertyDetails, data)
+                .success(function (response) {
+                    if (response.IsSuccess && response.IsSuccess == true) {
+                        authenticationService.ManageToken(response.AuthTokenValidation);
+                        //console.log('came in success');
+                    }
+                    callback(response);
+                });
+            
         }
 
         function get2() {
@@ -239,7 +270,8 @@ noochForLandlords
         return {
             set: set,
             get: get,
-            get2: get2
+            get2: get2,
+            getPropFromDb: getPropertyDetailsFromDB
         }
     }])
 
@@ -300,8 +332,8 @@ noochForLandlords
             $(selector).niceScroll({
                 cursorcolor: '#4fabe1',
                 cursorborder: 0,
-                cursorborderradius: '8px',
-                cursorwidth: '8px',
+                cursorborderradius: 0,
+                cursorwidth: cursorWidth,
                 bouncescroll: true,
                 mousescrollstep: 100,
                 horizrailenabled: false
@@ -439,7 +471,7 @@ noochForLandlords
                 .success(function (response) {
                     if (response.IsSuccess && response.IsSuccess==true) {
                         authenticationService.ManageToken(response.AuthTokenValidation);
-                        console.log('came in success');
+                       // console.log('came in success');
                     }
                     callback(response);
                 });
@@ -464,15 +496,15 @@ noochForLandlords
                 CompanyName: userInfo.companyName,
                 CompanyEID: userInfo.compein,
 
-                UserEmail: userInfo.deviceInfo,
-                MobileNumber: userInfo.deviceInfo,
-                AddressLine1: userInfo.deviceInfo,
+                UserEmail: userInfo.email,
+                MobileNumber: userInfo.mobileNum,
+                AddressLine1: userInfo.addressLine1,
                 
-                TwitterHandle: userInfo.deviceInfo,
+                TwitterHandle: userInfo.twitterHandle,
 
 
-                FbUrl: userInfo.deviceInfo,
-                InstaUrl: userInfo.deviceInfo,
+                FbUrl: userInfo.fb,
+                InstaUrl: userInfo.insta,
 
                 InfoType: userInfo.InfoType
             };
