@@ -16,11 +16,19 @@ noochForLandlords
                     })
 
                     $('body').on('blur', '.form-control', function(){
-                        var p = $(this).closest('.form-group');
-                        var i = p.find('.form-control').val();
+                        var fgrp = $(this).closest('.form-group');
+                        var ipgrp = $(this).closest('.input-group');
 
-                        if (p.hasClass('fg-float')) {
-                            if (i.length == 0) {
+                        var val = fgrp.find('.form-control').val();
+                        var val2 = ipgrp.find('.form-control').val();
+
+                        if (fgrp.hasClass('fg-float')) {
+                            if (val.length == 0) {
+                                $(this).closest('.fg-line').removeClass('fg-toggled');
+                            }
+                        }
+                        else if (ipgrp.hasClass('fg-float')) {
+                            if (val2.length == 0) {
                                 $(this).closest('.fg-line').removeClass('fg-toggled');
                             }
                         }
@@ -29,7 +37,6 @@ noochForLandlords
                         }
                     });
                 }
-    
             }
         }
         

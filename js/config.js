@@ -9,11 +9,9 @@ noochForLandlords
         
        // delete $httpProvider.defaults.headers.common['X-Requested-With'];
 
-
-
         $urlRouterProvider.otherwise("/home");
 
-    $stateProvider
+        $stateProvider
 
         //------------------------------
         // HOME

@@ -1,3 +1,5 @@
+body { font-size: 15px; }
+
 /**** TEXT / FONT ****/
 .p-30 {padding:30px !important;}
 .p-t-30 {padding-top:30px !important;}
@@ -14,6 +16,15 @@
 .p-r-50 {padding-right:50px !important;}
 .p-b-50 {padding-bottom:50px !important;}
 .p-l-50 {padding-left:50px !important;}
+
+/**** MARGIN ****/
+.m-35 {margin:35px !important;}
+.m-t-35 {margin-top:35px !important;}
+.m-r-35 {margin-right:35px !important;}
+.m-b-35 {margin-bottom:35px !important;}
+.m-l-35 {margin-left:35px !important;}
+
+/**** TEXT / FONT ****/
 .f-10 {font-size:10px !important;}
 .f-11 {font-size:11px !important;}
 .f-12 {font-size:12px !important;}
@@ -81,6 +92,8 @@ a,
 .bumbUp-1 {position:relative;top:-1px;}
 .bumbUp-2 {position:relative;top:-2px;}
 .bumbUp-3 {position:relative;top:-3px;}
+
+input[type='password'] {letter-spacing:1px;}
 
 /**** TABLES ****/
 table tr th:not(:first-child).columnWidth-13pc {
@@ -254,6 +267,7 @@ table tbody td .label {padding: 3px 9px;}
   top:-12px;
 }
 
+
 /**** ALERTS / DIALOG BOXES ****/
 .alert {
   border-radius: 5px;
@@ -290,12 +304,14 @@ form .alert {
   margin: 26px 6px 0;
 }
 
+
 /**** MODALS ****/
 .modal-header .modalclose {
   position: absolute;
   right: 4%;
   top: 11px;
 }
+
 
 /**** POPOVERS ****/
 .popover {
@@ -336,8 +352,11 @@ form .alert {
 .placeholder-sm:-ms-input-placeholder {  
    font-size: 15px;
 }
+
+
 /**** TO-DO LIST WIDGET ****/
 .listview .lv-item .media-body {padding-top:5px;}
+
 
 /**** FORMS ****/
 .form-horizontal .control-label {font-weight: 600;}
@@ -349,6 +368,20 @@ form .alert {
 
 .noUi-connect {background: #72bf44}
 .noUi-horizontal .noUi-handle {background-color: #72bf44}
+
+
+/** UIBLOCK (LOADING BOX) **/
+.blockUI.blockOverlay {opacity: 0 !important;}
+.blockUI.blockElement {top: 10px !important;}
+.blockUI .fa-loading {font-size: 40px;}
+.blockUI .loadingMsg {
+  display: block;
+  font-size: 18px;
+  margin: 15px auto 0;
+  font-weight: 300;
+  text-shadow: 0 0 0 #fff;
+}
+
 
 /**** HOME ****/
 .homePromptCard {
@@ -370,6 +403,7 @@ form .alert {
 }
 .homePromptCard .card-body small {font-size:15px;}
 .mini-charts-item:not(.nolink) { cursor: pointer; }
+
 
 /**** LOGIN ****/
 body.login-content:before {
@@ -420,35 +454,88 @@ body.login-content:before {
   -webkit-animation-name: bounceInLeft;
   animation-name: bounceInLeft;*/
 }
-.login-content .lc-block.toggled {
+.login-content .lc-block { border-radius: 40px; }
+.login-content .lc-block {
   box-shadow: 0 6px 15px -4px rgba(0, 0, 0, 0.35);
   -webkit-transition:.3s all ease-out;
   transition:.3s all ease-out;
   padding:30px 55px 15px;
   top:30px;
 }
+.login-content .lc-block#l-register { top: 60px; }
 .login-content .form-control {
-    font-size: 16px;
+  font-size: 18px;
+  font-weight: 500;
+  padding-left: 5px;
 }
-.login-content .input-group:not(.input-group-lg):not(.input-group-sm) .input-group-addon .md {
+.login-content .input-group:not(.input-group-lg):not(.input-group-sm) .input-group-addon i {
   font-size: 25px;
   position: relative;
   top: -4px;
 }
-.login-content .login-navigation > li {
+.login-content .login-navigation > li:not(:hover) {
     line-height:22px;
     min-height:22px;
     min-width:22px;
+    margin: 0 10% 10px;
+    border-radius: 11px;
+    letter-spacing: .25px;
+    -webkit-transition: all .5s ease-out;
+    transition: all .5s ease-in-out;
 }
 .login-content .login-navigation > li:hover {
   border-radius: 8px;
   padding: 9px 15px;
   font-size: 15px;
-  letter-spacing: .25px;
   box-shadow: 0 3px 8px -4px rgba(64,65,66,.3);
+  margin: -10px 2% 0;
 }
 .login-content .login-navigation {
+    margin: 20px auto 5px;
     position: static;
+}
+
+.login-content .fg-float {
+  margin-left: 7%;
+  padding: 0 30px 10px 0;
+  width: 100%;
+  max-width: 480px;
+}
+.login-content .fg-float > span {
+  font-size: 25px;
+  position: absolute;
+  left: -35px;
+}
+.login-content .fg-float .fg-label {
+  left: 5px;
+  top: 6px;
+  font-size: 18px;
+}
+.login-content .fg-float .fg-toggled + .fg-label {
+  top: -18px;
+  font-size: 13px;
+}
+
+.form-group.halfwidth { float: left; width: 44.5%; }
+.form-group.halfwidth:nth-child(2) { margin-left: 4%; padding-right: 0;}
+
+.login-content .help-block {
+  text-align: left;
+  margin-top: 6px;
+  padding-left: 5px;
+  position:absolute;
+}
+
+form .checkbox.haserror .input-helper:before {
+  border-color: red;
+  box-shadow: 0 1px 12px -1px rgba(240,50,50,.8);
+}
+
+
+@media (min-width: 767px) {
+  .login-content .lc-block {
+      min-width:480px;
+  }
 }
 
 /**** LEFT SIDEBAR ****/
@@ -1173,7 +1260,7 @@ table tbody .unitInTable {
 
 /**** ANIMATIONS ****/
 
-@media (min-width: 1200px) {
+@media (min-width: 1100px) {
 @-webkit-keyframes fadeInRightSm {
   0% {
     opacity: 0;
@@ -1236,4 +1323,34 @@ table tbody .unitInTable {
   animation-name: fadeInUpSm;
 }
 
+@-webkit-keyframes slideInUp {
+  from {
+    -webkit-transform: translate3d(0, 100%, 0);
+    transform: translate3d(0, 100%, 0);
+    visibility: visible;
+  }
+
+  to {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes slideInUp {
+  from {
+    -webkit-transform: translate3d(0, 100%, 0);
+    transform: translate3d(0, 100%, 0);
+    visibility: visible;
+  }
+
+  to {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.slideInUp {
+  -webkit-animation-name: slideInUp;
+  animation-name: slideInUp;
+}
 }

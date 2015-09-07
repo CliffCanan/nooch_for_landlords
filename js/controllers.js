@@ -334,7 +334,7 @@ noochForLandlords
                 $scope.inputData.propertyName = $scope.selectedProperty.name;
                 $scope.inputData.propertyAddress = $scope.selectedProperty.address1;
                 $scope.inputData.propertyCity = $scope.selectedProperty.city;
-                $scope.inputData.propertyZip = $scope.selectedProperty.contactNumber;
+                $scope.inputData.propertyZip = $scope.selectedProperty.zip;
                 $scope.inputData.contactNum = $scope.selectedProperty.contactNumber;
                 $scope.inputData.state = $scope.selectedProperty.state;
                 $scope.inputData.propId = $scope.selectedProperty.propertyId;
@@ -343,7 +343,8 @@ noochForLandlords
                     if (data.IsSuccess == true) {
                         $scope.editPropInfo = 0;
                         growlService.growl('Property info updated Successfully!', 'success');
-                    } else {
+                    }
+                    else {
                         $scope.editPropInfo = 0;
                         growlService.growl(data.ErrorMessage, 'warning');
                     }
@@ -2103,7 +2104,7 @@ noochForLandlords
 
 
     //=================================================
-    // LOGIN (Came w/ default template)
+    // LOGIN
     //=================================================
 
     .controller('loginCtrl', function ($scope, authenticationService) {
@@ -2112,6 +2113,10 @@ noochForLandlords
         this.register = 0;
         this.forgot = 0;
 
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+
         $scope.LoginData = {
             password: '',
             username: ''
@@ -2119,22 +2124,324 @@ noochForLandlords
 
         this.loginAttmpt = function () {
 
-
-
             //  window.location.href = 'index.html#/profile/profile-about'; // FOR TESTING LOCALLY B/C AUTHENTICATION SERVICE WON'T WORK
 
-            authenticationService.ClearUserData();
+            // Check Username (email) field for length
+            if ($('form#login #username').val())
+            {
+                var trimmedUserName = $('form#login #username').val().trim();
+                $('form#login #username').val(trimmedUserName);
 
-            authenticationService.Login($scope.LoginData.username, $scope.LoginData.password, function (response) {
-                if (response.IsSuccess == true) {
-                    authenticationService.SetUserDetails($scope.LoginData.username, response.MemberId, response.AccessToken);
-                    window.location.href = 'index.html#/profile/profile-about';
-                } else {
-                    alert('Error :' + response.ErrorMessage);
+                // Check Name Field for a "@"
+                if ($('form#login #username').val().indexOf('@') > 1)
+                {
+                    // Check Name Field for a "."
+                    if ($('form#login #username').val().indexOf('.') > 1 &&
+                        $('form#login #username').val().indexOf('.') > $('form#login #username').val().indexOf('@') &&
+                        $('form#login #username').val().indexOf('.') < $('form#login #username').val().length - 1)
+                    {
+                        updateValidationUi("username", true);
+
+                        // Check Password field
+                        if ($('form#login #pw').val().length > 4)
+                        {
+                            updateValidationUi("pw", true);
+
+                            // ADD THE LOADING BOX
+                            $('form#login').block({
+                                message: '<span><i class="fa fa-refresh fa-spin fa-loading"></i></span><br/><span class="loadingMsg">Attempting login...</span>',
+                                css: {
+                                    border: 'none',
+                                    padding: '26px 10px 23px',
+                                    backgroundColor: '#000',
+                                    '-webkit-border-radius': '12px',
+                                    '-moz-border-radius': '12px',
+                                    'border-radius': '12px',
+                                    opacity: '.8',
+                                    width: '86%',
+                                    left: '7%',
+                                    top: '25px',
+                                    color: '#fff'
+                                }
+                            });
+
+                            authenticationService.ClearUserData();
+
+                            authenticationService.Login($scope.LoginData.username, $scope.LoginData.password, function (response) {
+
+                                $('form#login').unblock();
+
+                                if (response.IsSuccess == true) {
+                                    authenticationService.SetUserDetails($scope.LoginData.username, response.MemberId, response.AccessToken);
+                                    window.location.href = 'index.html#/profile/profile-about';
+                                }
+                                else {
+                                    swal({
+                                        title: "Oh No!",
+                                        text: "Looks like either your email or password was incorrect.  Please try again.",
+                                        type: "error"
+                                    });
+                                    console.log('Sign In Error: ' + response.ErrorMessage);
+                                }
+                            });
+                        }
+                        else {
+                            updateValidationUi("pw", false);
+                        }
+                    }
+                    else {
+                        updateValidationUi("username", false);
+                    }
                 }
+                else {
+                    updateValidationUi("username", false);
+                }
+            }
+            else {
+                updateValidationUi("username", false);
+            }            
+        }
+
+
+        this.forgotPwAttmpt = function () 
+        {
+            var email = $('#emforgot');
+
+            if (email.val().length > 5 &&
+                email.val().indexOf('@') > 1 &&
+                email.val().indexOf('.') > 1 &&
+                email.val().indexOf('.') > email.val().indexOf('@') &&
+                email.val().indexOf('.') < email.val().length - 1)
+            {
+                updateValidationUi("emforgot", true);
+
+                // ADD THE LOADING BOX
+                $('form#forgotpw').block({
+                    message: '<span><i class="fa fa-refresh fa-spin fa-loading"></i></span><br/><span class="loadingMsg">Submitting Reset PW Request...</span>',
+                    css: {
+                        border: 'none',
+                        padding: '26px 10px 23px',
+                        backgroundColor: '#000',
+                        '-webkit-border-radius': '12px',
+                        '-moz-border-radius': '12px',
+                        'border-radius': '12px',
+                        opacity: '.8',
+                        width: '86%',
+                        left: '7%',
+                        top: '25px',
+                        color: '#fff'
+                    }
+                });
+
+
+                // ADD SERVICE TO SEND RESET PW EMAIL HERE...
+
+                /*authenticationService.ClearUserData();
+
+                authenticationService.Login($scope.LoginData.username, $scope.LoginData.password, function (response) {
+
+                    $('form#forgotpw').unblock();
+
+                    if (response.IsSuccess == true) {
+                        authenticationService.SetUserDetails($scope.LoginData.username, response.MemberId, response.AccessToken);
+                        this.login = 1;
+                        this.register = 0;
+                        this.forgot = 0;
+                    }
+                    else {
+                        alert('Error :' + response.ErrorMessage);
+                    }
+                });*/
+            }
+            else
+            {
+                updateValidationUi("emforgot", false);
+            }
+        }
+
+
+        this.registerAttmpt = function () {
+
+            var regForm = $('form#reg');
+            var fName = $('form#reg #fname');
+            var lName = $('form#reg #lname');
+            var email = $('form#reg #em');
+            var pw = $('form#reg #pwreg');
+
+            // Check Name fields for length
+            if (fName.val() && fName.val().length > 1)
+            {
+                updateValidationUi("fname", true);
+
+                var trimmedFName = capitalize(fName.val().trim());
+                $('form#reg #fname').val(trimmedFName);
+
+                if (lName.val() && lName.val().length > 1)
+                {
+                    updateValidationUi("lname", true);
+
+                    var trimmedLName = lName.val().trim();
+                    $('form#reg #lname').val(trimmedLName);
+
+                    // Check Email Field for a "@" and "."
+                    if (email.val().length > 5 &&
+                        email.val().indexOf('@') > 1 &&
+                        email.val().indexOf('.') > 1 &&
+                        email.val().indexOf('.') > email.val().indexOf('@') &&
+                        email.val().indexOf('.') < email.val().length - 1)
+                    {
+                        updateValidationUi("em", true);
+
+                        // Check Password field
+                        if (pw.val().length > 4)
+                        {
+                            updateValidationUi("pwreg", true);
+
+                            // Finally, check if the Terms of Service box is checked
+                            if ($('#tosboxGrp input').prop('checked'))
+                            {
+                                updateValidationUi("tosbox", true);
+
+                                // ADD THE LOADING BOX
+                                regForm.block({
+                                    message: '<span><i class="fa fa-refresh fa-spin fa-loading"></i></span><br/><span class="loadingMsg">Creating Account...</span>',
+                                    css: {
+                                        border: 'none',
+                                        padding: '26px 10px 23px',
+                                        backgroundColor: '#000',
+                                        '-webkit-border-radius': '12px',
+                                        '-moz-border-radius': '12px',
+                                        'border-radius': '12px',
+                                        opacity: '.8',
+                                        width: '86%',
+                                        left: '7%',
+                                        top: '25px',
+                                        color: '#fff'
+                                    }
+                                });
+
+                                // ADD SERVICE TO REGISTER USER HERE...
+
+                                /*authenticationService.ClearUserData();
+    
+                                authenticationService.Login($scope.LoginData.username, $scope.LoginData.password, function (response) {
+    
+                                    regForm.unblock();
+    
+                                    if (response.IsSuccess == true) {
+                                        authenticationService.SetUserDetails($scope.LoginData.username, response.MemberId, response.AccessToken);
+                                        window.location.href = 'index.html#/profile/profile-about';
+                                    }
+                                    else {
+                                        alert('Error :' + response.ErrorMessage);
+                                    }
+                                });*/
+                            }
+                            else {
+                                updateValidationUi("tosbox", false);
+                            }                            
+                        }
+                        else {
+                            updateValidationUi("pwreg", false);
+                        }
+                    }
+                    else {
+                        updateValidationUi("em", false);
+                    }
+                }
+                else {
+                    updateValidationUi("lname", false);
+                }
+            }
+            else {
+                updateValidationUi("fname", false);
+            }
+        }
+
+        // This function checks a field on focusout (when the user moves to the next field) and updates Validation UI accordingly
+        $(document).ready(function () {
+            $(document).on("focusout", "form#reg input", function ()
+            {
+                var field = this.id;
+
+                if ($(this).val() && $(this).val().length > 2)
+                {
+                    if (field == "em")
+                    {
+                        if ($(this).val().length > 5 &&
+                            $(this).val().indexOf('@') > 1 &&
+                            $(this).val().indexOf('.') > 1 &&
+                            $(this).val().indexOf('.') > $(this).val().indexOf('@') &&
+                            $(this).val().indexOf('.') < $(this).val().length - 1)
+                        {
+                            updateValidationUi("em", true);
+                        }
+                    }
+                    else
+                    {
+                        updateValidationUi(field, true);
+                    }
+                }
+            })
+        })
+
+
+        // Utility Function To Update Form Input's UI for Success/Error (Works for all forms on the Property Details page...like 4 of them)
+        updateValidationUi = function (field, success)
+        {
+            console.log("Field: " + field + "; success: " + success);
+
+            if (success == true)
+            {
+                $('#' + field + 'Grp').removeClass('has-error').addClass('has-success');
+                if ($('#' + field + 'Grp .help-block').length)
+                {
+                    $('#' + field + 'Grp .help-block').slideUp();
+                }
+            }
+            else
+            {
+                $('#' + field + 'Grp').removeClass('has-success').addClass('has-error');
+
+                var helpBlockTxt = "";
+
+                if (field == "username" || field == "em" || field == "emforgot") {
+                    helpBlockTxt = "Please enter your full email address.";
+                }
+                else if (field == "pw") {
+                    helpBlockTxt = "Please enter your password!"
+                }
+                else if (field == "fname") {
+                    helpBlockTxt = "Please enter your first name."
+                }
+                else if (field == "lname") {
+                    helpBlockTxt = "Please enter your last name."
+                }
+                else if (field == "pwreg") {
+                    helpBlockTxt = "Please create a strong password."
+                }
+                else if (field == "tosbox") {
+                    helpBlockTxt = "Please read and agree to Nooch's Terms of Service to create your account."
+                }
+
+                if (!$('#' + field + 'Grp .help-block').length) {
+                    $('#' + field + 'Grp').append('<small class="help-block pull-left" style="display:none">' + helpBlockTxt + '</small>');
+                    $('#' + field + 'Grp .help-block').slideDown();
+                }
+                else { $('#' + field + 'Grp .help-block').show() }
+
+                // Now focus on the element that failed validation
+                setTimeout(function () {
+                    $('#' + field + 'Grp input').focus();
+                }, 200)
+            }
+        }
+
+        capitalize = function (string) {
+            string = string.toLowerCase().replace(/\b[a-z]/g, function (letter) {
+                return letter.toUpperCase();
             });
-
-
+            return string;
         }
     })
 

@@ -7443,7 +7443,7 @@ button.close {
   z-index: 1070;
   display: block;
   font-family: roboto;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: normal;
   line-height: 1.4;
   opacity: 0;
@@ -7481,8 +7481,8 @@ button.close {
   color: #ffffff;
   text-align: center;
   text-decoration: none;
-  background-color: #737373;
-  border-radius: 2px;
+  background-color: rgba(16,17,18,.85);
+  border-radius: 5px;
 }
 
 .tooltip-arrow {
@@ -7498,7 +7498,7 @@ button.close {
   left: 50%;
   margin-left: -5px;
   border-width: 5px 5px 0;
-  border-top-color: #737373;
+  border-top-color: rgba(16,17,18,.85);
 }
 
 .tooltip.top-left .tooltip-arrow {
@@ -7506,7 +7506,7 @@ button.close {
   right: 5px;
   margin-bottom: -5px;
   border-width: 5px 5px 0;
-  border-top-color: #737373;
+  border-top-color: rgba(16,17,18,.85);
 }
 
 .tooltip.top-right .tooltip-arrow {
@@ -7514,7 +7514,7 @@ button.close {
   left: 5px;
   margin-bottom: -5px;
   border-width: 5px 5px 0;
-  border-top-color: #737373;
+  border-top-color: rgba(16,17,18,.85);
 }
 
 .tooltip.right .tooltip-arrow {
@@ -7522,7 +7522,7 @@ button.close {
   left: 0;
   margin-top: -5px;
   border-width: 5px 5px 5px 0;
-  border-right-color: #737373;
+  border-right-color: rgba(16,17,18,.85);
 }
 
 .tooltip.left .tooltip-arrow {
@@ -7530,7 +7530,7 @@ button.close {
   right: 0;
   margin-top: -5px;
   border-width: 5px 0 5px 5px;
-  border-left-color: #737373;
+  border-left-color: rgba(16,17,18,.85);
 }
 
 .tooltip.bottom .tooltip-arrow {
@@ -7538,7 +7538,7 @@ button.close {
   left: 50%;
   margin-left: -5px;
   border-width: 0 5px 5px;
-  border-bottom-color: #737373;
+  border-bottom-color: rgba(16,17,18,.85);
 }
 
 .tooltip.bottom-left .tooltip-arrow {
@@ -7546,7 +7546,7 @@ button.close {
   right: 5px;
   margin-top: -5px;
   border-width: 0 5px 5px;
-  border-bottom-color: #737373;
+  border-bottom-color: rgba(16,17,18,.85);
 }
 
 .tooltip.bottom-right .tooltip-arrow {
@@ -7554,7 +7554,7 @@ button.close {
   left: 5px;
   margin-top: -5px;
   border-width: 0 5px 5px;
-  border-bottom-color: #737373;
+  border-bottom-color: rgba(16,17,18,.85);
 }
 
 .popover {
@@ -14557,8 +14557,7 @@ a.thumbnail.active {
 }
 
 .tooltip-inner {
-  border-radius: 1px;
-  padding: 3px 10px 5px;
+  padding: 4px 11px 5px;
 }
 
 .breadcrumb {
@@ -14938,7 +14937,7 @@ a.thumbnail.active {
   box-shadow: 0 1px 11px rgba(0, 0, 0, 0.27);
   border-radius: 2px;
   padding: 35px 55px 35px;
-  width: 500px;
+  max-width: 560px;
   display: inline-block;
   margin-top: -60px;
   vertical-align: middle;
@@ -15033,7 +15032,7 @@ body.login-content:after {
 }
 
 body.login-content:before {
-  height: 50%;
+  height: 40%;
   width: 100%;
   position: absolute;
   top: 0;
@@ -15041,6 +15040,13 @@ body.login-content:before {
   background: #00bcd4;
   content: "";
   z-index: 0;
+
+  -webkit-animation-name: slideInUp;
+  animation-name: slideInUp;
+  -webkit-animation-duration: 1000ms;
+  animation-duration: 1000ms;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
 }
 
 #profile-main {

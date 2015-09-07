@@ -1,13 +1,12 @@
 <header id="header" data-ng-include src="'includes/header.html'" data-ng-controller="headerCtrl as hctrl"></header>
+
 <div data-ng-controller="propDetailsCtrl">
+
     <ol class="breadcrumb m-b-10">
         <li><a href="#/home">Home</a></li>
         <li><a href="#/properties">All Properties</a></li>
-        <li class="active">{{selectedProperty.name}}</li>
+        <li class="active">{{ selectedProperty.name | capitalize }}</li>
     </ol>
-
-
-
 
     <section id="main">
 
@@ -34,7 +33,7 @@
                             <div class="card-header p-b-15">
                                 <div class="row">
                                     <h2 class="col-xs-12 col-sm-3 col-lg-4">
-                                        {{selectedProperty.name}}
+                                        {{ selectedProperty.name  | capitalize}}
                                         <small class="hidden-xs" data-ng-if="selectedProperty.published === 1">
                                             Published &nbsp;|&nbsp;
                                             <a data-ng-click="dropdownPublishedState()">Edit</a>
@@ -51,21 +50,21 @@
                                                 <div class="bgm-gray" data-trigger="hover" data-toggle="popover" data-placement="bottom" data-content="There are a total of {{selectedProperty.units}} active units for {{selectedProperty.name}}." data-original-title="# of Units in {{selectedProperty.name}}">
                                                     <i class="md-home c-gray"></i>
                                                     <span class="headline">Units</span>
-                                                    <span class="value">{{selectedProperty.units}}</span>
+                                                    <span class="value">{{ selectedProperty.units }}</span>
                                                 </div>
                                             </div>
                                             <div class="col-sm-4 p-l-10 p-r-10 propDetailsStatBadge">
                                                 <div class="bgm-bluegray" data-trigger="hover" data-toggle="popover" data-placement="bottom" data-content="You have a total of {{selectedProperty.tenants}} active tenants for {{selectedProperty.name}}." data-original-title="# of Tenants in {{selectedProperty.name}}">
                                                     <i class="md-people c-bluegray"></i>
                                                     <span class="headline">Tenants</span>
-                                                    <span class="value">{{selectedProperty.tenants}}</span>
+                                                    <span class="value">{{ selectedProperty.tenants }}</span>
                                                 </div>
                                             </div>
                                             <div class="col-sm-4 p-l-0 propDetailsStatBadge">
                                                 <div class="bgm-purple" data-trigger="hover" data-toggle="popover" data-placement="bottom" data-content="Oh no! You still have {{selectedProperty.pastDue}} tenants at {{selectedProperty.name}} that have not paid this month's rent!" data-original-title="# of Past Due Tenants This Month">
                                                     <i class="md-warning c-purple"></i>
                                                     <span class="headline">Past Due</span>
-                                                    <span class="value">{{selectedProperty.pastDue}}</span>
+                                                    <span class="value">{{ selectedProperty.pastDue }}</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -290,17 +289,18 @@
 
                                         <div class="pv-header">
                                             <div class="pv-main" data-ng-click="pdctrl.editPropPic()">
-                                                <img src="{{selectedProperty.imgU}}" alt="Property Picture"></div>
+                                                <img src="{{selectedProperty.imgU}}" alt="Property Picture">
+                                            </div>
                                         </div>
 
                                         <div class="pv-body p-0 p-b-10" data-ng-if="editPropInfo === 0">
-                                            <h2>{{selectedProperty.name}}</h2>
+                                            <h2>{{ selectedProperty.name | capitalize }}</h2>
 
                                             <ul class="p-l-10 m-t-15 f-15 address">
-                                                <li><i class="md md-place"></i> {{selectedProperty.address1}}</li>
-                                                <li class="address2">{{selectedProperty.address2}}</li>
-                                                <li class="address2">{{selectedProperty.city}}, {{selectedProperty.state}} {{selectedProperty.zip}}</li>
-                                                <li><i class="md md-call"></i> {{selectedProperty.contactNumber}}</li>
+                                                <li><i class="md md-place"></i> {{ selectedProperty.address1 | capitalize }}</li>
+                                                <li class="address2">{{ selectedProperty.address2 | capitalize }}</li>
+                                                <li class="address2">{{ selectedProperty.city | capitalize}}, {{ selectedProperty.state | capitalize }} {{ selectedProperty.zip }}</li>
+                                                <li><i class="md md-call"></i> {{ selectedProperty.contactNumber }}</li>
                                             </ul>
                                         </div>
 
@@ -309,7 +309,7 @@
                                                 <dt>Property Name</dt>
                                                 <dd>
                                                     <div class="fg-line">
-                                                        <input data-ng-model="selectedProperty.name" type="text" class="form-control" value="{{ selectedProperty.name }}" placeholder="Property Name">
+                                                        <input data-ng-model="selectedProperty.name" type="text" class="form-control" value="{{ selectedProperty.name | capitalize }}" placeholder="Property Name">
                                                     </div>
                                                 </dd>
                                             </dl>
@@ -318,7 +318,7 @@
                                                 <dt>Address</dt>
                                                 <dd>
                                                     <div class="dtp-container dropdown fg-line">
-                                                        <input data-ng-model="selectedProperty.address1" class="form-control" value="{{ selectedProperty.address1 }}" placeholder="Street Address">
+                                                        <input data-ng-model="selectedProperty.address1" class="form-control" value="{{ selectedProperty.address1 | capitalize }}" placeholder="Street Address">
                                                     </div>
                                                 </dd>
                                             </dl>
@@ -327,7 +327,7 @@
                                                 <dt>Address 2</dt>
                                                 <dd>
                                                     <div class="dtp-container dropdown fg-line">
-                                                        <input data-ng-model="selectedProperty.address2" class="form-control" value="{{ selectedProperty.address2 }}" placeholder="Street Address 2">
+                                                        <input data-ng-model="selectedProperty.address2" class="form-control" value="{{ selectedProperty.address2 | capitalize }}" placeholder="Street Address 2">
                                                     </div>
                                                 </dd>
                                             </dl>-->
@@ -336,7 +336,7 @@
                                                 <dt>City</dt>
                                                 <dd>
                                                     <div class="dtp-container dropdown fg-line">
-                                                        <input data-ng-model="selectedProperty.city" class="form-control" value="{{ selectedProperty.city }}" placeholder="City">
+                                                        <input data-ng-model="selectedProperty.city" class="form-control" value="{{ selectedProperty.city | capitalize }}" placeholder="City">
                                                     </div>
                                                 </dd>
                                             </dl>
@@ -345,7 +345,7 @@
                                                 <dt>State</dt>
                                                 <dd>
                                                     <div class="dtp-container dropdown fg-line">
-                                                        <input data-ng-model="selectedProperty.state" class="form-control" value="{{ selectedProperty.state }}" placeholder="State">
+                                                        <input data-ng-model="selectedProperty.state" class="form-control" value="{{ selectedProperty.state | capitalize }}" placeholder="State">
                                                     </div>
                                                 </dd>
                                             </dl>
@@ -415,16 +415,16 @@
                                     <p class="m-b-5">All rent payments for this property will be deposited into:</p>
 
                                     <div class="m-b-15 text-center">
-                                        <img class="media-object" src="{{selectedProperty.bankImage}}" alt="Bank Icon">
+                                        <img class="media-object" src="{{ selectedProperty.bankImage }}" alt="Bank Icon">
 
 
                                         <div class="media-body p-b-10">
                                             <div class="">
                                                 <h4 class="media-heading">
-                                                    {{selectedProperty.defaultBankName}}
+                                                    {{ selectedProperty.defaultBankName | capitalize }}
                                                     <span class="label label-primary m-l-5">Primary</span>
                                                 </h4>
-                                                {{selectedProperty.defaultBankNickname}}
+                                                {{ selectedProperty.defaultBankNickname | capitalize }}
                                             </div>
                                         </div>
                                     </div>
