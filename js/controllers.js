@@ -2109,18 +2109,28 @@ noochForLandlords
 
     .controller('loginCtrl', function ($scope, authenticationService) {
         //Status
-        this.login = 1;
+        
+        this.login = 1,
         this.register = 0;
         this.forgot = 0;
 
         $(function () {
-            $('[data-toggle="tooltip"]').tooltip()
+            $('[data-toggle="tooltip"]').tooltip();
         })
 
         $scope.LoginData = {
             password: '',
             username: ''
         };
+
+
+        $scope.SignupData = {
+            firstName: '',
+            lastName: '',
+            eMail: '',
+            pass: ''
+        };
+
 
         this.loginAttmpt = function () {
 
@@ -2322,20 +2332,33 @@ noochForLandlords
 
                                 // ADD SERVICE TO REGISTER USER HERE...
 
-                                /*authenticationService.ClearUserData();
-    
-                                authenticationService.Login($scope.LoginData.username, $scope.LoginData.password, function (response) {
-    
-                                    regForm.unblock();
-    
+                                authenticationService.RegisterLandlord($scope.SignupData.firstName, $scope.SignupData.lastName, $scope.SignupData.eMail, $scope.SignupData.pass, function (response) {
+
+                                    $('form#reg').unblock();
+
                                     if (response.IsSuccess == true) {
-                                        authenticationService.SetUserDetails($scope.LoginData.username, response.MemberId, response.AccessToken);
-                                        window.location.href = 'index.html#/profile/profile-about';
+                                        $scope.SignupData.firstName = '';
+                                        $scope.SignupData.lastName = '';
+                                        $scope.SignupData.eMail = '';
+                                        $scope.SignupData.pass = '';
+                                        swal({
+                                            title: "Yes,",
+                                            text: 'Registration done successful, please check you email for further steps.',
+                                            type: "success"
+                                        });
+                                       
+                                    
                                     }
                                     else {
-                                        alert('Error :' + response.ErrorMessage);
+                                        swal({
+                                            title: "Oh No!",
+                                            text: response.ErrorMessage,
+                                            type: "error"
+                                        });
+                                       
+                                        
                                     }
-                                });*/
+                                });
                             }
                             else {
                                 updateValidationUi("tosbox", false);

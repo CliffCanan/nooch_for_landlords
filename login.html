@@ -77,14 +77,14 @@
                         <span><i class="md md-person"></i></span>
 
                         <div class="fg-line">
-                            <input type="text" id="fname" class="input-lg form-control fg-input">
+                            <input type="text" id="fname" class="input-lg form-control fg-input" data-ng-model="SignupData.firstName">
                         </div>
                         <label class="fg-label" for="fname">First Name</label>
                     </div>
 
                     <div class="form-group fg-float halfwidth" id="lnameGrp">
                         <div class="fg-line">
-                            <input type="text" id="lname" class="input-lg form-control fg-input">
+                            <input type="text" id="lname" class="input-lg form-control fg-input" data-ng-model="SignupData.lastName">
                         </div>
                         <label class="fg-label push-over" for="lname">Last Name</label>
                     </div>
@@ -94,7 +94,7 @@
                     <div class="form-group fg-float" id="emGrp">
                         <span><i class="md md-mail"></i></span>
                         <div class="fg-line">
-                            <input type="text" id="em" class="input-lg form-control fg-input">
+                            <input type="text" id="em" class="input-lg form-control fg-input" data-ng-model="SignupData.eMail">
                         </div>
                         <label class="fg-label" for="em">Email Address</label>
                     </div>
@@ -104,7 +104,7 @@
                     <div class="form-group fg-float" id="pwregGrp">
                         <span><i class="md md-lock"></i></span>
                         <div class="fg-line">
-                            <input type="password" id="pwreg" class="input-lg form-control fg-input">
+                            <input type="password" id="pwreg" class="input-lg form-control fg-input" data-ng-model="SignupData.pass">
                         </div>
                         <label class="fg-label" for="pwreg">Password</label>
                     </div>
