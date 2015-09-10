@@ -962,19 +962,14 @@ noochForLandlords
                                 //console.log(string2);
                                 $scope.inputData.propertyImage = string2;
                             };
-
-
                         });
-
 
 
                         //none of these methods are triggering after removing selected file
                         ////event fired after deleting selected file
                         //$('#addPropPicFileInput').on('filedeleted', function (event, key) {
                         //    console.log('file removed ----XXXXXXXXXXXXXXXXXXXXXXXXXXXX');
-
                         //});
-
 
                         //$('#addPropPicFileInput').on('filesuccessremove', function (event, id) {
                         //    if (some_processing_function(id)) {
@@ -983,7 +978,6 @@ noochForLandlords
                         //        return false; // abort the thumbnail removal
                         //    }
                         //});
-
 
                         //$('#addPropPicFileInput').on('filereset', function (event) {
                         //    console.log('Uploaded thumbnail successfully removed');
@@ -1068,16 +1062,18 @@ noochForLandlords
         });
 
 
-        saveProperty = function () {
-            // time to save data to server
-
-            if ($scope.inputData.IsMultiUnitProperty == true) {
+        saveProperty = function ()
+        {
+            // Send data to server
+            if ($scope.inputData.IsMultiUnitProperty == true)
+            {
                 // iterating through all units
 
                 $scope.inputData.IsSingleUnitProperty = false;
                 $scope.inputData.IsMultiUnitProperty = true;
 
-                $('#addedUnits > div').each(function (da, ht) {
+                $('#addedUnits > div').each(function (da, ht)
+                {
                     var unitObject = {};
 
                     var temp = 0;
@@ -1093,20 +1089,18 @@ noochForLandlords
                     });
                     unitObject.IsAddedWithProperty = true;
                     $scope.inputData.allUnits.push(unitObject);
-
                 });
-
-            } else {
+            }
+            else {
                 $scope.inputData.IsSingleUnitProperty = true;
                 $scope.inputData.IsMultiUnitProperty = false;
                 $scope.inputData.SingleUnitRent = $('#singleUnitRentInput').val();
 
-                console.log('single unit val ' + $scope.inputData.SingleUnitRent);
+                //console.log('single unit val ' + $scope.inputData.SingleUnitRent);
             }
 
             propertiesService.SaveProperty($scope.inputData, userdetails.memberId, userdetails.accessToken, function (data) {
                 if (data.IsSuccess == false) {
-
                     swal({
                         title: "Ooops Error!",
                         text: data.ErrorMessage,
@@ -1847,47 +1841,6 @@ noochForLandlords
 
     .controller('profileAboutCtrl', function ($rootScope, $compile, getProfileService, authenticationService, $scope) {
 
-        //    $scope.userInfo = {};
-        //    // Getting user info from db
-        //    if (authenticationService.IsValidUser() == true) {
-        //        var userdetails = authenticationService.GetUserDetails();
-        //        getProfileService.GetData(userdetails.memberId, userdetails.accessToken, function (response) {
-        //            console.log('came in get user profile method and data -> ' + JSON.stringify(response));
-
-        //            // binding user information
-        //            $scope.userInfo.type = response.AccountType;
-        //            $scope.userInfo.subtype = response.SubType;
-        //            $scope.userInfo.firstName = response.FirstName;
-        //            $scope.userInfo.lastName = response.LastName;
-        //            $scope.userInfo.fullName = $scope.userInfo.firstName + " " + $scope.userInfo.lastName;
-        //            this.birthDay = response.DOB;
-        //            this.mobileNumber = response.MobileNumber;
-
-        //            this.isPhoneVerified = response.IsPhoneVerified;
-        //            this.emailAddress = response.UserEmail;
-        //            this.isEmailVerified = response.IsEmailVerified;
-        //            this.fb = response.FbUrl;
-        //            this.twitter = response.TwitterHandle;
-
-
-        //            this.insta = response.InstaUrl;
-        //            this.address1 = response.AddressLine1;
-        //            this.addressCity = response.City;
-        //            this.addressCountry = response.Country;
-        //            this.zip = response.Zip;
-        //            this.ssnLast4 = response.SSN;
-        //            this.userPic = "josh";
-
-
-        //        });
-
-
-
-
-        //    } else {
-        //        window.location.href = 'login.html';
-        //    }
-
     })
 
 
@@ -2182,11 +2135,13 @@ noochForLandlords
 
                                 $('form#login').unblock();
 
-                                if (response.IsSuccess == true) {
+                                if (response.IsSuccess == true)
+                                {
                                     authenticationService.SetUserDetails($scope.LoginData.username, response.MemberId, response.AccessToken);
                                     window.location.href = 'index.html#/profile/profile-about';
                                 }
-                                else {
+                                else
+                                {
                                     swal({
                                         title: "Oh No!",
                                         text: "Looks like either your email or password was incorrect.  Please try again.",
@@ -2245,35 +2200,29 @@ noochForLandlords
                 });
 
 
-                // ADD SERVICE TO SEND RESET PW EMAIL HERE...
-
+                // Now call service to send Reset PW email
                 authenticationService.PasswordRest(email, function (response) {
 
                     $('form#forgotpw').unblock();
 
-                    if (response.IsSuccess == true) {
-
-                        
+                    if (response.IsSuccess == true ||
+                        response.IsSuccess == false) // Cliff (9/10/15): added this line so that we always display the success alert. B/c we don't want to give feedback to potential hackers about whether a given email is signed up as a user...
+                    {
                         $scope.LoginData.forgotPassword = '';
                         
                         swal({
-                            title: "Yes,",
-                            text: response.ErrorMessage,
+                            title: "Reset Link Sent",
+                            text: "If that email address is associated with a Nooch account, you will receive an email with a link to reset your password.",
                             type: "success"
                         });
-
-
                     }
-                    
-                    else {
-                        
+                    else
+                    { // This will just be for a general server error where the server doesn't return any 'success' parameter at all
                         swal({
                             title: "Oh No!",
-                            text: response.ErrorMessage,
+                            text: "Looks like we ran into a little trouble processing your request. Please try again or contact support@nooch.com for more help.",
                             type: "error"
                         });
-
-
                     }
                 });
             }
@@ -2344,33 +2293,79 @@ noochForLandlords
                                     }
                                 });
 
-                                // ADD SERVICE TO REGISTER USER HERE...
-
+                                // Now call service to register a new Landlord user
                                 authenticationService.RegisterLandlord($scope.SignupData.firstName, $scope.SignupData.lastName, $scope.SignupData.eMail, $scope.SignupData.pass, function (response) {
 
-                                    $('form#reg').unblock();
+                                    regForm.unblock();
 
-                                    if (response.IsSuccess == true) {
+                                    // Cliff (9/10/15): Users should be automatically logged in after creating an account... send them to the Home page.
+                                    if (response.IsSuccess == true)
+                                    {
+                                        var username = $scope.SignupData.eMail;
+                                        var pw = $scope.SignupData.pass;
+
                                         $scope.SignupData.firstName = '';
                                         $scope.SignupData.lastName = '';
                                         $scope.SignupData.eMail = '';
                                         $scope.SignupData.pass = '';
+
                                         swal({
-                                            title: "Yes,",
-                                            text: 'Registration done successful, please check you email for further steps.',
-                                            type: "success"
+                                            title: "Great Success",
+                                            text: 'Congrats - you have successfully registered your brand new Nooch account. Click below to dive in and start Nooching!',
+                                            type: "success",
+                                            confirmButtonColor: "#3FABE1",
+                                            confirmButtonText: "Let's Go"
+                                        }, function (isConfirm) {
+                                            // Now log the user in & send to home page.
+
+                                            // Add another loading box while we log the user in
+                                            regForm.block({
+                                                message: '<span><i class="fa fa-refresh fa-spin fa-loading"></i></span><br/><span class="loadingMsg">Logging in...</span>',
+                                                css: {
+                                                    border: 'none',
+                                                    padding: '26px 10px 23px',
+                                                    backgroundColor: '#000',
+                                                    '-webkit-border-radius': '12px',
+                                                    '-moz-border-radius': '12px',
+                                                    'border-radius': '12px',
+                                                    opacity: '.8',
+                                                    width: '86%',
+                                                    left: '7%',
+                                                    top: '25px',
+                                                    color: '#fff'
+                                                }
+                                            });
+
+                                            authenticationService.ClearUserData();
+
+                                            authenticationService.Login(username, pw, function (response) {
+
+                                                regForm.unblock();
+
+                                                if (response.IsSuccess == true) {
+                                                    authenticationService.SetUserDetails(username, response.MemberId, response.AccessToken);
+                                                    window.location.href = 'index.html#/home';
+                                                }
+                                                else // Should never not be successful... the user would have *just* created their account
+                                                {
+                                                    console.log('Sign In Error: ' + response.ErrorMessage);
+
+                                                    swal({
+                                                        title: "Oh No!",
+                                                        text: "Looks like we had some trouble logging you in.  Very sorry about this!  Please try again.",
+                                                        type: "error"
+                                                    });
+                                                }
+                                            });
                                         });
-                                       
-                                    
                                     }
-                                    else {
+                                    else
+                                    {
                                         swal({
                                             title: "Oh No!",
-                                            text: response.ErrorMessage,
+                                            text: "Looks like we had some trouble creating your account.  We hate it whent this happens.  Please try again or contact support@nooch.com for more help.",
                                             type: "error"
-                                        });
-                                       
-                                        
+                                        });    
                                     }
                                 });
                             }
