@@ -395,6 +395,20 @@ noochForLandlords
                 });
         };
 
+
+        Operations.PasswordRest = function (eMail, callback) {
+
+            var data2 = {};
+            data2.eMail = eMail;
+            
+
+            $http.post(URLs.PasswordRest, data2)
+                .success(function (response) {
+                    callback(response);
+                });
+        };
+
+
         Operations.SetUserDetails = function (username, memberId, accessToken) {
             localStorage.setItem('username', username);
             localStorage.setItem('memberId', memberId);

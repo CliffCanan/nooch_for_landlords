@@ -2120,7 +2120,8 @@ noochForLandlords
 
         $scope.LoginData = {
             password: '',
-            username: ''
+            username: '',
+            forgotPassword:''
         };
 
 
@@ -2215,13 +2216,13 @@ noochForLandlords
 
         this.forgotPwAttmpt = function () 
         {
-            var email = $('#emforgot');
+            var email = $scope.LoginData.forgotPassword;
 
-            if (email.val().length > 5 &&
-                email.val().indexOf('@') > 1 &&
-                email.val().indexOf('.') > 1 &&
-                email.val().indexOf('.') > email.val().indexOf('@') &&
-                email.val().indexOf('.') < email.val().length - 1)
+            if (email.length > 5 &&
+                email.indexOf('@') > 1 &&
+                email.indexOf('.') > 1 &&
+                email.indexOf('.') > email.indexOf('@') &&
+                email.indexOf('.') < email.length - 1)
             {
                 updateValidationUi("emforgot", true);
 
@@ -2246,22 +2247,35 @@ noochForLandlords
 
                 // ADD SERVICE TO SEND RESET PW EMAIL HERE...
 
-                /*authenticationService.ClearUserData();
-
-                authenticationService.Login($scope.LoginData.username, $scope.LoginData.password, function (response) {
+                authenticationService.PasswordRest(email, function (response) {
 
                     $('form#forgotpw').unblock();
 
                     if (response.IsSuccess == true) {
-                        authenticationService.SetUserDetails($scope.LoginData.username, response.MemberId, response.AccessToken);
-                        this.login = 1;
-                        this.register = 0;
-                        this.forgot = 0;
+
+                        
+                        $scope.LoginData.forgotPassword = '';
+                        
+                        swal({
+                            title: "Yes,",
+                            text: response.ErrorMessage,
+                            type: "success"
+                        });
+
+
                     }
+                    
                     else {
-                        alert('Error :' + response.ErrorMessage);
+                        
+                        swal({
+                            title: "Oh No!",
+                            text: response.ErrorMessage,
+                            type: "error"
+                        });
+
+
                     }
-                });*/
+                });
             }
             else
             {

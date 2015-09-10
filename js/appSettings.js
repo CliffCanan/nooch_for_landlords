@@ -9,6 +9,7 @@ var PATH = 'http://54.201.43.89/landlords/db/api/';
 var URLs = {
     Login: PATH + 'Users/Login',
     Register: PATH + 'Users/RegisterLandlord',
+    PasswordRest: PATH + "Users/ResetPassword",
     GetProfileData: PATH + 'Users/GetUserInfo',
     EditProfileData: PATH + 'Users/EditUserInfo',
     AddProperty: PATH + 'Properties/AddNewProperty',
@@ -18,7 +19,5 @@ var URLs = {
     GetPropertyDetails: PATH + 'Properties/GetPropertyDetailsPageData',
     EditProperty: PATH + 'Properties/EditProperty'
 
-    
-    
 
 };
