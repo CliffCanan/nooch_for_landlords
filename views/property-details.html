@@ -114,144 +114,107 @@
 
                             <!-- TABLE CONFIGURATION & SETTINGS ARE IN "js/modules/table.js  -->
                             <div class="card-body table-responsive">
-                                <table class="table table-striped table-vmiddle" id="propDetailsTbl" data-prop-details-table data-editunit="addUnit()">
+                                <!--<table class="table table-striped table-vmiddle" id="propDetailsTbl" data-prop-details-table data-editunit="addUnit()">
+                                        <thead>
+                                            <tr>
+                                                <th data-column-id="id" data-identifier="true" data-visible="false">ID</th>
+                                                <th data-column-id="isEmailVer" data-visible="false"></th>
+                                                <th data-column-id="isPhoneVer" data-visible="false"></th>
+                                                <th data-column-id="isIdVerified" data-visible="false"></th>
+                                                <th data-column-id="isBankAttached" data-visible="false"></th>
+                                                <th data-column-id="lastPaymentDate" data-visible="false"></th>
+                                                <th data-column-id="email" data-visible="false"></th>
+                                                <th data-column-id="unit" data-formatter="unit" data-header-css-class="columnWidth-13pc" data-align="center">Unit #</th>
+                                                <th data-column-id="tenant" data-formatter="tenant" data-header-css-class="text-center">Tenant</th>
+                                                <th data-column-id="amount" data-formatter="amount" data-header-css-class="columnWidth-13pc" data-align="center">Rent Amount {{ctx.icon}}</th>
+                                                <th data-column-id="status" data-formatter="status" data-header-css-class="text-center columnWidth-13pc" data-align="center">Status {{ctx.icon}}</th>
+                                                <th data-column-id="commands" data-formatter="actions" data-sortable="false" data-align="center" data-header-css-class="text-center">Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                            <tr>
+                                                <td>8</td>
+                                                <td>1</td>
+                                                <td>1</td>
+                                                <td>1</td>
+                                                <td>1</td>
+                                                <td>May 10, 2015</td>
+                                                <td>quint.frank@gmail.com</td>
+                                                <td>2B</td>
+                                                <td>Frank Quinterro</td>
+                                                <td>850</td>
+                                                <td>Paid</td>
+                                            </tr>
+                                            <tr>
+                                                <td>3</td>
+                                                <td>1</td>
+                                                <td>0</td>
+                                                <td>0</td>
+                                                <td>0</td>
+                                                <td>May 12, 2015</td>
+                                                <td>susieR@yahoo.com</td>
+                                                <td>5C</td>
+                                                <td>Susan Rice</td>
+                                                <td>900</td>
+                                                <td>Awaiting Payment</td>
+                                            </tr>
+
+
+                                        </tbody>
+                                    </table>-->
+
+
+                                <table class="table table-striped table-vmiddle" id="customTableWithData">
+
                                     <thead>
-                                        <tr>
-                                            <th data-column-id="id" data-identifier="true" data-visible="false">ID</th>
-                                            <th data-column-id="isEmailVer" data-visible="false"></th>
-                                            <th data-column-id="isPhoneVer" data-visible="false"></th>
-                                            <th data-column-id="isIdVerified" data-visible="false"></th>
-                                            <th data-column-id="isBankAttached" data-visible="false"></th>
-                                            <th data-column-id="lastPaymentDate" data-visible="false"></th>
-                                            <th data-column-id="email" data-visible="false"></th>
-                                            <th data-column-id="unit" data-formatter="unit" data-header-css-class="columnWidth-13pc" data-align="center">Unit #</th>
-                                            <th data-column-id="tenant" data-formatter="tenant" data-header-css-class="text-center">Tenant</th>
-                                            <th data-column-id="amount" data-formatter="amount" data-header-css-class="columnWidth-13pc" data-align="center">Rent Amount {{ctx.icon}}</th>
-                                            <th data-column-id="status" data-formatter="status" data-header-css-class="text-center columnWidth-13pc" data-align="center">Status {{ctx.icon}}</th>
-                                            <th data-column-id="commands" data-formatter="actions" data-sortable="false" data-align="center" data-header-css-class="text-center">Actions</th>
-                                        </tr>
+                                    <tr>
+                                        <th>TenantID</th>
+                                        <th>UnitID</th>
+                                        <th>Unit #</th>
+                                        <th>UnitRent</th>
+                                        <th>Tenant Name</th>
+                                        <th>Tenant Email</th>
+                                        <th>ImageUrl</th>
+                                        <th>LastRentPaidOn</th>
+
+                                        <th>IsRentPaidForThisMonth</th>
+                                        <th>IsEmailVerified</th>
+                                        <th>IsDocumentsVerified</th>
+                                        <th>IsPhoneVerified</th>
+                                        <th>IsBankAccountAdded</th>
+
+                                        <th>Actions</th>
+
+
+
+                                    </tr>
                                     </thead>
+                                    <!--<tr ng-repeat="x in tenantsListForThisPorperty">
+
+                                        <td>{{ x.UnitNumber }}</td>
+                                        <td>{{ x.Name }}</td>
+
+                                    </tr>-->
+
+
                                     <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>May 1, 2015</td>
-                                            <td>j.chestnut@gmail.com</td>
+                                        <!--<tr>
+
                                             <td>1A</td>
-                                            <td>Joey Chestnut</td>
-                                            <td>800</td>
-                                            <td>Paid</td>
-                                        </tr>
-                                        <tr>
-                                            <td>8</td>
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>May 10, 2015</td>
-                                            <td>quint.frank@gmail.com</td>
-                                            <td>2B</td>
-                                            <td>Frank Quinterro</td>
-                                            <td>850</td>
-                                            <td>Paid</td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>1</td>
-                                            <td>0</td>
-                                            <td>0</td>
-                                            <td>0</td>
-                                            <td>May 12, 2015</td>
-                                            <td>susieR@yahoo.com</td>
-                                            <td>5C</td>
-                                            <td>Susan Rice</td>
-                                            <td>900</td>
-                                            <td>Awaiting Payment</td>
-                                        </tr>
-                                        <tr>
-                                            <td>5</td>
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>0</td>
-                                            <td>Never</td>
-                                            <td>hookshot@comcast.net</td>
-                                            <td>4F</td>
-                                            <td>Kareem O'Leary</td>
-                                            <td>470</td>
-                                            <td>Past Due</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>0</td>
-                                            <td>0</td>
-                                            <td>0</td>
-                                            <td>0</td>
-                                            <td>June 1, 2015</td>
-                                            <td>j.chestnut@gmail.com</td>
-                                            <td>2C</td>
-                                            <td>Joey Chestnut</td>
-                                            <td>470</td>
-                                            <td>Paid</td>
-                                        </tr>
-                                        <tr>
-                                            <td>4</td>
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>0</td>
-                                            <td>Never</td>
-                                            <td>j.chestnut@gmail.com</td>
-                                            <td>9A</td>
-                                            <td>Joey Chestnut</td>
-                                            <td>800</td>
-                                            <td>Past Due</td>
-                                        </tr>
-                                        <tr>
-                                            <td>4</td>
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>May 15, 2015</td>
-                                            <td>salvatore.m@gmail.com</td>
-                                            <td>13B</td>
-                                            <td>Sal Torelli</td>
-                                            <td>103 Lancaster Ave</td>
-                                            <td>450</td>
-                                            <td>Payment Submited</td>
-                                        </tr>
-                                        <tr>
-                                            <td>6</td>
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>0</td>
-                                            <td>May 1, 2015</td>
-                                            <td>j.chestnut@nooch.com</td>
-                                            <td>2C</td>
-                                            <td>Joey Chestnut</td>
-                                            <td>450</td>
-                                            <td>Awaiting Payment</td>
-                                        </tr>
-                                        <tr>
-                                            <td>7</td>
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>0</td>
-                                            <td>May 30, 2015</td>
-                                            <td>lighteningbolt@gmail.com</td>
-                                            <td>4D</td>
-                                            <td>Usain Quick</td>
-                                            <td>960</td>
-                                            <td>Paid</td>
-                                        </tr>
+                                            <td>Malkit</td>
+
+                                        </tr>-->
                                     </tbody>
+
+
                                 </table>
+
+
+
+
+
+
                             </div>
                         </div>
 

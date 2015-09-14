@@ -245,6 +245,10 @@ noochForLandlords
 
         };
 
+
+
+        $scope.tenantsListForThisPorperty = new Array();
+        console.log('list count in tenats before setting data in.' + $scope.tenantsListForThisPorperty.length);
         var userdetails = authenticationService.GetUserDetails();
 
         function getPropertyDetails() {
@@ -285,7 +289,48 @@ noochForLandlords
                             "bankImage": data.BankAccountDetails.BankIcon,
                             "propertyId": data.PropertyDetails.PropertyId
                         }
-                        //console.log('items [0]' + $scope.propResult[0]);
+                        $scope.tenantsListForThisPorperty = data.TenantsListForThisProperty;
+
+                        $('#customTableWithData').DataTable({
+                            data: $scope.tenantsListForThisPorperty,
+                            columns: [
+                                { data: 'TenantId' },
+                                { data: 'UnitId' },
+                                { data: 'UnitNumber' },
+
+                                { data: 'UnitRent' },
+
+
+                                { data: 'Name' },
+                                { data: 'TenantEmail' },
+                                { data: 'ImageUrl' },
+                                { data: 'LastRentPaidOn' },
+
+
+                                { data: 'IsRentPaidForThisMonth' },
+                                { data: 'IsEmailVerified' },
+                                { data: 'IsDocumentsVerified' },
+
+                                { data: 'IsPhoneVerified' },
+                                { data: 'IsBankAccountAdded' },
+                                {
+                                    data: null,
+                                    
+                                    defaultContent: '<a href="" class=\'btn btn-icon btn-default command-edit m-r-10 editUnitBtn\'><span class=\'md md-edit\'></span></a>  <a href="" class=\'btn btn-icon btn-default command-edit m-r-10\'><span class=\'md md-today\'></span></a>  <a href="" class=\'btn btn-icon btn-default command-edit m-r-10\'><span class=\'md md-more-vert\'></span></a>'
+                                }
+                            ],
+                            "columnDefs": [
+            {
+                "targets": [1],
+                "visible": false,
+                "searchable": false
+            }, {
+                "targets": [0],
+                "visible": false,
+                "searchable": false
+            }]
+                        });
+
                     }
                     else {
                         console.log('Erro while getting  property details.');
@@ -1062,18 +1107,15 @@ noochForLandlords
         });
 
 
-        saveProperty = function ()
-        {
+        saveProperty = function () {
             // Send data to server
-            if ($scope.inputData.IsMultiUnitProperty == true)
-            {
+            if ($scope.inputData.IsMultiUnitProperty == true) {
                 // iterating through all units
 
                 $scope.inputData.IsSingleUnitProperty = false;
                 $scope.inputData.IsMultiUnitProperty = true;
 
-                $('#addedUnits > div').each(function (da, ht)
-                {
+                $('#addedUnits > div').each(function (da, ht) {
                     var unitObject = {};
 
                     var temp = 0;
@@ -2062,7 +2104,7 @@ noochForLandlords
 
     .controller('loginCtrl', function ($scope, authenticationService) {
         //Status
-        
+
         this.login = 1,
         this.register = 0;
         this.forgot = 0;
@@ -2074,7 +2116,7 @@ noochForLandlords
         $scope.LoginData = {
             password: '',
             username: '',
-            forgotPassword:''
+            forgotPassword: ''
         };
 
 
@@ -2086,29 +2128,120 @@ noochForLandlords
         };
 
 
+        $scope.ValidateEmail = function (inputText) {
+
+            var mailformat = new RegExp("/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/");
+
+
+
+
+
+
+
+            if (inputText.test(mailformat)) {
+                console.log("You entered an email address!");
+                return (true);
+            } else {
+                console.log("You have entered an invalid email address!");
+                return (false);
+            }
+
+
+        };
+
+
+        //this.loginAttmpt = function () {
+
+        //    //  window.location.href = 'index.html#/profile/profile-about'; // FOR TESTING LOCALLY B/C AUTHENTICATION SERVICE WON'T WORK
+
+        //    // Check Username (email) field for length
+        //    if ($('form#login #username').val()) {
+        //        var trimmedUserName = $('form#login #username').val().trim();
+        //        $('form#login #username').val(trimmedUserName);
+        //        var username = $('form#login #username').val();
+        //        var emailCheck = $scope.ValidateEmail(username);
+        //        // Check Name Field for a "@"
+
+        //        if (emailCheck) {
+        //            updateValidationUi("username", true);
+
+        //            // Check Password field
+        //            if ($('form#login #pw').val().length > 4) {
+        //                updateValidationUi("pw", true);
+
+        //                // ADD THE LOADING BOX
+        //                $('form#login').block({
+        //                    message: '<span><i class="fa fa-refresh fa-spin fa-loading"></i></span><br/><span class="loadingMsg">Attempting login...</span>',
+        //                    css: {
+        //                        border: 'none',
+        //                        padding: '26px 10px 23px',
+        //                        backgroundColor: '#000',
+        //                        '-webkit-border-radius': '12px',
+        //                        '-moz-border-radius': '12px',
+        //                        'border-radius': '12px',
+        //                        opacity: '.8',
+        //                        width: '86%',
+        //                        left: '7%',
+        //                        top: '25px',
+        //                        color: '#fff'
+        //                    }
+        //                });
+
+        //                authenticationService.ClearUserData();
+
+        //                authenticationService.Login($scope.LoginData.username, $scope.LoginData.password, function (response) {
+
+        //                    $('form#login').unblock();
+
+        //                    if (response.IsSuccess == true) {
+        //                        authenticationService.SetUserDetails($scope.LoginData.username, response.MemberId, response.AccessToken);
+        //                        window.location.href = 'index.html#/profile/profile-about';
+        //                    }
+        //                    else {
+        //                        swal({
+        //                            title: "Oh No!",
+        //                            text: "Looks like either your email or password was incorrect.  Please try again.",
+        //                            type: "error"
+        //                        });
+        //                        console.log('Sign In Error: ' + response.ErrorMessage);
+        //                    }
+        //                });
+        //            }
+        //            else {
+        //                updateValidationUi("pw", false);
+        //            }
+        //        }
+        //        else {
+        //            updateValidationUi("username", false);
+        //        }
+        //    }
+        //    else {
+        //        updateValidationUi("username", false);
+        //    }
+        //}
+
+
+
+
         this.loginAttmpt = function () {
 
             //  window.location.href = 'index.html#/profile/profile-about'; // FOR TESTING LOCALLY B/C AUTHENTICATION SERVICE WON'T WORK
 
             // Check Username (email) field for length
-            if ($('form#login #username').val())
-            {
+            if ($('form#login #username').val()) {
                 var trimmedUserName = $('form#login #username').val().trim();
                 $('form#login #username').val(trimmedUserName);
 
                 // Check Name Field for a "@"
-                if ($('form#login #username').val().indexOf('@') > 1)
-                {
+                if ($('form#login #username').val().indexOf('@') > 1) {
                     // Check Name Field for a "."
                     if ($('form#login #username').val().indexOf('.') > 1 &&
                         $('form#login #username').val().indexOf('.') > $('form#login #username').val().indexOf('@') &&
-                        $('form#login #username').val().indexOf('.') < $('form#login #username').val().length - 1)
-                    {
+                        $('form#login #username').val().indexOf('.') < $('form#login #username').val().length - 1) {
                         updateValidationUi("username", true);
 
                         // Check Password field
-                        if ($('form#login #pw').val().length > 4)
-                        {
+                        if ($('form#login #pw').val().length > 4) {
                             updateValidationUi("pw", true);
 
                             // ADD THE LOADING BOX
@@ -2135,13 +2268,11 @@ noochForLandlords
 
                                 $('form#login').unblock();
 
-                                if (response.IsSuccess == true)
-                                {
+                                if (response.IsSuccess == true) {
                                     authenticationService.SetUserDetails($scope.LoginData.username, response.MemberId, response.AccessToken);
                                     window.location.href = 'index.html#/profile/profile-about';
                                 }
-                                else
-                                {
+                                else {
                                     swal({
                                         title: "Oh No!",
                                         text: "Looks like either your email or password was incorrect.  Please try again.",
@@ -2165,20 +2296,18 @@ noochForLandlords
             }
             else {
                 updateValidationUi("username", false);
-            }            
+            }
         }
 
 
-        this.forgotPwAttmpt = function () 
-        {
+        this.forgotPwAttmpt = function () {
             var email = $scope.LoginData.forgotPassword;
 
             if (email.length > 5 &&
                 email.indexOf('@') > 1 &&
                 email.indexOf('.') > 1 &&
                 email.indexOf('.') > email.indexOf('@') &&
-                email.indexOf('.') < email.length - 1)
-            {
+                email.indexOf('.') < email.length - 1) {
                 updateValidationUi("emforgot", true);
 
                 // ADD THE LOADING BOX
@@ -2209,15 +2338,14 @@ noochForLandlords
                         response.IsSuccess == false) // Cliff (9/10/15): added this line so that we always display the success alert. B/c we don't want to give feedback to potential hackers about whether a given email is signed up as a user...
                     {
                         $scope.LoginData.forgotPassword = '';
-                        
+
                         swal({
                             title: "Reset Link Sent",
                             text: "If that email address is associated with a Nooch account, you will receive an email with a link to reset your password.",
                             type: "success"
                         });
                     }
-                    else
-                    { // This will just be for a general server error where the server doesn't return any 'success' parameter at all
+                    else { // This will just be for a general server error where the server doesn't return any 'success' parameter at all
                         swal({
                             title: "Oh No!",
                             text: "Looks like we ran into a little trouble processing your request. Please try again or contact support@nooch.com for more help.",
@@ -2226,8 +2354,7 @@ noochForLandlords
                     }
                 });
             }
-            else
-            {
+            else {
                 updateValidationUi("emforgot", false);
             }
         }
@@ -2242,15 +2369,13 @@ noochForLandlords
             var pw = $('form#reg #pwreg');
 
             // Check Name fields for length
-            if (fName.val() && fName.val().length > 1)
-            {
+            if (fName.val() && fName.val().length > 1) {
                 updateValidationUi("fname", true);
 
                 var trimmedFName = capitalize(fName.val().trim());
                 $('form#reg #fname').val(trimmedFName);
 
-                if (lName.val() && lName.val().length > 1)
-                {
+                if (lName.val() && lName.val().length > 1) {
                     updateValidationUi("lname", true);
 
                     var trimmedLName = lName.val().trim();
@@ -2261,18 +2386,15 @@ noochForLandlords
                         email.val().indexOf('@') > 1 &&
                         email.val().indexOf('.') > 1 &&
                         email.val().indexOf('.') > email.val().indexOf('@') &&
-                        email.val().indexOf('.') < email.val().length - 1)
-                    {
+                        email.val().indexOf('.') < email.val().length - 1) {
                         updateValidationUi("em", true);
 
                         // Check Password field
-                        if (pw.val().length > 4)
-                        {
+                        if (pw.val().length > 4) {
                             updateValidationUi("pwreg", true);
 
                             // Finally, check if the Terms of Service box is checked
-                            if ($('#tosboxGrp input').prop('checked'))
-                            {
+                            if ($('#tosboxGrp input').prop('checked')) {
                                 updateValidationUi("tosbox", true);
 
                                 // ADD THE LOADING BOX
@@ -2299,8 +2421,7 @@ noochForLandlords
                                     regForm.unblock();
 
                                     // Cliff (9/10/15): Users should be automatically logged in after creating an account... send them to the Home page.
-                                    if (response.IsSuccess == true)
-                                    {
+                                    if (response.IsSuccess == true) {
                                         var username = $scope.SignupData.eMail;
                                         var pw = $scope.SignupData.pass;
 
@@ -2359,19 +2480,18 @@ noochForLandlords
                                             });
                                         });
                                     }
-                                    else
-                                    {
+                                    else {
                                         swal({
                                             title: "Oh No!",
                                             text: "Looks like we had some trouble creating your account.  We hate it whent this happens.  Please try again or contact support@nooch.com for more help.",
                                             type: "error"
-                                        });    
+                                        });
                                     }
                                 });
                             }
                             else {
                                 updateValidationUi("tosbox", false);
-                            }                            
+                            }
                         }
                         else {
                             updateValidationUi("pwreg", false);
@@ -2392,25 +2512,20 @@ noochForLandlords
 
         // This function checks a field on focusout (when the user moves to the next field) and updates Validation UI accordingly
         $(document).ready(function () {
-            $(document).on("focusout", "form#reg input", function ()
-            {
+            $(document).on("focusout", "form#reg input", function () {
                 var field = this.id;
 
-                if ($(this).val() && $(this).val().length > 2)
-                {
-                    if (field == "em")
-                    {
+                if ($(this).val() && $(this).val().length > 2) {
+                    if (field == "em") {
                         if ($(this).val().length > 5 &&
                             $(this).val().indexOf('@') > 1 &&
                             $(this).val().indexOf('.') > 1 &&
                             $(this).val().indexOf('.') > $(this).val().indexOf('@') &&
-                            $(this).val().indexOf('.') < $(this).val().length - 1)
-                        {
+                            $(this).val().indexOf('.') < $(this).val().length - 1) {
                             updateValidationUi("em", true);
                         }
                     }
-                    else
-                    {
+                    else {
                         updateValidationUi(field, true);
                     }
                 }
@@ -2419,20 +2534,16 @@ noochForLandlords
 
 
         // Utility Function To Update Form Input's UI for Success/Error (Works for all forms on the Property Details page...like 4 of them)
-        updateValidationUi = function (field, success)
-        {
+        updateValidationUi = function (field, success) {
             console.log("Field: " + field + "; success: " + success);
 
-            if (success == true)
-            {
+            if (success == true) {
                 $('#' + field + 'Grp').removeClass('has-error').addClass('has-success');
-                if ($('#' + field + 'Grp .help-block').length)
-                {
+                if ($('#' + field + 'Grp .help-block').length) {
                     $('#' + field + 'Grp .help-block').slideUp();
                 }
             }
-            else
-            {
+            else {
                 $('#' + field + 'Grp').removeClass('has-success').addClass('has-error');
 
                 var helpBlockTxt = "";
