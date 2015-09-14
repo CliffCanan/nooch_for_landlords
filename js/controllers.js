@@ -199,11 +199,6 @@ noochForLandlords
         }
 
 
-        // Just for toggling views for demo purposes...
-        $scope.firstTimeView = 0;
-        $scope.propsAddedAlreadyView = 1;
-
-
         getProperties = function () {
             //console.log('get properties called user details -> ' + userdetails.memberId + ' ' + userdetails.accessToken);
 
@@ -246,7 +241,6 @@ noochForLandlords
         };
 
 
-
         $scope.tenantsListForThisPorperty = new Array();
         console.log('list count in tenats before setting data in.' + $scope.tenantsListForThisPorperty.length);
         var userdetails = authenticationService.GetUserDetails();
@@ -283,7 +277,7 @@ noochForLandlords
                             "units": data.PropertyDetails.UnitsCount,
                             "tenants": data.PropertyDetails.TenantsCount,
                             "propertyStatus": data.PropertyDetails.PropStatus,
-                            "pastDue": 3,
+                            "pastDue": 0,
                             "defaultBankName": data.BankAccountDetails.BankName,
                             "defaultBankNickname": data.BankAccountDetails.BankAccountNick + " - " + data.BankAccountDetails.BankAccountNumString,
                             "bankImage": data.BankAccountDetails.BankIcon,
@@ -300,12 +294,10 @@ noochForLandlords
 
                                 { data: 'UnitRent' },
 
-
                                 { data: 'Name' },
                                 { data: 'TenantEmail' },
                                 { data: 'ImageUrl' },
                                 { data: 'LastRentPaidOn' },
-
 
                                 { data: 'IsRentPaidForThisMonth' },
                                 { data: 'IsEmailVerified' },
@@ -324,7 +316,8 @@ noochForLandlords
                 "targets": [1],
                 "visible": false,
                 "searchable": false
-            }, {
+            },
+            {
                 "targets": [0],
                 "visible": false,
                 "searchable": false
@@ -344,23 +337,6 @@ noochForLandlords
 
         getPropertyDetails();
 
-
-        //$scope.selectedProperty = {
-        //    "published": 1,
-        //    "name": "Haverford Towers",
-        //    "address1": "123 County Line Rd",
-        //    "address2": "",
-        //    "city": "Philadelphia",
-        //    "state": "PA",
-        //    "zip": "19123",
-        //    "contactNumber": "(215) 321-9876",
-        //    "imgUrl": "2.png",
-        //    "units": 9,
-        //    "tenants": 15,
-        //    "pastDue": 3,
-        //    "defaultBankName": "Bank of America",
-        //    "defaultBankNickname": "Business Checking - 9876"
-        //}
 
         $scope.editPropInfo = 0;
 
@@ -942,9 +918,7 @@ noochForLandlords
 
         $scope.inputData.allUnits = [];
 
-
         var userdetails = authenticationService.GetUserDetails();
-
 
         $("#addPropWiz").steps({
             headerTag: "h3",
@@ -1387,48 +1361,36 @@ noochForLandlords
     // Profile
     //=================================================
 
-    .controller('profileCtrl', function ($rootScope, $scope, $compile, growlService, getProfileService, authenticationService) {
+    .controller('profileCtrl', function ($rootScope, $scope, $compile, growlService, getProfileService, propertiesService, authenticationService) {
 
         //Get Profile Information from profileService Service (NOT BUILT YET)
         // Get User Info
         //this.accountStatus = "Identity Verified";
         //this.isIdVerified = $rootScope.isIdVerified;
-        //this.type = "Landlord";
-        //this.subtype = "Basic";
-        //this.firstName = "Josh";
-        //this.lastName = "Hamilton";
-        //this.fullName = this.firstName + " " + this.lastName;
-        //this.birthDay = "08/05/1988";
-        //this.mobileNumber = "(215) 711-6789";
-        //this.isPhoneVerified = 1;
-        //this.emailAddress = "josh.h@nooch.com";
-        //this.isEmailVerified = 1;
-        //this.fb = "NoochMoney";
-        //this.twitter = "@NoochMoney";
-        //this.insta = "NoochMoney";
-        //this.address1 = "1098 ABC Towers";
-        //this.addressCity = "Philadelphia, PA";
-        //this.addressCountry = "United States";
-        //this.zip = "27708";
-        //this.ssnLast4 = "7654";
         //this.userPic = "josh";
 
         $scope.userInfo = {};
 
         // Get User's Info from DB
         if (authenticationService.IsValidUser() == true) {
+
             var userdetails = authenticationService.GetUserDetails();
+            
+            $scope.propCount = 0;
+
             $scope.userInfoInSession = userdetails;
 
             getProfileService.GetData(userdetails.memberId, userdetails.accessToken, function (response) {
-                //console.log('came in get user profile method and data -> ' + JSON.stringify(response));
+                // console.log('came in get user profile method and data -> ' + JSON.stringify(response));
 
                 // binding user information
+                $scope.userInfo.accountStatus = "Identity Verified";
+                $scope.userInfo.isIdVerified = $rootScope.isIdVerified;
+
                 $scope.userInfo.type = response.AccountType;
                 $scope.userInfo.subtype = response.SubType;
 
                 $scope.userInfo.firstName = response.FirstName;
-                // console.log('user name -> ' + $scope.userInfo.firstName);
                 $scope.userInfo.lastName = response.LastName;
                 $scope.userInfo.fullName = $scope.userInfo.firstName + " " + $scope.userInfo.lastName;
 
@@ -1458,15 +1420,24 @@ noochForLandlords
                     ein: response.CompanyEID
                 }
             });
+
+            // Cliff (9/14/15): Adding this just to get the # of Properties (for the sidebar)
+            getProperties = function () {
+
+                propertiesService.GetProperties(userdetails.memberId, userdetails.accessToken, function (data) {
+                    if (data.IsSuccess == true) {
+
+                        $scope.propCount = data.AllProperties.length;
+
+                        console.log('Property count: ' + $scope.propCount);
+                    }
+                });
+            };
         }
         else {
             window.location.href = 'login.html';
         }
 
-        //console.log('user account type after -> ' );
-        // Get User Info
-        this.accountStatus = "Identity Verified";
-        this.isIdVerified = $rootScope.isIdVerified;
 
         // Home Layout -- JUST FOR TESTING/DEMO PURPOSES
         this.home = {
@@ -1511,13 +1482,18 @@ noochForLandlords
             this.editBusinessInfo = 0;
             this.editContactInfo = 0;
             this.editSocialInfo = 0;
+            setTimeout(function () {
+                $('input#fullName').focus();
+            }, 500)
         }
         this.beginEditingCompany = function () {
             this.editPersonalInfo = 0;
             this.editBusinessInfo = 1;
             this.editContactInfo = 0;
             this.editSocialInfo = 0;
-            $('input#compName').focus();
+            setTimeout(function () {
+                $('input#compName').focus();
+            }, 500)
         }
         this.beginEditingContact = function () {
             this.editPersonalInfo = 0;
@@ -2071,7 +2047,7 @@ noochForLandlords
 
     .controller('accntChecklistCtrl', function ($scope) {
 
-        //Status
+        // NEED TO ADD SERVICES TO DETERMINE WHETHER EACH OF THE FOLLOWING STEPS HAS BEEN COMPLETED BY THE USER OR NOT
         $scope.checklistItems = {
             confirmEmail: 1,
             confirmPhone: 1,
@@ -2573,7 +2549,7 @@ noochForLandlords
         }
     })
 
-  // CLIFF (9/3/15): Added this function for capitalizing any string.  Used by adding "| calitalize".  Ex:  {{ userInfo.firstName | capitalize }}
+    // CLIFF (9/3/15): Added this function for capitalizing any string.  Used by adding "| calitalize".  Ex:  {{ userInfo.firstName | capitalize }}
     .filter('capitalize', function () {
         return function (input, all) {
             return (!!input) ? input.replace(/([^\W_]+[^\s-]*) */g, function (txt) {
@@ -2582,12 +2558,19 @@ noochForLandlords
         }
     })
 
+    // CLIFF (9/14/15):  Added this function to format phone numbers.  Used by adding "| formatphone".  Ex:  {{ userInfo.contactNumber | capitalize }}
     .filter('formatphone', function () {
         return function (input, all) {
             return (!!input) ? input.replace(/([^\W_]+[^\s-]*) */g, function (txt) {
-                var number = input.toString().trim().replace(/^\+/, '');
-                number = "(" + number;
-                number = number.slice(0, 4) + ")" + number.slice(3,3) + "-" + number.slice(6,4);
+                var number = input.toString().trim().replace('[^0-9]', '');
+
+                if (number.length == 10) {
+                    var first3 = number.slice(0, 3);
+                    var second3 = number.slice(3, 6);
+                    var last4 = number.slice(6);
+
+                    number = "(" + first3 + ") " + second3 + "-" + last4;
+                }
                 return number;
             }) : '';
         }

@@ -156,7 +156,8 @@ noochForLandlords
 
 
         Operations.GetProperties = function (memberId, accessToken, callback) {
-            console.log('get properties called user details -> ' + memberId + ' ' + accessToken);
+            //console.log('get properties called user details -> ' + memberId + ' ' + accessToken);
+
             var data = {};
 
             data.LandlorId = memberId;
@@ -166,7 +167,6 @@ noochForLandlords
                 .success(function (response) {
                     if (response.IsSuccess && response.IsSuccess == true) {
                         authenticationService.ManageToken(response.AuthTokenValidation);
-                        //console.log('came in success');
                     }
                     callback(response);
                 });
@@ -259,8 +259,6 @@ noochForLandlords
     .service('getTenantsService', ['$resource', function ($resource) {
         this.getTenants = function (id, name, nickname, logo, last4, status, dateAdded, notes) {
             var tenantList = $resource("data/tenantsList.json");
-
-            console.log("SERVICES for TENANTS reached");
 
             return tenantList.get({
                 id: id,

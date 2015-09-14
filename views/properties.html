@@ -17,19 +17,7 @@
                     <div class="block-header">
                         <h2>All Properties</h2>
 
-                        <!--<ul class="actions">
-                            <li>
-                                <button class="btn btn-primary pull-right" data-ng-click="propctrl.setSelectedId($event)">FOR TESTING: SEE PROPERTY DETAILS PAGE <i class="md md-chevron-right m-l-5"></i></button>
-                            </li>
-                        </ul>-->
-
                         <ul class="actions" style="top:-8px" data-ng-if="propCount > 0">
-                            <li>
-                                <button class="btn btn-xs btn-default" data-ng-click="firstTimeView = 1; propsAddedAlreadyView = 0;">1</button>
-                            </li>
-                            <li>
-                                <button class="btn btn-xs btn-default" data-ng-click="firstTimeView = 0; propsAddedAlreadyView = 1;">2</button>
-                            </li>
                             <li class="m-l-30">
                                 <div>
                                     <a data-ui-sref="add-property" class="btn btn-primary noExtraWaves"><i class="md md-add m-r-5"></i>Add Property</a>
@@ -157,7 +145,7 @@
 
                                 <div class="pv-body">
 
-                                    <h2>{{ w.propName }}</h2>
+                                    <h2>{{ w.propName | capitalize }}</h2>
 
                                     <span class="show m-t-10"><i class="md md-place m-r-5"></i>{{ w.address }}</span>
 
