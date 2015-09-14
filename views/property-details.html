@@ -159,8 +159,6 @@
                                                 <td>900</td>
                                                 <td>Awaiting Payment</td>
                                             </tr>
-
-
                                         </tbody>
                                     </table>-->
 
@@ -168,27 +166,24 @@
                                 <table class="table table-striped table-vmiddle" id="customTableWithData">
 
                                     <thead>
-                                    <tr>
-                                        <th>TenantID</th>
-                                        <th>UnitID</th>
-                                        <th>Unit #</th>
-                                        <th>UnitRent</th>
-                                        <th>Tenant Name</th>
-                                        <th>Tenant Email</th>
-                                        <th>ImageUrl</th>
-                                        <th>LastRentPaidOn</th>
+                                        <tr>
+                                            <th>TenantID</th>
+                                            <th>UnitID</th>
+                                            <th>Unit #</th>
+                                            <th>UnitRent</th>
+                                            <th>Tenant Name</th>
+                                            <th>Tenant Email</th>
+                                            <th>ImageUrl</th>
+                                            <th>LastRentPaidOn</th>
 
-                                        <th>IsRentPaidForThisMonth</th>
-                                        <th>IsEmailVerified</th>
-                                        <th>IsDocumentsVerified</th>
-                                        <th>IsPhoneVerified</th>
-                                        <th>IsBankAccountAdded</th>
+                                            <th>IsRentPaidForThisMonth</th>
+                                            <th>IsEmailVerified</th>
+                                            <th>IsDocumentsVerified</th>
+                                            <th>IsPhoneVerified</th>
+                                            <th>IsBankAccountAdded</th>
 
-                                        <th>Actions</th>
-
-
-
-                                    </tr>
+                                            <th>Actions</th>
+                                        </tr>
                                     </thead>
                                     <!--<tr ng-repeat="x in tenantsListForThisPorperty">
 
@@ -196,7 +191,6 @@
                                         <td>{{ x.Name }}</td>
 
                                     </tr>-->
-
 
                                     <tbody>
                                         <!--<tr>
@@ -207,13 +201,7 @@
                                         </tr>-->
                                     </tbody>
 
-
                                 </table>
-
-
-
-
-
 
                             </div>
                         </div>
@@ -263,7 +251,7 @@
                                                 <li><i class="md md-place"></i> {{ selectedProperty.address1 | capitalize }}</li>
                                                 <li class="address2">{{ selectedProperty.address2 | capitalize }}</li>
                                                 <li class="address2">{{ selectedProperty.city | capitalize}}, {{ selectedProperty.state | capitalize }} {{ selectedProperty.zip }}</li>
-                                                <li><i class="md md-call"></i> {{ selectedProperty.contactNumber }}</li>
+                                                <li><i class="md md-call"></i> {{ selectedProperty.contactNumber | formatphone}}</li>
                                             </ul>
                                         </div>
 
@@ -317,7 +305,7 @@
                                                 <dt>Zip</dt>
                                                 <dd>
                                                     <div class="dtp-container dropdown fg-line">
-                                                        <input data-ng-model="selectedProperty.zip" class="form-control" value="{{ selectedProperty.zip }}" placeholder="ZIP Code">
+                                                        <input data-ng-model="selectedProperty.zip" class="form-control" value="{{ selectedProperty.zip }}" placeholder="ZIP Code" data-input-mask="{mask: '00000'}">
                                                     </div>
                                                 </dd>
                                             </dl>
@@ -326,7 +314,7 @@
                                                 <dt>Phone</dt>
                                                 <dd>
                                                     <div class="dtp-container dropdown fg-line">
-                                                        <input data-ng-model="selectedProperty.contactNumber" class="form-control" value="{{ selectedProperty.contactNumber }}" placeholder="Phone">
+                                                        <input data-ng-model="selectedProperty.contactNumber" class="form-control" value="{{ selectedProperty.contactNumber }}" placeholder="Phone" data-input-mask="{mask: '(000) 000-0000'}">
                                                     </div>
                                                 </dd>
                                             </dl>

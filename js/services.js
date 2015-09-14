@@ -385,9 +385,6 @@ noochForLandlords
             data2.LastName = lastName;
             data2.eMail = username;
             data2.Password = password;
-            
-
-            
 
             $http.post(URLs.Register, data2)
                 .success(function (response) {
@@ -400,7 +397,6 @@ noochForLandlords
 
             var data2 = {};
             data2.eMail = eMail;
-            
 
             $http.post(URLs.PasswordRest, data2)
                 .success(function (response) {

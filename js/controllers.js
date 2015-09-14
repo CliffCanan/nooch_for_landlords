@@ -2119,7 +2119,6 @@ noochForLandlords
             forgotPassword: ''
         };
 
-
         $scope.SignupData = {
             firstName: '',
             lastName: '',
@@ -2132,12 +2131,6 @@ noochForLandlords
 
             var mailformat = new RegExp("/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/");
 
-
-
-
-
-
-
             if (inputText.test(mailformat)) {
                 console.log("You entered an email address!");
                 return (true);
@@ -2145,87 +2138,12 @@ noochForLandlords
                 console.log("You have entered an invalid email address!");
                 return (false);
             }
-
-
         };
-
-
-        //this.loginAttmpt = function () {
-
-        //    //  window.location.href = 'index.html#/profile/profile-about'; // FOR TESTING LOCALLY B/C AUTHENTICATION SERVICE WON'T WORK
-
-        //    // Check Username (email) field for length
-        //    if ($('form#login #username').val()) {
-        //        var trimmedUserName = $('form#login #username').val().trim();
-        //        $('form#login #username').val(trimmedUserName);
-        //        var username = $('form#login #username').val();
-        //        var emailCheck = $scope.ValidateEmail(username);
-        //        // Check Name Field for a "@"
-
-        //        if (emailCheck) {
-        //            updateValidationUi("username", true);
-
-        //            // Check Password field
-        //            if ($('form#login #pw').val().length > 4) {
-        //                updateValidationUi("pw", true);
-
-        //                // ADD THE LOADING BOX
-        //                $('form#login').block({
-        //                    message: '<span><i class="fa fa-refresh fa-spin fa-loading"></i></span><br/><span class="loadingMsg">Attempting login...</span>',
-        //                    css: {
-        //                        border: 'none',
-        //                        padding: '26px 10px 23px',
-        //                        backgroundColor: '#000',
-        //                        '-webkit-border-radius': '12px',
-        //                        '-moz-border-radius': '12px',
-        //                        'border-radius': '12px',
-        //                        opacity: '.8',
-        //                        width: '86%',
-        //                        left: '7%',
-        //                        top: '25px',
-        //                        color: '#fff'
-        //                    }
-        //                });
-
-        //                authenticationService.ClearUserData();
-
-        //                authenticationService.Login($scope.LoginData.username, $scope.LoginData.password, function (response) {
-
-        //                    $('form#login').unblock();
-
-        //                    if (response.IsSuccess == true) {
-        //                        authenticationService.SetUserDetails($scope.LoginData.username, response.MemberId, response.AccessToken);
-        //                        window.location.href = 'index.html#/profile/profile-about';
-        //                    }
-        //                    else {
-        //                        swal({
-        //                            title: "Oh No!",
-        //                            text: "Looks like either your email or password was incorrect.  Please try again.",
-        //                            type: "error"
-        //                        });
-        //                        console.log('Sign In Error: ' + response.ErrorMessage);
-        //                    }
-        //                });
-        //            }
-        //            else {
-        //                updateValidationUi("pw", false);
-        //            }
-        //        }
-        //        else {
-        //            updateValidationUi("username", false);
-        //        }
-        //    }
-        //    else {
-        //        updateValidationUi("username", false);
-        //    }
-        //}
-
-
 
 
         this.loginAttmpt = function () {
 
-            //  window.location.href = 'index.html#/profile/profile-about'; // FOR TESTING LOCALLY B/C AUTHENTICATION SERVICE WON'T WORK
+            // window.location.href = 'index.html#/profile/profile-about'; // FOR TESTING LOCALLY B/C AUTHENTICATION SERVICE WON'T WORK
 
             // Check Username (email) field for length
             if ($('form#login #username').val()) {
@@ -2660,6 +2578,17 @@ noochForLandlords
         return function (input, all) {
             return (!!input) ? input.replace(/([^\W_]+[^\s-]*) */g, function (txt) {
                 return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+            }) : '';
+        }
+    })
+
+    .filter('formatphone', function () {
+        return function (input, all) {
+            return (!!input) ? input.replace(/([^\W_]+[^\s-]*) */g, function (txt) {
+                var number = input.toString().trim().replace(/^\+/, '');
+                number = "(" + number;
+                number = number.slice(0, 4) + ")" + number.slice(3,3) + "-" + number.slice(6,4);
+                return number;
             }) : '';
         }
     })
