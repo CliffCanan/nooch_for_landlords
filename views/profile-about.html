@@ -10,11 +10,9 @@
                 <dd>{{ userInfo.type }} - {{ userInfo.subtype }}</dd>
             </dl>
             <dl class="dl-horizontal m-b-0">
-                <dt>
-                    Verification Type
-                </dt>
+                <dt>Verification Type</dt>
                 <dd>
-                    <span class="label label-success">{{ pctrl.accountStatus }}</span>
+                    <span class="label label-success">{{ userInfo.accountStatus }}</span>
                     <i class="md-verified-user m-l-10 c-green"></i>
                     <!-- <i class="md-info m-l-10"></i>-->
                 </dd>
@@ -43,14 +41,14 @@
                     <div class="pmbb-view" data-ng-if="pctrl.editPersonalInfo === 0">
                         <dl class="dl-horizontal">
                             <dt>Full Name</dt>
-                            <dd>{{ userInfo.firstName | capitalize }} {{userInfo.lastName | capitalize }}</dd>
+                            <dd>{{ userInfo.firstName | capitalize }} {{ userInfo.lastName | capitalize }}</dd>
                         </dl>
                         <dl class="dl-horizontal">
                             <dt>Date of Birth</dt>
                             <dd>{{ userInfo.birthDay }}</dd>
                         </dl>
                         <dl class="dl-horizontal">
-                            <dt>SSN - Last 4*</dt>
+                            <dt>SSN<small>Last 4 Only</small></dt>
                             <dd>{{ userInfo.ssnLast4 }}</dd>
                         </dl>
                     </div>
@@ -60,7 +58,7 @@
                             <dt class="p-t-10">Full Name</dt>
                             <dd>
                                 <div class="fg-line">
-                                    <input data-ng-model="userInfo.fullName" type="text" class="form-control" value="{{ userInfo.fullName | capitalize}}" placeholder="eg Arnold Palmer">
+                                    <input id="fullName" data-ng-model="userInfo.fullName" type="text" class="form-control" value="{{ userInfo.fullName | capitalize}}" placeholder="eg Arnold Palmer">
                                 </div>
 
                             </dd>
@@ -75,7 +73,7 @@
                         </dl>
 
                         <dl class="dl-horizontal">
-                            <dt class="p-t-10">SSN - <em>Last 4 Digits Only</em>*</dt>
+                            <dt class="p-t-10">SSN<small>Last 4 Digits Only</small></dt>
                             <dd>
                                 <div class="dtp-container dropdown fg-line">
                                     <input data-ng-model="userInfo.ssnLast4" type='num' class="form-control" value="{{ userInfo.ssnLast4 }}" placeholder="eg. 1234" data-input-mask="{mask: '0000'}">
@@ -113,7 +111,7 @@
                             <dd>{{ company.name | capitalize }}</dd>
                         </dl>
                         <dl class="dl-horizontal">
-                            <dt>EIN (Tax ID #)</dt>
+                            <dt>EIN<small>(Tax ID #)</small></dt>
                             <dd>{{ company.ein }}</dd>
                         </dl>
                     </div>
@@ -156,7 +154,7 @@
             <div class="col-sm-6">
 
                 <div class="pmbb-header m-b-15">
-                    <h2><i class="md md-phone m-r-5"></i> Contact Information</h2>
+                    <h2><i class="md md-phone m-r-5"></i> Contact Info</h2>
 
                     <ul class="actions">
                         <li>

@@ -25,7 +25,6 @@
                                 </a>
 
                                 <ul class="dropdown-menu dropdown-menu-right">
-                                    <li><a href="">Learn More</a></li>
                                     <li><a href="">Resend Verification Email</a></li>
                                 </ul>
                             </li>
@@ -58,7 +57,6 @@
                                 </a>
 
                                 <ul class="dropdown-menu dropdown-menu-right">
-                                    <li><a href="">Learn More</a></li>
                                     <li><a href="">Resend Verification SMS</a></li>
                                 </ul>
                             </li>
@@ -91,7 +89,7 @@
                                 </a>
 
                                 <ul class="dropdown-menu dropdown-menu-right">
-                                    <li><a href="">Learn More</a></li>
+                                    <!--<li><a href="">Learn More</a></li>-->
                                     <li><a href="#/profile/profile-about">Go Now</a></li>
                                 </ul>
                             </li>
@@ -124,7 +122,7 @@
                                 </a>
 
                                 <ul class="dropdown-menu dropdown-menu-right">
-                                    <li><a href="">Learn More</a></li>
+                                <!--<li><a href="">Learn More</a></li>-->
                                     <li><a href="#/profile/profile-bankaccounts">Go Now</a></li>
                                 </ul>
                             </li>
@@ -157,7 +155,6 @@
                                 </a>
 
                                 <ul class="dropdown-menu dropdown-menu-right">
-                                    <li><a href="">Learn More</a></li>
                                     <li><a href="#/property-add">Go Now</a></li>
                                 </ul>
                             </li>
@@ -190,7 +187,6 @@
                                 </a>
 
                                 <ul class="dropdown-menu dropdown-menu-right">
-                                    <li><a href="">Learn More</a></li>
                                     <li><a href="#/properties">Go Now</a></li>
                                 </ul>
                             </li>
@@ -215,20 +211,6 @@
 
             <div class="lv-item">
                 <div class="checkbox media">
-                    <div class="pull-right">
-                        <ul class="actions" ng-if="checklistItems.acceptPayment == 0">
-                            <li class="dropdown">
-                                <a href="" data-toggle="dropdown">
-                                    <i class="md md-info"></i>
-                                </a>
-
-                                <ul class="dropdown-menu dropdown-menu-right">
-                                    <li><a href="">Learn More</a></li>
-                                    <li><a href="">Go Now</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
                     <div class="media-body">
                         <label>
                             <span ng-if="checklistItems.acceptPayment == 0">
@@ -264,12 +246,11 @@
             lineCap: "round",
             animate: 1750,
         });
-    }, 50);
+    }, 200);
 
-    $('#acntChecklistCard .main-pie').mouseenter(function () {
-        console.log("MOUSE ENTER CALLED");
-        setTimeout(function () {
-            $('#acntChecklistCard .main-pie').data('easyPieChart').update(40);
-        }, 3000);
-    });
+    //$('#acntChecklistCard .main-pie').mouseenter(function () {
+    //    setTimeout(function () {
+    //        $('#acntChecklistCard .main-pie').data('easyPieChart').update(40);
+    //    }, 3000);
+    //});
 </script>
