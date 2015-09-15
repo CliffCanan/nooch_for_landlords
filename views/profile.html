@@ -41,7 +41,7 @@
                     <div class="pmo-pic z-depth-2">
                         <div class="p-relative" data-toggle="modal" data-target="#addPic">
                             <a href="">
-                                <img class="img-responsive" src="img/profile-pics/{{pctrl.userPic}}.png" alt="Profile Picture">
+                                <img class="img-responsive" src="{{userInfo.userImage }}" alt="Profile Picture">
                             </a>
 
                             <a class="pmop-edit">
@@ -52,11 +52,11 @@
 
                         <div class="pmo-stat bgm-lightblue">
                             <div class="col-xs-6">
-                                <h2 class="m-0 c-white">6</h2>
+                                <h2 class="m-0 c-white">{{userInfo.propertiesCount }}</h2>
                                 Total Properties
                             </div>
                             <div class="col-xs-6">
-                                <h2 class="m-0 c-white">80</h2>
+                                <h2 class="m-0 c-white">{{userInfo.tenantsCount }}</h2>
                                 Total Tenants
                             </div>
                         </div>

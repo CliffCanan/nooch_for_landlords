@@ -1412,7 +1412,11 @@ noochForLandlords
                 $scope.userInfo.addressCountry = response.Country;
                 $scope.userInfo.zip = response.Zip;
 
-                $scope.userInfo.userPic = "josh";
+                $scope.userInfo.userImage = response.UserImageUrl;
+                $scope.userInfo.tenantsCount = response.TenantsCount;
+                $scope.userInfo.propertiesCount = response.PropertiesCount;
+
+                
 
                 // Get Company Info
                 $scope.company = {
