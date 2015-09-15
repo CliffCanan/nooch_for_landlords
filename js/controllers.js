@@ -1415,6 +1415,7 @@ noochForLandlords
                 $scope.userInfo.userImage = response.UserImageUrl;
                 $scope.userInfo.tenantsCount = response.TenantsCount;
                 $scope.userInfo.propertiesCount = response.PropertiesCount;
+                $scope.userInfo.unitsCount = response.UnitsCount;
 
                 
 
