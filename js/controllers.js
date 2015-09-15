@@ -1426,17 +1426,17 @@ noochForLandlords
             });
 
             // Cliff (9/14/15): Adding this just to get the # of Properties (for the sidebar)
-            getProperties = function () {
+            //getProperties = function () {
 
-                propertiesService.GetProperties(userdetails.memberId, userdetails.accessToken, function (data) {
-                    if (data.IsSuccess == true) {
+            //    propertiesService.GetProperties(userdetails.memberId, userdetails.accessToken, function (data) {
+            //        if (data.IsSuccess == true) {
 
-                        $scope.propCount = data.AllProperties.length;
+            //            $scope.propCount = data.AllProperties.length;
 
-                        console.log('Property count: ' + $scope.propCount);
-                    }
-                });
-            };
+            //            console.log('Property count: ' + $scope.propCount);
+            //        }
+            //    });
+            //};
         }
         else {
             window.location.href = 'login.html';
@@ -2089,9 +2089,9 @@ noochForLandlords
         this.register = 0;
         this.forgot = 0;
 
-        $(function () {
+        $(function() {
             $('[data-toggle="tooltip"]').tooltip();
-        })
+        });
 
         $scope.LoginData = {
             password: '',
@@ -2107,19 +2107,51 @@ noochForLandlords
         };
 
 
-        $scope.ValidateEmail = function (inputText) {
+        $scope.ValidateEmail = function (str) {
 
-            var mailformat = new RegExp("/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/");
-
-            if (inputText.test(mailformat)) {
-                console.log("You entered an email address!");
-                return (true);
-            } else {
-                console.log("You have entered an invalid email address!");
-                return (false);
+            var at = "@"
+            var dot = "."
+            var lat = str.indexOf(at)
+            var lstr = str.length
+            var ldot = str.indexOf(dot)
+            if (str.indexOf(at) == -1) {
+                alert("Invalid E-mail ID")
+                return false
             }
-        };
 
+            if (str.indexOf(at) == -1 || str.indexOf(at) == 0 || str.indexOf(at) == lstr) {
+                alert("Invalid E-mail ID")
+                return false
+            }
+
+            if (str.indexOf(dot) == -1 || str.indexOf(dot) == 0 || str.indexOf(dot) == lstr) {
+                alert("Invalid E-mail ID")
+                return false
+            }
+
+            if (str.indexOf(at, (lat + 1)) != -1) {
+                alert("Invalid E-mail ID")
+                return false
+            }
+
+            if (str.substring(lat - 1, lat) == dot || str.substring(lat + 1, lat + 2) == dot) {
+                alert("Invalid E-mail ID")
+                return false
+            }
+
+            if (str.indexOf(dot, (lat + 2)) == -1) {
+                alert("Invalid E-mail ID")
+                return false
+            }
+
+            if (str.indexOf(" ") != -1) {
+                alert("Invalid E-mail ID")
+                return false
+            }
+
+            return true
+        };
+      
 
         this.loginAttmpt = function () {
 
@@ -2131,11 +2163,8 @@ noochForLandlords
                 $('form#login #username').val(trimmedUserName);
 
                 // Check Name Field for a "@"
-                if ($('form#login #username').val().indexOf('@') > 1) {
-                    // Check Name Field for a "."
-                    if ($('form#login #username').val().indexOf('.') > 1 &&
-                        $('form#login #username').val().indexOf('.') > $('form#login #username').val().indexOf('@') &&
-                        $('form#login #username').val().indexOf('.') < $('form#login #username').val().length - 1) {
+                if ($scope.ValidateEmail($('form#login #username').val())) {
+                    
                         updateValidationUi("username", true);
 
                         // Check Password field
@@ -2191,10 +2220,7 @@ noochForLandlords
                 else {
                     updateValidationUi("username", false);
                 }
-            }
-            else {
-                updateValidationUi("username", false);
-            }
+            
         }
 
 
