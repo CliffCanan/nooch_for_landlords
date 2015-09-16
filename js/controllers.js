@@ -183,10 +183,9 @@ noochForLandlords
     //      PROPERTIES
     // ===============================================================
 
-    .controller('propertiesCtrl', function ($scope, authenticationService, propertiesService, propDetailsService, $timeout) {
+    .controller('propertiesCtrl', function ($rootScope, $scope, authenticationService, propertiesService, propDetailsService, $timeout) {
         var userdetails = authenticationService.GetUserDetails();
 
-        $scope.propCount = 0;
         $scope.propResult = new Array();
 
         // For setting the 'Selected Prop' when going to a Property's Details page
@@ -206,7 +205,8 @@ noochForLandlords
                 if (data.IsSuccess == true) {
                     // data binding goes in here
 
-                    $scope.propCount = data.AllProperties.length;
+                    $rootScope.propCount = data.AllProperties.length;
+                    //$scope.propCount = data.AllProperties.length;
 
                     var index;
 
@@ -215,6 +215,7 @@ noochForLandlords
 
                         var propItem = {
                             id: data.AllProperties[index].PropertyId,
+                            name: data.AllProperties[index].PropName,
                             img: data.AllProperties[index].PropertyImage,
                             address: data.AllProperties[index].AddressLineOne,
                             units: data.AllProperties[index].UnitsCount,
@@ -223,7 +224,6 @@ noochForLandlords
 
                         $scope.propResult.push(propItem);
                     }
-                    //console.log('items count ' + $scope.propCount);
                     //console.log('items [0]' + $scope.propResult[0]);
                 }
             });
@@ -250,7 +250,7 @@ noochForLandlords
 
             var propId = propDetailsService.get();
 
-            if (propId.length > 0) {
+            if (propId != null && propId.length > 0) {
 
                 propDetailsService.getPropFromDb(propId, userdetails.memberId, userdetails.accessToken, function (data) {
                     if (data.IsSuccess == true) {
@@ -1414,10 +1414,10 @@ noochForLandlords
 
                 $scope.userInfo.userImage = response.UserImageUrl;
                 $scope.userInfo.tenantsCount = response.TenantsCount;
+                $rootScope.propCount = response.PropertiesCount;
                 $scope.userInfo.propertiesCount = response.PropertiesCount;
                 $scope.userInfo.unitsCount = response.UnitsCount;
-
-                
+             
 
                 // Get Company Info
                 $scope.company = {
@@ -1425,19 +1425,6 @@ noochForLandlords
                     ein: response.CompanyEID
                 }
             });
-
-            // Cliff (9/14/15): Adding this just to get the # of Properties (for the sidebar)
-            //getProperties = function () {
-
-            //    propertiesService.GetProperties(userdetails.memberId, userdetails.accessToken, function (data) {
-            //        if (data.IsSuccess == true) {
-
-            //            $scope.propCount = data.AllProperties.length;
-
-            //            console.log('Property count: ' + $scope.propCount);
-            //        }
-            //    });
-            //};
         }
         else {
             window.location.href = 'login.html';
