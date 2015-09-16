@@ -250,7 +250,7 @@
                                             <ul class="p-l-10 m-t-15 f-15 address">
                                                 <li><i class="md md-place"></i> {{ selectedProperty.address1 | capitalize }}</li>
                                                 <li class="address2">{{ selectedProperty.address2 | capitalize }}</li>
-                                                <li class="address2">{{ selectedProperty.city | capitalize}}, {{ selectedProperty.state | capitalize }} {{ selectedProperty.zip }}</li>
+                                                <li class="address2">{{ selectedProperty.city | capitalize}}, <span class="capitalize">{{ selectedProperty.state | capitalize }}</span> {{ selectedProperty.zip }}</li>
                                                 <li><i class="md md-call"></i> {{ selectedProperty.contactNumber | formatphone}}</li>
                                             </ul>
                                         </div>

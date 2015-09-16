@@ -79,21 +79,19 @@ a,
   text-shadow: 0 -1px 0 rgba(31,32,33,.35);
 }
 
-.well {
-    border-radius:5px;
-}
+.well {border-radius:5px;}
 
 .fg-line input {padding-left:5px;}
 
-.jumbotron p {
-  font-weight:300;
-}
+.jumbotron p {font-weight:300;}
 
 .bumbUp-1 {position:relative;top:-1px;}
 .bumbUp-2 {position:relative;top:-2px;}
 .bumbUp-3 {position:relative;top:-3px;}
 
 input[type='password'] {letter-spacing:1px;}
+
+.capitalize {text-transform: capitalize;}
 
 /**** TABLES ****/
 table tr th:not(:first-child).columnWidth-13pc {
@@ -554,8 +552,8 @@ form .checkbox.haserror .input-helper:before {
 }
 #sidebar .profile-menu > a .profile-info {
   font-size:15px;
-  margin-top:6px;
-  background-color:rgba(66,133,244,.9);
+  margin-top:32px;
+  background-color:rgba(66,133,244,.92);
 }
 
 @media (min-width: 1200px) {
@@ -834,6 +832,7 @@ form .checkbox.haserror .input-helper:before {
 .propCard .pv-header {height:120px;}
 .propCard .pv-body {margin-top:90px;}
 .propCard .pv-header > .pv-main {
+  background-color:#fff;
   overflow:hidden;
   left:47%;
   width:61.9%;
