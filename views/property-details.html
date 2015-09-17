@@ -351,7 +351,7 @@
                                                 <a data-ng-click="editAchMemo()"><i class="md md-mode-edit m-r-10"></i>Edit ACH Memo</a>
                                             </li>
                                             <li class="divider"></li>
-                                            <li>
+                                            <li ng-if="selectedProperty.defaultBankName != null ">
                                                 <a data-delete-prop><i class="md md-delete m-r-10"></i>Delete</a>
                                             </li>
                                         </ul>
@@ -361,7 +361,7 @@
 
                             <div class="card-body p-15">
 
-                                <div class="bank-container">
+                                <div class="bank-container" ng-if="selectedProperty.defaultBankName != null ">
 
                                     <p class="m-b-10">All rent payments for this property will be deposited into:</p>
 
@@ -371,6 +371,7 @@
                                         <div class="media-body p-b-10">
                                             <div class="">
                                                 <h4 class="media-heading">
+
                                                     {{ selectedProperty.defaultBankName | capitalize }}
                                                     <span class="label label-primary m-l-5">Primary</span>
                                                 </h4>
@@ -383,7 +384,15 @@
                                         <a href="index.html#/profile/profile-bankaccounts" class="btn btn-link btn-block noExtraWaves"><i class="md md-add"></i> Add Bank Account</a>
                                     </div>
                                 </div>
+                                <div class="bank-container" ng-if="selectedProperty.defaultBankName == null ">
 
+                                    <p class="m-b-10">No bank account added yet.</p>
+
+
+                                    <div class="f-16">
+                                        <a href="index.html#/profile/profile-bankaccounts" class="btn btn-link btn-block noExtraWaves"><i class="md md-add"></i> Add Bank Account</a>
+                                    </div>
+                                </div>
                             </div>
 
                         </div>
