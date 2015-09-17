@@ -1376,7 +1376,7 @@ noochForLandlords
 
             var userdetails = authenticationService.GetUserDetails();
             
-            $scope.propCount = 0;
+            //$scope.propCount = 0;
 
             $scope.userInfoInSession = userdetails;
 
