@@ -19,5 +19,4 @@ var URLs = {
     GetPropertyDetails: PATH + 'Properties/GetPropertyDetailsPageData',
     EditProperty: PATH + 'Properties/EditProperty'
 
-
 };

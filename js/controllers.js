@@ -206,12 +206,11 @@ noochForLandlords
                     // data binding goes in here
 
                     $rootScope.propCount = data.AllProperties.length;
-                    //$scope.propCount = data.AllProperties.length;
 
                     var index;
 
                     for (index = 0; index < data.AllProperties.length; ++index) {
-                        console.log(data.AllProperties[index]);
+                        //console.log(data.AllProperties[index]);
 
                         var propItem = {
                             id: data.AllProperties[index].PropertyId,
@@ -240,9 +239,10 @@ noochForLandlords
 
         };
 
-
         $scope.tenantsListForThisPorperty = new Array();
-        console.log('list count in tenats before setting data in.' + $scope.tenantsListForThisPorperty.length);
+
+        //console.log('list count in tenats before setting data in.' + $scope.tenantsListForThisPorperty.length);
+
         var userdetails = authenticationService.GetUserDetails();
 
         function getPropertyDetails() {
@@ -283,9 +283,10 @@ noochForLandlords
                             "bankImage": data.BankAccountDetails.BankIcon,
                             "propertyId": data.PropertyDetails.PropertyId
                         }
+
                         $scope.tenantsListForThisPorperty = data.TenantsListForThisProperty;
 
-                        $('#customTableWithData').DataTable({
+                        $('#propUnits').DataTable({
                             data: $scope.tenantsListForThisPorperty,
                             columns: [
                                 { data: 'TenantId' },
@@ -307,26 +308,25 @@ noochForLandlords
                                 { data: 'IsBankAccountAdded' },
                                 {
                                     data: null,
-                                    
+
                                     defaultContent: '<a href="" class=\'btn btn-icon btn-default command-edit m-r-10 editUnitBtn\'><span class=\'md md-edit\'></span></a>  <a href="" class=\'btn btn-icon btn-default command-edit m-r-10\'><span class=\'md md-today\'></span></a>  <a href="" class=\'btn btn-icon btn-default command-edit m-r-10\'><span class=\'md md-more-vert\'></span></a>'
                                 }
                             ],
                             "columnDefs": [
-            {
-                "targets": [1],
-                "visible": false,
-                "searchable": false
-            },
-            {
-                "targets": [0],
-                "visible": false,
-                "searchable": false
-            }]
+                                {
+                                    "targets": [1],
+                                    "visible": false,
+                                    "searchable": false
+                                },
+                                {
+                                    "targets": [0],
+                                    "visible": false,
+                                    "searchable": false
+                                }]
                         });
-
                     }
                     else {
-                        console.log('Erro while getting  property details.');
+                        console.log('Error while getting  property details.');
                     }
                 });
             }
@@ -915,7 +915,6 @@ noochForLandlords
         $scope.inputData.propertyZip = '';
 
         $scope.inputData.SingleUnitRent = '';
-
         $scope.inputData.allUnits = [];
 
         var userdetails = authenticationService.GetUserDetails();
@@ -2102,38 +2101,28 @@ noochForLandlords
             var lat = str.indexOf(at)
             var lstr = str.length
             var ldot = str.indexOf(dot)
-            if (str.indexOf(at) == -1) {
-                alert("Invalid E-mail ID")
+
+            if (lat == -1 || lat == 0 || lat == lstr) {
                 return false
             }
 
-            if (str.indexOf(at) == -1 || str.indexOf(at) == 0 || str.indexOf(at) == lstr) {
-                alert("Invalid E-mail ID")
-                return false
-            }
-
-            if (str.indexOf(dot) == -1 || str.indexOf(dot) == 0 || str.indexOf(dot) == lstr) {
-                alert("Invalid E-mail ID")
+            if (ldot == -1 || ldot == 0 || ldot == lstr) {
                 return false
             }
 
             if (str.indexOf(at, (lat + 1)) != -1) {
-                alert("Invalid E-mail ID")
                 return false
             }
 
             if (str.substring(lat - 1, lat) == dot || str.substring(lat + 1, lat + 2) == dot) {
-                alert("Invalid E-mail ID")
                 return false
             }
 
             if (str.indexOf(dot, (lat + 2)) == -1) {
-                alert("Invalid E-mail ID")
                 return false
             }
 
             if (str.indexOf(" ") != -1) {
-                alert("Invalid E-mail ID")
                 return false
             }
 
@@ -2215,11 +2204,8 @@ noochForLandlords
         this.forgotPwAttmpt = function () {
             var email = $scope.LoginData.forgotPassword;
 
-            if (email.length > 5 &&
-                email.indexOf('@') > 1 &&
-                email.indexOf('.') > 1 &&
-                email.indexOf('.') > email.indexOf('@') &&
-                email.indexOf('.') < email.length - 1) {
+            if ($scope.ValidateEmail(email))
+            {
                 updateValidationUi("emforgot", true);
 
                 // ADD THE LOADING BOX
@@ -2293,12 +2279,9 @@ noochForLandlords
                     var trimmedLName = lName.val().trim();
                     $('form#reg #lname').val(trimmedLName);
 
-                    // Check Email Field for a "@" and "."
-                    if (email.val().length > 5 &&
-                        email.val().indexOf('@') > 1 &&
-                        email.val().indexOf('.') > 1 &&
-                        email.val().indexOf('.') > email.val().indexOf('@') &&
-                        email.val().indexOf('.') < email.val().length - 1) {
+                    // Validate Email Field
+                    if ($scope.ValidateEmail(email))
+                    {
                         updateValidationUi("em", true);
 
                         // Check Password field
@@ -2424,20 +2407,21 @@ noochForLandlords
 
         // This function checks a field on focusout (when the user moves to the next field) and updates Validation UI accordingly
         $(document).ready(function () {
-            $(document).on("focusout", "form#reg input", function () {
+            $(document).on("focusout", "form#reg input", function ()
+            {
                 var field = this.id;
 
-                if ($(this).val() && $(this).val().length > 2) {
-                    if (field == "em") {
-                        if ($(this).val().length > 5 &&
-                            $(this).val().indexOf('@') > 1 &&
-                            $(this).val().indexOf('.') > 1 &&
-                            $(this).val().indexOf('.') > $(this).val().indexOf('@') &&
-                            $(this).val().indexOf('.') < $(this).val().length - 1) {
+                if ($(this).val() && $(this).val().length > 2)
+                {
+                    if (field == "em")
+                    {
+                        if ($scope.ValidateEmail(email))
+                        {
                             updateValidationUi("em", true);
                         }
                     }
-                    else {
+                    else
+                    {
                         updateValidationUi(field, true);
                     }
                 }

@@ -586,9 +586,7 @@ form .checkbox.haserror .input-helper:before {
   font-size: 20px;
   font-weight: 300;
 }
-#profile-main .pmb-block .pmbb-header h2 {
-  font-weight:300;
-}
+#profile-main .pmb-block .pmbb-header h2 {font-weight:300;}
 .pmo-stat > .col-xs-6 {
    float:none;
    display:inline-block;
@@ -662,21 +660,15 @@ form .checkbox.haserror .input-helper:before {
   -webkit-transition: .25s all ease-in-out;
   transition: .25s all ease-in-out;
 }
-#idVerWiz  .form-group.has-error {
-  margin-bottom: 2px;
-}
+#idVerWiz  .form-group.has-error {margin-bottom: 2px;}
 .form-group .help-block {
   font-size:13px;
   font-weight: 400;
   letter-spacing: .2px;
   margin-bottom:0px;
 }
-.modal dl {
-  margin-bottom:12px;
-}
-#idVerWiz input#idVer-name {
-  text-transform:capitalize;
-}
+.modal dl {margin-bottom:12px;}
+#idVerWiz input#idVer-name {text-transform:capitalize;}
 #idVerWiz .input-group .input-group-addon i {
   position:relative;
   top:-5px;
@@ -701,9 +693,7 @@ form .checkbox.haserror .input-helper:before {
   width: 180px;
   height: auto;
 }
-#idVerWiz .fileinput .fileinput-preview img {
-  margin-top: -5px;
-}
+#idVerWiz .fileinput .fileinput-preview img {margin-top: -5px;}
 
 /****************************
 /****   MOBILE SCREENS   ****
@@ -832,17 +822,29 @@ form .checkbox.haserror .input-helper:before {
 .propCard .pv-header {height:120px;}
 .propCard .pv-body {margin-top:90px;}
 .propCard .pv-header > .pv-main {
-  background-color:#fff;
-  overflow:hidden;
-  left:47%;
-  width:61.9%;
+  background-color: #fff;
+  overflow: hidden;
+  margin: 0 auto !important;
+  left: 0;
+  width: 61.9%;
   height: auto;
-  bottom: -60px;
-  box-shadow:0 8px 15px -4px rgba(31,32,33, 0.25);
+  min-height: 155px;
+  top: 30px;
+  box-shadow: 0 8px 15px -4px rgba(31,32,33, 0.25);
+  position:relative;
 }
-.propCard .pv-header > .pv-main > img {max-width:100%;}
+.propCard .pv-header > .pv-main > img {
+  width: auto;
+  height: 155px;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
 #propertiesList.lv-lg .lv-title {font-size:16px;}
 #propertiesList.lv-lg .lv-small {font-size:13px;}
+.propCard .pv-header > .pv-main
+.profile-view .pv-body > h2 {line-height:1.4;}
+
 
 /** For the Wizard Plugin **/
 .wizard, .tabcontrol {
