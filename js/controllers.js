@@ -285,14 +285,15 @@ noochForLandlords
                         }
 
                         $scope.tenantsListForThisPorperty = data.TenantsListForThisProperty;
+                        console.log($scope.tenantsListForThisPorperty);
 
                         $('#propUnits').DataTable({
                             data: $scope.tenantsListForThisPorperty,
                             columns: [
                                 { data: 'TenantId' },
+
                                 { data: 'UnitId' },
                                 { data: 'UnitNumber' },
-
                                 { data: 'UnitRent' },
 
                                 { data: 'Name' },
@@ -308,21 +309,25 @@ noochForLandlords
                                 { data: 'IsBankAccountAdded' },
                                 {
                                     data: null,
-
-                                    defaultContent: '<a href="" class=\'btn btn-icon btn-default command-edit m-r-10 editUnitBtn\'><span class=\'md md-edit\'></span></a>  <a href="" class=\'btn btn-icon btn-default command-edit m-r-10\'><span class=\'md md-today\'></span></a>  <a href="" class=\'btn btn-icon btn-default command-edit m-r-10\'><span class=\'md md-more-vert\'></span></a>'
+                                    defaultContent: '<a href="" class=\'btn btn-icon btn-default command-edit m-r-10 editUnitBtn\'><span class=\'md md-edit\'></span></a>' +
+                                                    '<a href="" class=\'btn btn-icon btn-default command-edit m-r-10\'><span class=\'md md-today\'></span></a> ' +
+                                                    '<a href="" class=\'btn btn-icon btn-default command-edit m-r-10\'><span class=\'md md-more-vert\'></span></a>'
                                 }
                             ],
                             "columnDefs": [
                                 {
-                                    "targets": [1],
+                                    "targets": [0, 1, 6, 7, 8, -1, -2, -3, -4],
                                     "visible": false,
                                     "searchable": false
                                 },
-                                {
-                                    "targets": [0],
-                                    "visible": false,
-                                    "searchable": false
-                                }]
+                                { className: "capitalize", "targets": [4] },
+                                { className: "text-center", "targets": [2,3] }
+                            ],
+                            buttons: [
+                                'pdf',
+                                'excel',
+                                'print'
+                            ]
                         });
                     }
                     else {
@@ -373,7 +378,7 @@ noochForLandlords
             }
         }
 
-        this.editPropPic = function () {
+        $scope.editPropPic = function () {
             $('#editPropPic').modal();
 
             // FILE INPUT DOCUMENTATION: http://plugins.krajee.com/file-input#options
@@ -496,6 +501,7 @@ noochForLandlords
             $scope.selectedProperty.published = newStatus;
         }
 
+
         // Charge Tenant Button
         $scope.chargeTenant = function (e) {
             $('#chargeTenantModal').modal();
@@ -583,7 +589,7 @@ noochForLandlords
             }, 600)
         }
 
-        this.addUnit_submit = function () {
+        $scope.addUnit_submit = function () {
             // Check Unit Number field for length
             if ($('#addUnitModal #unitNum').val().length > 0) {
                 var trimmedName = $('#addUnitModal #unitNum').val().trim();
@@ -652,13 +658,16 @@ noochForLandlords
             $('#sendMsgModal').modal();
         }
 
-        this.sendMsg_submit = function () {
+        $scope.sendMsg_submit = function () {
             if ((!$('#sndMsgForm #tenantMsgGrp').hasClass('hidden') && $('#sndMsgForm #tenantMsg').val() != '0') ||
-                  $('#sndMsgForm #tenantMsgGrp').hasClass('hidden')) {
+                  $('#sndMsgForm #tenantMsgGrp').hasClass('hidden'))
+            {
                 // Check Message field for length
-                if ($('#sndMsgForm textarea').val().length > 1) {
+                if ($('#sndMsgForm textarea').val().length > 1)
+                {
                     var trimmedMsg = $('#sndMsgForm textarea').val().trim();
                     $('#sndMsgForm textarea').val(trimmedMsg);
+
                     updateValidationUi("msg", true);
 
                     $('#sendMsgModal').modal('hide');
@@ -685,7 +694,7 @@ noochForLandlords
 
 
         // Edit ACH Memo for all transactions for this property
-        this.editAchMemo = function () {
+        $scope.editAchMemo = function () {
             // Reset each field
             $('#achMemoGrp').removeClass('has-error').removeClass('has-success');
 
@@ -696,7 +705,7 @@ noochForLandlords
             $('#editAchModal').modal();
         }
 
-        this.editAchMemo_submit = function () {
+        $scope.editAchMemo_submit = function () {
             if ($('#editAchModal input[name=achMemoStyle]:checked').length) {
                 updateValidationUi('achMemo', true);
                 $('#editAchModal').modal('hide');
