@@ -847,15 +847,9 @@ form .checkbox.haserror .input-helper:before {
 
 
 /** For the Wizard Plugin **/
-.wizard, .tabcontrol {
-  top: -15px;
-}
-addPropWiz .content {
-  min-height:22em;
-}
-.actions > ul > li > a {
-  border-radius:4px;
-}
+.wizard, .tabcontrol { top: -15px; }
+addPropWiz .content { min-height:22em; }
+.actions > ul > li > a { border-radius:4px; }
 .actions > ul > li:last-child > a {
   color: #333333;
   background-color: #ffffff;
@@ -869,19 +863,13 @@ addPropWiz .content {
 .wizard .content .control-label,
 .wizard .content input,
 #addPropWizard .tab-content input,
-#addPropWizard .tab-content .control-label {
-  font-size:16px;
-}
-.wizard.vertical > .actions {
-  margin-top:15px;
-}
+#addPropWizard .tab-content .control-label { font-size:16px; }
+.wizard.vertical > .actions { margin-top:15px; }
 .wizard.vertical > .actions > ul > li:last-child {
   position:absolute;
   left:28%;
 }
-.wizard.vertical > .actions > ul > li:not(:last-child) {
-  position:relative;
-}
+.wizard.vertical > .actions > ul > li:not(:last-child) { position:relative; }
 
 .wizard .fg-float .fg-label,
 #addPropWizard .tab-content .fg-float .fg-label {
@@ -894,10 +882,8 @@ addPropWiz .content {
   font-size:11px;
   top:-18px;
 }
-#addPropWizard .tab-content {min-height:250px;}
-.tabs-left > .nav-tabs > li {
-  float: none;
-}
+#addPropWizard .tab-content { min-height:250px; }
+.tabs-left > .nav-tabs > li { float: none; }
 .tabs-left > .nav-tabs {
   float: left;
   border-right: 1px solid #ddd;
@@ -1098,9 +1084,7 @@ addPropWiz .content {
 .progress-striped .bar-info{background-color:#5bc0de;background-image:-webkit-gradient(linear,0 100%,100% 0,color-stop(0.25,rgba(255,255,255,0.15)),color-stop(0.25,transparent),color-stop(0.5,transparent),color-stop(0.5,rgba(255,255,255,0.15)),color-stop(0.75,rgba(255,255,255,0.15)),color-stop(0.75,transparent),to(transparent));background-image:-webkit-linear-gradient(45deg,rgba(255,255,255,0.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,0.15) 50%,rgba(255,255,255,0.15) 75%,transparent 75%,transparent);background-image:-moz-linear-gradient(45deg,rgba(255,255,255,0.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,0.15) 50%,rgba(255,255,255,0.15) 75%,transparent 75%,transparent);background-image:-o-linear-gradient(45deg,rgba(255,255,255,0.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,0.15) 50%,rgba(255,255,255,0.15) 75%,transparent 75%,transparent);background-image:linear-gradient(45deg,rgba(255,255,255,0.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,0.15) 50%,rgba(255,255,255,0.15) 75%,transparent 75%,transparent)}
 */
 /**** PROPERTY DETAILS ****/
-.propDetails_UnitsTenants {
-  text-align:right;
-}
+.propDetails_UnitsTenants { text-align:right; }
 .propDetails_UnitsTenants .headline {
   display: block;
   color:#fff;
@@ -1143,13 +1127,19 @@ addPropWiz .content {
   font-size:15px;
   margin-top:80px;
 }
-.propCard .pmbb-edit dt {
-  padding-left:5px;
+.propCard .pmbb-edit dt { padding-left:5px; }
+.file-caption-name { padding-top: 5px; }
+.file-input .btn > i { margin-right:10px; }
+
+.dataTables_wrapper .dataTables_filter input {
+  border: 1px solid rgba(147,150,152,.6) !important;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px -4px rgba(88,90,92,.5) !important;
+  padding: 3px 10px;
+  font-weight: 500;
 }
-.file-caption-name {
-  padding-top: 5px;
-}
-.file-input .btn > i {margin-right:10px;}
+
+.table.dataTable > thead:first-child > tr:first-child > th { text-align: center; }
 
 @media screen and (min-width:768px)
 {
