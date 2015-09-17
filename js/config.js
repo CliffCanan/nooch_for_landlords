@@ -123,7 +123,7 @@ noochForLandlords
                             files: [
                                 'vendors/bower_components/bootstrap-select/dist/css/bootstrap-select.min.css',
                                 'vendors/chosen_v1.4.2/chosen.min.css',
-                                'vendors/bower_components/jquery.bootgrid/dist/jquery.bootgrid.min.css',
+                                'https://cdn.datatables.net/1.10.9/css/jquery.dataTables.min.css',
                                 'vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css',
                                 'vendors/bower_components/bootstrap-fileinput/css/fileinput.min.css',
                                 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css',
@@ -135,7 +135,7 @@ noochForLandlords
                                 'vendors/input-mask/input-mask.min.js',
                                 'vendors/bower_components/bootstrap-select/dist/js/bootstrap-select.js',
                                 'vendors/chosen_v1.4.2/chosen.jquery.min.js',
-                                'vendors/bower_components/jquery.bootgrid/dist/jquery.bootgrid.min.js',
+                                'https://cdn.datatables.net/1.10.9/js/jquery.dataTables.min.js',
                                 'vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js',
                                 'vendors/bower_components/bootstrap-fileinput/js/fileinput.min.js',
                             ]
