@@ -188,6 +188,8 @@ noochForLandlords
 
         $scope.propResult = new Array();
 
+        $scope.userAccountDetails = {};
+
         // For setting the 'Selected Prop' when going to a Property's Details page
         $scope.selectedPropId = "";
         $scope.setSelectedId = function ($event) {
@@ -223,6 +225,16 @@ noochForLandlords
 
                         $scope.propResult.push(propItem);
                     }
+
+                    $scope.userAccountDetails.AllUnitsCount = data.AllUnitsCount;
+                    $scope.userAccountDetails.AllPropertysCount = data.AllPropertysCount;
+                    $scope.userAccountDetails.AllTenantsCount = data.AllTenantsCount;
+                    $scope.userAccountDetails.IsAccountAdded = data.IsAccountAdded;
+                    $scope.userAccountDetails.IsEmailVerified = data.IsEmailVerified;
+                    $scope.userAccountDetails.IsPhoneVerified = data.IsPhoneVerified;
+
+                    $scope.userAccountDetails.IsIDVerified = false;
+                    $scope.userAccountDetails.IsAnyRentReceived = false;
                     //console.log('items [0]' + $scope.propResult[0]);
                 }
             });
@@ -2045,22 +2057,77 @@ noochForLandlords
     // Account Checklist Widget
     //=================================================
 
-    .controller('accntChecklistCtrl', function ($scope) {
+    .controller('accntChecklistCtrl', function ($scope, getProfileService, authenticationService) {
 
-        // NEED TO ADD SERVICES TO DETERMINE WHETHER EACH OF THE FOLLOWING STEPS HAS BEEN COMPLETED BY THE USER OR NOT
+        
+        
+
         $scope.checklistItems = {
             confirmEmail: 1,
-            confirmPhone: 1,
-            verifyId: 0,
             connectBank: 0,
+            confirmPhone: 1,
+
+            
+            verifyId: 0,
+           
             addProp: 0,
             addTenant: 0,
-            acceptPayment: 0
+            acceptPayment: 0,
+            percentComplete: 0
         }
 
-        this.percentComplete = ((($scope.checklistItems.confirmEmail + $scope.checklistItems.confirmPhone + $scope.checklistItems.verifyId +
-                               $scope.checklistItems.connectBank + $scope.checklistItems.addProp + $scope.checklistItems.addTenant + $scope.checklistItems.acceptPayment)
-                               / 7) * 100).toFixed(0);
+
+        if (authenticationService.IsValidUser() == true) {
+            var userdetails = authenticationService.GetUserDetails();
+
+            getProfileService.GetAccountCompletionStats(userdetails.memberId, userdetails.accessToken, function (response) {
+
+
+                if (response.AllPropertysCount > 0) {
+                    $scope.checklistItems.addProp = 1;
+                } else {
+                    $scope.checklistItems.addProp = 0;
+                }
+
+                if (response.AllTenantsCount > 0) {
+                    $scope.checklistItems.addTenant = 1;
+                } else {
+                    $scope.checklistItems.addTenant = 0;
+                }
+
+             
+                
+                $scope.checklistItems.connectBank = response.IsAccountAdded;
+                $scope.checklistItems.confirmEmail = response.IsEmailVerified;
+                $scope.checklistItems.confirmPhone = response.IsPhoneVerified;
+                
+                $scope.checklistItems.verifyId = response.IsIDVerified;
+                $scope.checklistItems.acceptPayment = response.IsAnyRentReceived;
+
+                
+                $scope.checklistItems.percentComplete = ((($scope.checklistItems.confirmEmail + $scope.checklistItems.confirmPhone + $scope.checklistItems.verifyId +
+                             $scope.checklistItems.connectBank + $scope.checklistItems.addProp + $scope.checklistItems.addTenant + $scope.checklistItems.acceptPayment)
+                             / 7) * 100).toFixed(0);
+
+                console.log('percent profile ' + $scope.checklistItems.percentComplete);
+
+
+            });
+        }
+        else {
+            window.location.href = 'login.html';
+        }
+
+
+        
+
+
+
+
+        // NEED TO ADD SERVICES TO DETERMINE WHETHER EACH OF THE FOLLOWING STEPS HAS BEEN COMPLETED BY THE USER OR NOT
+      
+
+      
     })
 
     // Account Checklist Pie Chart (EASY PIE CHART)
