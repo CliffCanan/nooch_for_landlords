@@ -455,6 +455,25 @@ noochForLandlords
     .service('getProfileService', function ($http, authenticationService) {
 
         var Operations = {};
+
+
+        Operations.GetAccountCompletionStats = function (landlordId, accessToken, callback) {
+
+            var data = {};
+            data.LandlorId = landlordId;
+            data.AccessToken = accessToken;
+
+            $http.post(URLs.GetAccountCompletionStats, data)
+                .success(function (response) {
+                    if (response.IsSuccess && response.IsSuccess == true) {
+                        authenticationService.ManageToken(response.AuthTokenValidation);
+                        // console.log('came in success');
+                    }
+                    callback(response);
+                });
+        };
+
+
         Operations.GetData = function (landlordId, accessToken, callback) {
 
             var data = {};
