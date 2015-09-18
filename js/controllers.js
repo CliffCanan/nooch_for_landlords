@@ -347,7 +347,7 @@ noochForLandlords
 
 
         $scope.resetEditForm = function () {
-            console.log('came in rest');
+            //console.log('came in resetEditForm');
             $scope.editPropInfo = 0;
         }
 
@@ -568,6 +568,7 @@ noochForLandlords
 
         // Add Unit Button
         $scope.addUnit = function () {
+            // Reset the form
             $('#addUnitModal input').val('');
             $('#addUnitModal select').val('');
             $('#addUnitModal #unitNumGrp').removeClass('has-error').removeClass('has-success');
