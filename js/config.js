@@ -173,8 +173,8 @@ noochForLandlords
         })
 
 
-//------------------------------
-        // Profile
+        //------------------------------
+        //  Profile
         //------------------------------
         .state('profile', {
             url: '/profile',
@@ -241,7 +241,19 @@ noochForLandlords
         })
         .state('profile.profile-bankaccounts', {
             url: '/profile-bankaccounts',
-            templateUrl: 'views/profile-bankaccounts.html'
+            templateUrl: 'views/profile-bankaccounts.html',
+            resolve: {
+                loadPlugin: function ($ocLazyLoad) {
+                    return $ocLazyLoad.load([
+                        {
+                            name: 'vendors',
+                            files: [
+                                'vendors/bower_components/fingerprintjs2/dist/fingerprint2.min.js',
+                            ]
+                        }
+                    ]);
+                }
+            }
         })
         .state('profile.profile-tenants', {
             url: '/profile-tenants',

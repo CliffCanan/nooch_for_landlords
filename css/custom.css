@@ -92,6 +92,7 @@ a,
 input[type='password'] {letter-spacing:1px;}
 
 .capitalize {text-transform: capitalize;}
+.uppercase{text-transform: uppercase;}
 
 /**** TABLES ****/
 table tr th:not(:first-child).columnWidth-13pc {
@@ -820,7 +821,7 @@ form .checkbox.haserror .input-helper:before {
 }
 .propCard .closeFloat:hover {opacity:.98;background-color: rgba(244, 67, 54, .9);}
 .propCard .pv-header {height:120px;}
-.propCard .pv-body {margin-top:90px;}
+.propCard .pv-body {margin-top:80px;}
 .propCard .pv-header > .pv-main {
   background-color: #fff;
   overflow: hidden;
@@ -842,8 +843,7 @@ form .checkbox.haserror .input-helper:before {
 }
 #propertiesList.lv-lg .lv-title {font-size:16px;}
 #propertiesList.lv-lg .lv-small {font-size:13px;}
-.propCard .pv-header > .pv-main
-.profile-view .pv-body > h2 {line-height:1.4;}
+.profile-view .pv-body > h2 {line-height:1.4; height:50px;}
 
 
 /** For the Wizard Plugin **/
