@@ -92,6 +92,7 @@ a,
 input[type='password'] {letter-spacing:1px;}
 
 .capitalize {text-transform: capitalize;}
+.uppercase{text-transform: uppercase;}
 
 /**** TABLES ****/
 table tr th:not(:first-child).columnWidth-13pc {

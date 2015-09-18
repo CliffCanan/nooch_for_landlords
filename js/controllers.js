@@ -328,7 +328,7 @@ noochForLandlords
                             ],
                             "columnDefs": [
                                 {
-                                    "targets": [0, 1, 6, 7, 8, -1, -2, -3, -4],
+                                    "targets": [0, 1, 6, 7, 8, -5, -2, -3, -4], // identifies which columns will be affected, + numbers count from left (0 index), - numbers from the right
                                     "visible": false,
                                     "searchable": false
                                 },
@@ -351,6 +351,11 @@ noochForLandlords
                 //send back to home page 
             }
         };
+
+        $('#propUnits tbody .btn').on('click', 'button', function () {
+            var data = table.row($(this).parents('tr')).data();
+            alert("Col 1: [" + data[0] + "], Col 2: ["+ data[1] + "], Col 3: [" + data[2] + "], Col 4: [" + data[5] + "]");
+        });
 
         getPropertyDetails();
 
@@ -1892,6 +1897,12 @@ noochForLandlords
         this.isBankAttached = true;
         $scope.bankCount = 0;
 
+        // CLIFF (9/18/15): ADDING THIS BLOCK TO GET THE USER'S "FINGERPRINT" - NEED SERVICE TO SEND TO NOOCH DATABASE
+        //                  THIS IS USED FOR SYNAPSE V3
+        new Fingerprint2().get(function (result) {
+            console.log(result);
+        });
+
         this.bankList = getBanksService.getBank(this.id, this.name, this.nickname, this.logo, this.last, this.status, this.dateAdded, this.notes, this.primary, this.deleted);
 
         this.addBank = function () {
@@ -2060,17 +2071,11 @@ noochForLandlords
 
     .controller('accntChecklistCtrl', function ($scope, getProfileService, authenticationService) {
 
-        
-        
-
         $scope.checklistItems = {
             confirmEmail: 1,
             connectBank: 0,
             confirmPhone: 1,
-
-            
             verifyId: 0,
-           
             addProp: 0,
             addTenant: 0,
             acceptPayment: 0,
@@ -2082,7 +2087,6 @@ noochForLandlords
             var userdetails = authenticationService.GetUserDetails();
 
             getProfileService.GetAccountCompletionStats(userdetails.memberId, userdetails.accessToken, function (response) {
-
 
                 if (response.AllPropertysCount > 0) {
                     $scope.checklistItems.addProp = 1;
@@ -2096,37 +2100,23 @@ noochForLandlords
                     $scope.checklistItems.addTenant = 0;
                 }
 
-             
-                
                 $scope.checklistItems.connectBank = response.IsAccountAdded;
                 $scope.checklistItems.confirmEmail = response.IsEmailVerified;
                 $scope.checklistItems.confirmPhone = response.IsPhoneVerified;
-                
                 $scope.checklistItems.verifyId = response.IsIDVerified;
                 $scope.checklistItems.acceptPayment = response.IsAnyRentReceived;
 
-                
+
                 $scope.checklistItems.percentComplete = ((($scope.checklistItems.confirmEmail + $scope.checklistItems.confirmPhone + $scope.checklistItems.verifyId +
                              $scope.checklistItems.connectBank + $scope.checklistItems.addProp + $scope.checklistItems.addTenant + $scope.checklistItems.acceptPayment)
                              / 7) * 100).toFixed(0);
 
                 console.log('percent profile ' + $scope.checklistItems.percentComplete);
-
-
             });
         }
         else {
             window.location.href = 'login.html';
         }
-
-
-        
-
-
-
-
-        // NEED TO ADD SERVICES TO DETERMINE WHETHER EACH OF THE FOLLOWING STEPS HAS BEEN COMPLETED BY THE USER OR NOT
-      
 
       
     })
