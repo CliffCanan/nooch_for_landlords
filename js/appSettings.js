@@ -18,6 +18,7 @@ var URLs = {
     RemoveProperty: PATH + 'Properties/DeleteProperty',
     GetPropertyDetails: PATH + 'Properties/GetPropertyDetailsPageData',
     EditProperty: PATH + 'Properties/EditProperty',
-    GetAccountCompletionStats: PATH + 'Users/GetAccountCompletetionStatsOfGivenLandlord'
+    GetAccountCompletionStats: PATH + 'Users/GetAccountCompletetionStatsOfGivenLandlord',
+    ResendVerificationEmailAndSMS: PATH + 'Users/ResendVerificationEmailAndSMS'
 
 };

@@ -474,6 +474,20 @@ noochForLandlords
         };
 
 
+        Operations.ResendVerificationEmailOrSMS = function (userId,userType,requestFor, callback) {
+
+            var data = {};
+            data.UserId = userId;
+            data.UserType = userType;
+            data.RequestFor = requestFor;
+
+            $http.post(URLs.ResendVerificationEmailAndSMS, data)
+                .success(function (response) {
+                    callback(response);
+                });
+        };
+
+
         Operations.GetData = function (landlordId, accessToken, callback) {
 
             var data = {};
