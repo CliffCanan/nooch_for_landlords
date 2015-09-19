@@ -310,7 +310,7 @@
                                 </div>
 
                                 <dl class="dl-horizontal" id="nameGrp">
-                                    <dt class="p-t-10">Full Name</dt>
+                                    <dt class="p-t-10">Legal Name</dt>
                                     <dd>
                                         <div class="form-group">
                                             <div class="fg-line">
@@ -362,7 +362,7 @@
                                 <dd>
                                     <div class="form-group">
                                         <div class="dtp-container dropdown fg-line">
-                                            <input id="idVer-address" data-ng-model="pctrl.address1" type='text' class="form-control" value="{{ pctrl.address1 }}, {{ pctrl.addressCity }}" placeholder="1600 Pennsylvania Ave">
+                                            <input id="idVer-address" data-ng-model="pctrl.address1" type='text' class="form-control" value="{{ pctrl.address1 | capitalize }}" placeholder="1600 Pennsylvania Ave">
                                         </div>
                                     </div>
                                 </dd>
