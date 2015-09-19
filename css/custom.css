@@ -835,6 +835,7 @@ form .checkbox.haserror .input-helper:before {
   position:relative;
 }
 .propCard .pv-header > .pv-main > img {
+  border-radius: 80px;
   width: auto;
   height: 155px;
   position: absolute;

@@ -234,6 +234,7 @@ noochForLandlords
                     $scope.userAccountDetails.IsPhoneVerified = data.IsPhoneVerified;
 
                     $scope.userAccountDetails.IsIDVerified = false;
+                    $rootScope.isIdVerified = $scope.userAccountDetails.isIDVerified; // Also updating the RootScope
                     $scope.userAccountDetails.IsAnyRentReceived = false;
                     //console.log('items [0]' + $scope.propResult[0]);
                 }
@@ -1389,12 +1390,6 @@ noochForLandlords
 
     .controller('profileCtrl', function ($rootScope, $scope, $compile, growlService, getProfileService, propertiesService, authenticationService) {
 
-        //Get Profile Information from profileService Service (NOT BUILT YET)
-        // Get User Info
-        //this.accountStatus = "Identity Verified";
-        //this.isIdVerified = $rootScope.isIdVerified;
-        //this.userPic = "josh";
-
         $scope.userInfo = {};
 
         // Get User's Info from DB
@@ -1795,6 +1790,9 @@ noochForLandlords
 
                     // SUBMIT DATA TO NOOCH SERVER
 
+                    $scope.userInfo.isIdVerified = 1;
+                    $rootScope.isIdVerified = 1;
+
                     // THEN DISPLAY SUCCESS/FAILURE ALERT...
                     swal({
                         title: "Awesome - ID Verification Submitted",
@@ -1804,7 +1802,6 @@ noochForLandlords
                         confirmButtonColor: "#3fabe1",
                         confirmButtonText: "Terrific",
                         closeOnConfirm: true,
-                    }, function () {
                     });
                 }
             });
@@ -2104,6 +2101,7 @@ noochForLandlords
                 $scope.checklistItems.confirmEmail = response.IsEmailVerified;
                 $scope.checklistItems.confirmPhone = response.IsPhoneVerified;
                 $scope.checklistItems.verifyId = response.IsIDVerified;
+                $rootScope.isIdVerified = $scope.checklistItems.verifyId; // Also updating the RootScope
                 $scope.checklistItems.acceptPayment = response.IsAnyRentReceived;
 
 
