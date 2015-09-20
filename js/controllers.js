@@ -2090,7 +2090,8 @@ noochForLandlords
     // Account Checklist Widget
     //=================================================
 
-    .controller('accntChecklistCtrl', function ($rootScope, $scope, getProfileService, authenticationService) {
+
+    .controller('accntChecklistCtrl', function ($rootScope,$scope, getProfileService, authenticationService) {
 
         $scope.checklistItems = {
             confirmEmail: 1,
@@ -2102,6 +2103,36 @@ noochForLandlords
             acceptPayment: 0,
             percentComplete: 0
         }
+
+
+        $scope.ResendVerificationEmailOrSMS = function (sendWhat) {
+            var userdetails = authenticationService.GetUserDetails();
+            getProfileService.ResendVerificationEmailOrSMS(userdetails.memberId, "Landlord", sendWhat, function (response) {
+                if (response.isSuccess && response.isSuccess == true) {
+
+                    if (sendWhat == "Email") {
+                        swal({
+                            title: "Hurray!",
+                            text: "We just sent you verification link again, please check you email.",
+                            type: "success"
+                        });
+                    }
+                    if (sendWhat == "SMS") {
+                        swal({
+                            title: "Hurray!",
+                            text: "We just sent you SMS, please check you phone.",
+                            type: "success"
+                        });
+                    }
+                } else {
+                    swal({
+                        title: "Oh no",
+                        text: response.ErrorMessage,
+                        type: "warning"
+                    });
+                }
+            });
+        };
 
 
         if (authenticationService.IsValidUser() == true) {
