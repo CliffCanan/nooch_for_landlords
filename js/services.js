@@ -488,6 +488,27 @@ noochForLandlords
         };
 
 
+
+        Operations.SendEmailsToTenants = function (userId, accessTok, emailObj, callback) {
+
+            var dataDevice = {};
+            dataDevice.LandlorId = userId;
+            dataDevice.AccessToken = accessTok;
+
+            var data = {};
+            data.DeviceInfo = dataDevice;
+            data.EmailInfo = emailObj;
+
+
+            
+
+            $http.post(URLs.SendEmailsToTenants, data)
+                .success(function (response) {
+                    callback(response);
+                });
+        };
+
+
         Operations.GetData = function (landlordId, accessToken, callback) {
 
             var data = {};

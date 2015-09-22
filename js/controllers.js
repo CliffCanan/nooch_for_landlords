@@ -246,7 +246,7 @@ noochForLandlords
 
 
     // PROPERTY DETAILS CONTROLLER
-    .controller('propDetailsCtrl', function ($compile, authenticationService, $scope, propertiesService, propDetailsService, getTenantsService, growlService) {
+    .controller('propDetailsCtrl', function ($compile, authenticationService, $scope, propertiesService, propDetailsService, getTenantsService,getProfileService, growlService) {
 
         $scope.selectedProperty = {
 
@@ -298,6 +298,8 @@ noochForLandlords
                         }
 
                         $scope.tenantsListForThisPorperty = data.TenantsListForThisProperty;
+
+                        $('.selectpicker').selectpicker('refresh');
                         console.log($scope.tenantsListForThisPorperty);
 
                         $('#propUnits').DataTable({
@@ -668,10 +670,12 @@ noochForLandlords
             if (howMany == "all") {
                 $('#sndMsgForm .well div').text('Enter a message below.  This will be emailed to ALL tenants for this property.');
                 $('#sndMsgForm #tenantMsgGrp').addClass('hidden');
+                $scope.IsMessageForall = true;
             }
             else if (howMany == "1") {
                 $('#sndMsgForm .well div').text('Enter your message and select a tenant to send it to.');
                 $('#sndMsgForm #tenantMsgGrp').removeClass('hidden');
+                $scope.IsMessageForall = false;
             }
 
             $('#sendMsgModal').modal();
@@ -689,18 +693,59 @@ noochForLandlords
 
                     updateValidationUi("msg", true);
 
-                    $('#sendMsgModal').modal('hide');
+                    // sending message to service here
+                    var emailObj = {};
+                    emailObj.MessageToBeSent = $('#sndMsgForm textarea').val();
+                    emailObj.PropertyId = $scope.selectedProperty.propertyId;
+                    if ($scope.IsMessageForall == true) {
+                        // for all
+                        emailObj.IsForAllOrOne = "All";
+                        
+                        emailObj.TenantIdToBeMessaged = "";
+                        
+                        
 
-                    // Finally, submit the data and display success alert
-                    swal({
-                        title: "Message Sent",
-                        text: "Your message was sent successfully.",
-                        type: "success",
-                        showCancelButton: false,
-                        confirmButtonColor: "#3FABE1",
-                        confirmButtonText: "Great",
-                        closeOnConfirm: true,
+                    } else {
+                        // for single person
+                        emailObj.IsForAllOrOne = "One";
+
+                        emailObj.TenantIdToBeMessaged = "B3A6CF7B-561F-4105-99E4-406A215CCF61";  // ID of tenant to be send from here..hard coded for now
+                    }
+
+                    var userdetails = authenticationService.GetUserDetails();
+                    getProfileService.SendEmailsToTenants(userdetails.memberId, userdetails.accessToken, emailObj, function (data) {
+
+                        if (data.IsSuccess) {
+                            $('#sendMsgModal').modal('hide');
+
+                            // Finally, submit the data and display success alert
+                            swal({
+                                title: "Message Sent",
+                                text: "Your message was sent successfully.",
+                                type: "success",
+                                showCancelButton: false,
+                                confirmButtonColor: "#3FABE1",
+                                confirmButtonText: "Great",
+                                closeOnConfirm: true
+                            });
+                        } else {
+                            swal({
+                                title: "Oops",
+                                text: data.ErrorMessage,
+                                type: "danger",
+                                showCancelButton: false,
+                                confirmButtonColor: "#3FABE1",
+                                confirmButtonText: "Ok",
+                                closeOnConfirm: true
+                            });
+                        }
+                        
                     });
+
+
+
+
+                    
                 }
                 else {
                     updateValidationUi("msg", false);
