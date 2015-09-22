@@ -19,6 +19,8 @@ var URLs = {
     GetPropertyDetails: PATH + 'Properties/GetPropertyDetailsPageData',
     EditProperty: PATH + 'Properties/EditProperty',
     GetAccountCompletionStats: PATH + 'Users/GetAccountCompletetionStatsOfGivenLandlord',
-    ResendVerificationEmailAndSMS: PATH + 'Users/ResendVerificationEmailAndSMS'
+    ResendVerificationEmailAndSMS: PATH + 'Users/ResendVerificationEmailAndSMS',
+    SendEmailsToTenants: PATH + 'Users/SendEmailsToTenants'
+
 
 };

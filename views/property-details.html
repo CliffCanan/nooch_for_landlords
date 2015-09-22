@@ -427,10 +427,10 @@
                             <div class="col-sm-9">
                                 <select id="tenant" data-select-picker data-live-search="true">
                                     <option>Select A Tenant</option>
-                                    <option data-ng-repeat="tenant in tenantList.tenants">{{tenant.name}} &nbsp;{{tenant.last4}}</option>
-                                    <option>Frank Quinterro &nbsp;(quit.frank@gmail.com)</option>
+                                    <option data-ng-repeat="tenant in tenantsListForThisPorperty">{{tenant.Name}} &nbsp;{{tenant.TenantId}}</option>
+                                    <!--<option>Frank Quinterro &nbsp;(quit.frank@gmail.com)</option>
                                     <option>Kareem O'Leary &nbsp;(lighteningbolt@gmail.com)</option>
-                                    <option>Usain Quick &nbsp;(lighteningbolt@gmail.com)</option>
+                                    <option>Usain Quick &nbsp;(lighteningbolt@gmail.com)</option>-->
                                 </select>
                             </div>
                         </div>
@@ -546,11 +546,11 @@
                             <div class="col-sm-9">
                                 <select data-select-picker data-live-search="true">
                                     <option>Select A Tenant</option>
-                                    <option data-ng-repeat="tenant in tenantList.tenants">{{tenant.name}} &nbsp;{{tenant.last4}}</option>
+                                    <option data-ng-repeat="tenant in tenantsListForThisPorperty">{{tenant.Name}} &nbsp;{{tenant.TenantId}}</option>
                                     <option>NO TENANT YET</option>
-                                    <option>Frank Quinterro &nbsp;(quit.frank@gmail.com)</option>
+                                    <!--<option>Frank Quinterro &nbsp;(quit.frank@gmail.com)</option>
                                     <option>Kareem O'Leary &nbsp;(lighteningbolt@gmail.com)</option>
-                                    <option>Usain Quick &nbsp;(lighteningbolt@gmail.com)</option>
+                                    <option>Usain Quick &nbsp;(lighteningbolt@gmail.com)</option>-->
                                 </select>
                             </div>
                         </div>
