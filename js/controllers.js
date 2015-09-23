@@ -246,7 +246,7 @@ noochForLandlords
 
 
     // PROPERTY DETAILS CONTROLLER
-    .controller('propDetailsCtrl', function ($compile, authenticationService, $scope, propertiesService, propDetailsService, getTenantsService, growlService) {
+    .controller('propDetailsCtrl', function ($compile, authenticationService, $scope, propertiesService, propDetailsService, getTenantsService, getProfileService, growlService) {
 
         $scope.selectedProperty = {
 
@@ -298,6 +298,8 @@ noochForLandlords
                         }
 
                         $scope.tenantsListForThisPorperty = data.TenantsListForThisProperty;
+
+                        $('.selectpicker').selectpicker('refresh');
                         console.log($scope.tenantsListForThisPorperty);
 
                         var propUnitsTable = $('#propUnits').DataTable({
@@ -334,7 +336,7 @@ noochForLandlords
                                     "searchable": false
                                 },
                                 { className: "capitalize", "targets": [4] },
-                                { className: "text-center", "targets": [2,3] }
+                                { className: "text-center", "targets": [2, 3] }
                             ],
                             buttons: [
                                 'pdf',
@@ -354,6 +356,7 @@ noochForLandlords
         };
 
         $('#propUnits tbody .btn').on('click', 'button', function () {
+
             console.log("CLICK RECORDED!!");
 
             var data = propUnitsTable.row($(this).parents('tr')).data();
@@ -380,6 +383,7 @@ noochForLandlords
             setTimeout(function () {
                 $('#addUnitModal #unitNum').focus();
             }, 600)
+
         });
 
         getPropertyDetails();
@@ -629,7 +633,7 @@ noochForLandlords
 
             setTimeout(function () {
                 $('#addUnitModal #unitNum').focus();
-            }, 600)
+            }, 600);
         }
 
         $scope.addUnit_submit = function () {
@@ -647,22 +651,68 @@ noochForLandlords
 
                     $('#addUnitModal').modal('hide');
 
-                    // Finally, submit the data and display success alert
-                    swal({
-                        title: "Unit Added",
-                        text: "This unit has been added successfully.",
-                        type: "success",
-                        showCancelButton: true,
-                        confirmButtonColor: "#3FABE1",
-                        confirmButtonText: "Terrific",
-                        cancelButtonText: "Add Another One",
-                        closeOnConfirm: true,
-                        closeOnCancel: true,
-                    }, function (isConfirm) {
-                        if (!isConfirm) {
-                            $scope.addUnit();
+
+                    // preparing data to be submitted to db
+                    var propId = propDetailsService.get();
+                    var userdetails = authenticationService.GetUserDetails();
+                    var unitData = {};
+                    unitData.UnitNum = $('#addUnitModal #unitNum').val();
+                    unitData.UnitNickName = $('#addUnitModal #nickname').val();
+                    unitData.Rent = $('#addUnitModal #monthlyRent').val();
+
+                    unitData.DueDate = $('#addUnitModal #unitRentDueDate option:selected').text();
+
+                    if ($('#addUnitModal #unitTenants option:selected').text() == "Select A Tenant" || $('#addUnitModal #unitTenants option:selected').text() == "NO TENANT YET") {
+                        unitData.IsTenantAdded = false;
+                    } else {
+                        unitData.IsTenantAdded = true;
+                        unitData.TenantId = $('#addUnitModal #unitTenants option:selected').val();
+
+                    }
+
+                    unitData.RentStartDate = $('#addUnitModal #addUnitDatePicker').val();
+                    unitData.AgreementDuration = $('#addUnitModal #rentDurationInMonths option:selected').text();
+
+
+                    propertiesService.AddNewUnit(propId, unitData, userdetails.memberId, userdetails.accessToken, function (data) {
+                        if (data.IsSuccess == true) {
+                            swal({
+                                title: "Unit Added",
+                                text: "This unit has been added successfully.",
+                                type: "success",
+                                showCancelButton: true,
+                                confirmButtonColor: "#3FABE1",
+                                confirmButtonText: "Terrific",
+                                cancelButtonText: "Add Another One",
+                                closeOnConfirm: true,
+                                closeOnCancel: true,
+                            }, function (isConfirm) {
+                                if (!isConfirm) {
+                                    $scope.addUnit();
+                                }
+                            });
+
+                        } else {
+                            swal({
+                                title: "Oops",
+                                text: data.ErrorMessage,
+                                type: "danger",
+                                showCancelButton: false,
+                                confirmButtonColor: "#3FABE1",
+                                confirmButtonText: "Ok",
+
+                                closeOnConfirm: true
+
+                            });
                         }
                     });
+
+
+
+
+
+
+
                 }
                 else {
                     updateValidationUi("monthlyRent", false);
@@ -692,10 +742,12 @@ noochForLandlords
             if (howMany == "all") {
                 $('#sndMsgForm .well div').text('Enter a message below.  This will be emailed to ALL tenants for this property.');
                 $('#sndMsgForm #tenantMsgGrp').addClass('hidden');
+                $scope.IsMessageForall = true;
             }
             else if (howMany == "1") {
                 $('#sndMsgForm .well div').text('Enter your message and select a tenant to send it to.');
                 $('#sndMsgForm #tenantMsgGrp').removeClass('hidden');
+                $scope.IsMessageForall = false;
             }
 
             $('#sendMsgModal').modal();
@@ -703,28 +755,67 @@ noochForLandlords
 
         $scope.sendMsg_submit = function () {
             if ((!$('#sndMsgForm #tenantMsgGrp').hasClass('hidden') && $('#sndMsgForm #tenantMsg').val() != '0') ||
-                  $('#sndMsgForm #tenantMsgGrp').hasClass('hidden'))
-            {
+                  $('#sndMsgForm #tenantMsgGrp').hasClass('hidden')) {
                 // Check Message field for length
-                if ($('#sndMsgForm textarea').val().length > 1)
-                {
+                if ($('#sndMsgForm textarea').val().length > 1) {
                     var trimmedMsg = $('#sndMsgForm textarea').val().trim();
                     $('#sndMsgForm textarea').val(trimmedMsg);
 
                     updateValidationUi("msg", true);
 
-                    $('#sendMsgModal').modal('hide');
+                    // sending message to service here
+                    var emailObj = {};
+                    emailObj.MessageToBeSent = $('#sndMsgForm textarea').val();
+                    emailObj.PropertyId = $scope.selectedProperty.propertyId;
+                    if ($scope.IsMessageForall == true) {
+                        // for all
+                        emailObj.IsForAllOrOne = "All";
 
-                    // Finally, submit the data and display success alert
-                    swal({
-                        title: "Message Sent",
-                        text: "Your message was sent successfully.",
-                        type: "success",
-                        showCancelButton: false,
-                        confirmButtonColor: "#3FABE1",
-                        confirmButtonText: "Great",
-                        closeOnConfirm: true,
+                        emailObj.TenantIdToBeMessaged = "";
+
+
+
+                    } else {
+                        // for single person
+                        emailObj.IsForAllOrOne = "One";
+
+                        emailObj.TenantIdToBeMessaged = "B3A6CF7B-561F-4105-99E4-406A215CCF61";  // ID of tenant to be send from here..hard coded for now
+                    }
+
+                    var userdetails = authenticationService.GetUserDetails();
+                    getProfileService.SendEmailsToTenants(userdetails.memberId, userdetails.accessToken, emailObj, function (data) {
+
+                        if (data.IsSuccess) {
+                            $('#sendMsgModal').modal('hide');
+
+                            // Finally, submit the data and display success alert
+                            swal({
+                                title: "Message Sent",
+                                text: "Your message was sent successfully.",
+                                type: "success",
+                                showCancelButton: false,
+                                confirmButtonColor: "#3FABE1",
+                                confirmButtonText: "Great",
+                                closeOnConfirm: true
+                            });
+                        } else {
+                            swal({
+                                title: "Oops",
+                                text: data.ErrorMessage,
+                                type: "danger",
+                                showCancelButton: false,
+                                confirmButtonColor: "#3FABE1",
+                                confirmButtonText: "Ok",
+                                closeOnConfirm: true
+                            });
+                        }
+
                     });
+
+
+
+
+
                 }
                 else {
                     updateValidationUi("msg", false);
@@ -1420,7 +1511,7 @@ noochForLandlords
         if (authenticationService.IsValidUser() == true) {
 
             var userdetails = authenticationService.GetUserDetails();
-            
+
             //$scope.propCount = 0;
 
             $scope.userInfoInSession = userdetails;
@@ -1462,7 +1553,7 @@ noochForLandlords
                 $rootScope.propCount = response.PropertiesCount;
                 $scope.userInfo.propertiesCount = response.PropertiesCount;
                 $scope.userInfo.unitsCount = response.UnitsCount;
-             
+
 
                 // Get Company Info
                 $scope.company = {
@@ -2091,7 +2182,7 @@ noochForLandlords
     //=================================================
 
 
-    .controller('accntChecklistCtrl', function ($rootScope,$scope, getProfileService, authenticationService) {
+    .controller('accntChecklistCtrl', function ($rootScope, $scope, getProfileService, authenticationService) {
 
         $scope.checklistItems = {
             confirmEmail: 1,
@@ -2171,7 +2262,7 @@ noochForLandlords
             window.location.href = 'login.html';
         }
 
-      
+
     })
 
     // Account Checklist Pie Chart (EASY PIE CHART)
@@ -2196,7 +2287,7 @@ noochForLandlords
         this.register = 0;
         this.forgot = 0;
 
-        $(function() {
+        $(function () {
             $('[data-toggle="tooltip"]').tooltip();
         });
 
@@ -2248,7 +2339,7 @@ noochForLandlords
 
             return true
         };
-      
+
 
         this.loginAttmpt = function () {
 
@@ -2261,71 +2352,70 @@ noochForLandlords
 
                 // Check Name Field for a "@"
                 if ($scope.ValidateEmail($('form#login #username').val())) {
-                    
-                        updateValidationUi("username", true);
 
-                        // Check Password field
-                        if ($('form#login #pw').val().length > 4) {
-                            updateValidationUi("pw", true);
+                    updateValidationUi("username", true);
 
-                            // ADD THE LOADING BOX
-                            $('form#login').block({
-                                message: '<span><i class="fa fa-refresh fa-spin fa-loading"></i></span><br/><span class="loadingMsg">Attempting login...</span>',
-                                css: {
-                                    border: 'none',
-                                    padding: '26px 10px 23px',
-                                    backgroundColor: '#000',
-                                    '-webkit-border-radius': '12px',
-                                    '-moz-border-radius': '12px',
-                                    'border-radius': '12px',
-                                    opacity: '.8',
-                                    width: '86%',
-                                    left: '7%',
-                                    top: '25px',
-                                    color: '#fff'
-                                }
-                            });
+                    // Check Password field
+                    if ($('form#login #pw').val().length > 4) {
+                        updateValidationUi("pw", true);
 
-                            authenticationService.ClearUserData();
+                        // ADD THE LOADING BOX
+                        $('form#login').block({
+                            message: '<span><i class="fa fa-refresh fa-spin fa-loading"></i></span><br/><span class="loadingMsg">Attempting login...</span>',
+                            css: {
+                                border: 'none',
+                                padding: '26px 10px 23px',
+                                backgroundColor: '#000',
+                                '-webkit-border-radius': '12px',
+                                '-moz-border-radius': '12px',
+                                'border-radius': '12px',
+                                opacity: '.8',
+                                width: '86%',
+                                left: '7%',
+                                top: '25px',
+                                color: '#fff'
+                            }
+                        });
 
-                            authenticationService.Login($scope.LoginData.username, $scope.LoginData.password, function (response) {
+                        authenticationService.ClearUserData();
 
-                                $('form#login').unblock();
+                        authenticationService.Login($scope.LoginData.username, $scope.LoginData.password, function (response) {
 
-                                if (response.IsSuccess == true) {
-                                    authenticationService.SetUserDetails($scope.LoginData.username, response.MemberId, response.AccessToken);
-                                    window.location.href = 'index.html#/profile/profile-about';
-                                }
-                                else {
-                                    swal({
-                                        title: "Oh No!",
-                                        text: "Looks like either your email or password was incorrect.  Please try again.",
-                                        type: "error"
-                                    });
-                                    console.log('Sign In Error: ' + response.ErrorMessage);
-                                }
-                            });
-                        }
-                        else {
-                            updateValidationUi("pw", false);
-                        }
+                            $('form#login').unblock();
+
+                            if (response.IsSuccess == true) {
+                                authenticationService.SetUserDetails($scope.LoginData.username, response.MemberId, response.AccessToken);
+                                window.location.href = 'index.html#/profile/profile-about';
+                            }
+                            else {
+                                swal({
+                                    title: "Oh No!",
+                                    text: "Looks like either your email or password was incorrect.  Please try again.",
+                                    type: "error"
+                                });
+                                console.log('Sign In Error: ' + response.ErrorMessage);
+                            }
+                        });
                     }
                     else {
-                        updateValidationUi("username", false);
+                        updateValidationUi("pw", false);
                     }
                 }
                 else {
                     updateValidationUi("username", false);
                 }
-            
+            }
+            else {
+                updateValidationUi("username", false);
+            }
+
         }
 
 
         this.forgotPwAttmpt = function () {
             var email = $scope.LoginData.forgotPassword;
 
-            if ($scope.ValidateEmail(email))
-            {
+            if ($scope.ValidateEmail(email)) {
                 updateValidationUi("emforgot", true);
 
                 // ADD THE LOADING BOX
@@ -2400,8 +2490,7 @@ noochForLandlords
                     $('form#reg #lname').val(trimmedLName);
 
                     // Validate Email Field
-                    if ($scope.ValidateEmail(email))
-                    {
+                    if ($scope.ValidateEmail(email)) {
                         updateValidationUi("em", true);
 
                         // Check Password field
@@ -2527,21 +2616,16 @@ noochForLandlords
 
         // This function checks a field on focusout (when the user moves to the next field) and updates Validation UI accordingly
         $(document).ready(function () {
-            $(document).on("focusout", "form#reg input", function ()
-            {
+            $(document).on("focusout", "form#reg input", function () {
                 var field = this.id;
 
-                if ($(this).val() && $(this).val().length > 2)
-                {
-                    if (field == "em")
-                    {
-                        if ($scope.ValidateEmail(email))
-                        {
+                if ($(this).val() && $(this).val().length > 2) {
+                    if (field == "em") {
+                        if ($scope.ValidateEmail(email)) {
                             updateValidationUi("em", true);
                         }
                     }
-                    else
-                    {
+                    else {
                         updateValidationUi(field, true);
                     }
                 }

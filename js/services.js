@@ -103,6 +103,31 @@ noochForLandlords
                 });
         };
 
+        Operations.AddNewUnit = function (propertyId,unitData, memberId, accessToken, callback) {
+
+            var data = {};
+
+
+            data.PropertyId = propertyId;
+            data.Unit = unitData;
+            
+            data.User = {
+                LandlorId: memberId,
+                AccessToken: accessToken
+            };
+
+            
+
+            $http.post(URLs.AddNewUnitInProperty, data)
+                .success(function (response) {
+                    if (response.IsSuccess && response.IsSuccess == true) {
+                        authenticationService.ManageToken(response.AuthTokenValidation);
+                        // console.log('came in success');
+                    }
+                    callback(response);
+                });
+        };
+
 
         Operations.EditProperty = function (propertyData, memberId, accessToken, callback) {
 
@@ -482,6 +507,27 @@ noochForLandlords
             data.RequestFor = requestFor;
 
             $http.post(URLs.ResendVerificationEmailAndSMS, data)
+                .success(function (response) {
+                    callback(response);
+                });
+        };
+
+
+
+        Operations.SendEmailsToTenants = function (userId, accessTok, emailObj, callback) {
+
+            var dataDevice = {};
+            dataDevice.LandlorId = userId;
+            dataDevice.AccessToken = accessTok;
+
+            var data = {};
+            data.DeviceInfo = dataDevice;
+            data.EmailInfo = emailObj;
+
+
+            
+
+            $http.post(URLs.SendEmailsToTenants, data)
                 .success(function (response) {
                     callback(response);
                 });

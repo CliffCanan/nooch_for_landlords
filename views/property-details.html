@@ -427,10 +427,10 @@
                             <div class="col-sm-9">
                                 <select id="tenant" data-select-picker data-live-search="true">
                                     <option>Select A Tenant</option>
-                                    <option data-ng-repeat="tenant in tenantList.tenants">{{tenant.name}} &nbsp;{{tenant.last4}}</option>
-                                    <option>Frank Quinterro &nbsp;(quit.frank@gmail.com)</option>
+                                    <option data-ng-repeat="tenant in tenantsListForThisPorperty">{{tenant.Name}} &nbsp;{{tenant.TenantId}}</option>
+                                    <!--<option>Frank Quinterro &nbsp;(quit.frank@gmail.com)</option>
                                     <option>Kareem O'Leary &nbsp;(lighteningbolt@gmail.com)</option>
-                                    <option>Usain Quick &nbsp;(lighteningbolt@gmail.com)</option>
+                                    <option>Usain Quick &nbsp;(lighteningbolt@gmail.com)</option>-->
                                 </select>
                             </div>
                         </div>
@@ -532,7 +532,7 @@
                             </div>
                             <label for="memo" class="col-sm-2 p-r-0 control-label">Due On</label>
                             <div class="col-sm-4">
-                                <select data-select-picker>
+                                <select data-select-picker id="unitRentDueDate">
                                     <option selected>1st of Month</option>
                                     <option>Last of Month</option>
                                     <option>15th of Month</option>
@@ -544,13 +544,13 @@
                         <div class="form-group" id="tenantGrp">
                             <label for="tenant" class="col-sm-3 control-label"><i class="md md-person m-r-5"></i>Tenant<small>Optional</small></label>
                             <div class="col-sm-9">
-                                <select data-select-picker data-live-search="true">
-                                    <option>Select A Tenant</option>
-                                    <option data-ng-repeat="tenant in tenantList.tenants">{{tenant.name}} &nbsp;{{tenant.last4}}</option>
+                                <select data-select-picker data-live-search="true" id="unitTenants">
+                                    <option selected="">Select A Tenant</option>
+                                    <option data-ng-repeat="tenant in tenantsListForThisPorperty" value="{{tenant.TenantId}}">{{tenant.Name}} </option>
                                     <option>NO TENANT YET</option>
-                                    <option>Frank Quinterro &nbsp;(quit.frank@gmail.com)</option>
-                                    <option>Kareem O'Leary &nbsp;(lighteningbolt@gmail.com)</option>
-                                    <option>Usain Quick &nbsp;(lighteningbolt@gmail.com)</option>
+                                    <!--<option>Frank Quinterro &nbsp;(quit.frank@gmail.com)</option>
+        <option>Kareem O'Leary &nbsp;(lighteningbolt@gmail.com)</option>
+        <option>Usain Quick &nbsp;(lighteningbolt@gmail.com)</option>-->
                                 </select>
                             </div>
                         </div>
@@ -567,8 +567,8 @@
                             </div>
                             <label for="memo" class="col-sm-1 p-l-0 p-r-0 control-label">Length</label>
                             <div class="col-sm-4">
-                                <select data-select-picker>
-                                    <option>1 Month</option>
+                                <select data-select-picker id="rentDurationInMonths">
+                                    <option selected="">1 Month</option>
                                     <option>6 Months</option>
                                     <option>12 Months</option>
                                     <option>24 Months</option>
