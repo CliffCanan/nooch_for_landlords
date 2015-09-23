@@ -6,7 +6,8 @@
         <h2>Start Getting Paid</h2>
 
         <p class="m-b-25">
-            <span class="f-600">Step 1:</span> Connect any checking account so we know where to send the payments from tenants. <span class="f-500">No routing or account number needed.</span>
+            Connect any checking account so we know where to send the payments from tenants.
+            <span class="f-500">No routing or account number needed.</span>
         </p>
 
         <div class="m-15 p-r-10 text-center">
@@ -90,12 +91,12 @@
 
                                     <div class="form-group fg-line">
                                         <label for="nameOnAcnt" class="fg-label">Name on Account</label>
-                                        <input type="text" id="nameOnAcnt" class="form-control" value="{{ pctrl.firstName }} {{pctrl.lastName}}">
+                                        <input type="text" id="nameOnAcnt" class="form-control" value="{{ pctrl.firstName | capitalize }} {{ pctrl.lastName | capitalize }}">
                                     </div>
 
                                     <div class="form-group fg-line">
                                         <label for="bankName" class="fg-label">Bank Name</label>
-                                        <input type="text" id="bankName" class="form-control" value="{{bank.name}}" disabled>
+                                        <input type="text" id="bankName" class="form-control" value="{{ bank.name | capitalize }}" disabled>
                                     </div>
 
                                     <div class="form-group fg-line">
