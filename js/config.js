@@ -264,9 +264,9 @@ noochForLandlords
         //------------------------------
         // FAQ
         //------------------------------
-        .state('faq', {
-            url: '/faq',
-            templateUrl: 'views/faq.html'
+        .state('help', {
+            url: '/help',
+            templateUrl: 'views/help.html'
         });
 
 });

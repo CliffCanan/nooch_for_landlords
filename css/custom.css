@@ -557,6 +557,8 @@ form .checkbox.haserror .input-helper:before {
   background-color:rgba(66,133,244,.92);
 }
 
+.main-menu li > a > .label { height:20px; line-height:20px; padding-top:0;}
+
 @media (min-width: 1200px) {
   body.sw-toggled #content {padding-left: 230px;}
 }
@@ -574,6 +576,8 @@ form .checkbox.haserror .input-helper:before {
   width: 100%;
 }
 #sidebar .main-menu > li > a {padding: 15px 15px 15px 55px}
+
+
 
 /**** PROFILE - ABOUT ****/
 #profile-main {min-height:400px;}

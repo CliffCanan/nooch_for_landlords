@@ -302,7 +302,7 @@ noochForLandlords
                         $('.selectpicker').selectpicker('refresh');
                         console.log($scope.tenantsListForThisPorperty);
 
-                        $('#propUnits').DataTable({
+                        var propUnitsTable = $('#propUnits').DataTable({
                             data: $scope.tenantsListForThisPorperty,
                             columns: [
                                 { data: 'TenantId' },
@@ -356,8 +356,34 @@ noochForLandlords
         };
 
         $('#propUnits tbody .btn').on('click', 'button', function () {
-            var data = table.row($(this).parents('tr')).data();
+
+            console.log("CLICK RECORDED!!");
+
+            var data = propUnitsTable.row($(this).parents('tr')).data();
+
             alert("Col 1: [" + data[0] + "], Col 2: [" + data[1] + "], Col 3: [" + data[2] + "], Col 4: [" + data[5] + "]");
+
+            $('#addUnitModal .modal-title').html('Edit This Unit in ' + $scope.selectedProperty.name);
+            $('#addUnitModal #unitNum').val($scope.selectedProperty.UnitNumber);
+            $('#addUnitModal select').val('');
+            $('#addUnitModal #unitNumGrp').removeClass('has-error').removeClass('has-success');
+            $('#addUnitModal #monthlyRentGrp').removeClass('has-error').removeClass('has-success');
+
+            if ($('#unitNumGrp .help-block').length) {
+                $('#unitNumGrp .help-block').slideUp();
+            }
+            if ($('#monthlyRentGrp .help-block').length) {
+                $('#monthlyRentGrp .help-block').slideUp();
+            }
+
+            $('#addUnitModal').modal();
+
+            $('#addUnitModal #monthlyRent').mask("#,##0.00", { reverse: true });
+
+            setTimeout(function () {
+                $('#addUnitModal #unitNum').focus();
+            }, 600)
+
         });
 
         getPropertyDetails();
@@ -2154,6 +2180,7 @@ noochForLandlords
     //=================================================
     // Account Checklist Widget
     //=================================================
+
 
     .controller('accntChecklistCtrl', function ($rootScope, $scope, getProfileService, authenticationService) {
 
