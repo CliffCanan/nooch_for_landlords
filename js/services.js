@@ -103,6 +103,31 @@ noochForLandlords
                 });
         };
 
+        Operations.AddNewUnit = function (propertyId,unitData, memberId, accessToken, callback) {
+
+            var data = {};
+
+
+            data.PropertyId = propertyId;
+            data.Unit = unitData;
+            
+            data.User = {
+                LandlorId: memberId,
+                AccessToken: accessToken
+            };
+
+            
+
+            $http.post(URLs.AddNewUnitInProperty, data)
+                .success(function (response) {
+                    if (response.IsSuccess && response.IsSuccess == true) {
+                        authenticationService.ManageToken(response.AuthTokenValidation);
+                        // console.log('came in success');
+                    }
+                    callback(response);
+                });
+        };
+
 
         Operations.EditProperty = function (propertyData, memberId, accessToken, callback) {
 

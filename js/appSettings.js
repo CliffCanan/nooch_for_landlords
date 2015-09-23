@@ -1,7 +1,7 @@
 ﻿
 //for local machine
 
-//var PATH = 'http://localhost:42865/db/api/';
+//var PATH = 'http://localhost:42865/db/api/'; 
 
 //for dev server
 var PATH = 'http://54.201.43.89/landlords/db/api/';
@@ -20,7 +20,7 @@ var URLs = {
     EditProperty: PATH + 'Properties/EditProperty',
     GetAccountCompletionStats: PATH + 'Users/GetAccountCompletetionStatsOfGivenLandlord',
     ResendVerificationEmailAndSMS: PATH + 'Users/ResendVerificationEmailAndSMS',
-    SendEmailsToTenants: PATH + 'Users/SendEmailsToTenants'
-
+    SendEmailsToTenants: PATH + 'Users/SendEmailsToTenants',
+    AddNewUnitInProperty: PATH + 'Properties/AddNewUnitInProperty'
 
 };
