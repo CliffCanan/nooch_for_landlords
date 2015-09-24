@@ -21,6 +21,7 @@ var URLs = {
     GetAccountCompletionStats: PATH + 'Users/GetAccountCompletetionStatsOfGivenLandlord',
     ResendVerificationEmailAndSMS: PATH + 'Users/ResendVerificationEmailAndSMS',
     SendEmailsToTenants: PATH + 'Users/SendEmailsToTenants',
-    AddNewUnitInProperty: PATH + 'Properties/AddNewUnitInProperty'
+    AddNewUnitInProperty: PATH + 'Properties/AddNewUnitInProperty',
+    UploadLandlordProfileImage: PATH + 'Users/UploadLandlordProfileImage'
 
 };

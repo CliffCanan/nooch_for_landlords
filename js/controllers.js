@@ -1788,7 +1788,7 @@ noochForLandlords
             $("#profilePicFileInput").fileinput({
                 allowedFileTypes: ['image'],
                 initialPreview: [
-                    "<img src='" + $scope.userInfo.userImage + "' class='file-preview-image' alt='Profile Picture'>",
+                    "<img src='" + $scope.userInfo.userImage + "' class='file-preview-image' alt='Profile Picture'>"
                 ],
                 initialPreviewShowDelete: false,
                 layoutTemplates: {
@@ -1799,17 +1799,44 @@ noochForLandlords
                 msgSizeTooLarge: "File '{name}' ({size} KB) exceeds the maximum allowed file size of {maxSize} KB. Please try a slightly smaller picture!",
                 showCaption: false,
                 showUpload: false,
-                uploadUrl: '',  // NEED TO ADD URL TO SERVICE FOR SAVING PROFILE PIC (SEPARATELY FROM SAVING THE REST OF THE PROFILE INFO)
+                uploadUrl: URLs.UploadLandlordProfileImage,  // NEED TO ADD URL TO SERVICE FOR SAVING PROFILE PIC (SEPARATELY FROM SAVING THE REST OF THE PROFILE INFO)
                 uploadExtraData: {
-                    deviceInfo: $scope.userInfoInSession.memberId,
+                    LandlorId: $scope.userInfoInSession.memberId,
                     AccessToken: $scope.userInfoInSession.accessToken
                 },
                 showPreview: true,
                 resizeImage: true,
                 maxImageWidth: 400,
                 maxImageHeight: 400,
-                resizePreference: 'width'
+                resizePreference: 'width',
+                fileuploaded : function(data) {
+                    console.log('came in success ' + data);
+                }
             });
+
+
+
+            $('#profilePicFileInput').on('fileuploaded', function (event, data, previewId, index) {
+                var response = data.response;
+
+               
+                console.log('response is '+response);
+                
+                if (data.response.IsSuccess == true) {
+                    $('#addPic').modal('hide');
+                    $scope.userInfo.userImage = data.response.ErrorMessage;
+                } else {
+                    $('#addPic').modal('hide');
+                    swal({
+                        title: "Oops",
+                        text: data.response.ErrorMessage,
+                        type: "danger"
+                    });
+
+                }
+                
+            });
+
         }
 
         $scope.saveProfilePic = function () {
