@@ -180,10 +180,10 @@
 
                                         <ul class="dropdown-menu dropdown-menu-right">
                                             <li>
-                                                <a data-ng-click="editPropInfo = 1"><i class="md md-mode-edit m-r-10"></i>Edit</a>
+                                                <a data-ng-click="beginEditingProp()"><i class="md md-mode-edit m-r-10"></i>Edit</a>
                                             </li>
                                             <li>
-                                                <a data-delete-prop data-propid="{{selectedProperty.propertyId}}"><i class="md md-delete m-r-10"></i>Delete</a>
+                                                <a data-delete-prop data-propid="{{ selectedProperty.propertyId }}"><i class="md md-delete m-r-10"></i>Delete</a>
                                             </li>
                                         </ul>
                                     </li>
@@ -197,7 +197,7 @@
 
                                         <div class="pv-header">
                                             <div class="pv-main" data-ng-click="editPropPic()">
-                                                <img src="{{selectedProperty.imgUrl}}" alt="Property Picture">
+                                                <img src="{{ selectedProperty.imgUrl }}" alt="Property Picture">
                                             </div>
                                         </div>
 

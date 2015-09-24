@@ -90,8 +90,8 @@ noochForLandlords
         this.logout = function () {
             swal({
                 title: "Are you sure?",
-                text: "All your saved localStorage values will be removed",
-                type: "success",
+                text: "You are about to log out of Nooch.",
+                type: "info",
                 showCancelButton: true,
                 confirmButtonColor: "#F44336",
                 confirmButtonText: "Yes - Logout",
@@ -258,6 +258,8 @@ noochForLandlords
 
         var userdetails = authenticationService.GetUserDetails();
 
+        getPropertyDetails();
+
         function getPropertyDetails() {
             //console.log('get properties called user details -> ' + userdetails.memberId + ' ' + userdetails.accessToken);
 
@@ -386,11 +388,12 @@ noochForLandlords
 
         });
 
-        getPropertyDetails();
-
 
         $scope.editPropInfo = 0;
 
+        $scope.beginEditingProp = function () {
+            $scope.editPropInfo = 1;
+        }
 
         $scope.resetEditForm = function () {
             //console.log('came in resetEditForm');
@@ -398,10 +401,10 @@ noochForLandlords
         }
 
         $scope.updatePropInfo = function () {
+
             if ($scope.editPropInfo == 1) {
 
-
-                //preparing data to be sent for updating property
+                // Preparing data to be sent for updating property
                 $scope.inputData = {};
                 $scope.inputData.propertyName = $scope.selectedProperty.name;
                 $scope.inputData.propertyAddress = $scope.selectedProperty.address1;
@@ -905,7 +908,7 @@ noochForLandlords
         }
     })
 
-    // FOR PROPERTY DETAILS TABLE
+    // FOR PROPERTY DETAILS TABLE (Not Used!)
     .directive('propDetailsTable', function ($compile) {
         return {
             restrict: 'EA',
