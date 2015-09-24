@@ -287,7 +287,7 @@ noochForLandlords
                             "city": data.PropertyDetails.City,
                             "state": data.PropertyDetails.State,
                             "zip": data.PropertyDetails.Zip,
-                            "contactNumber": data.PropertyDetails.ContactNumber,
+                            "contactNumber": data.PropertyDetails.ContactNumber.replace(/\D/g, ''),
                             "imgUrl": data.PropertyDetails.PropertyImage,
                             "units": data.PropertyDetails.UnitsCount,
                             "tenants": data.PropertyDetails.TenantsCount,
@@ -299,7 +299,7 @@ noochForLandlords
                             "propertyId": data.PropertyDetails.PropertyId
                         }
 
-                        $scope.tenantsListForThisPorperty = data.TenantsListForThisProperty;
+                        $scope.tenantsListForThisPorperty = data.TenantsListForThisProperty; // CLIFF (9/24/15): THIS SHOULD BE 'UNITSLIST' NOT TENANTS LIST
 
                         $('.selectpicker').selectpicker('refresh');
                         console.log($scope.tenantsListForThisPorperty);
@@ -410,18 +410,18 @@ noochForLandlords
                 $scope.inputData.propertyAddress = $scope.selectedProperty.address1;
                 $scope.inputData.propertyCity = $scope.selectedProperty.city;
                 $scope.inputData.propertyZip = $scope.selectedProperty.zip;
-                $scope.inputData.contactNum = $scope.selectedProperty.contactNumber;
+                $scope.inputData.contactNum = $scope.selectedProperty.contactNumber.replace(/\D/g, '');
                 $scope.inputData.state = $scope.selectedProperty.state;
                 $scope.inputData.propId = $scope.selectedProperty.propertyId;
 
                 propertiesService.EditProperty($scope.inputData, userdetails.memberId, userdetails.accessToken, function (data) {
                     if (data.IsSuccess == true) {
                         $scope.editPropInfo = 0;
-                        growlService.growl('Property info updated Successfully!', 'success');
+                        growlService.growl('Property details updated successfully!', 'success');
                     }
                     else {
                         $scope.editPropInfo = 0;
-                        growlService.growl(data.ErrorMessage, 'warning');
+                        growlService.growl(data.ErrorMessage, 'error');
                     }
                 });
             }
@@ -434,16 +434,22 @@ noochForLandlords
             $("#propPicFileInput").fileinput({
                 allowedFileTypes: ['image'],
                 initialPreview: [
-                    "<img src='/img/property-pics/" + $scope.selectedProperty.imgUrl + "' class='file-preview-image' alt='Desert' title='Desert'>",
+                    "<img src='" + $scope.selectedProperty.imgUrl + "' class='file-preview-image' alt='Property Picture'>",
                 ],
-                initialCaption: $scope.selectedProperty.imgUrl,
                 initialPreviewShowDelete: false,
                 layoutTemplates: {
                     icon: '<span class="md md-panorama m-r-10 kv-caption-icon"></span>',
                 },
-                maxFileSize: 500,
+                maxFileCount: 1,
+                maxFileSize: 250,
                 msgSizeTooLarge: "File '{name}' ({size} KB) exceeds the maximum allowed file size of {maxSize} KB. Please try a slightly smaller picture!",
+                showCaption: false,
                 showUpload: false,
+                showPreview: true,
+                resizeImage: true,
+                maxImageWidth: 400,
+                maxImageHeight: 400,
+                resizePreference: 'width'
             });
         }
 
@@ -1106,7 +1112,17 @@ noochForLandlords
                             },
                             maxFileSize: 500,
                             msgSizeTooLarge: "File '{name}' ({size} KB) exceeds the maximum allowed file size of {maxSize} KB. Please try a slightly smaller picture!",
-                            showUpload: false
+                            initialPreviewShowDelete: false,
+                            maxFileCount: 1,
+                            maxFileSize: 250,
+                            msgSizeTooLarge: "File '{name}' ({size} KB) exceeds the maximum allowed file size of {maxSize} KB. Please try a slightly smaller picture!",
+                            showCaption: false,
+                            showUpload: false,
+                            showPreview: true,
+                            resizeImage: true,
+                            maxImageWidth: 400,
+                            maxImageHeight: 400,
+                            resizePreference: 'width'
                         });
 
 
@@ -1542,7 +1558,14 @@ noochForLandlords
                 $scope.userInfo.emailAddress = response.UserEmail;
                 $scope.userInfo.isEmailVerified = response.IsEmailVerified;
 
-                $scope.userInfo.fb = response.FbUrl;
+                if (response.FbUrl.indexOf('.com/') > -1)
+                {
+                    var strippedFbId = response.FbUrl.substr(response.FbUrl.indexOf('.com/') + 5);
+                    $scope.userInfo.fb = strippedFbId;
+                }
+                else {
+                    $scope.userInfo.fb = response.FbUrl;
+                }
                 $scope.userInfo.twitter = response.TwitterHandle;
                 $scope.userInfo.insta = response.InstaUrl;
 
@@ -1662,7 +1685,7 @@ noochForLandlords
                 getProfileService.UpdateInfo(userInfo, deviceInfo, function (response) {
 
                     if (response.IsSuccess == true) {
-                        growlService.growl(message + ' has updated Successfully!', 'success');
+                        growlService.growl('Profile info updated successfully!', 'success');
                     }
                     else {
                         growlService.growl(response.ErrorMessage, 'danger');
@@ -1690,7 +1713,7 @@ noochForLandlords
                 getProfileService.UpdateInfo(userInfo, deviceInfo, function (response) {
 
                     if (response.IsSuccess == true) {
-                        growlService.growl(message + ' has updated Successfully!', 'success');
+                        growlService.growl('Company info updated successfully!', 'success');
                     }
                     else {
                         growlService.growl(response.ErrorMessage, 'danger');
@@ -1719,7 +1742,7 @@ noochForLandlords
                 getProfileService.UpdateInfo(userInfo, deviceInfo, function (response) {
 
                     if (response.IsSuccess == true) {
-                        growlService.growl(message + ' has updated Successfully!', 'success');
+                        growlService.growl('Contact info updated successfully!', 'success');
                     }
                     else {
                         growlService.growl(response.ErrorMessage, 'danger');
@@ -1745,7 +1768,7 @@ noochForLandlords
 
                 getProfileService.UpdateInfo(userInfo, deviceInfo, function (response) {
                     if (response.IsSuccess == true) {
-                        growlService.growl(message + ' has updated Successfully!', 'success');
+                        growlService.growl('Social netowrk info updated successfully!', 'success');
                     }
                     else {
                         growlService.growl(response.ErrorMessage, 'danger');
@@ -1765,7 +1788,7 @@ noochForLandlords
             $("#profilePicFileInput").fileinput({
                 allowedFileTypes: ['image'],
                 initialPreview: [
-                    "<img src='{{ userInfo.userImage }}' class='file-preview-image' alt='Profile Picture'>",
+                    "<img src='" + $scope.userInfo.userImage + "' class='file-preview-image' alt='Profile Picture'>",
                 ],
                 initialPreviewShowDelete: false,
                 layoutTemplates: {
@@ -1775,13 +1798,22 @@ noochForLandlords
                 maxFileSize: 250,
                 msgSizeTooLarge: "File '{name}' ({size} KB) exceeds the maximum allowed file size of {maxSize} KB. Please try a slightly smaller picture!",
                 showCaption: false,
-                showUpload: true,
+                showUpload: false,
+                uploadUrl: '',  // NEED TO ADD URL TO SERVICE FOR SAVING PROFILE PIC (SEPARATELY FROM SAVING THE REST OF THE PROFILE INFO)
+                uploadExtraData: {
+                    deviceInfo: $scope.userInfoInSession.memberId,
+                    AccessToken: $scope.userInfoInSession.accessToken
+                },
                 showPreview: true,
                 resizeImage: true,
-                maxImageWidth: 200,
-                maxImageHeight: 200,
+                maxImageWidth: 400,
+                maxImageHeight: 400,
                 resizePreference: 'width'
             });
+        }
+
+        $scope.saveProfilePic = function () {
+            $('#profilePicFileInput').fileinput('upload'); // This should automatically call the URL specified in 'uploadUrl' parameter above
         }
 
         if ($rootScope.isIdVerified == false) {
@@ -2012,6 +2044,7 @@ noochForLandlords
         }
     })
 
+
     //=================================================
     // Profile - BANK ACCOUNTS
     //=================================================
@@ -2192,7 +2225,6 @@ noochForLandlords
     // Account Checklist Widget
     //=================================================
 
-
     .controller('accntChecklistCtrl', function ($rootScope, $scope, getProfileService, authenticationService) {
 
         $scope.checklistItems = {
@@ -2205,36 +2237,6 @@ noochForLandlords
             acceptPayment: 0,
             percentComplete: 0
         }
-
-
-        $scope.ResendVerificationEmailOrSMS = function (sendWhat) {
-            var userdetails = authenticationService.GetUserDetails();
-            getProfileService.ResendVerificationEmailOrSMS(userdetails.memberId, "Landlord", sendWhat, function (response) {
-                if (response.isSuccess && response.isSuccess == true) {
-
-                    if (sendWhat == "Email") {
-                        swal({
-                            title: "Hurray!",
-                            text: "We just sent you verification link again, please check you email.",
-                            type: "success"
-                        });
-                    }
-                    if (sendWhat == "SMS") {
-                        swal({
-                            title: "Hurray!",
-                            text: "We just sent you SMS, please check you phone.",
-                            type: "success"
-                        });
-                    }
-                } else {
-                    swal({
-                        title: "Oh no",
-                        text: response.ErrorMessage,
-                        type: "warning"
-                    });
-                }
-            });
-        };
 
 
         if (authenticationService.IsValidUser() == true) {
@@ -2273,6 +2275,42 @@ noochForLandlords
             window.location.href = 'login.html';
         }
 
+
+        $scope.ResendVerificationEmailOrSMS = function (sendWhat) {
+            var userdetails = authenticationService.GetUserDetails();
+            getProfileService.ResendVerificationEmailOrSMS(userdetails.memberId, "Landlord", sendWhat, function (response) {
+                if (response.isSuccess && response.isSuccess == true) {
+                    if (sendWhat == "Email") {
+                        swal({
+                            title: "Hurray!",
+                            text: "We just sent a verification link, please check your email and click the link to verify your email address.",
+                            type: "success"
+                        });
+                    }
+                    if (sendWhat == "SMS") {
+                        swal({
+                            title: "Hurray!",
+                            text: "We just sent you a text message, please check your phone and reply \"Go\" to the text (case doesn't matter).",
+                            type: "success"
+                        });
+                    }
+                }
+                else {
+                    var msgtxt = "";
+                    if (response.ErrorMessage.indexOf('Already Activated') > -1) {
+                        msgtxt = "Looks like your account is already verified! If you continue to see messages saying your email is not verified, please contact Nooch support so we can straighten things out!";
+                    }
+                    else if (response.ErrorMessage.indexOf('Already Verified') > -1) {
+                        msgtxt = "Looks like your phone number is already verified! If you continue to see messages saying your email is not verified, please contact Nooch support so we can straighten things out!";
+                    }
+                    swal({
+                        title: "Oh no!",
+                        text: response.ErrorMessage,
+                        type: "warning"
+                    });
+                }
+            });
+        };
 
     })
 
