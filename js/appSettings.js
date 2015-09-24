@@ -22,6 +22,7 @@ var URLs = {
     ResendVerificationEmailAndSMS: PATH + 'Users/ResendVerificationEmailAndSMS',
     SendEmailsToTenants: PATH + 'Users/SendEmailsToTenants',
     AddNewUnitInProperty: PATH + 'Properties/AddNewUnitInProperty',
-    UploadLandlordProfileImage: PATH + 'Users/UploadLandlordProfileImage'
+    UploadLandlordProfileImage: PATH + 'Users/UploadLandlordProfileImage',
+    UploadPropertyImage: PATH + 'Properties/UploadPropertyImage'
 
 };
