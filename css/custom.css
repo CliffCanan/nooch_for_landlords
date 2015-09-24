@@ -1219,6 +1219,11 @@ addPropWiz .content { min-height:22em; }
   position: relative;
 }
 
+.file-input .file-preview-frame {
+  float: none;
+  margin: 8px auto;
+}
+
 
 form.form-lg .form-control,
 form.form-lg .control-label {

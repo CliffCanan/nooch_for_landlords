@@ -1757,22 +1757,30 @@ noochForLandlords
         }
 
         this.editProfilePic = function () {
-            $('#editProfilePic').modal();
+            $('#addPic').modal();
+
+            console.log('Edit Profile Pic function reached!');
 
             // FILE INPUT DOCUMENTATION: http://plugins.krajee.com/file-input#options
             $("#profilePicFileInput").fileinput({
                 allowedFileTypes: ['image'],
                 initialPreview: [
-                    "<img src='/img/profile-pics/" + "josh.png" + "' class='file-preview-image' alt='Desert' title='Desert'>",
+                    "<img src='{{ userInfo.userImage }}' class='file-preview-image' alt='Profile Picture'>",
                 ],
-                initialCaption: 'josh.png',
                 initialPreviewShowDelete: false,
                 layoutTemplates: {
                     icon: '<span class="md md-panorama m-r-10 kv-caption-icon"></span>',
                 },
-                maxFileSize: 500,
+                maxFileCount: 1,
+                maxFileSize: 250,
                 msgSizeTooLarge: "File '{name}' ({size} KB) exceeds the maximum allowed file size of {maxSize} KB. Please try a slightly smaller picture!",
-                showUpload: false,
+                showCaption: false,
+                showUpload: true,
+                showPreview: true,
+                resizeImage: true,
+                maxImageWidth: 200,
+                maxImageHeight: 200,
+                resizePreference: 'width'
             });
         }
 
