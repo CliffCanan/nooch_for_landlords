@@ -434,7 +434,7 @@ noochForLandlords
             $("#propPicFileInput").fileinput({
                 allowedFileTypes: ['image'],
                 initialPreview: [
-                    "<img src='" + $scope.selectedProperty.imgUrl + "' class='file-preview-image' alt='Property Picture'>",
+                    "<img src='" + $scope.selectedProperty.imgUrl + "' class='file-preview-image' alt='Property Picture' id='propPicPreview'>"
                 ],
                 initialPreviewShowDelete: false,
                 layoutTemplates: {
@@ -449,9 +449,46 @@ noochForLandlords
                 resizeImage: true,
                 maxImageWidth: 400,
                 maxImageHeight: 400,
-                resizePreference: 'width'
+                resizePreference: 'width',
+                uploadExtraData: {
+                    PropertyId: $scope.selectedProperty.propertyId
+                },
+                uploadUrl: URLs.UploadPropertyImage
             });
+
+
+            $('#propPicFileInput').on('fileuploaded', function (event, data, previewId, index) {
+                var response = data.response;
+
+
+                console.log('response is ' + response);
+
+                if (data.response.IsSuccess == true) {
+                    $('#editPropPic').modal('hide');
+                    $scope.selectedProperty.imgUrl = data.response.ErrorMessage;
+
+                    $('#propPicPreview').attr('src', data.response.ErrorMessage);
+                    $('#propImage').attr('src', data.response.ErrorMessage);
+
+                } else {
+                    $('#editPropPic').modal('hide');
+                    swal({
+                        title: "Oops",
+                        text: data.response.ErrorMessage,
+                        type: "danger"
+                    });
+
+                }
+
+            });
+
         }
+
+
+        $scope.savePropertyPic = function () {
+            $('#propPicFileInput').fileinput('upload');
+        };
+
 
         // Get list of Tenants for this Property
         $scope.tenantList = getTenantsService.getTenants(this.id, this.name, this.nickname, this.logo, this.last, this.status, this.dateAdded, this.notes, this.primary, this.deleted);
@@ -1788,7 +1825,7 @@ noochForLandlords
             $("#profilePicFileInput").fileinput({
                 allowedFileTypes: ['image'],
                 initialPreview: [
-                    "<img src='" + $scope.userInfo.userImage + "' class='file-preview-image' alt='Profile Picture'>"
+                    "<img src='" + $scope.userInfo.userImage + "' class='file-preview-image' alt='Profile Picture' id='userPreviewPic'>"
                 ],
                 initialPreviewShowDelete: false,
                 layoutTemplates: {
@@ -1808,10 +1845,7 @@ noochForLandlords
                 resizeImage: true,
                 maxImageWidth: 400,
                 maxImageHeight: 400,
-                resizePreference: 'width',
-                fileuploaded : function(data) {
-                    console.log('came in success ' + data);
-                }
+                resizePreference: 'width'
             });
 
 
@@ -1825,6 +1859,10 @@ noochForLandlords
                 if (data.response.IsSuccess == true) {
                     $('#addPic').modal('hide');
                     $scope.userInfo.userImage = data.response.ErrorMessage;
+
+                    $('#userProfilePic').attr('src', data.response.ErrorMessage);
+                    $('#userPreviewPic').attr('src', data.response.ErrorMessage);
+                    
                 } else {
                     $('#addPic').modal('hide');
                     swal({
