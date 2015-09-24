@@ -54,11 +54,12 @@
                     </div>
 
                     <form data-ng-submit="pctrl.submit('personalInfo', 'Profile Information')" class="pmbb-edit" data-ng-if="pctrl.editPersonalInfo === 1">
+
                         <dl class="dl-horizontal">
                             <dt class="p-t-10">Full Name</dt>
                             <dd>
                                 <div class="fg-line">
-                                    <input id="fullName" data-ng-model="userInfo.fullName" type="text" class="form-control" value="{{ userInfo.fullName | capitalize}}" placeholder="eg Arnold Palmer">
+                                    <input id="fullName" data-ng-model="userInfo.fullName" type="text" class="form-control capitalize" value="{{ userInfo.fullName | capitalize}}" placeholder="eg Arnold Palmer">
                                 </div>
 
                             </dd>
@@ -71,7 +72,6 @@
                                 </div>
                             </dd>
                         </dl>
-
                         <dl class="dl-horizontal">
                             <dt class="p-t-10">SSN<small>Last 4 Digits Only</small></dt>
                             <dd>
@@ -81,7 +81,7 @@
                             </dd>
                         </dl>
 
-                        <div class="m-t-30">
+                        <div class="m-t-30 text-center">
                             <button class="btn btn-primary" type="submit">Save</button>
                             <button class="btn btn-link m-l-10" data-ng-click="pctrl.cancel()">Cancel</button>
                         </div>
@@ -136,7 +136,7 @@
                             </dd>
                         </dl>
 
-                        <div class="m-t-30">
+                        <div class="m-t-30 text-center">
                             <button class="btn btn-primary" type="submit">Save</button>
                             <button class="btn btn-link m-l-10" data-ng-click="pctrl.cancel()">Cancel</button>
                         </div>
@@ -210,7 +210,7 @@
                             </dd>
                         </dl>
 
-                        <div class="m-t-30">
+                        <div class="m-t-30 text-center">
                             <button class="btn btn-primary" type="submit">Save</button>
                             <a class="btn btn-link m-l-10" data-ng-click="pctrl.cancel()">Cancel</a>
                         </div>
@@ -248,7 +248,7 @@
 
                     <form data-ng-submit="pctrl.submit('socialInfo', 'Social Medial Info')" class="pmbb-edit" data-ng-if="pctrl.editSocialInfo === 1">
                         <dl class="dl-horizontal">
-                            <dt class="p-t-10">Facebook</dt>
+                            <dt class="p-t-10">Facebook.com/</dt>
                             <dd>
                                 <div class="fg-line">
                                     <input data-ng-model="userInfo.fb" type="text" class="form-control" placeholder="">
@@ -256,7 +256,7 @@
                             </dd>
                         </dl>
                         <dl class="dl-horizontal">
-                            <dt class="p-t-10">Twitter</dt>
+                            <dt class="p-t-10">Twitter &nbsp;&nbsp;@</dt>
                             <dd>
                                 <div class="fg-line">
                                     <input data-ng-model="userInfo.twitter" type="text" class="form-control" placeholder="eg. @NoochMoney" >
@@ -272,7 +272,7 @@
                             </dd>
                         </dl>
 
-                        <div class="m-t-30">
+                        <div class="m-t-30 text-center">
                             <button class="btn btn-primary" type="submit">Save</button>
                             <a class="btn btn-link m-l-10" data-ng-click="pctrl.cancel()">Cancel</a>
                         </div>

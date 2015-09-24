@@ -94,7 +94,7 @@ a, a *,
 
 input[type='password'] {letter-spacing:1px;}
 
-.capitalize {text-transform: capitalize;}
+.capitalize {text-transform: capitalize !important;}
 .uppercase{text-transform: uppercase;}
 
 /**** TABLES ****/
@@ -843,6 +843,7 @@ form .checkbox.haserror .input-helper:before {
 }
 .propCard .pv-header > .pv-main > img {
   border-radius: 80px;
+  cursor: pointer;
   width: auto;
   height: 155px;
   position: absolute;
@@ -1223,6 +1224,7 @@ addPropWiz .content { min-height:22em; }
   float: none;
   margin: 8px auto;
 }
+.file-input { overflow-x: hidden; }
 
 
 form.form-lg .form-control,
