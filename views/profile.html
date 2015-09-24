@@ -41,7 +41,7 @@
                     <div class="pmo-pic z-depth-2">
                         <div class="p-relative" data-toggle="modal" data-target="#addPic">
                             <a href="">
-                                <img class="img-responsive" src="{{userInfo.userImage }}" alt="Profile Picture">
+                                <img class="img-responsive" src="{{ userInfo.userImage }}" alt="Profile Picture">
                             </a>
 
                             <a class="pmop-edit">
@@ -151,13 +151,13 @@
 
                         <div class="fileinput fileinput-new p-0" data-provides="fileinput">
                             <div class="fileinput-preview thumbnail" data-trigger="fileinput">
-                                <img class="img-responsive" src="{{userInfo.userImage}}">
+                                <img class="img-responsive" src="{{ userInfo.userImage }}">
                             </div>
                             <div>
                                 <span class="btn btn-primary btn-file">
                                     <span class="fileinput-new">Select image</span>
                                     <span class="fileinput-exists">Change</span>
-                                    <input type="file" name="...">
+                                    <input type="file" id="profilePicFileInput" name="">
                                 </span>
                                 <a href="#" class="btn btn-danger fileinput-exists" data-dismiss="fileinput">Remove</a>
                             </div>

@@ -51,9 +51,12 @@ body { font-size: 15px; }
 }
 
 /**** GENERAL LAYOUT ****/
-a,
+a, a *,
 .btn,
 .btn * {cursor:pointer;}
+
+.btn:active { margin: 3px auto -3px; }
+
 .divider {
   height: 10px;
   margin: 1px 0;
