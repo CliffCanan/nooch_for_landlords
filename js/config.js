@@ -197,6 +197,7 @@ noochForLandlords
                             files: [
                                 'vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js',
                                 'vendors/bower_components/jquery.steps/build/jquery.steps.js',
+                                'vendors/canvas-to-blob/canvas-to-blob.min.js',
                                 'vendors/bower_components/bootstrap-fileinput/js/fileinput.min.js'
                             ]
                         }
