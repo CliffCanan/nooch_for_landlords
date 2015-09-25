@@ -265,10 +265,12 @@ noochForLandlords
 
             var propId = propDetailsService.get();
 
-            if (propId != null && propId.length > 0) {
-
-                propDetailsService.getPropFromDb(propId, userdetails.memberId, userdetails.accessToken, function (data) {
-                    if (data.IsSuccess == true) {
+            if (propId != null && propId.length > 0)
+            {
+                propDetailsService.getPropFromDb(propId, userdetails.memberId, userdetails.accessToken, function (data) 
+                {
+                    if (data.IsSuccess == true)
+                    {
                         // data binding goes in here
 
                         var propStatus = 0;
@@ -292,38 +294,44 @@ noochForLandlords
                             "units": data.PropertyDetails.UnitsCount,
                             "tenants": data.PropertyDetails.TenantsCount,
                             "propertyStatus": data.PropertyDetails.PropStatus,
-                            "pastDue": 0,
+                            "pastDue": data.AllTenantsWithPassedDueDateCount,
                             "defaultBankName": data.BankAccountDetails.BankName,
                             "defaultBankNickname": data.BankAccountDetails.BankAccountNick + " - " + data.BankAccountDetails.BankAccountNumString,
                             "bankImage": data.BankAccountDetails.BankIcon,
                             "propertyId": data.PropertyDetails.PropertyId
                         }
 
-                        $scope.tenantsListForThisPorperty = data.TenantsListForThisProperty; // CLIFF (9/24/15): THIS SHOULD BE 'UNITSLIST' NOT TENANTS LIST
+                        $scope.tenantsListForThisPorperty = data.TenantsListForThisProperty;
+                        $scope.allUnitsList = data.PropertyDetails.AllUnits;
 
                         $('.selectpicker').selectpicker('refresh');
+
+                        console.log("TENANT LIST...");
                         console.log($scope.tenantsListForThisPorperty);
+                        console.log("UNIT LIST...");
+                        console.log($scope.allUnitsList);
 
+                        // CLIFF (9/24/15): Updated this table's data source to be the List of UNITS, not tenants
+                        //                  This is going to be complicated becase we need some data form the TENANTS list that 
+                        //                  is not included in the Units list from the server now.
                         var propUnitsTable = $('#propUnits').DataTable({
-                            data: $scope.tenantsListForThisPorperty,
+                            data: $scope.allUnitsList,
                             columns: [
-                                { data: 'TenantId' },
-
+                                { data: 'MemberId' },
                                 { data: 'UnitId' },
                                 { data: 'UnitNumber' },
                                 { data: 'UnitRent' },
+                                { data: 'Name' },               // Not currenly being included in Units List (only tenants list)
 
-                                { data: 'Name' },
-                                { data: 'TenantEmail' },
-                                { data: 'ImageUrl' },
-                                { data: 'LastRentPaidOn' },
+                                { data: 'TenantEmail' },        // Not currenly being included in Units List (only tenants list)
+                                { data: 'ImageUrl' },           // Not currenly being included in Units List (only tenants list)
+                                { data: 'LastRentPaidOn' },     // Not currenly being included in Units List (only tenants list)
+                                { data: 'IsRentPaidForThisMonth' }, // Not currenly being included in Units List (only tenants list)
+                                { data: 'IsEmailVerified' },    // Not currenly being included in Units List (only tenants list)
 
-                                { data: 'IsRentPaidForThisMonth' },
-                                { data: 'IsEmailVerified' },
-                                { data: 'IsDocumentsVerified' },
-
-                                { data: 'IsPhoneVerified' },
-                                { data: 'IsBankAccountAdded' },
+                                { data: 'Status' },
+                                { data: 'IsPhoneVerified' },     // Not currenly being included in Units List (only tenants list)
+                                { data: 'IsBankAccountAdded' },  // Not currenly being included in Units List (only tenants list)
                                 {
                                     data: null,
                                     defaultContent: '<a href="" class=\'btn btn-icon btn-default command-edit m-r-10 editUnitBtn\'><span class=\'md md-edit\'></span></a>' +
@@ -396,7 +404,6 @@ noochForLandlords
         }
 
         $scope.resetEditForm = function () {
-            //console.log('came in resetEditForm');
             $scope.editPropInfo = 0;
         }
 
@@ -493,13 +500,12 @@ noochForLandlords
 
 
         // Get list of Tenants for this Property
-        $scope.tenantList = getTenantsService.getTenants(this.id, this.name, this.nickname, this.logo, this.last, this.status, this.dateAdded, this.notes, this.primary, this.deleted);
+        // CLIFF (9/25/15): PRETTY SURE THIS ISN'T NEEDED OR USED... I THINK THIS WAS OLD FROM WHEN I WAS EXPERIMENTING WITH THIS EARLY ON...
+        //$scope.tenantList = getTenantsService.getTenants(this.id, this.name, this.nickname, this.logo, this.last, this.status, this.dateAdded, this.notes, this.primary, this.deleted);
 
 
         // Edit Published State (Whether the property should be publicly listed or not)
         $scope.dropdownPublishedState = function () {
-
-            console.log('came in dropdown method');
 
             var alertTitleTxt, alertBodyTxt, actionBtnTxt, cancelBtnTxt;
             var isAlreadyPublished = false;
@@ -684,16 +690,18 @@ noochForLandlords
             }, 600);
         }
 
-        $scope.addUnit_submit = function () {
+        $scope.addUnit_submit = function ()
+        {
             // Check Unit Number field for length
-            if ($('#addUnitModal #unitNum').val().length > 0) {
+            if ($('#addUnitModal #unitNum').val().length > 0)
+            {
                 var trimmedName = $('#addUnitModal #unitNum').val().trim();
                 $('#addUnitModal #unitNum').val(trimmedName);
+
                 updateValidationUi("unitNum", true);
 
                 // Now check Monthly Rent Amount field
-                if ($('#addUnitModal #monthlyRent').val().length > 4)// &&
-                    //$('#addUnitModal #monthlyRent').val() > 100)
+                if ($('#addUnitModal #monthlyRent').val().length > 4)
                 {
                     updateValidationUi("monthlyRent", true);
 
@@ -707,23 +715,43 @@ noochForLandlords
                     unitData.UnitNum = $('#addUnitModal #unitNum').val();
                     unitData.UnitNickName = $('#addUnitModal #nickname').val();
                     unitData.Rent = $('#addUnitModal #monthlyRent').val();
-
                     unitData.DueDate = $('#addUnitModal #unitRentDueDate option:selected').text();
-
-                    if ($('#addUnitModal #unitTenants option:selected').text() == "Select A Tenant" || $('#addUnitModal #unitTenants option:selected').text() == "NO TENANT YET") {
-                        unitData.IsTenantAdded = false;
-                    } else {
-                        unitData.IsTenantAdded = true;
-                        unitData.TenantId = $('#addUnitModal #unitTenants option:selected').val();
-
-                    }
-
                     unitData.RentStartDate = $('#addUnitModal #addUnitDatePicker').val();
                     unitData.AgreementDuration = $('#addUnitModal #rentDurationInMonths option:selected').text();
 
+                    if ($('#addUnitModal #unitTenants option:selected').text() == "Select A Tenant" ||
+                        $('#addUnitModal #unitTenants option:selected').text() == "NO TENANT YET")
+                    {
+                        unitData.IsTenantAdded = false;
+                    }
+                    else
+                    {
+                        unitData.IsTenantAdded = true;
+                        unitData.TenantId = $('#addUnitModal #unitTenants option:selected').val();
+                    }
 
+                    
                     propertiesService.AddNewUnit(propId, unitData, userdetails.memberId, userdetails.accessToken, function (data) {
-                        if (data.IsSuccess == true) {
+                        if (data.IsSuccess == true)
+                        {
+                            // Increment the scope's number of Units so the User Interface updates immediately (otherwise would need to reload page to see the new unit accounted for)
+                            var numOfUnits = parseInt($scope.selectedProperty.units);
+                            if (numOfUnits != null)
+                            {
+                                numOfUnits += 1;
+                                $scope.selectedProperty.units = numOfUnits.toString();
+                            }
+
+                            if (unitData.IsTenantAdded == true)
+                            {
+                                var numOfTenants = parseInt($scope.selectedProperty.tenants);
+                                if (numOfTenants != null)
+                                {
+                                    numOfTenants += 1;
+                                    $scope.selectedProperty.tenants = numOfTenants.toString();
+                                }
+                            }
+
                             swal({
                                 title: "Unit Added",
                                 text: "This unit has been added successfully.",
@@ -740,7 +768,8 @@ noochForLandlords
                                 }
                             });
                         }
-                        else {
+                        else
+                        {
                             swal({
                                 title: "Uh Oh",
                                 text: data.ErrorMessage,
@@ -1055,21 +1084,18 @@ noochForLandlords
                                 if (data2.IsSuccess == false) {
 
                                     swal({
-                                        title: "Ooops Error!",
+                                        title: "Oh No!",
                                         text: data2.ErrorMessage,
-                                        type: "warning"
+                                        type: "error"
                                     }, function (isConfirm) {
                                         window.location.href = '#/properties';
                                     });
-                                    //alert(data.ErrorMessage);
                                 }
                                 if (data2.IsSuccess == true) {
 
                                     swal("Deleted!", "That property has been deleted.", "success");
                                     $('.propCard#property' + propertyId).fadeOut();
                                 }
-
-
                             });
                         }
                         else {
@@ -1146,7 +1172,7 @@ noochForLandlords
                                 icon: '<span class="md md-panorama m-r-10 kv-caption-icon"></span>',
                             },
                             initialPreview: [
-                                "<img src='../img/property-pics/default.png' class='file-preview-image'>",
+                                "<img src='img/property-pics/default.png' class='file-preview-image'>",
                             ],
                             initialPreviewShowDelete: false,
                             maxFileCount: 1,

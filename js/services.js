@@ -256,7 +256,6 @@ noochForLandlords
                     }
                     callback(response);
                 });
-
         }
 
         function get2() {
@@ -280,8 +279,8 @@ noochForLandlords
     // =========================================================================
     // Tenants Service (For Property Details Page)
     // =========================================================================
-
-    .service('getTenantsService', ['$resource', function ($resource) {
+    // CLIFF (9/25/15): PRETTY SURE THIS ISN'T NEEDED OR USED... I THINK THIS WAS OLD FROM WHEN I WAS EXPERIMENTING WITH THIS EARLY ON...
+    /*.service('getTenantsService', ['$resource', function ($resource) {
         this.getTenants = function (id, name, nickname, logo, last4, status, dateAdded, notes) {
             var tenantList = $resource("data/tenantsList.json");
 
@@ -296,7 +295,7 @@ noochForLandlords
                 notes: notes
             })
         }
-    }])
+    }])*/
 
     // =========================================================================
     // Bank Accounts Data
