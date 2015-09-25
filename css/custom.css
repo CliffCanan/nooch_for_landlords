@@ -556,7 +556,7 @@ form .checkbox.haserror .input-helper:before {
 }
 #sidebar .profile-menu > a .profile-info {
   font-size:15px;
-  margin-top:32px;
+  margin-top:5px;
   background-color:rgba(66,133,244,.92);
 }
 
@@ -703,6 +703,12 @@ form .checkbox.haserror .input-helper:before {
 }
 #idVerWiz .fileinput .fileinput-preview img {margin-top: -5px;}
 
+
+.wizard > .steps .error a,
+.wizard > .steps .error a:hover,
+.wizard > .steps .error a:active {
+  background: #dd1e00;
+}
 /****************************
 /****   MOBILE SCREENS   ****
  ****************************/

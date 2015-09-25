@@ -306,7 +306,7 @@
 
                             <form id="idVerForm1" role="form">
                                 <div class="well well-sm">
-                                    <div class="f-15">To help protect your account from identity theft and comply with the USA Patriot Act, please complete the following form.</div>
+                                    <div class="f-15">To help protect your account from identity theft and comply with the USA Patriot Act, please complete the following fields.</div>
                                 </div>
 
                                 <dl class="dl-horizontal" id="nameGrp">
@@ -314,7 +314,7 @@
                                     <dd>
                                         <div class="form-group">
                                             <div class="fg-line">
-                                                <input id="idVer-name" data-ng-model="pctrl.fullName" type="text" class="form-control" value="{{ pctrl.fullName }}" placeholder="eg. Arnold Palmer" required>
+                                                <input id="idVer-name" data-ng-model="userInfo.fullName" type="text" class="form-control capitalize" value="{{ userInfo.fullName }}" placeholder="eg. Arnold Palmer" required>
                                             </div>
                                         </div>
                                     </dd>
@@ -326,7 +326,7 @@
                                         <div class="input-group form-group">
                                             <span class="input-group-addon"><i class="md md-event"></i></span>
                                             <div class="dtp-container dropdown fg-line">
-                                                <input id="idVer-dob" data-dt-picker data-format="MM/DD/YYYY" data-ng-model="pctrl.birthDay" type='text' class="form-control date-picker" data-toggle="dropdown" placeholder="eg. 08/05/1978">
+                                                <input id="idVer-dob" data-dt-picker data-format="MM/DD/YYYY" data-ng-model="userInfo.birthDay" type='text' class="form-control date-picker" data-toggle="dropdown" placeholder="eg. 08/05/1978">
                                             </div>
                                         </div>
                                     </dd>
@@ -338,7 +338,7 @@
                                         <div class="form-group">
                                             <div class="dtp-container dropdown fg-line">
                                                 <span id="ssnPrefix">XXX - XX -</span>
-                                                <input id="idVer-ssn" data-ng-model="pctrl.ssnLast4" type='text' class="form-control" value="{{ pctrl.ssnLast4 }}" placeholder="1234" data-input-mask="{mask: '0000'}">
+                                                <input id="idVer-ssn" data-ng-model="userInfo.ssnLast4" type='text' class="form-control" value="{{ userInfo.ssnLast4 }}" placeholder="1234" data-input-mask="{mask: '0000'}">
                                             </div>
                                         </div>
                                     </dd>
@@ -389,19 +389,11 @@
                                 <div><small>(optional)</small></div>
                             </div>
 
-                            <div class="fileinput fileinput-new p-0" data-provides="fileinput">
-                                <div class="fileinput-preview thumbnail" data-trigger="fileinput">
-                                    <img class="img-responsive" src="img/profile-pics/{{userInfo.userPic}}.png">
-                                </div>
-                                <div>
-                                    <span class="btn btn-info btn-file">
-                                        <span class="fileinput-new">Select image</span>
-                                        <span class="fileinput-exists">Change</span>
-                                        <input type="file" name="...">
-                                    </span>
-                                    <a href="#" class="btn btn-danger fileinput-exists" data-dismiss="fileinput">Remove</a>
-                                </div>
+                            <div class="text-center">
+                                <label class="control-label">Select File</label>
+                                <input id="IdWizPic_FileInput" type="file" class="file-loading">
                             </div>
+
                         </section>
 
                     </div>
