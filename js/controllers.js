@@ -457,25 +457,27 @@ noochForLandlords
             });
 
 
-            $('#propPicFileInput').on('fileuploaded', function (event, data, previewId, index) {
+            $('#propPicFileInput').on('fileuploaded', function (event, data, previewId, index)
+            {
                 var response = data.response;
 
+                console.log('Save prop pic response is ' + response);
 
-                console.log('response is ' + response);
-
-                if (data.response.IsSuccess == true) {
+                if (data.response.IsSuccess == true)
+                {
                     $('#editPropPic').modal('hide');
                     $scope.selectedProperty.imgUrl = data.response.ErrorMessage;
 
                     $('#propPicPreview').attr('src', data.response.ErrorMessage);
                     $('#propImage').attr('src', data.response.ErrorMessage);
-
-                } else {
+                }
+                else
+                {
                     $('#editPropPic').modal('hide');
                     swal({
                         title: "Oops",
                         text: data.response.ErrorMessage,
-                        type: "danger"
+                        type: "error"
                     });
 
                 }
@@ -737,33 +739,23 @@ noochForLandlords
                                     $scope.addUnit();
                                 }
                             });
-
-                        } else {
+                        }
+                        else {
                             swal({
-                                title: "Oops",
+                                title: "Uh Oh",
                                 text: data.ErrorMessage,
-                                type: "danger",
+                                type: "error",
                                 showCancelButton: false,
                                 confirmButtonColor: "#3FABE1",
                                 confirmButtonText: "Ok",
-
                                 closeOnConfirm: true
-
                             });
                         }
                     });
-
-
-
-
-
-
-
                 }
                 else {
                     updateValidationUi("monthlyRent", false);
                 }
-
             }
             else {
                 updateValidationUi("unitNum", false);
@@ -799,11 +791,14 @@ noochForLandlords
             $('#sendMsgModal').modal();
         }
 
-        $scope.sendMsg_submit = function () {
+        $scope.sendMsg_submit = function ()
+        {
             if ((!$('#sndMsgForm #tenantMsgGrp').hasClass('hidden') && $('#sndMsgForm #tenantMsg').val() != '0') ||
-                  $('#sndMsgForm #tenantMsgGrp').hasClass('hidden')) {
+                  $('#sndMsgForm #tenantMsgGrp').hasClass('hidden'))
+            {
                 // Check Message field for length
-                if ($('#sndMsgForm textarea').val().length > 1) {
+                if ($('#sndMsgForm textarea').val().length > 1)
+                {
                     var trimmedMsg = $('#sndMsgForm textarea').val().trim();
                     $('#sndMsgForm textarea').val(trimmedMsg);
 
@@ -813,25 +808,25 @@ noochForLandlords
                     var emailObj = {};
                     emailObj.MessageToBeSent = $('#sndMsgForm textarea').val();
                     emailObj.PropertyId = $scope.selectedProperty.propertyId;
-                    if ($scope.IsMessageForall == true) {
+
+                    if ($scope.IsMessageForall == true)
+                    {
                         // for all
                         emailObj.IsForAllOrOne = "All";
-
                         emailObj.TenantIdToBeMessaged = "";
-
-
-
-                    } else {
+                    }
+                    else
+                    {
                         // for single person
                         emailObj.IsForAllOrOne = "One";
-
                         emailObj.TenantIdToBeMessaged = "B3A6CF7B-561F-4105-99E4-406A215CCF61";  // ID of tenant to be send from here..hard coded for now
                     }
 
                     var userdetails = authenticationService.GetUserDetails();
-                    getProfileService.SendEmailsToTenants(userdetails.memberId, userdetails.accessToken, emailObj, function (data) {
-
-                        if (data.IsSuccess) {
+                    getProfileService.SendEmailsToTenants(userdetails.memberId, userdetails.accessToken, emailObj, function (data)
+                    {
+                        if (data.IsSuccess)
+                        {
                             $('#sendMsgModal').modal('hide');
 
                             // Finally, submit the data and display success alert
@@ -844,24 +839,20 @@ noochForLandlords
                                 confirmButtonText: "Great",
                                 closeOnConfirm: true
                             });
-                        } else {
+                        }
+                        else
+                        {
                             swal({
                                 title: "Oops",
                                 text: data.ErrorMessage,
-                                type: "danger",
+                                type: "error",
                                 showCancelButton: false,
                                 confirmButtonColor: "#3FABE1",
                                 confirmButtonText: "Ok",
                                 closeOnConfirm: true
                             });
                         }
-
                     });
-
-
-
-
-
                 }
                 else {
                     updateValidationUi("msg", false);
@@ -885,8 +876,10 @@ noochForLandlords
             $('#editAchModal').modal();
         }
 
-        $scope.editAchMemo_submit = function () {
-            if ($('#editAchModal input[name=achMemoStyle]:checked').length) {
+        $scope.editAchMemo_submit = function ()
+        {
+            if ($('#editAchModal input[name=achMemoStyle]:checked').length)
+            {
                 updateValidationUi('achMemo', true);
                 $('#editAchModal').modal('hide');
 
@@ -1127,14 +1120,19 @@ noochForLandlords
                 $scope.unitInputsShowing = 0;
             },
             onStepChanging: function (event, currentIndex, newIndex) {
-                if (newIndex == 0) {
+
+                if (newIndex == 0)
+                {
                     $('.wizard.vertical > .content').animate({ height: "22em" }, 500)
                 }
 
                 // IF going to Step 2
-                if (newIndex == 1) {
-                    if ($('#propertyName').val().length > 3) {
+                if (newIndex == 1)
+                {
+                    if ($('#propertyName').val().length > 3)
+                    {
                         console.log($scope.inputData.propertyName);
+
                         updateValidationUi(1, null, true);
 
                         addPropPicFileInput
@@ -1147,8 +1145,9 @@ noochForLandlords
                             layoutTemplates: {
                                 icon: '<span class="md md-panorama m-r-10 kv-caption-icon"></span>',
                             },
-                            maxFileSize: 500,
-                            msgSizeTooLarge: "File '{name}' ({size} KB) exceeds the maximum allowed file size of {maxSize} KB. Please try a slightly smaller picture!",
+                            initialPreview: [
+                                "<img src='../img/property-pics/default.png' class='file-preview-image'>",
+                            ],
                             initialPreviewShowDelete: false,
                             maxFileCount: 1,
                             maxFileSize: 250,
@@ -1157,8 +1156,8 @@ noochForLandlords
                             showUpload: false,
                             showPreview: true,
                             resizeImage: true,
-                            maxImageWidth: 400,
-                            maxImageHeight: 400,
+                            maxImageWidth: 600,
+                            maxImageHeight: 600,
                             resizePreference: 'width'
                         });
 
@@ -1378,7 +1377,8 @@ noochForLandlords
         }
 
         updateValidationUi = function (step, substep, success) {
-            console.log("Step: " + step + "; substep: " + substep + "; success: " + success);
+            //console.log("Step: " + step + "; substep: " + substep + "; success: " + success);
+
             if (step == 1) {
                 if (success == true) {
                     $('#propNameGrp').removeClass('has-error').addClass('has-success');
@@ -1819,8 +1819,6 @@ noochForLandlords
         this.editProfilePic = function () {
             $('#addPic').modal();
 
-            console.log('Edit Profile Pic function reached!');
-
             // FILE INPUT DOCUMENTATION: http://plugins.krajee.com/file-input#options
             $("#profilePicFileInput").fileinput({
                 allowedFileTypes: ['image'],
@@ -1849,32 +1847,33 @@ noochForLandlords
             });
 
 
-
-            $('#profilePicFileInput').on('fileuploaded', function (event, data, previewId, index) {
-                var response = data.response;
-
-               
-                console.log('response is '+response);
+            $('#profilePicFileInput').on('fileuploaded', function (event, data, previewId, index)
+            {
+                var response = data.response;               
+                console.log(data);
+                console.log(response);
                 
-                if (data.response.IsSuccess == true) {
+                if (data.response.IsSuccess == true)
+                {
                     $('#addPic').modal('hide');
                     $scope.userInfo.userImage = data.response.ErrorMessage;
-
-                    $('#userProfilePic').attr('src', data.response.ErrorMessage);
                     $('#userPreviewPic').attr('src', data.response.ErrorMessage);
-                    
-                } else {
+
+                    $('#userProfilePic').attr('src', '');
+                    setTimeout(function () {
+                        $('#userProfilePic').attr('src', data.response.ErrorMessage + '#' + new Date().getTime());
+                    }, 1100);
+                }
+                else
+                {
                     $('#addPic').modal('hide');
                     swal({
                         title: "Oops",
                         text: data.response.ErrorMessage,
-                        type: "danger"
+                        type: "error"
                     });
-
                 }
-                
             });
-
         }
 
         $scope.saveProfilePic = function () {
@@ -1924,26 +1923,34 @@ noochForLandlords
                     }, 750)
                 },
                 onStepChanging: function (event, currentIndex, newIndex) {
-                    if (newIndex == 0) {
+
+                    if (newIndex == 0)
+                    {
                         $('#idVerWiz > .content').animate({ height: "29em" }, 500)
                     }
 
                     // IF going to Step 2
-                    if (currentIndex == 0) {
+                    if (currentIndex == 0)
+                    {
                         // Check Name field for length
-                        if ($('#idVer-name').val().length > 4) {
+                        if ($('#idVer-name').val().length > 4)
+                        {
                             var trimmedName = $('#idVer-name').val().trim();
                             $('#idVer-name').val(trimmedName);
+
                             // Check Name Field for a " "
-                            if ($('#idVer-name').val().indexOf(' ') > 1) {
+                            if ($('#idVer-name').val().indexOf(' ') > 1)
+                            {
                                 updateValidationUi("name", true);
 
                                 // Check DOB field
-                                if ($('#idVer-dob').val().length == 10) {
+                                if ($('#idVer-dob').val().length == 10)
+                                {
                                     updateValidationUi("dob", true);
 
                                     // Check SSN field
-                                    if ($('#idVer-ssn').val().length == 4) {
+                                    if ($('#idVer-ssn').val().length == 4)
+                                    {
                                         updateValidationUi("ssn", true);
 
                                         // Great, we can finally go to the next step of the wizard :-]
@@ -1980,6 +1987,34 @@ noochForLandlords
                                 updateValidationUi("zip", true);
 
                                 // Great, go to the next step of the wizard :-]
+
+                                // FILE INPUT DOCUMENTATION: http://plugins.krajee.com/file-input#options
+                                $("#IdWizPic_FileInput").fileinput({
+                                    allowedFileTypes: ['image'],
+                                    initialPreview: [
+                                        "<img src='" + $scope.userInfo.userImage + "' class='file-preview-image' alt='Profile Picture' id='IdWizUserPicPreview'>"
+                                    ],
+                                    initialPreviewShowDelete: false,
+                                    layoutTemplates: {
+                                        icon: '<span class="md md-panorama m-r-10 kv-caption-icon"></span>',
+                                    },
+                                    maxFileCount: 1,
+                                    maxFileSize: 250,
+                                    msgSizeTooLarge: "File '{name}' ({size} KB) exceeds the maximum allowed file size of {maxSize} KB. Please try a slightly smaller picture!",
+                                    showCaption: false,
+                                    showUpload: false,
+                                    uploadUrl: URLs.UploadLandlordProfileImage,  // NEED TO ADD URL TO SERVICE FOR SAVING PROFILE PIC (SEPARATELY FROM SAVING THE REST OF THE PROFILE INFO)
+                                    uploadExtraData: {
+                                        LandlorId: $scope.userInfoInSession.memberId,
+                                        AccessToken: $scope.userInfoInSession.accessToken
+                                    },
+                                    showPreview: true,
+                                    resizeImage: true,
+                                    maxImageWidth: 400,
+                                    maxImageHeight: 400,
+                                    resizePreference: 'width'
+                                });
+
                                 $('#idVerWiz > .content').animate({ height: "26em" }, 700)
                                 return true;
                             }
