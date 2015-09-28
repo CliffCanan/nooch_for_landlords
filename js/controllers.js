@@ -246,7 +246,7 @@ noochForLandlords
 
 
     // PROPERTY DETAILS CONTROLLER
-    .controller('propDetailsCtrl', function ($compile, authenticationService, $scope, propertiesService, propDetailsService, getTenantsService, getProfileService, growlService) {
+    .controller('propDetailsCtrl', function ($compile, authenticationService, $scope, propertiesService, propDetailsService,  getProfileService, growlService) {
 
         $scope.selectedProperty = {
 
@@ -258,7 +258,7 @@ noochForLandlords
 
         var userdetails = authenticationService.GetUserDetails();
 
-        getPropertyDetails();
+       
 
         function getPropertyDetails() {
             console.log('get properties called user details -> ' + userdetails.memberId + ' ' + userdetails.accessToken);
@@ -321,7 +321,7 @@ noochForLandlords
                                 { data: 'UnitId' },
                                 { data: 'UnitNumber' },
                                 { data: 'UnitRent' },
-                                { data: 'Name' },               // Not currenly being included in Units List (only tenants list)
+                                { data: 'TenantName' },               // Not currenly being included in Units List (only tenants list)
 
                                 { data: 'TenantEmail' },        // Not currenly being included in Units List (only tenants list)
                                 { data: 'ImageUrl' },           // Not currenly being included in Units List (only tenants list)
@@ -364,6 +364,7 @@ noochForLandlords
                 //send back to home page 
             }
         };
+        getPropertyDetails();
 
         $('#propUnits tbody .btn').on('click', 'button', function () {
 
