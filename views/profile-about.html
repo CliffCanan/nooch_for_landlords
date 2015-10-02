@@ -293,7 +293,7 @@
 
             <div class="modal-header">
                 <h4 class="modal-title">Identity Verification <i class="md md-verified-user text-success m-l-10"></i></h4>
-                <button type="button" class="btn btn-default btn-icon modalclose" data-dismiss="modal"><i class="md md-close"></i></button>
+                <button type="button" class="btn btn-default btn-icon modalclose" data-ng-click="cancelIdVer()"><i class="md md-close"></i></button>
             </div>
 
             <div class="modal-body">
@@ -306,8 +306,8 @@
 
                             <form id="idVerForm1" role="form">
                                 <div class="well well-sm">
-                                    <div class="f-15">To help protect your account from identity theft and comply with the USA Patriot Act, please complete the following fields.</div>
-                                </div>
+									<div class="ast">To keep Nooch safe for everyone<span class="desk-only">*</span>, we need to verify your identity. Please complete the following fields.</div>
+								</div>
 
                                 <dl class="dl-horizontal" id="nameGrp">
                                     <dt class="p-t-10">Legal Name</dt>
@@ -326,7 +326,7 @@
                                         <div class="input-group form-group">
                                             <span class="input-group-addon"><i class="md md-event"></i></span>
                                             <div class="dtp-container dropdown fg-line">
-                                                <input id="idVer-dob" data-dt-picker data-format="MM/DD/YYYY" data-ng-model="userInfo.birthDay" type='text' class="form-control date-picker" data-toggle="dropdown" placeholder="eg. 08/05/1978">
+                                                <input id="idVer-dob" data-format="MM/DD/YYYY" data-ng-model="userInfo.birthDay" type='text' class="form-control" data-toggle="dropdown" placeholder="eg. 08/05/1978">
                                             </div>
                                         </div>
                                     </dd>
@@ -338,7 +338,7 @@
                                         <div class="form-group">
                                             <div class="dtp-container dropdown fg-line">
                                                 <span id="ssnPrefix">XXX - XX -</span>
-                                                <input id="idVer-ssn" data-ng-model="userInfo.ssnLast4" type='text' class="form-control" value="{{ userInfo.ssnLast4 }}" placeholder="1234" data-input-mask="{mask: '0000'}">
+                                                <input id="idVer-ssn" data-ng-model="userInfo.ssnLast4" type='text' class="form-control" value="{{ userInfo.ssnLast4 }}" placeholder="1234">
                                             </div>
                                         </div>
                                     </dd>
