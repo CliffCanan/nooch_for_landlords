@@ -1683,6 +1683,7 @@ noochForLandlords
 
         this.goTo = function (destination) {
             if (destination == '1') {
+				$rootScope.fromHome = true;
                 window.location.href = '#/profile/profile-about';
             }
             else if (destination == '2') {
@@ -1699,12 +1700,12 @@ noochForLandlords
             }
         }
 
-
+		
         // Account Info
-        this.bankCount = 2;
-        this.propertyCount = 5;
-        this.unitCount = 18;
-        this.tenantRequests = 3;
+        //this.bankCount = 2;
+        //this.propertyCount = 5;
+        //this.unitCount = 18;
+			this.tenantRequests = 3;
 
         // When user Edits one of the "Profile - About" sections
         this.editPersonalInfo = 0;
@@ -1924,15 +1925,42 @@ noochForLandlords
             $('#profilePicFileInput').fileinput('upload'); // This should automatically call the URL specified in 'uploadUrl' parameter above
         }
 
-        if ($rootScope.isIdVerified == false) {
+        if (//$rootScope.isIdVerified == false ||
+			$rootScope.isIdVerifiedLocal == 0) {
+			console.log("ID IS NOT VERIFIED YET");
             // SINCE THIS CONTROLLER GETS CALLED ON MULTIPLE PAGES, THIS WILL ATTEMPT TO RUN THE WIZARD ON EVERY PAGE, CAUSING ERRORS SINCE IT'S
             // ONLY SUPPOSED TO RUN ON THE PROFILE-ABOUT PAGE.  THE INTENT OF THIS BLOCK WAS TO INITIATE THE MODAL W/ THE WIZARD UPON PAGE LOAD
             // ONLY WHEN ON THE PROFILE-ABOUT PAGE.  BUT I COULDN'T MOVE THE WIZARD CODE TO ANOTHER CONTROLLER BECAUSE I NEED ACCESS TO THE PROFILE
             // INFO VARIABLES ABOVE... BUT THOSE REALLY SHOULD BE SEPARATED INTO A RE-USABLE 'SERVICE' SO THAT ANY CONTROLLER CAN ACCESS THEM...
             // NEED TO WORK ON THAT...
-            // runIdWizard();
+            if ($rootScope.fromHome == true) {
+				$rootScope.fromHome = false;
+				//$scope.runWizard();
+				swal({
+                title: "Secure, Private Payments",
+                text: "<p>Nooch is a quick, secure way to collect rent payments without giving out your personal or bank details.</p>" +
+                      "<ul class='fa-ul'><li><i class='fa-li fa fa-check'></i>Verify You Identity</li>" +
+                      "<li><i class='fa-li fa fa-check'></i>Attach your bank account</li>" +
+                      "<li><i class='fa-li fa fa-check'></i>Add your properties to start collecting rent</li></ul>",
+                imageUrl: "img/secure.svg",
+                imageSize: "194x80",
+                showCancelButton: false,
+                //cancelButtonText: "Learn More",
+                confirmButtonColor: "#3fabe1",
+                confirmButtonText: "Great!",
+                //closeOnCancel: false,
+                customClass: "securityAlert",
+                allowEscapeKey: false,
+                html: true
+            }, function (isConfirm) {
+                if (isConfirm)
+                { 
+					$scope.runWizard();
+				}
+            });
+			}
         }
-        this.runWizard = function () { runIdWizard(); }
+        $scope.runWizard = function () { runIdWizard(); }
 
         function runIdWizard() {
             $('#idVer').modal({
@@ -2108,9 +2136,38 @@ noochForLandlords
                     $('#idVer').modal('hide')
 
                     // SUBMIT DATA TO NOOCH SERVER
+					$scope.userInfo.birthDay = $('#idVer-dob').val()
+					$scope.userInfo.ssnLast4 = $('#idVer-ssn').val()
 
+						var userInfo = {
+							fullName: $scope.userInfo.fullName,
+							ssnLast4: $scope.userInfo.ssnLast4,
+							birthDay: $scope.userInfo.birthDay,
+							InfoType: 'Personal'
+						};
+						console.log(userInfo);
+
+						var deviceInfo = {
+							deviceInfo: $scope.userInfoInSession.memberId,
+							AccessToken: $scope.userInfoInSession.accessToken
+						};
+
+						getProfileService.UpdateInfo(userInfo, deviceInfo, function (response) {
+
+							if (response.IsSuccess == true) {
+								growlService.growl('Profile info updated successfully!', 'success');
+							}
+							else {
+								growlService.growl(response.ErrorMessage, 'danger');
+							}
+
+						});
+
+
+						
                     $scope.userInfo.isIdVerified = 1;
                     $rootScope.isIdVerified = 1;
+					$rootScope.isIdVerifiedLocal = 1;
 
                     // THEN DISPLAY SUCCESS/FAILURE ALERT...
                     swal({
@@ -2217,9 +2274,24 @@ noochForLandlords
     // Profile - BANK ACCOUNTS
     //=================================================
 
-    .controller('banksCtrl', function ($scope, getBanksService) {
+    .controller('banksCtrl', function ($scope, authenticationService, getBanksService) {
         this.isBankAttached = true;
         $scope.bankCount = 0;
+
+		// Get User's Info from DB
+        if (authenticationService.IsValidUser() == true) {
+
+            var userdetails = authenticationService.GetUserDetails();
+			console.log(userdetails);
+            //$scope.propCount = 0;
+
+            $scope.userInfoInSession = userdetails;
+		}
+		else
+		{
+            window.location.href = 'login.html';
+        }
+
 
         // CLIFF (9/18/15): ADDING THIS BLOCK TO GET THE USER'S "FINGERPRINT" - NEED SERVICE TO SEND TO NOOCH DATABASE
         //                  THIS IS USED FOR SYNAPSE V3
@@ -2257,7 +2329,8 @@ noochForLandlords
                 });
             }
             else {
-                $('#bankAdd iframe').attr("src", "http://54.201.43.89/noochweb/trans/Add-Bank.aspx?MemberId=B3A6CF&ll=yes");
+                //$('#bankAdd iframe').attr("src", "http://54.201.43.89/noochweb/trans/Add-Bank.aspx?MemberId=" + $scope.userInfoInSession.memberId + "&ll=yes");
+				$('#bankAdd iframe').attr("src", "https://noochme.com/noochweb/trans/Add-Bank.aspx?MemberId=" + $scope.userInfoInSession.memberId + "&ll=yes");
                 $('#bankAdd').modal({
                     keyboard: false
                 })
@@ -2380,7 +2453,7 @@ noochForLandlords
                     caseSensitive: false,
                     searchSettings: { characters: 3 },
                     labels: {
-                        noResults: "where are my results"
+                        noResults: "No Payments to show yet!"
                     }
                 });
             }
@@ -2502,9 +2575,9 @@ noochForLandlords
     // LOGIN
     //=================================================
 
-    .controller('loginCtrl', function ($scope, authenticationService) {
+    .controller('loginCtrl', function ($scope, $rootScope, authenticationService) {
         //Status
-
+$rootScope.isIdVerifiedLocal = 0;
         this.login = 1,
         this.register = 0;
         this.forgot = 0;
@@ -2526,7 +2599,11 @@ noochForLandlords
             pass: ''
         };
 
-
+		var fngrprnt;
+		new Fingerprint2().get(function (result) {
+            fngrprnt = result;
+        });
+		
         $scope.ValidateEmail = function (str) {
 			console.log;("VALIDATE EMAIL REACHED")
 			console.log(str);
@@ -2763,7 +2840,7 @@ noochForLandlords
 
                                         swal({
                                             title: "Great Success",
-                                            text: 'Congrats - you have successfully registered your brand new Nooch account. Click below to dive in and start Nooching!',
+                                            text: 'Congrats - you have successfully registered your Nooch account. Click below to get started.!',
                                             type: "success",
                                             confirmButtonColor: "#3FABE1",
                                             confirmButtonText: "Let's Go"
@@ -2796,6 +2873,7 @@ noochForLandlords
 
                                                 if (response.IsSuccess == true) {
                                                     authenticationService.SetUserDetails(username, response.MemberId, response.AccessToken);
+													$rootScope.isIdVerifiedLocal = 0;
                                                     window.location.href = 'index.html#/home';
                                                 }
                                                 else // Should never not be successful... the user would have *just* created their account
@@ -2814,11 +2892,31 @@ noochForLandlords
                                     else {
                                         swal({
                                             title: "Oh No!",
-                                            text: "Looks like we had some trouble creating your account.  We hate it whent this happens.  Please try again or contact support@nooch.com for more help.",
+                                            text: "Looks like we had some trouble creating your account.  We hate it when this happens.  Please try again or contact support@nooch.com for more help.",
                                             type: "error"
                                         });
                                     }
                                 });
+								
+								// Now call service to register a new Landlord MEMBER ON PROD SERVER
+                                authenticationService.RegLandlord_and_createMember($scope.SignupData.firstName, $scope.SignupData.lastName, $scope.SignupData.eMail, $scope.SignupData.pass, fngrprnt, function (response) {
+									if (response.Result == "Thanks for registering! Check your email to complete activation.")
+									{
+										console.log("REGISTER MEMBER ON PROD SERVER SUCCESSFULLY");
+										
+										authenticationService.getMemberId(username, function (response) {
+											console.log("GET MEMBERID");
+											console.log(response);
+										});
+									}
+									else 
+									{
+										console.log("REGISTER MEMBER **FAILED** ON PROD SERVER")
+									}
+								
+								});
+								
+								
                             }
                             else {
                                 updateValidationUi("tosbox", false);

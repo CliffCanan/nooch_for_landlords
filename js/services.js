@@ -415,6 +415,41 @@ noochForLandlords
         };
 
 
+		Operations.RegLandlord_and_createMember = function (firstName,lastName,username, password, fngprnt, callback) {
+            console.log("RegLandlord_and_createMember REACHED");
+            var data3 = {};
+			data3.MemberDetails = {};
+            data3.MemberDetails.FirstName = firstName;
+            data3.MemberDetails.LastName = lastName;
+            data3.MemberDetails.UserName = username;
+            data3.MemberDetails.Password = password;
+			data3.MemberDetails.PinNumber = "1234";
+			data3.MemberDetails.RecoveryMail = username;
+			data3.MemberDetails.SecondaryMail = username;
+			data3.MemberDetails.UdId = fngprnt;
+			data3.MemberDetails.facebookAccountLogin = "";
+			data3.MemberDetails.friendRequestId = "";
+			data3.MemberDetails.inviteCode = "LNDLRD";
+			data3.MemberDetails.fromLandlordApp = "yes";
+
+			console.log(data3);
+			
+            $http.post('https://www.noochme.com/NoochService/NoochService.svc/MemberRegistration', data3)
+                .success(function (response) {
+					console.log(response);
+                    callback(response);
+                });
+        };
+		
+		Operations.getMemberId = function (username, callback) {
+			$http.get('https://www.noochme.com/NoochService/NoochService.svc/GetMemberIdByUserName?userName=' + username)
+                .success(function (response) {
+					console.log(response);
+                    callback(response);
+                });
+		}
+
+
         Operations.PasswordRest = function (eMail, callback) {
 
             var data2 = {};

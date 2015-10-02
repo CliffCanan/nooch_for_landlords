@@ -29,9 +29,9 @@
                 </ul>
             </div>
 
-            <div class="alert alert-danger alert-dismissible" role="alert" data-ng-if="isIdVerified == 0">
+            <div class="alert alert-danger alert-dismissible" role="alert" data-ng-if="isIdVerifiedLocal == 0">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                Please <a data-ng-click="pctrl.runWizard()" class="alert-link" data-toggle="tooltip" data-placement="auto" data-original-title="Launch ID Verification wizard.">verify your identity</a> to start accepting payments today!
+                Please <a data-ng-click="runWizard()" class="alert-link" data-toggle="tooltip" data-placement="auto" data-original-title="Launch ID Verification wizard.">verify your identity</a> to start accepting payments today!
             </div>
 
             <div class="card z-depth-1" id="profile-main">
