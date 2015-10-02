@@ -333,7 +333,7 @@ noochForLandlords
                 cursorborderradius: '8px',
                 cursorwidth: cursorWidth,
                 bouncescroll: true,
-                mousescrollstep: 100,
+                mousescrollstep: 40,
                 horizrailenabled: false
             });
         }

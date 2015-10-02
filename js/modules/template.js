@@ -15,7 +15,7 @@ noochForLandlords
             link: function(scope, element, attr) {
                 
                 //Default State
-                if(scope.changeLayout === '1') {
+                /*if(scope.changeLayout === '1') {
                     element.prop('checked', true);
                 }
                 
@@ -33,7 +33,7 @@ noochForLandlords
                             scope.changeLayout = '0';
                         })
                     }
-                })
+                })*/
             }
         }
     })
