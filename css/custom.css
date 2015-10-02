@@ -462,9 +462,9 @@ body.login-content:before {
   -webkit-transition:.3s all ease-out;
   transition:.3s all ease-out;
   padding:30px 55px 15px;
-  top:30px;
+  top:160px;
 }
-.login-content .lc-block#l-register { top: 60px; }
+.login-content .lc-block#l-register { top: 160px; }
 .login-content .form-control {
   font-size: 18px;
   font-weight: 500;
@@ -648,6 +648,12 @@ form .checkbox.haserror .input-helper:before {
 	.bootstrap-datetimepicker-widget {
       top: -55px !important;
     }
+	
+	#profile-main .pmo-pic img {
+		width: 80%;
+		border-radius: 3px 3px 0 0;
+		margin: 0 auto;
+	}
 }
 
 /** PROFILE - VERIFY ID MDOAL & Wizard**/
@@ -937,6 +943,13 @@ form .checkbox.haserror .input-helper:before {
 #propertiesList.lv-lg .lv-title {font-size:16px;}
 #propertiesList.lv-lg .lv-small {font-size:13px;}
 .profile-view .pv-body > h2 {line-height:1.4; height:50px;}
+
+table .btn-icon .md {
+    font-size: 17px;
+    top: 6px;
+    position: relative;
+    color: #3fabe1;
+}
 
 
 /** For the Wizard Plugin **/

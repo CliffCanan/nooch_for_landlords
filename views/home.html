@@ -83,7 +83,7 @@
                         <h1>Hi {{ userInfo.firstName | capitalize }}!</h1>
                         <p>Welcome to Nooch, the easiest way to collect rent payments.</p>
                         <p>Get started by completing your profile.</p>
-                        <p><a class="btn btn-primary btn-lg" data-ui-sref="pages.profile.profile-about" role="button">Get Started <i class="md md-arrow-forward m-l-5"></i></a></p>
+                        <p><a class="btn btn-primary btn-lg" data-ng-click="pctrl.goTo('1')" role="button">Get Started <i class="md md-arrow-forward m-l-5"></i></a></p>
                     </div>
 
                     <div class="col-xs-12 col-sm-5 homePromptCard" id="addBank" data-ng-if="pctrl.home.bnkPrmt === 1" data-ng-click="pctrl.goTo('2')">
