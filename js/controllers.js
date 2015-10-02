@@ -201,14 +201,15 @@ noochForLandlords
 
 
         getProperties = function () {
-            //console.log('get properties called user details -> ' + userdetails.memberId + ' ' + userdetails.accessToken);
+            console.log('get properties called user details -> ' + userdetails.memberId + ' ' + userdetails.accessToken);
 
             propertiesService.GetProperties(userdetails.memberId, userdetails.accessToken, function (data) {
+				console.log(data);
                 if (data.IsSuccess == true) {
                     // data binding goes in here
 
                     $rootScope.propCount = data.AllProperties.length;
-
+					console.log("Prop Count is: " + $rootScope.propCount);
                     var index;
 
                     for (index = 0; index < data.AllProperties.length; ++index) {
@@ -238,10 +239,14 @@ noochForLandlords
                     $scope.userAccountDetails.IsAnyRentReceived = false;
                     //console.log('items [0]' + $scope.propResult[0]);
                 }
+				else if (data.ErrorMessage == "No properties found for given Landlord.")
+				{
+					$rootScope.propCount = 0;
+				}
             });
         };
 
-        $timeout(function () { getProperties(); }, 1000);
+        $timeout(function () { getProperties(); }, 800);
     })
 
 
@@ -254,7 +259,7 @@ noochForLandlords
 
         $scope.tenantsListForThisPorperty = new Array();
 
-        //console.log('list count in tenats before setting data in.' + $scope.tenantsListForThisPorperty.length);
+        //console.log('list count in tenants before setting data in.' + $scope.tenantsListForThisPorperty.length);
 
         var userdetails = authenticationService.GetUserDetails();
 
@@ -623,7 +628,13 @@ noochForLandlords
             $('#chargeTenantForm #amount').mask("#,##0.00", { reverse: true });
         }
 
-        this.chargeTenant_Submit = function () {
+		$('#submitChargeTenant').click(function() {
+			console.log("1 ChargeTenant_Submit called");
+			$scope.chargeTenant_Submit();
+		})
+		$scope.chargeTenant_Submit = function ()
+        {
+			console.log("2 ChargeTenant_Submit called");
             // Check Name field for length
             if ($('#chargeTenantForm #tenant').val()) {
                 var trimmedName = $('#chargeTenantForm #tenant').val().trim();
@@ -1638,7 +1649,13 @@ noochForLandlords
                 $scope.userInfo.addressCountry = response.Country;
                 $scope.userInfo.zip = response.Zip;
 
-                $scope.userInfo.userImage = response.UserImageUrl;
+				if (response.UserImageUrl == null)
+				{
+					$scope.userInfo.userImage = "https://www.noochme.com/noochservice/UploadedPhotos/Photos/gv_no_photo.png"
+				}
+				else {
+					$scope.userInfo.userImage = response.UserImageUrl;
+				}
                 $scope.userInfo.tenantsCount = response.TenantsCount;
                 $rootScope.propCount = response.PropertiesCount;
                 $scope.userInfo.propertiesCount = response.PropertiesCount;
@@ -1938,7 +1955,7 @@ noochForLandlords
 
                 /* Events */
                 onInit: function (event, currentIndex) {
-                    $('#idVerWiz > .content').animate({ height: "27em" }, 300)
+                    $('#idVerWiz > .content').animate({ height: "23em" }, 300)
 
                     setTimeout(function () {
 
@@ -1946,6 +1963,23 @@ noochForLandlords
 
                         var dobPicker = $('#idVer-dob');
                         $compile(dobPicker)($scope);
+						
+						$('#idVer-dob').datetimepicker({
+							format: 'MM/DD/YYYY',
+							useCurrent: false,
+							defaultDate: moment("1980 01 01", "YYYY MM DD"),
+							icons: {
+								previous: 'fa fa-fw fa-chevron-circle-left',
+								next: 'fa fa-fw fa-chevron-circle-right',
+								clear: 'fa fa-fw fa-trash-o'
+							},
+							maxDate: moment("1996 12 31", "MYYYY MM DD"),
+							viewMode: 'years',
+							debug: true
+						});
+
+						$('#idVer-ssn').mask("0000");
+						$('#idVer-zip').mask("00000");
 
                     }, 750)
                 },
@@ -1953,7 +1987,7 @@ noochForLandlords
 
                     if (newIndex == 0)
                     {
-                        $('#idVerWiz > .content').animate({ height: "29em" }, 500)
+                        $('#idVerWiz > .content').animate({ height: "23em" }, 500)
                     }
 
                     // IF going to Step 2
@@ -1981,7 +2015,7 @@ noochForLandlords
                                         updateValidationUi("ssn", true);
 
                                         // Great, we can finally go to the next step of the wizard :-]
-                                        $('#idVerWiz > .content').animate({ height: "20em" }, 700)
+                                        $('#idVerWiz > .content').animate({ height: "21em" }, 700)
                                         return true;
                                     }
                                     else {
@@ -2042,7 +2076,7 @@ noochForLandlords
                                     resizePreference: 'width'
                                 });
 
-                                $('#idVerWiz > .content').animate({ height: "26em" }, 700)
+                                $('#idVerWiz > .content').animate({ height: "28em" }, 700)
                                 return true;
                             }
                             else {
@@ -2062,7 +2096,7 @@ noochForLandlords
                 onStepChanged: function (event, currentIndex, priorIndex) {
                 },
                 onCanceled: function (event) {
-                    cancelIdVer();
+                    $scope.cancelIdVer();
                 },
                 onFinishing: function (event, currentIndex) {
                     // CHECK TO MAKE SURE ALL FIELDS WERE COMPLETED
@@ -2136,7 +2170,10 @@ noochForLandlords
             }
 
 
-            cancelIdVer = function () {
+            
+        }
+		
+		$scope.cancelIdVer = function () {
                 swal({
                     title: "Cancel ID Verification",
                     text: "Are you sure you want to cancel?  You must complete this step before you can begin collecting payments.  It will take less than 60 seconds, and we never share your data with anyone.  Period.",
@@ -2149,11 +2186,15 @@ noochForLandlords
                     closeOnCancel: true
                 }, function (isConfirm) {
                     if (isConfirm) {
+						$('#idVer').modal('hide');
+						setTimeout(function () {
+							console.log("DESTROYING STEPS");
+							$('#idVerWiz').steps('destroy');
+						}, 250);
                     }
                     else { }
                 });
             }
-        }
     })
 
 
@@ -2406,7 +2447,11 @@ noochForLandlords
         $scope.ResendVerificationEmailOrSMS = function (sendWhat) {
             var userdetails = authenticationService.GetUserDetails();
             getProfileService.ResendVerificationEmailOrSMS(userdetails.memberId, "Landlord", sendWhat, function (response) {
-                if (response.isSuccess && response.isSuccess == true) {
+				console.log(response);
+				console.log(response.IsSuccess);
+                if (response.IsSuccess && response.IsSuccess == true) 
+				{
+					console.log("Inside success");
                     if (sendWhat == "Email") {
                         swal({
                             title: "Hurray!",
@@ -2422,7 +2467,8 @@ noochForLandlords
                         });
                     }
                 }
-                else {
+                else 
+				{
                     var msgtxt = "";
                     if (response.ErrorMessage.indexOf('Already Activated') > -1) {
                         msgtxt = "Looks like your account is already verified! If you continue to see messages saying your email is not verified, please contact Nooch support so we can straighten things out!";
@@ -2432,7 +2478,7 @@ noochForLandlords
                     }
                     swal({
                         title: "Oh no!",
-                        text: response.ErrorMessage,
+                        text: msgtxt,
                         type: "warning"
                     });
                 }
@@ -2482,12 +2528,15 @@ noochForLandlords
 
 
         $scope.ValidateEmail = function (str) {
-
-            var at = "@"
+			console.log;("VALIDATE EMAIL REACHED")
+			console.log(str);
+            if (str != null)
+			{
+			var at = "@"
             var dot = "."
-            var lat = str.indexOf(at)
+            var lat = str.indexOf("@")
             var lstr = str.length
-            var ldot = str.indexOf(dot)
+            var ldot = str.indexOf(".")
 
             if (lat == -1 || lat == 0 || lat == lstr) {
                 return false
@@ -2514,6 +2563,8 @@ noochForLandlords
             }
 
             return true
+			}
+			return false
         };
 
 
@@ -2647,22 +2698,22 @@ noochForLandlords
         this.registerAttmpt = function () {
 
             var regForm = $('form#reg');
-            var fName = $('form#reg #fname');
-            var lName = $('form#reg #lname');
-            var email = $('form#reg #em');
-            var pw = $('form#reg #pwreg');
+            var fName = $('form#reg #fname').val();
+            var lName = $('form#reg #lname').val();
+            var email = $('form#reg #em').val();
+            var pw = $('form#reg #pwreg').val();
 
             // Check Name fields for length
-            if (fName.val() && fName.val().length > 1) {
+            if (fName && fName.length > 1) {
                 updateValidationUi("fname", true);
 
-                var trimmedFName = capitalize(fName.val().trim());
+                var trimmedFName = capitalize(fName.trim());
                 $('form#reg #fname').val(trimmedFName);
 
-                if (lName.val() && lName.val().length > 1) {
+                if (lName && lName.length > 1) {
                     updateValidationUi("lname", true);
 
-                    var trimmedLName = lName.val().trim();
+                    var trimmedLName = lName.trim();
                     $('form#reg #lname').val(trimmedLName);
 
                     // Validate Email Field
@@ -2670,7 +2721,7 @@ noochForLandlords
                         updateValidationUi("em", true);
 
                         // Check Password field
-                        if (pw.val().length > 4) {
+                        if (pw.length > 4) {
                             updateValidationUi("pwreg", true);
 
                             // Finally, check if the Terms of Service box is checked
@@ -2797,7 +2848,7 @@ noochForLandlords
 
                 if ($(this).val() && $(this).val().length > 2) {
                     if (field == "em") {
-                        if ($scope.ValidateEmail(email)) {
+                        if ($scope.ValidateEmail($('form#reg #em').val())) {
                             updateValidationUi("em", true);
                         }
                     }
