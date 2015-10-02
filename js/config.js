@@ -215,7 +215,7 @@ noochForLandlords
                             name: 'css',
                             insertBefore: '#app-level',
                             files: [
-                                'vendors/bower_components/bootstrap-select/dist/css/bootstrap-select.css',
+                                'vendors/bower_components/bootstrap-select/dist/css/bootstrap-select.min.css',
                                 'vendors/chosen_v1.4.2/chosen.min.css',
                                 'vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css',
                                 'vendors/bower_components/jquery.steps/build/jquery.steps.css'
@@ -225,7 +225,7 @@ noochForLandlords
                             name: 'vendors',
                             files: [
                                 'vendors/input-mask/input-mask.min.js',
-                                'vendors/bower_components/bootstrap-select/dist/js/bootstrap-select.js',
+                                'vendors/bower_components/bootstrap-select/dist/js/bootstrap-select.min.js',
                                 'vendors/chosen_v1.4.2/chosen.jquery.min.js',
                                 'vendors/bower_components/moment/min/moment.min.js',
                                 'vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js',

@@ -246,7 +246,7 @@ noochForLandlords
 
 
     // PROPERTY DETAILS CONTROLLER
-    .controller('propDetailsCtrl', function ($compile, authenticationService, $scope, propertiesService, propDetailsService, getTenantsService, getProfileService, growlService) {
+    .controller('propDetailsCtrl', function ($compile, authenticationService, $scope, propertiesService, propDetailsService, getProfileService, growlService) {
 
         $scope.selectedProperty = {
 

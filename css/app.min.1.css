@@ -4486,17 +4486,6 @@ input[type="button"].btn-block {
   width: 100%;
 }
 
-.fade {
-  opacity: 0;
-  -webkit-transition: opacity 0.15s linear;
-  -o-transition: opacity 0.15s linear;
-  transition: opacity 0.15s linear;
-}
-
-.fade.in {
-  opacity: 1;
-}
-
 .collapse {
   display: none;
 }
@@ -7314,11 +7303,6 @@ button.close {
   transform: translate(0, 0);
 }
 
-.modal-open .modal {
-  overflow-x: hidden;
-  overflow-y: auto;
-}
-
 .modal-dialog {
   position: relative;
   width: auto;
@@ -7359,16 +7343,10 @@ button.close {
 .modal-header {
   padding: 15px;
   border-bottom: 1px solid transparent;
-  min-height: #0f0f0f;
 }
 
 .modal-header .close {
   margin-top: -2px;
-}
-
-.modal-title {
-  margin: 0;
-  line-height: transparent;
 }
 
 .modal-body {

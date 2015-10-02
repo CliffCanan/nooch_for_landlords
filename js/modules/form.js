@@ -10,12 +10,12 @@ noochForLandlords
         return {
             restrict: 'C',
             link: function(scope, element) {
-                if($('.fg-line')[0]) {
-                    $('body').on('focus', '.form-control', function(){
+                if ($('.fg-line')[0]) {
+                    $('body').on('focus', '.form-control', function() {
                         $(this).closest('.fg-line').addClass('fg-toggled');
                     })
 
-                    $('body').on('blur', '.form-control', function(){
+                    $('body').on('blur', '.form-control', function() {
                         var fgrp = $(this).closest('.form-group');
                         var ipgrp = $(this).closest('.input-group');
 
