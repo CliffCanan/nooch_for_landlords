@@ -306,20 +306,22 @@ noochForLandlords
                             "propertyId": data.PropertyDetails.PropertyId
                         }
 
-                        $scope.tenantsListForThisPorperty = data.TenantsListForThisProperty;
                         $scope.allUnitsList = data.PropertyDetails.AllUnits;
 
                         $('.selectpicker').selectpicker('refresh');
 
-                        console.log("TENANT LIST...");
-                        console.log($scope.tenantsListForThisPorperty);
                         console.log("UNIT LIST...");
                         console.log($scope.allUnitsList);
 
                         // CLIFF (9/24/15): Updated this table's data source to be the List of UNITS, not tenants
                         //                  This is going to be complicated becase we need some data form the TENANTS list that 
                         //                  is not included in the Units list from the server now.
-                        var propUnitsTable = $('#propUnits').DataTable({
+                        $scope.propUnitsTable = $('#propUnits').on( 'init.dt', function () {
+							console.log( 'Table initialisation complete: '+new Date().getTime() );
+							
+							
+							
+						}).DataTable({
                             data: $scope.allUnitsList,
                             columns: [
                                 { data: 'MemberId' },
@@ -340,8 +342,8 @@ noochForLandlords
                                 {
                                     data: null,
                                     defaultContent: '<a href="" class=\'btn btn-icon btn-default command-edit m-r-10 editUnitBtn\'><span class=\'md md-edit\'></span></a>' +
-                                                    '<a href="" class=\'btn btn-icon btn-default command-edit m-r-10\'><span class=\'md md-today\'></span></a> ' +
-                                                    '<a href="" class=\'btn btn-icon btn-default command-edit m-r-10\'><span class=\'md md-more-vert\'></span></a>'
+                                                    '<a href="" class=\'btn btn-icon btn-default command-edit m-r-10 msgUnitBtn\'><span class=\'md md-chat\'></span></a> ' +
+                                                    '<a href="" class=\'btn btn-icon btn-default command-edit m-r-10 deleteUnitBtn\'><span class=\'md md-more-vert\'></span></a>'
                                 }
                             ],
                             "columnDefs": [
@@ -351,7 +353,10 @@ noochForLandlords
                                     "searchable": false
                                 },
                                 { className: "capitalize", "targets": [4] },
-                                { className: "text-center", "targets": [2, 3] }
+                                { className: "text-center", "targets": [2, 3]},
+                                { className: "text-right", "targets": [-1]},
+								{ className: "unit-num", "targets": [2] },
+								{ className: "unit-rent", "targets": [3] }
                             ],
                             buttons: [
                                 'pdf',
@@ -359,6 +364,79 @@ noochForLandlords
                                 'print'
                             ]
                         });
+						
+						// Add Tooltips to Action Buttons
+						$('#propUnits tbody .btn.editUnitBtn').tooltip({
+							title: "Edit This Unit",
+							trigger: "hover"
+						});
+						$('#propUnits tbody .btn.msgUnitBtn').tooltip({
+							title: "Send A Message",
+							trigger: "hover"
+						});
+						$('#propUnits tbody .btn.deleteUnitBtn').tooltip({
+							title: "Delete This Unit",
+							trigger: "hover"
+						});
+
+						// EDIT UNIT BTN CLICKED
+						$('#propUnits tbody .btn.editUnitBtn').click(function () {
+
+							console.log("CLICK RECORDED!!");
+
+							var data = $scope.propUnitsTable.row($(this).parents('tr')).data();
+							console.log(data);
+
+							$('#addUnitModal .modal-title').html('Edit This Unit in: <strong>' + $scope.selectedProperty.name + '</strong>');
+							$('#addUnitModal #unitNum').val(data['UnitNumber']);
+							$('#addUnitModal #unitNumGrp').removeClass('has-error').removeClass('has-success');
+							$('#addUnitModal #monthlyRentGrp').removeClass('has-error').removeClass('has-success');
+							$('#addUnitModal #monthlyRent').val(data['UnitRent']);
+							$('#addUnitModal select').val('');
+
+							if ($('#unitNumGrp .help-block').length) {
+								$('#unitNumGrp .help-block').slideUp();
+							}
+							if ($('#monthlyRentGrp .help-block').length) {
+								$('#monthlyRentGrp .help-block').slideUp();
+							}
+
+							$('#addUnitModal').modal();
+
+							$('#addUnitModal #monthlyRent').mask("#,##0.00", { reverse: true });
+						});
+
+						// DELETE UNIT BTN CLICKED
+						$('#propUnits tbody .btn.deleteUnitBtn').click(function () {
+							var btn = $(this);
+
+							swal({
+								title: "Remove this unit from " + $scope.selectedProperty.name + "?",
+								text: "Note: this cannot be un-done!",
+								type: "warning",
+								showCancelButton: true,
+								confirmButtonColor: "#3fabe1",
+								confirmButtonText: "Remove",
+								cancelButtonText: "Cancel"
+							}, function (isConfirm) {
+								if (isConfirm) {
+									setTimeout(function(){
+										$scope.propUnitsTable.row(btn.parents('tr')).remove().draw();
+										swal({
+											title: "Unit Removed",
+											text: "That unit has been successfully removed from " + $scope.selectedProperty.name + ".",
+											type: "success",
+											confirmButtonText: "Ok"
+										});
+									}, 500);
+								}
+							});
+						});
+							
+						// $scope.propUnitsTable.on( 'click', 'tr', function () {
+							// console.log("22222 click recorded");
+							// console.log( $scope.propUnitsTable.row( this ).data() );
+						// });
                     }
                     else {
                         console.log('Error while getting  property details.');
@@ -370,38 +448,51 @@ noochForLandlords
             }
         };
         getPropertyDetails();
+		
+		$(document).ready(function () {
+			
+			
+		});
 
-        $('#propUnits tbody .btn').on('click', 'button', function () {
+		$scope.addTblRow = function(withTenant, memid, unitid, unitnum, rent, tenname, tenemail, imgurl, lastpaid, isrentpaid, isemailver, status, isphonever,isbnkver ) {
+			console.log("addTblRow REACHED");
+			
+			// Increment the scope's number of Units so the User Interface updates immediately (otherwise would need to reload page to see the new unit accounted for)
+			var numOfUnits = parseInt($scope.selectedProperty.units);
+			if (numOfUnits != null)
+			{
+				numOfUnits += 1;
+				$scope.selectedProperty.units = numOfUnits.toString();
+			}
+			
+			if (withTenant == true)
+			{
+				var numOfTenants = parseInt($scope.selectedProperty.tenants);
+				if (numOfTenants != null)
+				{
+					numOfTenants += 1;
+					$scope.selectedProperty.tenants = numOfTenants.toString();
+				}
+			}
 
-            console.log("CLICK RECORDED!!");
 
-            var data = propUnitsTable.row($(this).parents('tr')).data();
-
-            alert("Col 1: [" + data[0] + "], Col 2: [" + data[1] + "], Col 3: [" + data[2] + "], Col 4: [" + data[5] + "]");
-
-            $('#addUnitModal .modal-title').html('Edit This Unit in ' + $scope.selectedProperty.name);
-            $('#addUnitModal #unitNum').val($scope.selectedProperty.UnitNumber);
-            $('#addUnitModal select').val('');
-            $('#addUnitModal #unitNumGrp').removeClass('has-error').removeClass('has-success');
-            $('#addUnitModal #monthlyRentGrp').removeClass('has-error').removeClass('has-success');
-
-            if ($('#unitNumGrp .help-block').length) {
-                $('#unitNumGrp .help-block').slideUp();
-            }
-            if ($('#monthlyRentGrp .help-block').length) {
-                $('#monthlyRentGrp .help-block').slideUp();
-            }
-
-            $('#addUnitModal').modal();
-
-            $('#addUnitModal #monthlyRent').mask("#,##0.00", { reverse: true });
-
-            setTimeout(function () {
-                $('#addUnitModal #unitNum').focus();
-            }, 600)
-
-        });
-
+			
+			$scope.propUnitsTable.row.add({ 
+				"MemberId":memid, 
+				"UnitId":unitid,
+				"UnitNumber":unitnum,
+				"UnitRent":rent,
+				"TenantName":tenname,
+				"TenantEmail":tenemail,
+				"ImageUrl":imgurl,
+				"LastRentPaidOn": lastpaid,
+				"IsRentPaidForThisMonth":isrentpaid,
+				"IsEmailVerified":isemailver,
+				"Status":status,
+				"IsPhoneVerified": isphonever,
+				"IsBankAccountAdded":isbnkver
+			}).draw();
+		}
 
         $scope.editPropInfo = 0;
 
@@ -423,8 +514,8 @@ noochForLandlords
                 $scope.inputData.propertyAddress = $scope.selectedProperty.address1;
                 $scope.inputData.propertyCity = $scope.selectedProperty.city;
                 $scope.inputData.propertyZip = $scope.selectedProperty.zip;
-                $scope.inputData.contactNum = $scope.selectedProperty.contactNumber.replace(/\D/g, '');
-                $scope.inputData.state = $scope.selectedProperty.state;
+                $scope.inputData.contactNum = $scope.selectedProperty.contactNumber.replace("[^0-9.]", "");
+				$scope.inputData.state = $scope.selectedProperty.state;
                 $scope.inputData.propId = $scope.selectedProperty.propertyId;
 
                 propertiesService.EditProperty($scope.inputData, userdetails.memberId, userdetails.accessToken, function (data) {
@@ -680,6 +771,8 @@ noochForLandlords
 
         // Add Unit Button
         $scope.addUnit = function () {
+			$('#addUnitModal .modal-title').html('Add a New Unit in: <strong>' + $scope.selectedProperty.name + '</strong>');
+
             // Reset the form
             $('#addUnitModal input').val('');
             $('#addUnitModal select').val('');
@@ -742,27 +835,14 @@ noochForLandlords
                         unitData.TenantId = $('#addUnitModal #unitTenants option:selected').val();
                     }
 
-                    
                     propertiesService.AddNewUnit(propId, unitData, userdetails.memberId, userdetails.accessToken, function (data) {
+						console.log("Add New Unit service response...");
+						console.log(data);
+
                         if (data.IsSuccess == true)
                         {
-                            // Increment the scope's number of Units so the User Interface updates immediately (otherwise would need to reload page to see the new unit accounted for)
-                            var numOfUnits = parseInt($scope.selectedProperty.units);
-                            if (numOfUnits != null)
-                            {
-                                numOfUnits += 1;
-                                $scope.selectedProperty.units = numOfUnits.toString();
-                            }
-
-                            if (unitData.IsTenantAdded == true)
-                            {
-                                var numOfTenants = parseInt($scope.selectedProperty.tenants);
-                                if (numOfTenants != null)
-                                {
-                                    numOfTenants += 1;
-                                    $scope.selectedProperty.tenants = numOfTenants.toString();
-                                }
-                            }
+							// Update table to add row for the newly created unit immediately (instead of waiting for page refresh)
+							$scope.addTblRow(unitData.IsTenantAdded , userdetails.memberId, data.PropertyIdGenerated, unitData.UnitNum, unitData.Rent, "", "", "", "", false, false, "Published", false, false );
 
                             swal({
                                 title: "Unit Added",
@@ -2577,7 +2657,6 @@ noochForLandlords
 
     .controller('loginCtrl', function ($scope, $rootScope, authenticationService) {
         //Status
-$rootScope.isIdVerifiedLocal = 0;
         this.login = 1,
         this.register = 0;
         this.forgot = 0;
@@ -2871,9 +2950,10 @@ $rootScope.isIdVerifiedLocal = 0;
 
                                                 regForm.unblock();
 
+												$rootScope.isIdVerifiedLocal = 0;
+
                                                 if (response.IsSuccess == true) {
                                                     authenticationService.SetUserDetails(username, response.MemberId, response.AccessToken);
-													$rootScope.isIdVerifiedLocal = 0;
                                                     window.location.href = 'index.html#/home';
                                                 }
                                                 else // Should never not be successful... the user would have *just* created their account
@@ -2899,7 +2979,7 @@ $rootScope.isIdVerifiedLocal = 0;
                                 });
 								
 								// Now call service to register a new Landlord MEMBER ON PROD SERVER
-                                authenticationService.RegLandlord_and_createMember($scope.SignupData.firstName, $scope.SignupData.lastName, $scope.SignupData.eMail, $scope.SignupData.pass, fngrprnt, function (response) {
+                              /*authenticationService.RegLandlord_and_createMember($scope.SignupData.firstName, $scope.SignupData.lastName, $scope.SignupData.eMail, $scope.SignupData.pass, fngrprnt, function (response) {
 									if (response.Result == "Thanks for registering! Check your email to complete activation.")
 									{
 										console.log("REGISTER MEMBER ON PROD SERVER SUCCESSFULLY");
@@ -2913,8 +2993,7 @@ $rootScope.isIdVerifiedLocal = 0;
 									{
 										console.log("REGISTER MEMBER **FAILED** ON PROD SERVER")
 									}
-								
-								});
+								});*/
 								
 								
                             }
@@ -2955,8 +3034,21 @@ $rootScope.isIdVerifiedLocal = 0;
                     }
                 }
             })
+
         })
 
+		$scope.tosClicked = function () {
+			if ($('#tosboxGrp input').prop('checked')) 
+			{
+				console.log("TOS BOX CHECKED");
+				$('#createAccnt').addClass('bounce');
+			}
+			else
+			{
+				console.log("Should remove the animated class");
+				$('#createAccnt').removeClass('bounce');
+			}
+		}
 
         // Utility Function To Update Form Input's UI for Success/Error (Works for all forms on the Property Details page...like 4 of them)
         updateValidationUi = function (field, success) {
@@ -3004,6 +3096,7 @@ $rootScope.isIdVerifiedLocal = 0;
                 }, 200)
             }
         }
+
 
         capitalize = function (string) {
             string = string.toLowerCase().replace(/\b[a-z]/g, function (letter) {

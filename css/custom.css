@@ -97,6 +97,10 @@ input[type='password'] {letter-spacing:1px;}
 .capitalize {text-transform: capitalize !important;}
 .uppercase{text-transform: uppercase;}
 
+.ng-hide.ng-hide-animate{
+     display: none !important;
+}
+
 /**** TABLES ****/
 table tr th:not(:first-child).columnWidth-13pc {
     width:13%;
@@ -465,10 +469,11 @@ body.login-content:before {
   top:160px;
 }
 .login-content .lc-block#l-register { top: 160px; }
+.login-content .form-group { margin-bottom: 16px; }
 .login-content .form-control {
   font-size: 18px;
-  font-weight: 500;
-  padding-left: 5px;
+  font-weight: 400;
+  padding-left: 10px;
 }
 .login-content .input-group:not(.input-group-lg):not(.input-group-sm) .input-group-addon i {
   font-size: 25px;
@@ -813,28 +818,24 @@ form .checkbox.haserror .input-helper:before {
 /*** TABLET & ABOVE SCREENS ***
  ******************************/
 @media (min-width: 768px) {
-  #profileMain .pmbb-body .dl-horizontal dt {
-      overflow: visible;
-  }
+  #profileMain .pmbb-body .dl-horizontal dt { overflow: visible; }
 
-  .dl-horizontal dd {
-    margin-left: 160px;
-  }
+  .dl-horizontal dd { margin-left: 160px; }
 
-  #profile-main .pmb-block .pmbb-header .actions {
-    right: 20px;
-  }
+  #profile-main .pmb-block .pmbb-header .actions { right: 20px; }
 
-  .form-group .help-block {
-    font-size:14px;
-  }
+  .form-group .help-block { font-size:14px; }
 
-  #idVerWiz .content .body {
-    padding: 15px 25px;
-  }
+  #idVerWiz .content .body { padding: 15px 25px; }
 
-  .popover {
-    min-width:200px;
+  .popover { min-width:200px; }
+ 
+  .login-content .form-group { margin-bottom: 20px; }
+  .login-content .fg-float .fg-toggled + .fg-label {
+	top: -20px;
+	font-size: 13px;
+	font-weight: 300;
+	letter-spacing: .3px;
   }
 }
 

@@ -47,7 +47,7 @@
                     <label>
                         <input type="checkbox" value="">
                         <i class="input-helper"></i>
-                        Keep me signed in <i class="md md-thumb-up c-darkblue"></i>
+                        Keep me signed in
                     </label>
                 </div>
 
@@ -101,7 +101,7 @@
                 </div>
 
                 <div class="row">
-                    <div class="form-group fg-float" id="pwregGrp">
+                    <div class="form-group fg-float m-b-15" id="pwregGrp">
                         <span><i class="md md-lock"></i></span>
                         <div class="fg-line">
                             <input type="password" id="pwreg" class="input-lg form-control fg-input" data-ng-model="SignupData.pass">
@@ -112,15 +112,15 @@
 
                 <div class="clearfix"></div>
 
-                <div class="checkbox" id="tosboxGrp">
-                    <label>
+                <div class="checkbox" id="tosboxGrp" checked="false">
+                    <label data-ng-click="tosClicked()">
                         <input type="checkbox">
                         <i class="input-helper"></i>
                         I agree to Nooch's <a href="">Terms of Service</a>.
                     </label>
                 </div>
 
-                <button type="submit" class="btn btn-login btn-danger btn-float"><i class="md md-arrow-forward"></i></button>
+                <button id="createAccnt" type="submit" class="btn btn-login btn-success btn-float animated"><i class="md md-arrow-forward"></i></button>
 
                 <ul class="login-navigation">
                     <li data-block="#l-login" class="bgm-green" data-ng-click="lctrl.register = 0; lctrl.login = 1">Login</li>
@@ -134,7 +134,8 @@
 
         <!-- Forgot Password -->
         <div class="lc-block" id="l-forget-password" data-ng-if="lctrl.forgot === 1">
-            <form id="forgotpw" ng-submit="lctrl.forgotPwAttmpt()">
+        
+		<form id="forgotpw" ng-submit="lctrl.forgotPwAttmpt()">
 
                 <p class="text-left f-19">Please enter your email address below.  If a Nooch account exists for that email, we will send you a a reset password link.</p>
 
@@ -146,7 +147,7 @@
                     <label class="fg-label" for="em">Email Address</label>
                 </div>
 
-                <button type="submit" class="btn btn-login btn-danger btn-float"><i class="md md-arrow-forward"></i></button>
+                <button type="submit" class="btn btn-login btn-primary btn-float"><i class="md md-arrow-forward"></i></button>
 
                 <ul class="login-navigation">
                     <li data-block="#l-login" class="bgm-green" data-ng-click="lctrl.forgot = 0; lctrl.login = 1">Login</li>
@@ -154,7 +155,8 @@
                 </ul>
 
             </form>
-        </div>
+        
+		</div>
 
         <div id="loginLogo">
             <div class="animated bounceInDown">
