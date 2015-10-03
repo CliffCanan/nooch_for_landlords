@@ -1532,7 +1532,10 @@ table tbody .unitInTable {
 
 
 /**** ANIMATIONS ****/
-
+.animated.bounceIn, .animated.bounceOut, .animated.flipOutX, .animated.flipOutY {
+  -webkit-animation-duration: 1.2s;
+		  animation-duration: 1.2s;
+}
 @media (min-width: 1100px) {
 @-webkit-keyframes fadeInRightSm {
   0% {

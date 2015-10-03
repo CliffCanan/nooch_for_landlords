@@ -438,7 +438,8 @@ noochForLandlords
         };
 
 
-		Operations.RegLandlord_and_createMember = function (firstName,lastName,username, password, fngprnt, callback) {
+		// Added by Cliff for a hack-y demo while all code is on the Dev server... creating a Nooch member on the Prod server tpp
+		/*Operations.RegLandlord_and_createMember = function (firstName,lastName,username, password, fngprnt, callback) {
             console.log("RegLandlord_and_createMember REACHED");
             var data3 = {};
 			data3.MemberDetails = {};
@@ -462,7 +463,7 @@ noochForLandlords
 					console.log(response);
                     callback(response);
                 });
-        };
+        };*/
 		
 		Operations.getMemberId = function (username, callback) {
 			$http.get('https://www.noochme.com/NoochService/NoochService.svc/GetMemberIdByUserName?userName=' + username)
@@ -491,9 +492,11 @@ noochForLandlords
             localStorage.setItem('accessToken', accessToken);
         };
 
+
         Operations.ClearUserData = function () {
             localStorage.clear();
         };
+
 
         Operations.GetUserDetails = function () {
             var User = {};
@@ -503,6 +506,7 @@ noochForLandlords
 
             return User;
         };
+
 
         Operations.IsValidUser = function () {
             var User = {};
@@ -518,6 +522,7 @@ noochForLandlords
             else
                 return false;
         };
+
 
         Operations.ManageToken = function (tokenResponse) {
             if (tokenResponse.IsTokenUpdated == true) {

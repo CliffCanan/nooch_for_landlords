@@ -4,7 +4,9 @@ noochForLandlords
     // ===============================================================
 
     .controller('noochAdminCtrl', function ($rootScope, $timeout, $state, growlService, authenticationService) {
-        if (!authenticationService.IsValidUser()) {
+        console.log("ADMIN CONTROLLER REACHED");
+
+		if (!authenticationService.IsValidUser()) {
             growlService.growl('Please login to continue!', 'inverse');
             window.location.href = 'login.html';
         }
@@ -42,11 +44,12 @@ noochForLandlords
     // Header
     // ===============================================================
     .controller('headerCtrl', function ($rootScope, $timeout, messageService, authenticationService) {
-
+		console.log("HEADER CONTROLLER REACHED");
         if (!authenticationService.IsValidUser()) {
             window.location.href = 'login.html';
         }
-
+		console.log(localStorage.getItem('memberId'));
+		console.log(localStorage.getItem('accessToken'));
 		$rootScope.userDetailsRoot = {};
 		
         this.closeSearch = function () {
@@ -321,8 +324,7 @@ noochForLandlords
                         $scope.propUnitsTable = $('#propUnits').on( 'init.dt', function () {
 							console.log( 'Table initialisation complete: '+new Date().getTime() );
 							
-							
-							
+
 						}).DataTable({
                             data: $scope.allUnitsList,
                             columns: [
@@ -1706,67 +1708,73 @@ noochForLandlords
             $scope.userInfoInSession = userdetails;
 
             getProfileService.GetData(userdetails.memberId, userdetails.accessToken, function (response) {
-                // console.log('came in get user profile method and data -> ' + JSON.stringify(response));
+                //console.log('came in get user profile method and data -> ' + JSON.stringify(response));
 
-                // binding user information
-                $scope.userInfo.accountStatus = "Identity Verified";
-                $scope.userInfo.isIdVerified = $rootScope.isIdVerified;
-
-                $scope.userInfo.type = response.AccountType;
-                $scope.userInfo.subtype = response.SubType;
-
-                $scope.userInfo.firstName = response.FirstName;
-                $scope.userInfo.lastName = response.LastName;
-                $scope.userInfo.fullName = $scope.userInfo.firstName + " " + $scope.userInfo.lastName;
-
-				// Update $RootScope user details for setting global vars
-				$rootScope.userDetailsRoot.fName = response.FirstName;
-				$rootScope.userDetailsRoot.lName = response.LastName;
-
-                $scope.userInfo.birthDay = response.DOB;
-                $scope.userInfo.ssnLast4 = response.SSN;
-
-                $scope.userInfo.mobileNumber = response.MobileNumber;
-                $scope.userInfo.isPhoneVerified = response.IsPhoneVerified;
-
-                $scope.userInfo.emailAddress = response.UserEmail;
-                $scope.userInfo.isEmailVerified = response.IsEmailVerified;
-
-                if (response.FbUrl.indexOf('.com/') > -1)
-                {
-                    var strippedFbId = response.FbUrl.substr(response.FbUrl.indexOf('.com/') + 5);
-                    $scope.userInfo.fb = strippedFbId;
-                }
-                else {
-                    $scope.userInfo.fb = response.FbUrl;
-                }
-                $scope.userInfo.twitter = response.TwitterHandle;
-                $scope.userInfo.insta = response.InstaUrl;
-
-                $scope.userInfo.address1 = response.AddressLine1;
-                $scope.userInfo.addressCity = response.City;
-                $scope.userInfo.addressCountry = response.Country;
-                $scope.userInfo.zip = response.Zip;
-
-				if (response.UserImageUrl == null)
+				// Check AuthTokenValidation
+				if (response.AuthTokenValidation.IsTokenOk == true)
 				{
-					$scope.userInfo.userImage = "https://www.noochme.com/noochservice/UploadedPhotos/Photos/gv_no_photo.png"
-				}
-				else {
-					$scope.userInfo.userImage = response.UserImageUrl;
-				}
-				$rootScope.userDetailsRoot.imgUrl = $scope.userInfo.userImage;
-                $scope.userInfo.tenantsCount = response.TenantsCount;
-                $rootScope.propCount = response.PropertiesCount;
-                $scope.userInfo.propertiesCount = response.PropertiesCount;
-                $scope.userInfo.unitsCount = response.UnitsCount;
+					// binding user information
+					$scope.userInfo.accountStatus = "Identity Verified";
+					$scope.userInfo.isIdVerified = $rootScope.isIdVerified;
+
+					$scope.userInfo.type = response.AccountType;
+					$scope.userInfo.subtype = response.SubType;
+
+					$scope.userInfo.firstName = response.FirstName;
+					$scope.userInfo.lastName = response.LastName;
+					$scope.userInfo.fullName = $scope.userInfo.firstName + " " + $scope.userInfo.lastName;
+
+					// Update $RootScope user details for setting global vars
+					$rootScope.userDetailsRoot.fName = response.FirstName;
+					$rootScope.userDetailsRoot.lName = response.LastName;
+
+					$scope.userInfo.birthDay = response.DOB;
+					$scope.userInfo.ssnLast4 = response.SSN;
+
+					$scope.userInfo.mobileNumber = response.MobileNumber;
+					$scope.userInfo.isPhoneVerified = response.IsPhoneVerified;
+
+					$scope.userInfo.emailAddress = response.UserEmail;
+					$scope.userInfo.isEmailVerified = response.IsEmailVerified;
+
+					if (response.FbUrl.indexOf('.com/') > -1) {
+						var strippedFbId = response.FbUrl.substr(response.FbUrl.indexOf('.com/') + 5);
+						$scope.userInfo.fb = strippedFbId;
+					}
+					else {
+						$scope.userInfo.fb = response.FbUrl;
+					}
+					$scope.userInfo.twitter = response.TwitterHandle;
+					$scope.userInfo.insta = response.InstaUrl;
+
+					$scope.userInfo.address1 = response.AddressLine1;
+					$scope.userInfo.addressCity = response.City;
+					$scope.userInfo.addressCountry = response.Country;
+					$scope.userInfo.zip = response.Zip;
+
+					if (response.UserImageUrl == null) {
+						$scope.userInfo.userImage = "https://www.noochme.com/noochservice/UploadedPhotos/Photos/gv_no_photo.png"
+					}
+					else {
+						$scope.userInfo.userImage = response.UserImageUrl;
+					}
+					$rootScope.userDetailsRoot.imgUrl = $scope.userInfo.userImage;
+					$scope.userInfo.tenantsCount = response.TenantsCount;
+					$rootScope.propCount = response.PropertiesCount;
+					$scope.userInfo.propertiesCount = response.PropertiesCount;
+					$scope.userInfo.unitsCount = response.UnitsCount;
 
 
-                // Get Company Info
-                $scope.company = {
-                    name: response.CompanyName,
-                    ein: response.CompanyEID
-                }
+					// Get Company Info
+					$scope.company = {
+						name: response.CompanyName,
+						ein: response.CompanyEID
+					}
+				}
+				else { // Auth Token was not valid on server
+					authenticationService.ClearUserData();
+					window.location.href = 'login.html';
+				}
             });
         }
         else {
@@ -1802,10 +1810,7 @@ noochForLandlords
 
 		
         // Account Info
-        //this.bankCount = 2;
-        //this.propertyCount = 5;
-        //this.unitCount = 18;
-			this.tenantRequests = 3;
+		this.tenantRequests = 3;
 
         // When user Edits one of the "Profile - About" sections
         this.editPersonalInfo = 0;
@@ -2226,11 +2231,6 @@ noochForLandlords
                 onCanceled: function (event) {
                     $scope.cancelIdVer();
                 },
-                onFinishing: function (event, currentIndex) {
-                    // CHECK TO MAKE SURE ALL FIELDS WERE COMPLETED
-
-                    return true;
-                },
                 onFinished: function (event, currentIndex) {
                     // HIDE THE MODAL CONTAINING THE WIZARD
                     $('#idVer').modal('hide')
@@ -2253,18 +2253,15 @@ noochForLandlords
 						};
 
 						getProfileService.UpdateInfo(userInfo, deviceInfo, function (response) {
-
 							if (response.IsSuccess == true) {
 								growlService.growl('Profile info updated successfully!', 'success');
 							}
 							else {
 								growlService.growl(response.ErrorMessage, 'danger');
 							}
-
 						});
 
 
-						
                     $scope.userInfo.isIdVerified = 1;
                     $rootScope.isIdVerified = 1;
 					$rootScope.isIdVerifiedLocal = 1;
@@ -2676,10 +2673,51 @@ noochForLandlords
     //=================================================
 
     .controller('loginCtrl', function ($scope, $rootScope, authenticationService) {
-        //Status
-        this.login = 1,
-        this.register = 0;
-        this.forgot = 0;
+        
+		$(document).ready(function () {
+			//if ($('#l-login').hasClass('hidden')) {
+			setTimeout(function() {
+				$('#l-login').removeClass('hidden');
+			},500, function() {
+				$('#l-login').removeClass('bounceIn').addClass('fadeIn');
+			});
+			// This function checks a field on focusout (when the user moves to the next field) and updates Validation UI accordingly
+            $(document).on("focusout", "form#reg input", function () {
+                var field = this.id;
+
+                if ($(this).val() && $(this).val().length > 2) {
+                    if (field == "em") {
+                        if ($scope.ValidateEmail($('form#reg #em').val())) {
+                            updateValidationUi("em", true);
+                        }
+                    }
+                    else {
+                        updateValidationUi(field, true);
+                    }
+                }
+            })
+        })
+
+		$scope.showBlock = function(destination) {
+			if (destination == "signup")
+			{
+				$('#l-login').addClass('hidden');
+				$('#l-register').removeClass('hidden');
+				$('#l-forget-password').addClass('hidden');
+			}
+			else if (destination == "forgotpw")
+			{
+				$('#l-login').addClass('hidden');
+				$('#l-register').addClass('hidden');
+				$('#l-forget-password').removeClass('hidden');
+			}
+			else if (destination == "login")
+			{
+				$('#l-login').removeClass('hidden');
+				$('#l-register').addClass('hidden');
+				$('#l-forget-password').addClass('hidden');
+			}
+		}
 
         $(function () {
             $('[data-toggle="tooltip"]').tooltip();
@@ -3037,25 +3075,6 @@ noochForLandlords
                 updateValidationUi("fname", false);
             }
         }
-
-        // This function checks a field on focusout (when the user moves to the next field) and updates Validation UI accordingly
-        $(document).ready(function () {
-            $(document).on("focusout", "form#reg input", function () {
-                var field = this.id;
-
-                if ($(this).val() && $(this).val().length > 2) {
-                    if (field == "em") {
-                        if ($scope.ValidateEmail($('form#reg #em').val())) {
-                            updateValidationUi("em", true);
-                        }
-                    }
-                    else {
-                        updateValidationUi(field, true);
-                    }
-                }
-            })
-
-        })
 
 		$scope.tosClicked = function () {
 			if ($('#tosboxGrp input').prop('checked')) 
