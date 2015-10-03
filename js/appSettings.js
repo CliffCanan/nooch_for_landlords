@@ -23,6 +23,7 @@ var URLs = {
     SendEmailsToTenants: PATH + 'Users/SendEmailsToTenants',
     AddNewUnitInProperty: PATH + 'Properties/AddNewUnitInProperty',
     UploadLandlordProfileImage: PATH + 'Users/UploadLandlordProfileImage',
-    UploadPropertyImage: PATH + 'Properties/UploadPropertyImage'
+    UploadPropertyImage: PATH + 'Properties/UploadPropertyImage',
+    DeletePropertyUnit: PATH + 'Properties/DeletePropertyUnit'
 
 };

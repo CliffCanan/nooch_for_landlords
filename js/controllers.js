@@ -9,12 +9,12 @@ noochForLandlords
             window.location.href = 'login.html';
         }
 
-        // Detact Mobile Browser
+        // Detect Mobile Browser
         if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
             angular.element('html').addClass('ismobile');
         }
 
-        // By default Sidbars are hidden in boxed layout and in wide layout only the right sidebar is hidden.
+        // By default Sidebars are hidden in boxed layout and in wide layout only the right sidebar is hidden.
         this.sidebarToggle = {
             left: false
         }
@@ -41,12 +41,14 @@ noochForLandlords
     // ===============================================================
     // Header
     // ===============================================================
-    .controller('headerCtrl', function ($timeout, messageService, authenticationService) {
+    .controller('headerCtrl', function ($rootScope, $timeout, messageService, authenticationService) {
 
         if (!authenticationService.IsValidUser()) {
-            window.location.href = 'login.html'; //; CLIFF: COMMENTING OUT FOR TESTING LOCALLY B/ AUTHENTICATION SERVICE WON'T WORK
+            window.location.href = 'login.html';
         }
 
+		$rootScope.userDetailsRoot = {};
+		
         this.closeSearch = function () {
             angular.element('#header').removeClass('search-toggled');
         }
@@ -263,9 +265,9 @@ noochForLandlords
 
         var userdetails = authenticationService.GetUserDetails();
 
-       
 
-        function getPropertyDetails() {
+        function getPropertyDetails()
+        {
             console.log('get properties called user details -> ' + userdetails.memberId + ' ' + userdetails.accessToken);
 
             var propId = propDetailsService.get();
@@ -341,9 +343,9 @@ noochForLandlords
                                 { data: 'IsBankAccountAdded' },  // Not currenly being included in Units List (only tenants list)
                                 {
                                     data: null,
-                                    defaultContent: '<a href="" class=\'btn btn-icon btn-default command-edit m-r-10 editUnitBtn\'><span class=\'md md-edit\'></span></a>' +
-                                                    '<a href="" class=\'btn btn-icon btn-default command-edit m-r-10 msgUnitBtn\'><span class=\'md md-chat\'></span></a> ' +
-                                                    '<a href="" class=\'btn btn-icon btn-default command-edit m-r-10 deleteUnitBtn\'><span class=\'md md-more-vert\'></span></a>'
+                                    defaultContent: '<a href="" class=\'btn btn-icon btn-default m-r-10 editUnitBtn\'><span class=\'md md-edit\'></span></a>' +
+                                                    '<a href="" class=\'btn btn-icon btn-default m-r-10 msgUnitBtn\'><span class=\'md md-chat\'></span></a> ' +
+                                                    '<a href="" class=\'btn btn-icon btn-default deleteUnitBtn\'><span class=\'md md-more-vert\'></span></a>'
                                 }
                             ],
                             "columnDefs": [
@@ -352,11 +354,10 @@ noochForLandlords
                                     "visible": false,
                                     "searchable": false
                                 },
-                                { className: "capitalize", "targets": [4] },
-                                { className: "text-center", "targets": [2, 3]},
+                                { className: "capitalize", "targets": [4]},
+                                { className: "text-center unit-num", "targets": [2]},
+                                { className: "text-center unit-rent", "targets": [3]},
                                 { className: "text-right", "targets": [-1]},
-								{ className: "unit-num", "targets": [2] },
-								{ className: "unit-rent", "targets": [3] }
                             ],
                             buttons: [
                                 'pdf',
@@ -381,8 +382,6 @@ noochForLandlords
 
 						// EDIT UNIT BTN CLICKED
 						$('#propUnits tbody .btn.editUnitBtn').click(function () {
-
-							console.log("CLICK RECORDED!!");
 
 							var data = $scope.propUnitsTable.row($(this).parents('tr')).data();
 							console.log(data);
@@ -410,6 +409,10 @@ noochForLandlords
 						$('#propUnits tbody .btn.deleteUnitBtn').click(function () {
 							var btn = $(this);
 
+							var data = $scope.propUnitsTable.row($(this).parents('tr')).data();
+							console.log(data);
+							console.log(data['UnitId']);
+
 							swal({
 								title: "Remove this unit from " + $scope.selectedProperty.name + "?",
 								text: "Note: this cannot be un-done!",
@@ -420,39 +423,50 @@ noochForLandlords
 								cancelButtonText: "Cancel"
 							}, function (isConfirm) {
 								if (isConfirm) {
-									setTimeout(function(){
-										$scope.propUnitsTable.row(btn.parents('tr')).remove().draw();
-										swal({
-											title: "Unit Removed",
-											text: "That unit has been successfully removed from " + $scope.selectedProperty.name + ".",
-											type: "success",
-											confirmButtonText: "Ok"
-										});
-									}, 500);
+								    // calling service here to remove unit from db
+
+								    var userdetails = authenticationService.GetUserDetails();
+
+								    propDetailsService.deleteUnit(data['UnitId'], userdetails.memberId, userdetails.accessToken, function (data) {
+								        if (data.IsSuccess == true) {
+
+								            $scope.propUnitsTable.row(btn.parents('tr')).remove().draw();
+								            swal({
+								                title: "Unit Removed",
+								                text: "That unit has been successfully removed from " + $scope.selectedProperty.name + ".",
+								                type: "success",
+								                confirmButtonText: "Ok"
+								            },function() {
+								                console.log('reload rout reached');
+								                $state.reload();
+								            });
+
+								        } else {
+								            swal({
+								                title: "Oops",
+								                text: data.ErrorMessage,
+								                type: "warning",
+								                confirmButtonText: "Ok"
+								            });
+								        }
+								    });
 								}
 							});
 						});
-							
-						// $scope.propUnitsTable.on( 'click', 'tr', function () {
-							// console.log("22222 click recorded");
-							// console.log( $scope.propUnitsTable.row( this ).data() );
-						// });
                     }
-                    else {
+                    else
+                    {
                         console.log('Error while getting  property details.');
                     }
                 });
             }
-            else {
-                //send back to home page 
+            else
+            {
+                window.location.href = '#/properties';
             }
         };
         getPropertyDetails();
 		
-		$(document).ready(function () {
-			
-			
-		});
 
 		$scope.addTblRow = function(withTenant, memid, unitid, unitnum, rent, tenname, tenemail, imgurl, lastpaid, isrentpaid, isemailver, status, isphonever,isbnkver ) {
 			console.log("addTblRow REACHED");
@@ -475,8 +489,7 @@ noochForLandlords
 				}
 			}
 
-
-			
+		
 			$scope.propUnitsTable.row.add({ 
 				"MemberId":memid, 
 				"UnitId":unitid,
@@ -504,6 +517,7 @@ noochForLandlords
             $scope.editPropInfo = 0;
         }
 
+        // Edit Property Details (Address, phone, etc.)
         $scope.updatePropInfo = function () {
 
             if ($scope.editPropInfo == 1) {
@@ -531,6 +545,7 @@ noochForLandlords
             }
         }
 
+        // Edit Property Picture
         $scope.editPropPic = function () {
             $('#editPropPic').modal();
 
@@ -590,15 +605,10 @@ noochForLandlords
 
         }
 
-
+        // Save Property Picture
         $scope.savePropertyPic = function () {
             $('#propPicFileInput').fileinput('upload');
         };
-
-
-        // Get list of Tenants for this Property
-        // CLIFF (9/25/15): PRETTY SURE THIS ISN'T NEEDED OR USED... I THINK THIS WAS OLD FROM WHEN I WAS EXPERIMENTING WITH THIS EARLY ON...
-        //$scope.tenantList = getTenantsService.getTenants(this.id, this.name, this.nickname, this.logo, this.last, this.status, this.dateAdded, this.notes, this.primary, this.deleted);
 
 
         // Edit Published State (Whether the property should be publicly listed or not)
@@ -633,47 +643,39 @@ noochForLandlords
                 closeOnConfirm: shouldCloseOnConfirm,
                 closeOnCancel: false
             }, function (isConfirm) {
-                if (isConfirm) {
-                    if (!isAlreadyPublished) {
-
+                if (isConfirm)
+                {
+                    if (!isAlreadyPublished)
+                    {
                         propertiesService.SetPropertyStatus(propDetailsService.get(), true, userdetails.memberId, userdetails.accessToken, function (data2) {
 
-                            if (data2.IsSuccess == false) {
-
-                                swal({
-                                    title: "Ooops Error!",
-                                    text: data2.ErrorMessage,
-                                    type: "warning"
-                                });
-                            }
-                            if (data2.IsSuccess == true) {
-
+                            if (data2.IsSuccess == true)
+                            {
                                 setIsPublished(1);
                                 swal({
                                     title: "You Got It!",
-                                    text: "Your property has been published.",
+                                    text: "This property has been published.",
                                     type: "success"
+                                });
+                            }
+                            else
+                            {
+                                swal({
+                                    title: "Ooops Error!",
+                                    text: data2.ErrorMessage,
+                                    type: "error"
                                 });
                             }
                         });
                     }
                 }
-                else {
-                    if (isAlreadyPublished) {
-
+                else
+                {
+                    if (isAlreadyPublished)
+                    {
                         propertiesService.SetPropertyStatus(propDetailsService.get(), false, userdetails.memberId, userdetails.accessToken, function (data2) {
 
-                            if (data2.IsSuccess == false) {
-
-                                swal({
-                                    title: "Ooops Error!",
-                                    text: data2.ErrorMessage,
-                                    type: "warning"
-                                });
-                                //alert(data.ErrorMessage);
-                            }
                             if (data2.IsSuccess == true) {
-
                                 setIsPublished(0);
                                 swal({
                                     title: "No Problem",
@@ -681,9 +683,18 @@ noochForLandlords
                                     type: "success"
                                 });
                             }
+                            else
+                            {
+                                swal({
+                                    title: "Ooops Error!",
+                                    text: data2.ErrorMessage,
+                                    type: "error"
+                                });
+                            }
                         });
                     }
-                    else {
+                    else
+                    {
                         swal({
                             title: "No Problem",
                             text: "Your property will remain hidden. Before tenants can pay rent for this property, you must publish it.",
@@ -725,19 +736,23 @@ noochForLandlords
 		})
 		$scope.chargeTenant_Submit = function ()
         {
-			console.log("2 ChargeTenant_Submit called");
+		    console.log("2 ChargeTenant_Submit called");
+
             // Check Name field for length
-            if ($('#chargeTenantForm #tenant').val()) {
+			if ($('#chargeTenantForm #tenant').val())
+			{
                 var trimmedName = $('#chargeTenantForm #tenant').val().trim();
                 $('#chargeTenantForm #tenant').val(trimmedName);
 
                 // Check Name Field for a " "
-                if ($('#chargeTenantForm #tenant').val().indexOf(' ') > 1) {
+                if ($('#chargeTenantForm #tenant').val().indexOf(' ') > 1)
+                {
                     updateValidationUi("tenant", true);
 
                     // Check Amount field
                     if ($('#chargeTenantForm #amount').val().length > 4 &&
-                        $('#chargeTenantForm #amount').val() > 10) {
+                        $('#chargeTenantForm #amount').val() > 10)
+                    {
                         updateValidationUi("amount", true);
 
                         $('#chargeTenantModal').modal('hide');
@@ -749,10 +764,9 @@ noochForLandlords
                             type: "success",
                             showCancelButton: false,
                             confirmButtonColor: "#3FABE1",
-                            confirmButtonText: "Awesome",
+                            confirmButtonText: "Ok",
                             closeOnConfirm: trimmedName,
                             closeOnCancel: false
-                        }, function () {
                         });
                     }
                     else {
@@ -770,7 +784,8 @@ noochForLandlords
 
 
         // Add Unit Button
-        $scope.addUnit = function () {
+		$scope.addUnit = function () {
+            // Set the modal Title Text (b/c the same modal is used for Edit Unit and Add Unit)
 			$('#addUnitModal .modal-title').html('Add a New Unit in: <strong>' + $scope.selectedProperty.name + '</strong>');
 
             // Reset the form
@@ -812,8 +827,7 @@ noochForLandlords
 
                     $('#addUnitModal').modal('hide');
 
-
-                    // preparing data to be submitted to db
+                    // Prepare data to be submitted to DB
                     var propId = propDetailsService.get();
                     var userdetails = authenticationService.GetUserDetails();
                     var unitData = {};
@@ -852,7 +866,6 @@ noochForLandlords
                                 confirmButtonColor: "#3FABE1",
                                 confirmButtonText: "Terrific",
                                 cancelButtonText: "Add Another One",
-                                closeOnConfirm: true,
                                 closeOnCancel: true,
                             }, function (isConfirm) {
                                 if (!isConfirm) {
@@ -869,7 +882,6 @@ noochForLandlords
                                 showCancelButton: false,
                                 confirmButtonColor: "#3FABE1",
                                 confirmButtonText: "Ok",
-                                closeOnConfirm: true
                             });
                         }
                     });
@@ -898,12 +910,14 @@ noochForLandlords
                 $('#msgGrp .help-block').slideUp();
             }
 
-            if (howMany == "all") {
+            if (howMany == "all")
+            {
                 $('#sndMsgForm .well div').text('Enter a message below.  This will be emailed to ALL tenants for this property.');
                 $('#sndMsgForm #tenantMsgGrp').addClass('hidden');
                 $scope.IsMessageForall = true;
             }
-            else if (howMany == "1") {
+            else if (howMany == "1")
+            {
                 $('#sndMsgForm .well div').text('Enter your message and select a tenant to send it to.');
                 $('#sndMsgForm #tenantMsgGrp').removeClass('hidden');
                 $scope.IsMessageForall = false;
@@ -964,7 +978,7 @@ noochForLandlords
                         else
                         {
                             swal({
-                                title: "Oops",
+                                title: "Oh No!",
                                 text: data.ErrorMessage,
                                 type: "error",
                                 showCancelButton: false,
@@ -1024,14 +1038,15 @@ noochForLandlords
         updateValidationUi = function (field, success) {
             console.log("Field: " + field + "; success: " + success);
 
-            if (success == true) {
+            if (success == true)
+            {
                 $('#' + field + 'Grp').removeClass('has-error').addClass('has-success');
                 if ($('#' + field + 'Grp .help-block').length) {
                     $('#' + field + 'Grp .help-block').slideUp();
                 }
             }
-
-            else {
+            else
+            {
                 $('#' + field + 'Grp').removeClass('has-success').addClass('has-error');
 
                 var helpBlockTxt = "";
@@ -1051,7 +1066,8 @@ noochForLandlords
                     helpBlockTxt = "Please select one of the options above."
                 }
 
-                if (!$('#' + field + 'Grp .help-block').length) {
+                if (!$('#' + field + 'Grp .help-block').length)
+                {
                     $('#' + field + 'Grp').append('<small class="help-block col-sm-offset-3 col-sm-9" style="display:none">' + helpBlockTxt + '</small>');
                     $('#' + field + 'Grp .help-block').slideDown();
                 }
@@ -1151,13 +1167,13 @@ noochForLandlords
         return {
             restrict: 'A',
             link: function (scope, element, attrs) {
-                element.click(function () {
-                    //console.log("DELETE PROPERTY DIRECTIVE");
-                    //console.log(element);
-                    //console.log(attrs.propid);
+                element.click(function ()
+                {
                     var propertyId = attrs.propid;
                     var userdetails = authenticationService.GetUserDetails();
+
                     console.log('member id -> ' + userdetails.memberId);
+
                     swal({
                         title: "Are you sure?",
                         text: "This will delete this property from your account.  Your tenants will no longer be able to pay you rent for this property.",
@@ -1169,12 +1185,16 @@ noochForLandlords
                         closeOnConfirm: false,
                         closeOnCancel: false
                     }, function (isConfirm) {
-                        if (isConfirm) {
-
+                        if (isConfirm)
+                        {
                             propertiesService.RemoveProperty(propertyId, userdetails.memberId, userdetails.accessToken, function (data2) {
+                                if (data2.IsSuccess == true) {
 
-                                if (data2.IsSuccess == false) {
-
+                                    swal("Deleted!", "That property has been deleted.", "success");
+                                    $('.propCard#property' + propertyId).fadeOut();
+                                }
+                                else
+                                {
                                     swal({
                                         title: "Oh No!",
                                         text: data2.ErrorMessage,
@@ -1182,11 +1202,6 @@ noochForLandlords
                                     }, function (isConfirm) {
                                         window.location.href = '#/properties';
                                     });
-                                }
-                                if (data2.IsSuccess == true) {
-
-                                    swal("Deleted!", "That property has been deleted.", "success");
-                                    $('.propCard#property' + propertyId).fadeOut();
                                 }
                             });
                         }
@@ -1704,6 +1719,10 @@ noochForLandlords
                 $scope.userInfo.lastName = response.LastName;
                 $scope.userInfo.fullName = $scope.userInfo.firstName + " " + $scope.userInfo.lastName;
 
+				// Update $RootScope user details for setting global vars
+				$rootScope.userDetailsRoot.fName = response.FirstName;
+				$rootScope.userDetailsRoot.lName = response.LastName;
+
                 $scope.userInfo.birthDay = response.DOB;
                 $scope.userInfo.ssnLast4 = response.SSN;
 
@@ -1736,6 +1755,7 @@ noochForLandlords
 				else {
 					$scope.userInfo.userImage = response.UserImageUrl;
 				}
+				$rootScope.userDetailsRoot.imgUrl = $scope.userInfo.userImage;
                 $scope.userInfo.tenantsCount = response.TenantsCount;
                 $rootScope.propCount = response.PropertiesCount;
                 $scope.userInfo.propertiesCount = response.PropertiesCount;
