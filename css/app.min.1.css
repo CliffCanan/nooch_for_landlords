@@ -12386,11 +12386,9 @@ input:focus {
   bottom: -50px;
   left: 50%;
   margin-left: -65px;
-  -webkit-transition: all;
-  -o-transition: all;
-  transition: all;
-  -webkit-transition-duration: 300ms;
-  transition-duration: 300ms;
+  -webkit-transition: all 250ms ease-out;
+  -o-transition: all 250ms ease-out;
+  transition: all 250ms ease-out;
 }
 
 .profile-view .pv-body {
@@ -12463,10 +12461,10 @@ input:focus {
 }
 
 .profile-view:hover .pv-main {
-  -webkit-transform: scale(1.1);
-  -ms-transform: scale(1.1);
-  -o-transform: scale(1.1);
-  transform: scale(1.1);
+  -webkit-transform: scale(1.08`);
+  -ms-transform: scale(1.08);
+  -o-transform: scale(1.08);
+  transform: scale(1.08);
 }
 
 /*

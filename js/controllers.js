@@ -9,12 +9,12 @@ noochForLandlords
             window.location.href = 'login.html';
         }
 
-        // Detact Mobile Browser
+        // Detect Mobile Browser
         if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
             angular.element('html').addClass('ismobile');
         }
 
-        // By default Sidbars are hidden in boxed layout and in wide layout only the right sidebar is hidden.
+        // By default Sidebars are hidden in boxed layout and in wide layout only the right sidebar is hidden.
         this.sidebarToggle = {
             left: false
         }
@@ -41,12 +41,14 @@ noochForLandlords
     // ===============================================================
     // Header
     // ===============================================================
-    .controller('headerCtrl', function ($timeout, messageService, authenticationService) {
+    .controller('headerCtrl', function ($rootScope, $timeout, messageService, authenticationService) {
 
         if (!authenticationService.IsValidUser()) {
-            window.location.href = 'login.html'; //; CLIFF: COMMENTING OUT FOR TESTING LOCALLY B/ AUTHENTICATION SERVICE WON'T WORK
+            window.location.href = 'login.html';
         }
 
+		$rootScope.userDetailsRoot = {};
+		
         this.closeSearch = function () {
             angular.element('#header').removeClass('search-toggled');
         }
@@ -341,9 +343,9 @@ noochForLandlords
                                 { data: 'IsBankAccountAdded' },  // Not currenly being included in Units List (only tenants list)
                                 {
                                     data: null,
-                                    defaultContent: '<a href="" class=\'btn btn-icon btn-default command-edit m-r-10 editUnitBtn\'><span class=\'md md-edit\'></span></a>' +
-                                                    '<a href="" class=\'btn btn-icon btn-default command-edit m-r-10 msgUnitBtn\'><span class=\'md md-chat\'></span></a> ' +
-                                                    '<a href="" class=\'btn btn-icon btn-default command-edit m-r-10 deleteUnitBtn\'><span class=\'md md-more-vert\'></span></a>'
+                                    defaultContent: '<a href="" class=\'btn btn-icon btn-default m-r-10 editUnitBtn\'><span class=\'md md-edit\'></span></a>' +
+                                                    '<a href="" class=\'btn btn-icon btn-default m-r-10 msgUnitBtn\'><span class=\'md md-chat\'></span></a> ' +
+                                                    '<a href="" class=\'btn btn-icon btn-default deleteUnitBtn\'><span class=\'md md-more-vert\'></span></a>'
                                 }
                             ],
                             "columnDefs": [
@@ -352,11 +354,10 @@ noochForLandlords
                                     "visible": false,
                                     "searchable": false
                                 },
-                                { className: "capitalize", "targets": [4] },
-                                { className: "text-center", "targets": [2, 3]},
+                                { className: "capitalize", "targets": [4]},
+                                { className: "text-center unit-num", "targets": [2]},
+                                { className: "text-center unit-rent", "targets": [3]},
                                 { className: "text-right", "targets": [-1]},
-								{ className: "unit-num", "targets": [2] },
-								{ className: "unit-rent", "targets": [3] }
                             ],
                             buttons: [
                                 'pdf',
@@ -475,8 +476,7 @@ noochForLandlords
 				}
 			}
 
-
-			
+		
 			$scope.propUnitsTable.row.add({ 
 				"MemberId":memid, 
 				"UnitId":unitid,
@@ -594,11 +594,6 @@ noochForLandlords
         $scope.savePropertyPic = function () {
             $('#propPicFileInput').fileinput('upload');
         };
-
-
-        // Get list of Tenants for this Property
-        // CLIFF (9/25/15): PRETTY SURE THIS ISN'T NEEDED OR USED... I THINK THIS WAS OLD FROM WHEN I WAS EXPERIMENTING WITH THIS EARLY ON...
-        //$scope.tenantList = getTenantsService.getTenants(this.id, this.name, this.nickname, this.logo, this.last, this.status, this.dateAdded, this.notes, this.primary, this.deleted);
 
 
         // Edit Published State (Whether the property should be publicly listed or not)
@@ -1704,6 +1699,10 @@ noochForLandlords
                 $scope.userInfo.lastName = response.LastName;
                 $scope.userInfo.fullName = $scope.userInfo.firstName + " " + $scope.userInfo.lastName;
 
+				// Update $RootScope user details for setting global vars
+				$rootScope.userDetailsRoot.fName = response.FirstName;
+				$rootScope.userDetailsRoot.lName = response.LastName;
+
                 $scope.userInfo.birthDay = response.DOB;
                 $scope.userInfo.ssnLast4 = response.SSN;
 
@@ -1736,6 +1735,7 @@ noochForLandlords
 				else {
 					$scope.userInfo.userImage = response.UserImageUrl;
 				}
+				$rootScope.userDetailsRoot.imgUrl = $scope.userInfo.userImage;
                 $scope.userInfo.tenantsCount = response.TenantsCount;
                 $rootScope.propCount = response.PropertiesCount;
                 $scope.userInfo.propertiesCount = response.PropertiesCount;
