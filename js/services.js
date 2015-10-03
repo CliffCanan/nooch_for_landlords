@@ -258,6 +258,28 @@ noochForLandlords
                 });
         }
 
+
+        function deleteUnitFromProperty(unitId, memberId, accessToken, callback) {
+            var data = {};
+
+            data.PropertyId = unitId;
+            data.PropertyStatusToSet = false;
+
+            data.User = {
+                LandlorId: memberId,
+                AccessToken: accessToken
+            };
+
+            $http.post(URLs.DeletePropertyUnit, data)
+                .success(function (response) {
+                    if (response.IsSuccess && response.IsSuccess == true) {
+                        authenticationService.ManageToken(response.AuthTokenValidation);
+                        //console.log('came in success');
+                    }
+                    callback(response);
+                });
+        }
+
         function get2() {
             var User = $resource('data/properties.json/:id', { id: '@id' });
             console.log(User.get({ id: 4 }));
@@ -271,7 +293,8 @@ noochForLandlords
             set: set,
             get: get,
             get2: get2,
-            getPropFromDb: getPropertyDetailsFromDB
+            getPropFromDb: getPropertyDetailsFromDB,
+            deleteUnit: deleteUnitFromProperty
         }
     }])
 

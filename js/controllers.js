@@ -253,7 +253,7 @@ noochForLandlords
 
 
     // PROPERTY DETAILS CONTROLLER
-    .controller('propDetailsCtrl', function ($compile, authenticationService, $scope, propertiesService, propDetailsService,  getProfileService, growlService) {
+    .controller('propDetailsCtrl', function ($compile, authenticationService, $scope, propertiesService, propDetailsService,  getProfileService, growlService, $state) {
 
         $scope.selectedProperty = {
 
@@ -410,6 +410,11 @@ noochForLandlords
 						// DELETE UNIT BTN CLICKED
 						$('#propUnits tbody .btn.deleteUnitBtn').click(function () {
 							var btn = $(this);
+							console.log("CLICK RECORDED!!");
+
+							var data = $scope.propUnitsTable.row($(this).parents('tr')).data();
+							console.log(data);
+							console.log(data['UnitId']);
 
 							swal({
 								title: "Remove this unit from " + $scope.selectedProperty.name + "?",
@@ -421,15 +426,37 @@ noochForLandlords
 								cancelButtonText: "Cancel"
 							}, function (isConfirm) {
 								if (isConfirm) {
-									setTimeout(function(){
-										$scope.propUnitsTable.row(btn.parents('tr')).remove().draw();
-										swal({
-											title: "Unit Removed",
-											text: "That unit has been successfully removed from " + $scope.selectedProperty.name + ".",
-											type: "success",
-											confirmButtonText: "Ok"
-										});
-									}, 500);
+								    // calling service here to remove unit from db
+
+								    var userdetails = authenticationService.GetUserDetails();
+
+								    propDetailsService.deleteUnit(data['UnitId'], userdetails.memberId, userdetails.accessToken, function (data) {
+								        if (data.IsSuccess == true) {
+
+								            $scope.propUnitsTable.row(btn.parents('tr')).remove().draw();
+								            swal({
+								                title: "Unit Removed",
+								                text: "That unit has been successfully removed from " + $scope.selectedProperty.name + ".",
+								                type: "success",
+								                confirmButtonText: "Ok"
+								            },function() {
+								                console.log('reload rout reached');
+								                $state.reload();
+								            });
+
+								        } else {
+								            swal({
+								                title: "Oops",
+								                text: data.ErrorMessage,
+								                type: "warning",
+								                confirmButtonText: "Ok"
+								            });
+								        }
+								    });
+
+
+								        
+									
 								}
 							});
 						});
