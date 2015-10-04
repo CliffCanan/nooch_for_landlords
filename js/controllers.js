@@ -4,7 +4,6 @@ noochForLandlords
     // ===============================================================
 
     .controller('noochAdminCtrl', function ($rootScope, $timeout, $state, growlService, authenticationService) {
-        console.log("ADMIN CONTROLLER REACHED");
 
 		if (!authenticationService.IsValidUser()) {
             growlService.growl('Please login to continue!', 'inverse');
@@ -44,12 +43,10 @@ noochForLandlords
     // Header
     // ===============================================================
     .controller('headerCtrl', function ($rootScope, $timeout, messageService, authenticationService) {
-		console.log("HEADER CONTROLLER REACHED");
         if (!authenticationService.IsValidUser()) {
             window.location.href = 'login.html';
         }
-		console.log(localStorage.getItem('memberId'));
-		console.log(localStorage.getItem('accessToken'));
+
 		$rootScope.userDetailsRoot = {};
 		
         this.closeSearch = function () {
@@ -209,44 +206,54 @@ noochForLandlords
             console.log('get properties called user details -> ' + userdetails.memberId + ' ' + userdetails.accessToken);
 
             propertiesService.GetProperties(userdetails.memberId, userdetails.accessToken, function (data) {
-				console.log(data);
-                if (data.IsSuccess == true) {
-                    // data binding goes in here
-
-                    $rootScope.propCount = data.AllProperties.length;
-					console.log("Prop Count is: " + $rootScope.propCount);
-                    var index;
-
-                    for (index = 0; index < data.AllProperties.length; ++index) {
-                        //console.log(data.AllProperties[index]);
-
-                        var propItem = {
-                            id: data.AllProperties[index].PropertyId,
-                            name: data.AllProperties[index].PropName,
-                            img: data.AllProperties[index].PropertyImage,
-                            address: data.AllProperties[index].AddressLineOne,
-                            units: data.AllProperties[index].UnitsCount,
-                            tenants: data.AllProperties[index].TenantsCount
-                        };
-
-                        $scope.propResult.push(propItem);
-                    }
-
-                    $scope.userAccountDetails.AllUnitsCount = data.AllUnitsCount;
-                    $scope.userAccountDetails.AllPropertysCount = data.AllPropertysCount;
-                    $scope.userAccountDetails.AllTenantsCount = data.AllTenantsCount;
-                    $scope.userAccountDetails.IsAccountAdded = data.IsAccountAdded;
-                    $scope.userAccountDetails.IsEmailVerified = data.IsEmailVerified;
-                    $scope.userAccountDetails.IsPhoneVerified = data.IsPhoneVerified;
-
-                    $scope.userAccountDetails.IsIDVerified = false;
-                    $rootScope.isIdVerified = $scope.userAccountDetails.isIDVerified; // Also updating the RootScope
-                    $scope.userAccountDetails.IsAnyRentReceived = false;
-                    //console.log('items [0]' + $scope.propResult[0]);
-                }
-				else if (data.ErrorMessage == "No properties found for given Landlord.")
+				if (data.AuthTokenValidation.IsTokenOk == true)
 				{
-					$rootScope.propCount = 0;
+					if (data.IsSuccess == true) {
+						// data binding goes in here
+
+						$rootScope.propCount = data.AllProperties.length;
+						console.log("Prop Count is: " + $rootScope.propCount);
+						var index;
+
+						for (index = 0; index < data.AllProperties.length; ++index) {
+							//console.log(data.AllProperties[index]);
+
+							var propItem = {
+								id: data.AllProperties[index].PropertyId,
+								name: data.AllProperties[index].PropName,
+								img: data.AllProperties[index].PropertyImage,
+								address: data.AllProperties[index].AddressLineOne,
+								units: data.AllProperties[index].UnitsCount,
+								tenants: data.AllProperties[index].TenantsCount
+							};
+
+							$scope.propResult.push(propItem);
+						}
+
+						$scope.userAccountDetails.AllUnitsCount = data.AllUnitsCount;
+						$scope.userAccountDetails.AllPropertysCount = data.AllPropertysCount;
+						$scope.userAccountDetails.AllTenantsCount = data.AllTenantsCount;
+						$scope.userAccountDetails.IsAccountAdded = data.IsAccountAdded;
+						$scope.userAccountDetails.IsEmailVerified = data.IsEmailVerified;
+						$scope.userAccountDetails.IsPhoneVerified = data.IsPhoneVerified;
+
+						$scope.userAccountDetails.IsIDVerified = false;
+						$rootScope.isIdVerified = $scope.userAccountDetails.isIDVerified; // Also updating the RootScope
+						console.log("isIdVerified!!");
+						console.log($scope.userAccountDetails.isIDVerified)
+						console.log($rootScope.isIdVerified)
+						$scope.userAccountDetails.IsAnyRentReceived = false;
+						//console.log('items [0]' + $scope.propResult[0]);
+					}
+					else if (data.ErrorMessage == "No properties found for given Landlord.")
+					{
+						$rootScope.propCount = 0;
+					}
+				}
+				else // Auth Token was not valid on server
+				{
+					authenticationService.ClearUserData();
+					window.location.href = 'login.html';
 				}
             });
         };
@@ -256,7 +263,7 @@ noochForLandlords
 
 
     // PROPERTY DETAILS CONTROLLER
-    .controller('propDetailsCtrl', function ($compile, authenticationService, $scope, propertiesService, propDetailsService, getProfileService, growlService) {
+    .controller('propDetailsCtrl', function ($compile, authenticationService, $scope, propertiesService, propDetailsService, getProfileService, growlService, $state) {
 
         $scope.selectedProperty = {
 
@@ -279,187 +286,191 @@ noochForLandlords
             {
                 propDetailsService.getPropFromDb(propId, userdetails.memberId, userdetails.accessToken, function (data) 
                 {
-                    if (data.IsSuccess == true)
-                    {
-                        // data binding goes in here
+					if (data.AuthTokenValidation.IsTokenOk == true)
+					{
+						if (data.IsSuccess == true)
+						{
+							// data binding goes in here
 
-                        var propStatus = 0;
+							var propStatus = 0;
 
-                        if (data.PropertyDetails.PropStatus == "Published") {
-                            propStatus = 1;
-                        }
-                        else {
-                            propStatus = 0;
-                        }
-                        $scope.selectedProperty = {
-                            "published": propStatus,
-                            "name": data.PropertyDetails.PropName,
-                            "address1": data.PropertyDetails.AddressLineOne,
-                            "address2": "",
-                            "city": data.PropertyDetails.City,
-                            "state": data.PropertyDetails.State,
-                            "zip": data.PropertyDetails.Zip,
-                            "contactNumber": data.PropertyDetails.ContactNumber.replace(/\D/g, ''),
-                            "imgUrl": data.PropertyDetails.PropertyImage,
-                            "units": data.PropertyDetails.UnitsCount,
-                            "tenants": data.PropertyDetails.TenantsCount,
-                            "propertyStatus": data.PropertyDetails.PropStatus,
-                            "pastDue": data.AllTenantsWithPassedDueDateCount,
-                            "defaultBankName": data.BankAccountDetails.BankName,
-                            "defaultBankNickname": data.BankAccountDetails.BankAccountNick + " - " + data.BankAccountDetails.BankAccountNumString,
-                            "bankImage": data.BankAccountDetails.BankIcon,
-                            "propertyId": data.PropertyDetails.PropertyId
-                        }
-
-                        $scope.allUnitsList = data.PropertyDetails.AllUnits;
-
-                        $('.selectpicker').selectpicker('refresh');
-
-                        console.log("UNIT LIST...");
-                        console.log($scope.allUnitsList);
-
-                        // CLIFF (9/24/15): Updated this table's data source to be the List of UNITS, not tenants
-                        //                  This is going to be complicated becase we need some data form the TENANTS list that 
-                        //                  is not included in the Units list from the server now.
-                        $scope.propUnitsTable = $('#propUnits').on( 'init.dt', function () {
-							console.log( 'Table initialisation complete: '+new Date().getTime() );
-							
-
-						}).DataTable({
-                            data: $scope.allUnitsList,
-                            columns: [
-                                { data: 'MemberId' },
-                                { data: 'UnitId' },
-                                { data: 'UnitNumber' },
-                                { data: 'UnitRent' },
-                                { data: 'TenantName' },               // Not currenly being included in Units List (only tenants list)
-
-                                { data: 'TenantEmail' },        // Not currenly being included in Units List (only tenants list)
-                                { data: 'ImageUrl' },           // Not currenly being included in Units List (only tenants list)
-                                { data: 'LastRentPaidOn' },     // Not currenly being included in Units List (only tenants list)
-                                { data: 'IsRentPaidForThisMonth' }, // Not currenly being included in Units List (only tenants list)
-                                { data: 'IsEmailVerified' },    // Not currenly being included in Units List (only tenants list)
-
-                                { data: 'Status' },
-                                { data: 'IsPhoneVerified' },     // Not currenly being included in Units List (only tenants list)
-                                { data: 'IsBankAccountAdded' },  // Not currenly being included in Units List (only tenants list)
-                                {
-                                    data: null,
-                                    defaultContent: '<a href="" class=\'btn btn-icon btn-default m-r-10 editUnitBtn\'><span class=\'md md-edit\'></span></a>' +
-                                                    '<a href="" class=\'btn btn-icon btn-default m-r-10 msgUnitBtn\'><span class=\'md md-chat\'></span></a> ' +
-                                                    '<a href="" class=\'btn btn-icon btn-default deleteUnitBtn\'><span class=\'md md-more-vert\'></span></a>'
-                                }
-                            ],
-                            "columnDefs": [
-                                {
-                                    "targets": [0, 1, 6, 7, 8, -5, -2, -3, -4], // identifies which columns will be affected, + numbers count from left (0 index), - numbers from the right
-                                    "visible": false,
-                                    "searchable": false
-                                },
-                                { className: "capitalize", "targets": [4]},
-                                { className: "text-center unit-num", "targets": [2]},
-                                { className: "text-center unit-rent", "targets": [3]},
-                                { className: "text-right", "targets": [-1]},
-                            ],
-                            buttons: [
-                                'pdf',
-                                'excel',
-                                'print'
-                            ]
-                        });
-						
-						// Add Tooltips to Action Buttons
-						$('#propUnits tbody .btn.editUnitBtn').tooltip({
-							title: "Edit This Unit",
-							trigger: "hover"
-						});
-						$('#propUnits tbody .btn.msgUnitBtn').tooltip({
-							title: "Send A Message",
-							trigger: "hover"
-						});
-						$('#propUnits tbody .btn.deleteUnitBtn').tooltip({
-							title: "Delete This Unit",
-							trigger: "hover"
-						});
-
-						// EDIT UNIT BTN CLICKED
-						$('#propUnits tbody .btn.editUnitBtn').click(function () {
-
-							var data = $scope.propUnitsTable.row($(this).parents('tr')).data();
-							console.log(data);
-
-							$('#addUnitModal .modal-title').html('Edit This Unit in: <strong>' + $scope.selectedProperty.name + '</strong>');
-							$('#addUnitModal #unitNum').val(data['UnitNumber']);
-							$('#addUnitModal #unitNumGrp').removeClass('has-error').removeClass('has-success');
-							$('#addUnitModal #monthlyRentGrp').removeClass('has-error').removeClass('has-success');
-							$('#addUnitModal #monthlyRent').val(data['UnitRent']);
-							$('#addUnitModal select').val('');
-
-							if ($('#unitNumGrp .help-block').length) {
-								$('#unitNumGrp .help-block').slideUp();
+							if (data.PropertyDetails.PropStatus == "Published") {
+								propStatus = 1;
 							}
-							if ($('#monthlyRentGrp .help-block').length) {
-								$('#monthlyRentGrp .help-block').slideUp();
+							else {
+								propStatus = 0;
+							}
+							$scope.selectedProperty = {
+								"published": propStatus,
+								"name": data.PropertyDetails.PropName,
+								"address1": data.PropertyDetails.AddressLineOne,
+								"address2": "",
+								"city": data.PropertyDetails.City,
+								"state": data.PropertyDetails.State,
+								"zip": data.PropertyDetails.Zip,
+								"contactNumber": data.PropertyDetails.ContactNumber.replace(/\D/g, ''),
+								"imgUrl": data.PropertyDetails.PropertyImage,
+								"units": data.PropertyDetails.UnitsCount,
+								"tenants": data.PropertyDetails.TenantsCount,
+								"propertyStatus": data.PropertyDetails.PropStatus,
+								"pastDue": data.AllTenantsWithPassedDueDateCount,
+								"defaultBankName": data.BankAccountDetails.BankName,
+								"defaultBankNickname": data.BankAccountDetails.BankAccountNick + " - " + data.BankAccountDetails.BankAccountNumString,
+								"bankImage": data.BankAccountDetails.BankIcon,
+								"propertyId": data.PropertyDetails.PropertyId
 							}
 
-							$('#addUnitModal').modal();
+							$scope.allUnitsList = data.PropertyDetails.AllUnits;
 
-							$('#addUnitModal #monthlyRent').mask("#,##0.00", { reverse: true });
-						});
+							$('.selectpicker').selectpicker('refresh');
 
-						// DELETE UNIT BTN CLICKED
-						$('#propUnits tbody .btn.deleteUnitBtn').click(function () {
-							var btn = $(this);
+							console.log("UNIT LIST...");
+							console.log($scope.allUnitsList);
 
-							var data = $scope.propUnitsTable.row($(this).parents('tr')).data();
-							console.log(data);
-							console.log(data['UnitId']);
+							$scope.propUnitsTable = $('#propUnits').on('init.dt', function () {
+								//console.log( 'Table initialisation complete: '+new Date().getTime() );
+							}).DataTable({
+								data: $scope.allUnitsList,
+								columns: [
+									{ data: 'MemberId' },
+									{ data: 'UnitId' },
+									{ data: 'UnitNumber' },
+									{ data: 'UnitRent' },
+									{ data: 'TenantName' },         // Not currently being included in Units List (only tenants list)
 
-							swal({
-								title: "Remove this unit from " + $scope.selectedProperty.name + "?",
-								text: "Note: this cannot be un-done!",
-								type: "warning",
-								showCancelButton: true,
-								confirmButtonColor: "#3fabe1",
-								confirmButtonText: "Remove",
-								cancelButtonText: "Cancel"
-							}, function (isConfirm) {
-								if (isConfirm) {
-								    // calling service here to remove unit from db
+									{ data: 'TenantEmail' },        // Not currently being included in Units List (only tenants list)
+									{ data: 'ImageUrl' },           // Not currently being included in Units List (only tenants list)
+									{ data: 'LastRentPaidOn' },     // Not currently being included in Units List (only tenants list)
+									{ data: 'IsRentPaidForThisMonth' }, // Not currently being included in Units List (only tenants list)
+									{ data: 'IsEmailVerified' },    // Not currently being included in Units List (only tenants list)
 
-								    var userdetails = authenticationService.GetUserDetails();
-
-								    propDetailsService.deleteUnit(data['UnitId'], userdetails.memberId, userdetails.accessToken, function (data) {
-								        if (data.IsSuccess == true) {
-
-								            $scope.propUnitsTable.row(btn.parents('tr')).remove().draw();
-								            swal({
-								                title: "Unit Removed",
-								                text: "That unit has been successfully removed from " + $scope.selectedProperty.name + ".",
-								                type: "success",
-								                confirmButtonText: "Ok"
-								            },function() {
-								                console.log('reload rout reached');
-								                $state.reload();
-								            });
-
-								        } else {
-								            swal({
-								                title: "Oops",
-								                text: data.ErrorMessage,
-								                type: "warning",
-								                confirmButtonText: "Ok"
-								            });
-								        }
-								    });
+									{ data: 'Status' },
+									{ data: 'IsPhoneVerified' },     // Not currently being included in Units List (only tenants list)
+									{ data: 'IsBankAccountAdded' },  // Not currently being included in Units List (only tenants list)
+									{
+										data: null,
+										defaultContent: '<a href="" class=\'btn btn-icon btn-default m-r-10 editUnitBtn\'><span class=\'md md-edit\'></span></a>' +
+														'<a href="" class=\'btn btn-icon btn-default m-r-10 msgUnitBtn\'><span class=\'md md-chat\'></span></a> ' +
+														'<a href="" class=\'btn btn-icon btn-default deleteUnitBtn\'><span class=\'md md-clear\'></span></a>'
+									}
+								],
+								"columnDefs": [
+									{
+										"targets": [0, 1, 6, 7, 8, -5, -2, -3, -4], // identifies which columns will be affected, + numbers count from left (0 index), - numbers from the right
+										"visible": false,
+										"searchable": false
+									},
+									{ className: "capitalize", "targets": [4]},
+									{ className: "text-center unit-num", "targets": [2]},
+									{ className: "text-center unit-rent", "targets": [3]},
+									{ className: "text-right", "targets": [-1]},
+								],
+								"language": {
+									"info": "Showing _START_ to _END_ of _TOTAL_ total properties.",
+									"infoEmpty": "No entries to show",
 								}
 							});
-						});
-                    }
-                    else
-                    {
-                        console.log('Error while getting  property details.');
-                    }
+							
+							// Add Tooltips to Action Buttons
+							$('#propUnits tbody .btn.editUnitBtn').tooltip({
+								title: "Edit This Unit",
+								trigger: "hover"
+							});
+							$('#propUnits tbody .btn.msgUnitBtn').tooltip({
+								title: "Send A Message",
+								trigger: "hover"
+							});
+							$('#propUnits tbody .btn.deleteUnitBtn').tooltip({
+								title: "Delete This Unit",
+								trigger: "hover"
+							});
+
+							// EDIT UNIT BTN CLICKED
+							$('#propUnits tbody .btn.editUnitBtn').click(function () {
+
+								var data = $scope.propUnitsTable.row($(this).parents('tr')).data();
+								console.log(data);
+
+								$('#addUnitModal .modal-title').html('Edit This Unit in: <strong>' + $scope.selectedProperty.name + '</strong>');
+								$('#addUnitModal #unitNum').val(data['UnitNumber']);
+								$('#addUnitModal #unitNumGrp').removeClass('has-error').removeClass('has-success');
+								$('#addUnitModal #monthlyRentGrp').removeClass('has-error').removeClass('has-success');
+								$('#addUnitModal #monthlyRent').val(data['UnitRent']);
+								$('#addUnitModal select').val('');
+
+								if ($('#unitNumGrp .help-block').length) {
+									$('#unitNumGrp .help-block').slideUp();
+								}
+								if ($('#monthlyRentGrp .help-block').length) {
+									$('#monthlyRentGrp .help-block').slideUp();
+								}
+
+								$('#addUnitModal').modal();
+
+								$('#addUnitModal #monthlyRent').mask("#,##0.00", { reverse: true });
+							});
+
+							// DELETE UNIT BTN CLICKED
+							$('#propUnits tbody .btn.deleteUnitBtn').click(function () {
+								var btn = $(this);
+
+								var data = $scope.propUnitsTable.row($(this).parents('tr')).data();
+								console.log(data);
+								console.log(data['UnitId']);
+
+								swal({
+									title: "Remove unit #<span class='text-primary'>" + data['UnitNumber'] + "</span> from <span class='text-primary'>" + $scope.selectedProperty.name + "</span>?",
+									text: "Note: this cannot be un-done!",
+									type: "warning",
+									showCancelButton: true,
+									confirmButtonColor: "#3fabe1",
+									confirmButtonText: "Remove",
+									cancelButtonText: "Cancel",
+									html: true
+								}, function (isConfirm) {
+									if (isConfirm) {
+										// calling service here to remove unit from db
+										var userdetails = authenticationService.GetUserDetails();
+
+										propDetailsService.deleteUnit(data['UnitId'], userdetails.memberId, userdetails.accessToken, function (data) {
+											if (data.IsSuccess == true) {
+
+												$scope.propUnitsTable.row(btn.parents('tr')).remove().draw();
+												swal({
+													title: "Unit Removed",
+													text: "Unit #" + data['UnitNumber'] + " has been successfully removed from " + $scope.selectedProperty.name + ".",
+													type: "success",
+													confirmButtonText: "Ok"
+												}, function() {
+													// CLIFF (10/3/15): not sure the $state.reload() is actually necessary.  We can remove the unit's row
+													//					from the table, and decrement the # of units value, which will both immediately update the UI.
+													//					But good to know about this $state.reload() function... didn't know about it!
+													//$state.reload();
+												});
+											} 
+											else {
+												swal({
+													title: "Uh oh...",
+													text: data.ErrorMessage,
+													type: "warning",
+													confirmButtonText: "Ok"
+												});
+											}
+										});
+									}
+								});
+							});
+						}
+						else
+						{
+							console.log('Error while getting  property details.');
+						}
+					}
+					else // Auth Token was not valid on server
+					{
+						authenticationService.ClearUserData();
+						window.location.href = 'login.html';
+					}
                 });
             }
             else
@@ -733,13 +744,10 @@ noochForLandlords
         }
 
 		$('#submitChargeTenant').click(function() {
-			console.log("1 ChargeTenant_Submit called");
 			$scope.chargeTenant_Submit();
 		})
 		$scope.chargeTenant_Submit = function ()
         {
-		    console.log("2 ChargeTenant_Submit called");
-
             // Check Name field for length
 			if ($('#chargeTenantForm #tenant').val())
 			{
@@ -1771,7 +1779,8 @@ noochForLandlords
 						ein: response.CompanyEID
 					}
 				}
-				else { // Auth Token was not valid on server
+				else // Auth Token was not valid on server
+				{
 					authenticationService.ClearUserData();
 					window.location.href = 'login.html';
 				}
@@ -2390,8 +2399,8 @@ noochForLandlords
         }
 
 
-        // CLIFF (9/18/15): ADDING THIS BLOCK TO GET THE USER'S "FINGERPRINT" - NEED SERVICE TO SEND TO NOOCH DATABASE
-        //                  THIS IS USED FOR SYNAPSE V3
+        // CLIFF (9/18/15): ADDING THIS BLOCK TO GET THE USER'S "FINGERPRINT" - NEED SERVICE TO 
+		//					SEND TO NOOCH DATABASE THIS IS USED FOR SYNAPSE V3
         new Fingerprint2().get(function (result) {
             console.log(result);
         });
@@ -2426,8 +2435,8 @@ noochForLandlords
                 });
             }
             else {
-                //$('#bankAdd iframe').attr("src", "http://54.201.43.89/noochweb/trans/Add-Bank.aspx?MemberId=" + $scope.userInfoInSession.memberId + "&ll=yes");
-				$('#bankAdd iframe').attr("src", "https://noochme.com/noochweb/trans/Add-Bank.aspx?MemberId=" + $scope.userInfoInSession.memberId + "&ll=yes");
+                $('#bankAdd iframe').attr("src", "http://54.201.43.89/noochweb/trans/Add-Bank.aspx?MemberId=" + $scope.userInfoInSession.memberId + "&ll=yes");
+				//$('#bankAdd iframe').attr("src", "https://noochme.com/noochweb/trans/Add-Bank.aspx?MemberId=" + $scope.userInfoInSession.memberId + "&ll=yes");
                 $('#bankAdd').modal({
                     keyboard: false
                 })

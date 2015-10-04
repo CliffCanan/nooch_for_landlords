@@ -97,12 +97,12 @@
                     </div>
                     <div class="media-body">
                         <label>
-                            <span ng-if="checklistItems.verifyId == 0">
+                            <span ng-if="isIdVerified === 0">
                                 <input type="checkbox" disabled>
                                 <i class="input-helper"></i>
                                 <span>Verify Identity <i class="md md-sms-failed c-red m-l-10 md-"></i></span>
                             </span>
-                            <span ng-if="checklistItems.verifyId == 1">
+                            <span ng-if="isIdVerified === 1">
                                 <input type="checkbox" disabled checked>
                                 <i class="input-helper"></i>
                                 <span><s>Verify Identity</s></span>

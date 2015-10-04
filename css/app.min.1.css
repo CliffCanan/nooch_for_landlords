@@ -14374,7 +14374,7 @@ a.thumbnail.active {
 }
 
 .modal-backdrop {
-  z-index: 10;
+  z-index: 1049;
 }
 
 .panel {
