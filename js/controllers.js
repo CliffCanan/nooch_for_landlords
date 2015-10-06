@@ -2682,16 +2682,16 @@ noochForLandlords
     //=================================================
 
     .controller('loginCtrl', function ($scope, $rootScope, authenticationService) {
-        
-		$(document).ready(function () {
-			//if ($('#l-login').hasClass('hidden')) {
-			setTimeout(function() {
-				$('#l-login').removeClass('hidden');
-			},500, function() {
-				$('#l-login').removeClass('bounceIn').addClass('fadeIn');
-			});
-			// This function checks a field on focusout (when the user moves to the next field) and updates Validation UI accordingly
-            $(document).on("focusout", "form#reg input", function () {
+
+        $(document).ready(function() {
+            //if ($('#l-login').hasClass('hidden')) {
+            setTimeout(function() {
+                $('#l-login').removeClass('hidden');
+            }, 500, function() {
+                $('#l-login').removeClass('bounceIn').addClass('fadeIn');
+            });
+            // This function checks a field on focusout (when the user moves to the next field) and updates Validation UI accordingly
+            $(document).on("focusout", "form#reg input", function() {
                 var field = this.id;
 
                 if ($(this).val() && $(this).val().length > 2) {
@@ -2699,13 +2699,23 @@ noochForLandlords
                         if ($scope.ValidateEmail($('form#reg #em').val())) {
                             updateValidationUi("em", true);
                         }
-                    }
-                    else {
+                    } else {
                         updateValidationUi(field, true);
                     }
                 }
             })
-        })
+
+
+            //checking if exists something in local storage
+            
+            if (localStorage.getItem('userLoginName') != null && localStorage.getItem('userLoginName').length > 0 && localStorage.getItem('userLoginPass').length > 0 && localStorage.getItem('userLoginPass') != null) {
+                $scope.LoginData.username = localStorage.getItem('userLoginName');
+                $scope.LoginData.password = localStorage.getItem('userLoginPass');
+
+                $('#rememberMeCheck').prop("checked", true);
+            }
+
+        });
 
 		$scope.showBlock = function(destination) {
 			if (destination == "signup")
@@ -2834,6 +2844,18 @@ noochForLandlords
                             $('form#login').unblock();
 
                             if (response.IsSuccess == true) {
+
+
+                                if ($('#rememberMeCheck').prop("checked") == true) {
+                                    
+                                    localStorage.setItem('userLoginName', $scope.LoginData.username);
+                                    localStorage.setItem('userLoginPass', $scope.LoginData.password);
+                                   
+                                }
+
+                                    
+
+
                                 authenticationService.SetUserDetails($scope.LoginData.username, response.MemberId, response.AccessToken);
                                 window.location.href = 'index.html#/profile/profile-about';
                             }
