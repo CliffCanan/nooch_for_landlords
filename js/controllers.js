@@ -1778,6 +1778,34 @@ noochForLandlords
 						name: response.CompanyName,
 						ein: response.CompanyEID
 					}
+
+				    // CLIFF (10.10.15): Adding code for showing the New User Tour
+				    // Instance the tour
+					var tour = new Tour({
+					    name: 'newLandlordUserTour',
+					    storage: false, // just for testing
+					    debut: true, // just for testing
+					    backdrop: true,
+					    orphan: true, //Allow to show the step regardless whether its element is not set, is not present in the page or is hidden. The step is fixed positioned in the middle of the page.
+					    steps: [
+                        {
+                            element: ".tour-step#tour-step-one",
+                            title: "Title of my step",
+                            content: "Content of my step"
+                        },
+                        {
+                            element: ".tour-step#tour-step-one",
+                            title: "Title of my step",
+                            content: "Content of my step"
+                        }
+					    ]
+					});
+
+				    // Initialize the tour
+					tour.init();
+
+				    // Start the tour
+					tour.start();
 				}
 				else // Auth Token was not valid on server
 				{
