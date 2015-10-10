@@ -92,6 +92,7 @@ a, a *,
 .bumbUp-2 {position:relative;top:-2px;}
 .bumbUp-3 {position:relative;top:-3px;}
 
+.z-index-high { z-index: 999; }
 input[type='password'] {letter-spacing:1px;}
 
 .capitalize {text-transform: capitalize !important;}
@@ -172,17 +173,17 @@ table tbody td .label {padding: 3px 9px;}
 }
 
 
-.unit-num {
+td.unit-num {
   font-weight: 600;
   padding: 0px !important;
   max-width: 58px !important;
 }
-.odd .unit-num { background-color: #fff !important; }
-.unit-rent {
+td.odd .unit-num { background-color: #fff !important; }
+td.unit-rent {
   padding: 5px;
   border-radius: 10px 0 0 10px;
 }
-.unit-rent:before {
+td.unit-rent:before {
   content: "$";
   margin-right: 4px;
 }
@@ -989,7 +990,7 @@ form .checkbox.haserror .input-helper:before {
 
 table .btn-icon .md {
     font-size: 17px;
-    top: 7px;
+    top: 8.5px;
     position: relative;
     color: #444;
   -webkit-transition: color .2s ease;
