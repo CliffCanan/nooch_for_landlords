@@ -27,6 +27,7 @@ noochForLandlords
                             insertBefore: '#app-level',
                             files: [
                                 'vendors/bower_components/fullcalendar/dist/fullcalendar.min.css',
+                                'vendors/bower_components/bootstrap-tour/build/css/bootstrap-tour.min.css'
                             ]
                         },
                         {
@@ -35,7 +36,8 @@ noochForLandlords
                             files: [
                                 'vendors/sparklines/jquery.sparkline.min.js',
                                 'vendors/bower_components/jquery.easy-pie-chart/dist/jquery.easypiechart.min.js',
-                                'vendors/bower_components/simpleWeather/jquery.simpleWeather.min.js'
+                                'vendors/bower_components/simpleWeather/jquery.simpleWeather.min.js',
+                                'vendors/bower_components/bootstrap-tour/build/js/bootstrap-tour.min.js'
                             ]
                         }
                     ])
@@ -189,6 +191,7 @@ noochForLandlords
                                 'vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css',
                                 'vendors/bower_components/jquery.steps/build/jquery.steps.css',
                                 'vendors/bower_components/bootstrap-fileinput/css/fileinput.min.css',
+                                'vendors/bower_components/bootstrap-tour/build/css/bootstrap-tour.min.css',
                                 //'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css'
                             ]
                         },
@@ -199,6 +202,7 @@ noochForLandlords
                                 'vendors/bower_components/jquery.steps/build/jquery.steps.js',
                                 'vendors/canvas-to-blob/canvas-to-blob.min.js',
                                 'vendors/bower_components/bootstrap-fileinput/js/fileinput.min.js',
+                                'vendors/bower_components/bootstrap-tour/build/js/bootstrap-tour.min.js',
 								'https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css'
                             ]
                         }
