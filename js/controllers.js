@@ -2748,9 +2748,9 @@ noochForLandlords
             pass: ''
         };
 
-		var fngrprnt;
+		$scope.fngrprnt = "";
 		new Fingerprint2().get(function (result) {
-            fngrprnt = result;
+		    $scope.fngrprnt = result;
         });
 		
         $scope.ValidateEmail = function (str) {
@@ -2984,8 +2984,23 @@ noochForLandlords
                                     }
                                 });
 
+                                var ipResults = getIP();
+                                console.log(ipResults);
+
+								var ip = "";
+								var country_code = "";
+								if (ipResults != null) {
+									if (ipResults.ip != null) {
+										ip = ipResults.ip;
+									}
+									if (ipResults.country_code != null) {
+										country_code = ipResults.country_code;
+									}
+								}
+								console.log("IP is: " + ip + ", and Country is : " + country_code);
+
                                 // Now call service to register a new Landlord user
-                                authenticationService.RegisterLandlord($scope.SignupData.firstName, $scope.SignupData.lastName, $scope.SignupData.eMail, $scope.SignupData.pass, function (response) {
+                                authenticationService.RegisterLandlord($scope.SignupData.firstName, $scope.SignupData.lastName, $scope.SignupData.eMail, $scope.SignupData.pass, $scope.fngrprnt, ip, country_code, function (response) {
 
                                     regForm.unblock();
 
@@ -3030,7 +3045,7 @@ noochForLandlords
 
                                             authenticationService.Login(username, pw, function (response) {
 
-                                                regForm.unblock();
+                                                //regForm.unblock();
 
 												$rootScope.isIdVerifiedLocal = 0;
 
@@ -3058,26 +3073,7 @@ noochForLandlords
                                             type: "error"
                                         });
                                     }
-                                });
-								
-								// Now call service to register a new Landlord MEMBER ON PROD SERVER
-                              /*authenticationService.RegLandlord_and_createMember($scope.SignupData.firstName, $scope.SignupData.lastName, $scope.SignupData.eMail, $scope.SignupData.pass, fngrprnt, function (response) {
-									if (response.Result == "Thanks for registering! Check your email to complete activation.")
-									{
-										console.log("REGISTER MEMBER ON PROD SERVER SUCCESSFULLY");
-										
-										authenticationService.getMemberId(username, function (response) {
-											console.log("GET MEMBERID");
-											console.log(response);
-										});
-									}
-									else 
-									{
-										console.log("REGISTER MEMBER **FAILED** ON PROD SERVER")
-									}
-								});*/
-								
-								
+                                });							
                             }
                             else {
                                 updateValidationUi("tosbox", false);
@@ -3158,6 +3154,19 @@ noochForLandlords
                     $('#' + field + 'Grp input').focus();
                 }, 200)
             }
+        }
+
+
+        function getIP() {
+            if (window.XMLHttpRequest) xmlhttp = new XMLHttpRequest();
+            else xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+
+            xmlhttp.open("GET", "http://api.hostip.info/get_json.php", false);
+            xmlhttp.send();
+
+            hostipInfo = jQuery.parseJSON(xmlhttp.responseText);
+
+            return hostipInfo;
         }
 
 

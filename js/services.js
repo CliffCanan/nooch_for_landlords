@@ -423,13 +423,16 @@ noochForLandlords
         };
 
 
-        Operations.RegisterLandlord = function (firstName,lastName,username, password, callback) {
+        Operations.RegisterLandlord = function (firstName,lastName,username, password, fingerprint, ip, country, callback) {
             
             var data2 = {};
             data2.FirstName = firstName;
             data2.LastName = lastName;
             data2.eMail = username;
             data2.Password = password;
+            data2.fingerprint = fingerprint;
+            data2.ip = ip;
+            data2.country = country;
 
             $http.post(URLs.Register, data2)
                 .success(function (response) {
