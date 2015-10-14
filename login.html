@@ -27,7 +27,7 @@
         </div>
 
         <!-- Login -->
-        <div class="lc-block toggled animated bounceIn hidden" id="l-login">
+        <div class="lc-block toggled animated fadeInDown hidden" id="l-login">
 
             <form id="login" ng-submit="lctrl.loginAttmpt()">
 
@@ -45,6 +45,7 @@
                         <input id="pw" type="password" class="input-lg form-control fg-input" data-ng-model="LoginData.password">
                     </div>
                     <label class="fg-label" for="pw">Password</label>
+                    <p class="help-block forgotpw" data-ng-click="showBlock('forgotpw')">Forgot Password?</p>
                 </div>
 
                 <div class="clearfix"></div>
@@ -65,10 +66,9 @@
 
             </form>
 
-            <ul class="login-navigation m-t-20">
-                <li class="bgm-red" data-ng-click="showBlock('signup')">Sign Up</li>
-                <li class="bgm-orange" data-ng-click="showBlock('forgotpw')">Forgot Password?</li>
-            </ul>
+            <div class="login-navigation m-t-20">
+                <button type="button" class="btn btn-default btn-lg" data-ng-click="showBlock('signup')">Sign Up</button>
+            </div>
 
         </div>
 
@@ -128,10 +128,9 @@
 
                 <button id="createAccnt" type="submit" class="btn btn-login btn-success btn-float animated"><i class="md md-arrow-forward"></i></button>
 
-                <ul class="login-navigation">
-                    <li data-block="#l-login" class="bgm-green" data-ng-click="showBlock('login')">Login</li>
-                    <li data-block="#l-forget-password" class="bgm-orange" data-ng-click="showBlock('forgotpw')">Forgot Password?</li>
-                </ul>
+                <div class="login-navigation">
+                    <button data-block="#l-login" class="bgm-green" data-ng-click="showBlock('login')">Login</button>
+                </div>
 
             </form>
 
@@ -155,10 +154,9 @@
 
                 <button type="submit" class="btn btn-login btn-primary btn-float"><i class="md md-arrow-forward"></i></button>
 
-                <ul class="login-navigation">
-                    <li data-block="#l-login" class="bgm-green" data-ng-click="showBlock('login')">Login</li>
-                    <li data-block="#l-register" class="bgm-red" data-ng-click="showBlock('signup')">Register</li>
-                </ul>
+                <div class="login-navigation">
+                    <button data-block="#l-login" class="btn btn-lg btn-info" data-ng-click="showBlock('login')">Login</button>
+                </div>
 
             </form>
         

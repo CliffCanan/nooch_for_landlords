@@ -54,7 +54,7 @@ noochForLandlords
         }
 
         // Get Notifications for header
-        this.img = messageService.img;
+        /*this.img = messageService.img;
         this.user = messageService.user;
         this.user = messageService.text;
 
@@ -86,7 +86,7 @@ noochForLandlords
             $timeout(function () {
                 angular.element('#notifications').addClass('empty');
             }, (z * 150) + 200);
-        }
+        }*/
 
         // Logout
         this.logout = function () {
@@ -145,43 +145,6 @@ noochForLandlords
 
 
     // ===============================================================
-    // Todo List Widget (Came with default Template)
-    // ===============================================================
-
-    .controller('todoCtrl', function (todoService) {
-
-        //Get Todo List Widget Data
-        this.todo = todoService.todo;
-
-        this.tdResult = todoService.getTodo(this.todo);
-
-        //Add new Item (closed by default)
-        this.addTodoStat = 0;
-
-        //Dismiss
-        this.clearTodo = function (event) {
-            this.addTodoStat = 0;
-            this.todo = '';
-        }
-    })
-
-
-    // ===============================================================
-    // Recent Items Widget (Came with default Template)
-    // ===============================================================
-
-    .controller('recentitemCtrl', function (recentitemService) {
-
-        //Get Recent Items Widget Data
-        this.id = recentitemService.id;
-        this.name = recentitemService.name;
-        this.parseInt = recentitemService.price;
-
-        this.riResult = recentitemService.getRecentitem(this.id, this.name, this.price);
-    })
-
-
-    // ===============================================================
     //      PROPERTIES
     // ===============================================================
 
@@ -212,7 +175,7 @@ noochForLandlords
 						// data binding goes in here
 
 						$rootScope.propCount = data.AllProperties.length;
-						console.log("Prop Count is: " + $rootScope.propCount);
+
 						var index;
 
 						for (index = 0; index < data.AllProperties.length; ++index) {
@@ -823,12 +786,17 @@ noochForLandlords
         $scope.addUnit_submit = function ()
         {
             // Check Unit Number field for length
-            if ($('#addUnitModal #unitNum').val().length > 0)
+            if ($('#addUnitModal #unitNum').val().length > 0 ||
+                $('#addUnitModal #nickname').val().length > 0)
             {
-                var trimmedName = $('#addUnitModal #unitNum').val().trim();
-                $('#addUnitModal #unitNum').val(trimmedName);
+                var trimmedUnitNum = $('#addUnitModal #unitNum').val().trim();
+                $('#addUnitModal #unitNum').val(trimmedUnitNum);
+
+                var trimmedNickName = $('#addUnitModal #nickname').val().trim();
+                $('#addUnitModal #nickname').val(trimmedNickName)
 
                 updateValidationUi("unitNum", true);
+                updateValidationUi("nickname", true);
 
                 // Now check Monthly Rent Amount field
                 if ($('#addUnitModal #monthlyRent').val().length > 4)
@@ -1314,7 +1282,6 @@ noochForLandlords
                             readerN.onload = function (e) {
                                 // browser completed reading file - display it
 
-                                console.log(e.target.result);
                                 var splittable = e.target.result.split(',');
                                 var string1 = splittable[0];
                                 var string2 = splittable[1];
@@ -1711,12 +1678,10 @@ noochForLandlords
 
             var userdetails = authenticationService.GetUserDetails();
 
-            //$scope.propCount = 0;
-
             $scope.userInfoInSession = userdetails;
 
             getProfileService.GetData(userdetails.memberId, userdetails.accessToken, function (response) {
-                //console.log('came in get user profile method and data -> ' + JSON.stringify(response));
+                console.log('Profile Controller -> User profile data -> ' + JSON.stringify(response));
 
 				// Check AuthTokenValidation
 				if (response.AuthTokenValidation.IsTokenOk == true)
@@ -1783,8 +1748,8 @@ noochForLandlords
 				    // Instance the tour
 					var tour = new Tour({
 					    name: 'newLandlordUserTour',
-					    storage: false, // just for testing
-					    debut: true, // just for testing
+					    storage: true, // just for testing
+					    debug: true, // just for testing
 					    backdrop: true,
 					    orphan: true, //Allow to show the step regardless whether its element is not set, is not present in the page or is hidden. The step is fixed positioned in the middle of the page.
 					    steps: [
@@ -2433,7 +2398,7 @@ noochForLandlords
             console.log(result);
         });
 
-        this.bankList = getBanksService.getBank(this.id, this.name, this.nickname, this.logo, this.last, this.status, this.dateAdded, this.notes, this.primary, this.deleted);
+        //this.bankList = getBanksService.getBank(this.id, this.name, this.nickname, this.logo, this.last, this.status, this.dateAdded, this.notes, this.primary, this.deleted);
 
         this.addBank = function () {
             if ($scope.bankCount > 0) {
@@ -3297,3 +3262,47 @@ noochForLandlords
             }) : '';
         }
     })
+
+
+
+
+/**********************************
+/**   UNUSED BLOCKS THAT  MAY BE  **
+/**   IMPLEMENTED IN THE FUTURE  **
+/**********************************/
+
+// ===============================================================
+// Todo List Widget (Came with default Template)
+// ===============================================================
+
+/*.controller('todoCtrl', function (todoService) {
+
+    //Get Todo List Widget Data
+    this.todo = todoService.todo;
+
+    this.tdResult = todoService.getTodo(this.todo);
+
+    //Add new Item (closed by default)
+    this.addTodoStat = 0;
+
+    //Dismiss
+    this.clearTodo = function (event) {
+        this.addTodoStat = 0;
+        this.todo = '';
+    }
+})*/
+
+
+// ===============================================================
+// Recent Items Widget (Came with default Template)
+// ===============================================================
+
+/*.controller('recentitemCtrl', function (recentitemService) {
+
+    //Get Recent Items Widget Data
+    this.id = recentitemService.id;
+    this.name = recentitemService.name;
+    this.parseInt = recentitemService.price;
+
+    this.riResult = recentitemService.getRecentitem(this.id, this.name, this.price);
+})*/

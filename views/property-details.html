@@ -478,22 +478,24 @@
                             <div class="f-16">Tell us a little about the unit.</div>
                         </div>
 
-                        <div class="form-group" id="unitNumGrp">
-                            <label for="unitNum" class="col-sm-3 control-label">Unit Number</label>
+                        <div class="form-group col-sm-6" id="unitNumGrp">
+                            <label for="unitNum" class="col-sm-5 p-l-0 p-r-0 control-label">Unit Number</label>
 
-                            <div class="col-sm-3">
+                            <div class="col-sm-7">
                                 <div class="fg-line">
                                     <input type='text' id="unitNum" class="form-control placeholder-sm" placeholder="'3a' or '1st Floor'" maxlength="20" required>
                                 </div>
                             </div>
+                        </div>
 
-                            <label for="nickname" class="col-sm-2 p-r-0 control-label">
+                        <div class="form-group col-sm-6" id="nicknameGrp">
+                            <label for="nickname" class="col-sm-4 p-r-0 control-label">
                                 Nickname
                                 <small>
                                     <i class="md md-info-outline" data-trigger="click" data-toggle="popover" data-placement="auto" data-content="Instead of a unit #, use this field to enter a name to identify this unit." data-original-title="No Unit Number?"></i>
                                 </small>
                             </label>
-                            <div class="col-sm-4">
+                            <div class="col-sm-8">
                                 <div class="fg-line">
                                     <input type='text' id="nickname" class="form-control placeholder-sm" placeholder="'Attic', 'Nancy's House'" maxlength="20" required>
                                 </div>
@@ -502,7 +504,7 @@
                         </div>
 
                         <div class="form-group" id="monthlyRentGrp">
-                            <label for="monthlyRent" class="col-sm-3 control-label">Monthly Rent*</label>
+                            <label for="monthlyRent" class="col-sm-3 control-label">Monthly Rent</label>
                             <div class="col-sm-3 p-r-0">
                                 <div class="input-group">
                                     <span class="input-group-addon p-r-0"><i class="md md-attach-money c-green f-30"></i></span>
@@ -540,8 +542,8 @@
                             <label for="memo" class="col-sm-3 control-label">Start Date<small>Optional</small></label>
                             <div class="col-sm-4">
                                 <div class="input-group">
-                                    <span class="input-group-addon"><i class="md md-event"></i></span>
-                                    <div class="dtp-container dropdown fg-line">
+                                    <span class="input-group-addon p-r-0"><i class="md md-event"></i></span>
+                                    <div class="dtp-container dropdown fg-line p-r-0">
                                         <input id="addUnitDatePicker" data-dt-picker data-format="MM/DD/YYYY" type='text' class="form-control date-picker" data-toggle="dropdown" placeholder="eg. 08/05/1978">
                                     </div>
                                 </div>

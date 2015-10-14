@@ -523,27 +523,6 @@ body.login-content:before {
   position: relative;
   top: -4px;
 }
-.login-content .login-navigation > li:not(:hover) {
-    line-height:22px;
-    min-height:22px;
-    min-width:22px;
-    margin: 0 10% 10px;
-    border-radius: 11px;
-    letter-spacing: .25px;
-    -webkit-transition: all .5s ease-out;
-    transition: all .5s ease-in-out;
-}
-.login-content .login-navigation > li:hover {
-  border-radius: 8px;
-  padding: 9px 15px;
-  font-size: 15px;
-  box-shadow: 0 3px 8px -4px rgba(64,65,66,.3);
-  margin: -10px 2% 0;
-}
-.login-content .login-navigation {
-    margin: 20px auto 5px;
-    position: static;
-}
 
 .login-content .fg-float {
   margin-left: 7%;
@@ -574,6 +553,10 @@ body.login-content:before {
   margin-top: 6px;
   padding-left: 5px;
   position:absolute;
+}
+.login-content .help-block.forgotpw {
+  position:static;
+  float: right;
 }
 
 form .checkbox.haserror .input-helper:before {

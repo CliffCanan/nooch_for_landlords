@@ -13,7 +13,7 @@
                 <dt>Verification Type</dt>
                 <dd>
                     <span class="label label-success">{{ userInfo.accountStatus }}</span>
-                    <i class="md-verified-user m-l-10 c-green"></i>
+                    <i ng-if="userInfo.isIdVerified == 1" class="md-verified-user m-l-10 c-green"></i>
                     <!-- <i class="md-info m-l-10"></i>-->
                 </dd>
             </dl>
