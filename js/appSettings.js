@@ -14,6 +14,7 @@ var URLs = {
     // Profile APIs
     GetProfileData: PATH + 'Users/GetUserInfo',
     EditProfileData: PATH + 'Users/EditUserInfo',
+    submitIdVerWizard: PATH + 'Users/submitLandlordIdVerWiz',
     UploadLandlordProfileImage: PATH + 'Users/UploadLandlordProfileImage',
 
     // Property APIs

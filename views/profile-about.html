@@ -28,7 +28,7 @@
                 <div class="pmbb-header m-b-15">
                     <h2>
                         <i class="md md-person m-r-5"></i> Personal Info
-                        <i class="md-info c-gray f-15 m-l-5" data-trigger="hover" data-toggle="popover" data-placement="bottom" data-content="Please enter the following information about YOU, the person creating this account." data-original-title="Basic Information"></i>
+                        <i class="md-info c-gray f-15 m-l-5" data-trigger="hover" data-toggle="popover" data-placement="auto" data-content="Please enter the following information about YOU, the person creating this account." data-original-title="Basic Information"></i>
                     </h2>
 
                     <ul class="actions">
@@ -47,10 +47,10 @@
                             <dt>Date of Birth</dt>
                             <dd>{{ userInfo.birthDay }}</dd>
                         </dl>
-                        <dl class="dl-horizontal">
+                        <!--<dl class="dl-horizontal">
                             <dt>SSN<small>Last 4 Only</small></dt>
                             <dd>{{ userInfo.ssnLast4 }}</dd>
-                        </dl>
+                        </dl>-->
                     </div>
 
                     <form data-ng-submit="pctrl.submit('personalInfo', 'Profile Information')" class="pmbb-edit" data-ng-if="pctrl.editPersonalInfo === 1">
@@ -72,14 +72,14 @@
                                 </div>
                             </dd>
                         </dl>
-                        <dl class="dl-horizontal">
+                        <!--<dl class="dl-horizontal">
                             <dt class="p-t-10">SSN<small>Last 4 Digits Only</small></dt>
                             <dd>
                                 <div class="dtp-container dropdown fg-line">
                                     <input data-ng-model="userInfo.ssnLast4" type='num' class="form-control" value="{{ userInfo.ssnLast4 }}" placeholder="eg. 1234" data-input-mask="{mask: '0000'}">
                                 </div>
                             </dd>
-                        </dl>
+                        </dl>-->
 
                         <div class="m-t-30 text-center">
                             <button class="btn btn-primary" type="submit">Save</button>
@@ -315,6 +315,7 @@
                                         <div class="form-group">
                                             <div class="fg-line">
                                                 <input id="idVer-name" data-ng-model="userInfo.fullName" type="text" class="form-control capitalize" value="{{ userInfo.fullName }}" placeholder="eg. Arnold Palmer" required>
+                                                <i class="md-info m-l-10" data-trigger="hover" data-toggle="popover" data-placement="auto" data-content="Please enter YOUR legal name. This should be the same name as it is listed on your bank account." data-original-title="Your Legal Name"></i>
                                             </div>
                                         </div>
                                     </dd>
@@ -325,7 +326,7 @@
                                     <dd>
                                         <div class="input-group form-group">
                                             <span class="input-group-addon"><i class="md md-event"></i></span>
-                                            <div class="dtp-container dropdown fg-line">
+                                            <div class="dtp-container dropdown fg-line p-l-0">
                                                 <input id="idVer-dob" data-format="MM/DD/YYYY" data-ng-model="userInfo.birthDay" type='text' class="form-control" data-toggle="dropdown" placeholder="eg. 08/05/1978">
                                             </div>
                                         </div>
@@ -384,13 +385,12 @@
                         <h3><i class="md md-image m-r-5"></i> Add a Picture</h3>
                         <section>
 
-                            <div class="well well-sm m-b-25">
+                            <div class="well well-sm m-b-10">
                                 <div class="f-15">Please attach a picture of yourself.</div>
                                 <div><small>(optional)</small></div>
                             </div>
 
                             <div class="text-center">
-                                <label class="control-label">Select File</label>
                                 <input id="IdWizPic_FileInput" type="file" class="file-loading">
                             </div>
 

@@ -199,13 +199,7 @@ noochForLandlords
 						$scope.userAccountDetails.IsAccountAdded = data.IsAccountAdded;
 						$scope.userAccountDetails.IsEmailVerified = data.IsEmailVerified;
 						$scope.userAccountDetails.IsPhoneVerified = data.IsPhoneVerified;
-
-						$scope.userAccountDetails.IsIDVerified = false;
-						$rootScope.isIdVerified = $scope.userAccountDetails.isIDVerified; // Also updating the RootScope
-						console.log("isIdVerified!!");
-						console.log($scope.userAccountDetails.isIDVerified)
-						console.log($rootScope.isIdVerified)
-						$scope.userAccountDetails.IsAnyRentReceived = false;
+						$scope.userAccountDetails.IsAnyRentReceived = data.IsAnyRentReceived;
 						//console.log('items [0]' + $scope.propResult[0]);
 					}
 					else if (data.ErrorMessage == "No properties found for given Landlord.")
@@ -1688,7 +1682,7 @@ noochForLandlords
 				{
 					// binding user information
 					$scope.userInfo.accountStatus = "Identity Verified";
-					$scope.userInfo.isIdVerified = $rootScope.isIdVerified;
+					$scope.userInfo.isIdVerified = response.isIdVerified;
 
 					$scope.userInfo.type = response.AccountType;
 					$scope.userInfo.subtype = response.SubType;
@@ -1700,9 +1694,9 @@ noochForLandlords
 					// Update $RootScope user details for setting global vars
 					$rootScope.userDetailsRoot.fName = response.FirstName;
 					$rootScope.userDetailsRoot.lName = response.LastName;
+					$rootScope.isIdVerified = response.isIdVerified;
 
 					$scope.userInfo.birthDay = response.DOB;
-					$scope.userInfo.ssnLast4 = response.SSN;
 
 					$scope.userInfo.mobileNumber = response.MobileNumber;
 					$scope.userInfo.isPhoneVerified = response.IsPhoneVerified;
@@ -1857,18 +1851,18 @@ noochForLandlords
             this.editSocialInfo = 0;
         }
         this.submit = function (item, message) {
+
+            var deviceInfo = {
+                LandlorId: $scope.userInfoInSession.memberId,
+                AccessToken: $scope.userInfoInSession.accessToken
+            };
+
             if (item === 'personalInfo') {
 
                 var userInfo = {
                     fullName: $scope.userInfo.fullName,
-                    ssnLast4: $scope.userInfo.ssnLast4,
                     birthDay: $scope.userInfo.birthDay,
                     InfoType: 'Personal'
-                };
-
-                var deviceInfo = {
-                    deviceInfo: $scope.userInfoInSession.memberId,
-                    AccessToken: $scope.userInfoInSession.accessToken
                 };
 
                 getProfileService.UpdateInfo(userInfo, deviceInfo, function (response) {
@@ -1891,13 +1885,7 @@ noochForLandlords
                     companyName: $scope.company.name,
                     compein: $scope.company.ein,
                     InfoType: 'Company'
-
                 }
-
-                var deviceInfo = {
-                    deviceInfo: $scope.userInfoInSession.memberId,
-                    AccessToken: $scope.userInfoInSession.accessToken
-                };
 
                 getProfileService.UpdateInfo(userInfo, deviceInfo, function (response) {
 
@@ -1923,11 +1911,6 @@ noochForLandlords
                     twitterHandle: $scope.userInfo.twitter
                 }
 
-                var deviceInfo = {
-                    deviceInfo: $scope.userInfoInSession.memberId,
-                    AccessToken: $scope.userInfoInSession.accessToken
-                };
-
                 getProfileService.UpdateInfo(userInfo, deviceInfo, function (response) {
 
                     if (response.IsSuccess == true) {
@@ -1949,11 +1932,6 @@ noochForLandlords
                     InfoType: 'Social',
                     insta: $scope.userInfo.insta
                 }
-
-                var deviceInfo = {
-                    deviceInfo: $scope.userInfoInSession.memberId,
-                    AccessToken: $scope.userInfoInSession.accessToken
-                };
 
                 getProfileService.UpdateInfo(userInfo, deviceInfo, function (response) {
                     if (response.IsSuccess == true) {
@@ -2032,8 +2010,11 @@ noochForLandlords
             $('#profilePicFileInput').fileinput('upload'); // This should automatically call the URL specified in 'uploadUrl' parameter above
         }
 
-        if (//$rootScope.isIdVerified == false ||
-			$rootScope.isIdVerifiedLocal == 0) {
+        console.log("$rootScope.isIdVerified... (2018):");
+        console.log($rootScope.isIdVerified);
+
+        if ($rootScope.isIdVerified == false)
+        {
 			console.log("ID IS NOT VERIFIED YET");
             // SINCE THIS CONTROLLER GETS CALLED ON MULTIPLE PAGES, THIS WILL ATTEMPT TO RUN THE WIZARD ON EVERY PAGE, CAUSING ERRORS SINCE IT'S
             // ONLY SUPPOSED TO RUN ON THE PROFILE-ABOUT PAGE.  THE INTENT OF THIS BLOCK WAS TO INITIATE THE MODAL W/ THE WIZARD UPON PAGE LOAD
@@ -2051,11 +2032,11 @@ noochForLandlords
                       "<li><i class='fa-li fa fa-check'></i>Add your properties to start collecting rent</li></ul>",
                 imageUrl: "img/secure.svg",
                 imageSize: "194x80",
-                showCancelButton: false,
-                //cancelButtonText: "Learn More",
+                showCancelButton: true,
+                cancelButtonText: "Verify ID Now",
                 confirmButtonColor: "#3fabe1",
                 confirmButtonText: "Great!",
-                //closeOnCancel: false,
+                //closeOnCancel: true,
                 customClass: "securityAlert",
                 allowEscapeKey: false,
                 html: true
@@ -2110,7 +2091,7 @@ noochForLandlords
 							},
 							maxDate: moment("1996 12 31", "MYYYY MM DD"),
 							viewMode: 'years',
-							debug: true
+							//debug: true
 						});
 
 						$('#idVer-ssn').mask("0000");
@@ -2211,7 +2192,7 @@ noochForLandlords
                                     resizePreference: 'width'
                                 });
 
-                                $('#idVerWiz > .content').animate({ height: "28em" }, 700)
+                                $('#idVerWiz > .content').animate({ height: "30em" }, 700)
                                 return true;
                             }
                             else {
@@ -2228,8 +2209,6 @@ noochForLandlords
                         return true;
                     }
                 },
-                onStepChanged: function (event, currentIndex, priorIndex) {
-                },
                 onCanceled: function (event) {
                     $scope.cancelIdVer();
                 },
@@ -2238,46 +2217,62 @@ noochForLandlords
                     $('#idVer').modal('hide')
 
                     // SUBMIT DATA TO NOOCH SERVER
-					$scope.userInfo.birthDay = $('#idVer-dob').val()
-					$scope.userInfo.ssnLast4 = $('#idVer-ssn').val()
+                    var legalName = $('#idVer-name').val();
+                    $scope.userInfo.birthDay = $('#idVer-dob').val();
+                    $scope.userInfo.ssnLast4 = $('#idVer-ssn').val();
+                    $scope.userInfo.address1 = $('#idVer-address').val();
+                    $scope.userInfo.zip = $('#idVer-zip').val();
 
-						var userInfo = {
-							fullName: $scope.userInfo.fullName,
-							ssnLast4: $scope.userInfo.ssnLast4,
-							birthDay: $scope.userInfo.birthDay,
-							InfoType: 'Personal'
-						};
-						console.log(userInfo);
-
-						var deviceInfo = {
-							deviceInfo: $scope.userInfoInSession.memberId,
-							AccessToken: $scope.userInfoInSession.accessToken
-						};
-
-						getProfileService.UpdateInfo(userInfo, deviceInfo, function (response) {
-							if (response.IsSuccess == true) {
-								growlService.growl('Profile info updated successfully!', 'success');
-							}
-							else {
-								growlService.growl(response.ErrorMessage, 'danger');
-							}
-						});
+                    var fullName = legalName;
+                    var birthDay = $scope.userInfo.birthDay;
+                    var ssnLast4 = $scope.userInfo.ssnLast4;
+                    var address = $scope.userInfo.address1;
+                    var zip = $scope.userInfo.zip;
 
 
-                    $scope.userInfo.isIdVerified = 1;
-                    $rootScope.isIdVerified = 1;
-					$rootScope.isIdVerifiedLocal = 1;
+                    var DeviceInfo = {
+                        LandlorId: $scope.userInfoInSession.memberId,
+                        AccessToken: $scope.userInfoInSession.accessToken
+                    };
 
-                    // THEN DISPLAY SUCCESS/FAILURE ALERT...
-                    swal({
-                        title: "Awesome - ID Verification Submitted",
-                        text: "You have successfully submitted your information.",
-                        type: "success",
-                        showCancelButton: false,
-                        confirmButtonColor: "#3fabe1",
-                        confirmButtonText: "Terrific",
-                        closeOnConfirm: true,
+                    getProfileService.submitIdVerWizard(deviceInfo, fullName, birthDay, ssnLast4, address, zip, function (response) {
+                        console.log("submitIdVerWizard Response... (2240)");
+                        console.log(response);
+
+                        if (response.success == true)
+                        {
+                            growlService.growl('Profile info updated successfully!', 'success');
+
+                            $scope.userInfo.isIdVerified = 1;
+                            $rootScope.isIdVerified = 1;
+
+                            // THEN DISPLAY SUCCESS ALERT...
+                            swal({
+                                title: "Awesome - ID Verification Submitted",
+                                text: "You have successfully submitted your information.",
+                                type: "success",
+                                showCancelButton: false,
+                                confirmButtonColor: "#3fabe1",
+                                confirmButtonText: "Terrific",
+                            });
+                        }
+                        else
+                        {
+                            growlService.growl(response.ErrorMessage, 'danger');
+
+                            // THEN DISPLAY FAILURE ALERT...
+                            swal({
+                                title: "Oh No!",
+                                text: "Looks like we had some trouble submitting your information.  Please try again or contact <a href='mailto:support@nooch.com' target='_blank'>Nooch Support</a> and we will help resolve the issue.",
+                                type: "error",
+                                showCancelButton: false,
+                                confirmButtonColor: "#3fabe1",
+                                confirmButtonText: "Ok",
+                                html: true
+                            });
+                        }
                     });
+                    
                 }
             });
 
@@ -2583,6 +2578,8 @@ noochForLandlords
             var userdetails = authenticationService.GetUserDetails();
 
             getProfileService.GetAccountCompletionStats(userdetails.memberId, userdetails.accessToken, function (response) {
+                console.log("GetAccountCompletionStats is... (next line):");
+                console.log(response);
 
                 if (response.AllPropertysCount > 0) {
                     $scope.checklistItems.addProp = 1;
@@ -2599,8 +2596,8 @@ noochForLandlords
                 $scope.checklistItems.connectBank = response.IsAccountAdded;
                 $scope.checklistItems.confirmEmail = response.IsEmailVerified;
                 $scope.checklistItems.confirmPhone = response.IsPhoneVerified;
-                $scope.checklistItems.verifyId = response.IsIDVerified;
-                $rootScope.isIdVerified = $scope.checklistItems.verifyId; // Also updating the RootScope
+                $scope.checklistItems.verifyId = response.isIdVerified;
+                $rootScope.isIdVerified = response.isIdVerified; // Also updating the RootScope
                 $scope.checklistItems.acceptPayment = response.IsAnyRentReceived;
 
 
@@ -2799,17 +2796,20 @@ noochForLandlords
             // window.location.href = 'index.html#/profile/profile-about'; // FOR TESTING LOCALLY B/C AUTHENTICATION SERVICE WON'T WORK
 
             // Check Username (email) field for length
-            if ($('form#login #username').val()) {
+            if ($('form#login #username').val())
+            {
                 var trimmedUserName = $('form#login #username').val().trim();
                 $('form#login #username').val(trimmedUserName);
 
                 // Check Name Field for a "@"
-                if ($scope.ValidateEmail($('form#login #username').val())) {
+                if ($scope.ValidateEmail($('form#login #username').val()))
+                {
 
                     updateValidationUi("username", true);
 
                     // Check Password field
-                    if ($('form#login #pw').val().length > 4) {
+                    if ($('form#login #pw').val().length > 4)
+                    {
                         updateValidationUi("pw", true);
 
                         // ADD THE LOADING BOX
@@ -2830,24 +2830,32 @@ noochForLandlords
                             }
                         });
 
+                        var ipResults = getIP();
+
+                        var ip = "";
+                        var country_code = "";
+                        if (ipResults != null) {
+                            if (ipResults.ip != null) {
+                                ip = ipResults.ip;
+                            }
+                            if (ipResults.country_code != null) {
+                                country_code = ipResults.country_code;
+                            }
+                        }
+                        console.log("IP is: " + ip + ", and Country is : " + country_code);
+
                         authenticationService.ClearUserData();
 
-                        authenticationService.Login($scope.LoginData.username, $scope.LoginData.password, function (response) {
+                        authenticationService.Login($scope.LoginData.username, $scope.LoginData.password, ip, function (response) {
 
                             $('form#login').unblock();
 
                             if (response.IsSuccess == true) {
 
-
                                 if ($('#rememberMeCheck').prop("checked") == true) {
-                                    
                                     localStorage.setItem('userLoginName', $scope.LoginData.username);
-                                    localStorage.setItem('userLoginPass', $scope.LoginData.password);
-                                   
+                                    localStorage.setItem('userLoginPass', $scope.LoginData.password);  
                                 }
-
-                                    
-
 
                                 authenticationService.SetUserDetails($scope.LoginData.username, response.MemberId, response.AccessToken);
                                 window.location.href = 'index.html#/profile/profile-about';
@@ -2985,7 +2993,6 @@ noochForLandlords
                                 });
 
                                 var ipResults = getIP();
-                                console.log(ipResults);
 
 								var ip = "";
 								var country_code = "";
@@ -3016,7 +3023,7 @@ noochForLandlords
 
                                         swal({
                                             title: "Great Success",
-                                            text: 'Congrats - you have successfully registered your Nooch account. Click below to get started.!',
+                                            text: 'Congrats - you have successfully registered your Nooch account. Click below to get started!',
                                             type: "success",
                                             confirmButtonColor: "#3FABE1",
                                             confirmButtonText: "Let's Go"
@@ -3046,8 +3053,6 @@ noochForLandlords
                                             authenticationService.Login(username, pw, function (response) {
 
                                                 //regForm.unblock();
-
-												$rootScope.isIdVerifiedLocal = 0;
 
                                                 if (response.IsSuccess == true) {
                                                     authenticationService.SetUserDetails(username, response.MemberId, response.AccessToken);

@@ -103,20 +103,20 @@ noochForLandlords
                 });
         };
 
-        Operations.AddNewUnit = function (propertyId,unitData, memberId, accessToken, callback) {
+        Operations.AddNewUnit = function (propertyId, unitData, memberId, accessToken, callback) {
 
             var data = {};
 
 
             data.PropertyId = propertyId;
             data.Unit = unitData;
-            
+
             data.User = {
                 LandlorId: memberId,
                 AccessToken: accessToken
             };
 
-            
+
 
             $http.post(URLs.AddNewUnitInProperty, data)
                 .success(function (response) {
@@ -407,12 +407,12 @@ noochForLandlords
     .service('authenticationService', function ($http) {
 
         var Operations = {};
-        Operations.Login = function (username, password, callback) {
+        Operations.Login = function (username, password, ip, callback) {
 
             var data = {};
             data.UserName = username;
             data.Password = password;
-            data.Ip = '202.102.222.111';
+            data.Ip = ip;
 
             console.log(data);
 
@@ -423,8 +423,8 @@ noochForLandlords
         };
 
 
-        Operations.RegisterLandlord = function (firstName,lastName,username, password, fingerprint, ip, country, callback) {
-            
+        Operations.RegisterLandlord = function (firstName, lastName, username, password, fingerprint, ip, country, callback) {
+
             var data2 = {};
             data2.FirstName = firstName;
             data2.LastName = lastName;
@@ -441,40 +441,13 @@ noochForLandlords
         };
 
 
-		// Added by Cliff for a hack-y demo while all code is on the Dev server... creating a Nooch member on the Prod server tpp
-		/*Operations.RegLandlord_and_createMember = function (firstName,lastName,username, password, fngprnt, callback) {
-            console.log("RegLandlord_and_createMember REACHED");
-            var data3 = {};
-			data3.MemberDetails = {};
-            data3.MemberDetails.FirstName = firstName;
-            data3.MemberDetails.LastName = lastName;
-            data3.MemberDetails.UserName = username;
-            data3.MemberDetails.Password = password;
-			data3.MemberDetails.PinNumber = "1234";
-			data3.MemberDetails.RecoveryMail = username;
-			data3.MemberDetails.SecondaryMail = username;
-			data3.MemberDetails.UdId = fngprnt;
-			data3.MemberDetails.facebookAccountLogin = "";
-			data3.MemberDetails.friendRequestId = "";
-			data3.MemberDetails.inviteCode = "LNDLRD";
-			data3.MemberDetails.fromLandlordApp = "yes";
-
-			console.log(data3);
-			
-            $http.post('https://www.noochme.com/NoochService/NoochService.svc/MemberRegistration', data3)
+        Operations.getMemberId = function (username, callback) {
+            $http.get('https://www.noochme.com/NoochService/NoochService.svc/GetMemberIdByUserName?userName=' + username)
                 .success(function (response) {
-					console.log(response);
+                    console.log(response);
                     callback(response);
                 });
-        };*/
-		
-		Operations.getMemberId = function (username, callback) {
-			$http.get('https://www.noochme.com/NoochService/NoochService.svc/GetMemberIdByUserName?userName=' + username)
-                .success(function (response) {
-					console.log(response);
-                    callback(response);
-                });
-		}
+        }
 
 
         Operations.PasswordRest = function (eMail, callback) {
@@ -564,7 +537,7 @@ noochForLandlords
         };
 
 
-        Operations.ResendVerificationEmailOrSMS = function (userId,userType,requestFor, callback) {
+        Operations.ResendVerificationEmailOrSMS = function (userId, userType, requestFor, callback) {
 
             var data = {};
             data.UserId = userId;
@@ -590,7 +563,7 @@ noochForLandlords
             data.EmailInfo = emailObj;
 
 
-            
+
 
             $http.post(URLs.SendEmailsToTenants, data)
                 .success(function (response) {
@@ -622,13 +595,18 @@ noochForLandlords
 
             var userInfoObj = {};
             var deviceInfoObj = {
-                LandlorId: deviceInfo.deviceInfo,
+                LandlorId: deviceInfo.LandlorId,
                 AccessToken: deviceInfo.AccessToken
             };
 
+            var ssnToSend = "";
+            if (typeof userInfo.ssnLast4 !== 'undefined') { // Only sending the SSN from the ID ver wizard, not the regular profile anymore (10/13/15)
+                ssnToSend = userInfo.ssnLast4;
+            }
+
             var userInfoObj = {
                 DOB: userInfo.birthDay,
-                SSN: userInfo.ssnLast4,
+                SSN: ssnToSend,
                 FullName: userInfo.fullName,
 
                 CompanyName: userInfo.companyName,
@@ -658,6 +636,34 @@ noochForLandlords
                 });
         };
 
+
+        // Submitting ID Verification Wizard Responses
+        Operations.submitIdVerWizard = function (deviceInfo, fullName, birthDay, ssnLast4, address, zip, callback) {
+
+            var deviceInfoObj = {
+                LandlorId: deviceInfo.LandlorId,
+                AccessToken: deviceInfo.AccessToken
+            };
+
+            var data = {
+                fullName: fullName,
+                ssn: ssnLast4,
+                dob: birthDay,
+                staddress: address,
+                zip: zip,
+            };
+
+            data.DeviceInfo = deviceInfoObj;
+
+            $http.post(URLs.submitIdVerWizard, data)
+                .success(function (response) {
+                    if (response.IsSuccess && response.IsSuccess == true) {
+                        authenticationService.ManageToken(response.AuthTokenValidation);
+                        console.log('Services.js -> submitIdVerWizard response SUCCESS');
+                    }
+                    callback(response);
+                });
+        };
 
         return Operations;
     })
