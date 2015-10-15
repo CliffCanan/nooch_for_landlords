@@ -38,7 +38,7 @@
 
                     <ul class="actions">
                         <li>
-                            <a data-ng-click="pctrl.beginEditingPersonal()" class=" pull-right f-13">edit</a>
+                            <a data-ng-click="pctrl.beginEditingPersonal()" class="f-13">edit</a>
                         </li>
                     </ul>
                 </div>
@@ -191,7 +191,7 @@
 
                     <form data-ng-submit="pctrl.submit('contactInfo', 'Profile Contact Information')" class="pmbb-edit" data-ng-if="pctrl.editContactInfo === 1">
                         <dl class="dl-horizontal">
-                            <dt class="p-t-10">Email Address*</dt>
+                            <dt class="p-t-10">Email Address</dt>
                             <dd>
                                 <div class="fg-line">
                                     <input data-ng-model="userInfo.emailAddress" type="email" class="form-control" placeholder="eg. cliff@nooch.com">
@@ -199,7 +199,7 @@
                             </dd>
                         </dl>
                         <dl class="dl-horizontal">
-                            <dt class="p-t-10">Mobile Phone*</dt>
+                            <dt class="p-t-10">Mobile Phone</dt>
                             <dd>
                                 <div class="fg-line">
                                     <input data-ng-model="userInfo.mobileNumber" type="text" class="form-control" placeholder="ex: (215) 804-4226" data-input-mask="{mask: '(000) 000-0000'}">
@@ -207,7 +207,7 @@
                             </dd>
                         </dl>
                         <dl class="dl-horizontal">
-                            <dt class="p-t-10">Address*</dt>
+                            <dt class="p-t-10">Address</dt>
                             <dd>
                                 <div class="fg-line">
                                     <input data-ng-model="userInfo.address1" type="text" class="form-control" placeholder="eg. 123 W. Main St.">
@@ -239,15 +239,24 @@
                     <div class="pmbb-view socialContainer" data-ng-if="pctrl.editSocialInfo === 0">
                         <dl class="dl-horizontal">
                             <dt><button class="btn btn-icon btn-primary show"><i class="md socicon socicon-facebook"></i></button></dt>
-                            <dd><a href="https://facebook.com/{{ userInfo.fb }}" target="_blank">{{ userInfo.fb }}</a></dd>
+                            <dd>
+                                <a ng-if="userInfo.fb.length > 0" href="https://facebook.com/{{ userInfo.fb }}" target="_blank">{{ userInfo.fb }}</a>
+                                <span ng-if="userInfo.fb.length < 1">Not Provided</span>
+                            </dd>
                         </dl>
                         <dl class="dl-horizontal">
                             <dt><button class="btn btn-icon bgm-lightblue show"><i class="md socicon socicon-twitter"></i></button></dt>
-                            <dd><a href="https://twitter.com/{{ userInfo.twitter }}" target="_blank">{{ userInfo.twitter }}</a></dd>
+                            <dd>
+                                <a ng-if="userInfo.twitter.length > 0" href="https://twitter.com/{{ userInfo.twitter }}" target="_blank">{{ userInfo.twitter }}</a>
+                                <span ng-if="userInfo.twitter.length < 1">Not Provided</span>
+                            </dd>
                         </dl>
                         <dl class="dl-horizontal">
                             <dt><button class="btn btn-icon bgm-deeppurple show"><i class="md socicon socicon-instagram"></i></button></dt>
-                            <dd><a href="https://instagram.com/{{ userInfo.insta }}" target="_blank">{{ userInfo.insta }}</a></dd>
+                            <dd>
+                                <a ng-if="userInfo.insta.length > 0" href="https://instagram.com/{{ userInfo.insta }}" target="_blank">{{ userInfo.insta }}</a>
+                                <span ng-if="userInfo.insta.length < 1">Not Provided</span>
+                            </dd>
                         </dl>
                     </div>
 

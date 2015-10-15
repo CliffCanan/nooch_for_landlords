@@ -1,6 +1,6 @@
 noochForLandlords
     // ===============================================================
-    // Base controller for common functions
+    //      Base controller for common functions
     // ===============================================================
 
     .controller('noochAdminCtrl', function ($rootScope, $timeout, $state, growlService, authenticationService) {
@@ -34,13 +34,13 @@ noochForLandlords
         }
 
         // Data that needs to be globally accessible (Use sparingly)
-        $rootScope.isIdVerified = false;
+        // $rootScope.isIdVerified = false;
 
     })
 
 
     // ===============================================================
-    // Header
+    //      HEADER
     // ===============================================================
     .controller('headerCtrl', function ($rootScope, $timeout, messageService, authenticationService) {
         if (!authenticationService.IsValidUser()) {
@@ -141,6 +141,62 @@ noochForLandlords
             }
         }
 
+    })
+
+
+    // ===============================================================
+    //      HOME
+    // ===============================================================
+    .controller('homeCtrl', function ($rootScope, $scope, getProfileService, authenticationService) {
+        // CLIFF (10.10.15): Adding code for showing the New User Tour
+        // Instance the tour
+
+        if ($rootScope.hasSeenNewUserTour != true)
+        {
+            console.log('HOME -> starting tour!');
+
+            setTimeout(function () {
+                $scope.tour = new Tour({
+                    name: 'newLandlordUserTour',
+                    //storage: true,
+                    //debug: true, // just for testing
+                    backdrop: true,
+                    orphan: true, //Allow to show the step regardless whether its element is not set, is not present in the page or is hidden. The step is fixed positioned in the middle of the page.
+                    steps: [
+                    {
+                        element: ".tour-step#tour-step-one",
+                        title: "Welcome To Nooch For Landlords!",
+                        content: "This is your dashboard. You can see the key details of your account here.",
+                        animation: true,
+                        backdropPadding: 15,
+                        placement: "bottom"
+                    },
+                    {
+                        element: "#sidebar",
+                        title: "Find What You Need",
+                        content: "Use this menu to navigate to the info you need.",
+                        backdrop: false
+                    },
+                    {
+                        element: ".tour-step.tour-step-3",
+                        title: "Safey First",
+                        content: "To get started, please complete your profile to verify your identity. It takes less than 60 seconds and helps us keep Nooch the safe and secure way to collect rent online.",
+                        animation: true,
+                        backdropPadding: 5,
+                        placement: "left"
+                    }
+                    ]
+                });
+
+                // Initialize the tour
+                $scope.tour.init();
+
+                // Start the tour
+                $scope.tour.start();
+            }, 750);
+
+            $rootScope.hasSeenNewUserTour = true;
+        }
     })
 
 
@@ -1691,6 +1747,7 @@ noochForLandlords
 					else {
 						$scope.userInfo.fb = response.FbUrl;
 					}
+
 					$scope.userInfo.twitter = response.TwitterHandle;
 					$scope.userInfo.insta = response.InstaUrl;
 
@@ -1711,45 +1768,10 @@ noochForLandlords
 					$scope.userInfo.propertiesCount = response.PropertiesCount;
 					$scope.userInfo.unitsCount = response.UnitsCount;
 
-					console.log($rootScope.isIdVerified);
-
-					// Get Company Info
+					// Set Company Info
 					$scope.company = {
 						name: response.CompanyName,
 						ein: response.CompanyEID
-					}
-
-				    // CLIFF (10.10.15): Adding code for showing the New User Tour
-				    // Instance the tour
-					if ($rootScope.hasSeenNewUserTour != true)
-					{
-					    var tour = new Tour({
-					        name: 'newLandlordUserTour',
-					        //storage: true, // just for testing
-					        debug: true, // just for testing
-					        backdrop: true,
-					        orphan: true, //Allow to show the step regardless whether its element is not set, is not present in the page or is hidden. The step is fixed positioned in the middle of the page.
-					        steps: [
-                            {
-                                element: ".tour-step#tour-step-one",
-                                title: "Title of my step",
-                                content: "Content of my step"
-                            },
-                            {
-                                element: ".tour-step#tour-step-one",
-                                title: "Title of my step",
-                                content: "Content of my step"
-                            }
-					        ]
-					    });
-
-					    // Initialize the tour
-					    tour.init();
-
-					    // Start the tour
-					    tour.start();
-
-					    $rootScope.hasSeenNewUserTour = true;
 					}
 				}
 				else // Auth Token was not valid on server
@@ -1764,14 +1786,13 @@ noochForLandlords
         }
 
 
-        // Home Layout -- JUST FOR TESTING/DEMO PURPOSES
-        this.home = {
-            "bnkPrmt": 0,
-            "idPrmt": 1,
-            "propPrmt": 0
-        }
-
         this.goTo = function (destination) {
+
+            if (typeof $scope.tour !== 'undefined') {
+                console.log('TOUR WAS NOT OVER YET!');
+                $scope.tour.end();
+            }
+
             if (destination == '1') {
 				$rootScope.fromHome = true;
                 window.location.href = '#/profile/profile-about';
@@ -2019,9 +2040,9 @@ noochForLandlords
                 imageUrl: "img/secure.svg",
                 imageSize: "194x80",
                 showCancelButton: true,
-                cancelButtonText: "Verify ID Now",
+                cancelButtonText: "Verify Later",
                 confirmButtonColor: "#3fabe1",
-                confirmButtonText: "Great!",
+                confirmButtonText: "Verify ID Now",
                 //closeOnCancel: true,
                 customClass: "securityAlert",
                 allowEscapeKey: false,
@@ -2181,7 +2202,7 @@ noochForLandlords
                                     resizePreference: 'width'
                                 });
 
-                                $('#idVerWiz > .content').animate({ height: "28em" }, 700)
+                                $('#idVerWiz > .content').animate({ height: "26em" }, 700)
                                 return true;
                             }
                             else {
@@ -2371,9 +2392,9 @@ noochForLandlords
 
                 if (response.success == true)
                 {
-                    if (typeof response.BankName !== 'undefined')
+                    if (response.msg == 'Worked like a charm')
                     {
-                        $scope.bankCount += 1;
+                        $scope.bankCount = 1;
                         $scope.bankName = response.BankName;
                         $scope.bankNickname = response.BankNickname;
                         $scope.accntNum = response.AccountName;
@@ -2423,7 +2444,7 @@ noochForLandlords
                     closeOnCancel: true
                 }, function (isConfirm) {
                     if (isConfirm) {
-                        $('#bankAdd iframe').attr("src", "http://54.201.43.89/noochweb/trans/Add-Bank.aspx?MemberId=" + $scope.userInfoInSession.memberId + "&ll=yes");
+                        $('#bankAdd iframe').attr("src", "http://noochme.com/noochweb/trans/Add-Bank.aspx?MemberId=" + $scope.userInfoInSession.memberId + "&ll=yes");
                         $('#bankAdd').modal({
                             keyboard: false
                         })
@@ -2433,7 +2454,7 @@ noochForLandlords
             }
             else // No bank attached yet
             {
-                $('#bankAdd iframe').attr("src", "http://54.201.43.89/noochweb/trans/Add-Bank.aspx?MemberId=" + $scope.userInfoInSession.memberId + "&ll=yes");
+                $('#bankAdd iframe').attr("src", "http://noochme.com/noochweb/trans/Add-Bank.aspx?MemberId=" + $scope.userInfoInSession.memberId + "&ll=yes");
 				//$('#bankAdd iframe').attr("src", "https://noochme.com/noochweb/trans/Add-Bank.aspx?MemberId=" + $scope.userInfoInSession.memberId + "&ll=yes");
                 $('#bankAdd').modal({
                     keyboard: false
@@ -2502,7 +2523,9 @@ noochForLandlords
     //=================================================
 
     .controller('historyCtrl', function ($rootScope, $scope) {
-
+        $scope.refreshPage = function () {
+            location.reload(true);
+        }
     })
 
     // FOR HISTORY TABLE
@@ -2855,9 +2878,9 @@ noochForLandlords
                                     localStorage.setItem('userLoginName', $scope.LoginData.username);
                                     localStorage.setItem('userLoginPass', $scope.LoginData.password);  
                                 }
-
+                                $rootScope.hasSeenNewUserTour = false;
                                 authenticationService.SetUserDetails($scope.LoginData.username, response.MemberId, response.LandlordId, response.AccessToken);
-                                window.location.href = 'index.html#/profile/profile-about';
+                                window.location.href = 'index.html#/home';
                             }
                             else {
                                 swal({
@@ -3049,7 +3072,7 @@ noochForLandlords
 
                                             authenticationService.ClearUserData();
 
-                                            authenticationService.Login(username, pw, function (response) {
+                                            authenticationService.Login(username, pw, ip, function (response) {
 
                                                 //regForm.unblock();
 

@@ -10,9 +10,9 @@
             <div class="block-header">
                 <h2>Payment History</h2>
 
-                <ul class="actions">
+                <ul class="actions" data-trigger="hover" data-toggle="popover" data-placement="left auto" data-content="Get the most current payment history data." data-original-title="Refresh">
                     <li>
-                        <a href="">
+                        <a ng-click="refreshPage()">
                             <i class="md md-cached"></i>
                         </a>
                     </li>
@@ -28,7 +28,7 @@
 
                 <div class="row">
                     <div class="col-sm-6 col-md-3">
-                        <div class="mini-charts-item bgm-cyan">
+                        <div class="mini-charts-item nolink bgm-cyan">
                             <div class="clearfix">
                                 <div class="chart stats-bar" data-sparkline-bar></div>
                                 <div class="count">
@@ -40,7 +40,7 @@
                     </div>
 
                     <div class="col-sm-6 col-md-3">
-                        <div class="mini-charts-item bgm-green">
+                        <div class="mini-charts-item nolink bgm-green">
                             <div class="clearfix">
                                 <div class="chart stats-bar-2" data-sparkline-bar></div>
                                 <div class="count">
@@ -52,7 +52,7 @@
                     </div>
 
                     <div class="col-sm-6 col-md-3">
-                        <div class="mini-charts-item bgm-orange">
+                        <div class="mini-charts-item nolink bgm-orange">
                             <div class="clearfix">
                                 <div class="chart stats-line" data-sparkline-line></div>
                                 <div class="count">
@@ -64,7 +64,7 @@
                     </div>
 
                     <div class="col-sm-6 col-md-3">
-                        <div class="mini-charts-item bgm-red">
+                        <div class="mini-charts-item nolink bgm-red">
                             <div class="clearfix">
                                 <div class="chart stats-line-2" data-sparkline-line></div>
                                 <div class="count">
