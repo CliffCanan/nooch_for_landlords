@@ -2382,16 +2382,24 @@ noochForLandlords
             getBanksService.getBanks(userdetails.memberId, userdetails.accessToken, function (response) {
                 console.log('Banks Controller -> Get Banks Response data -> ' + JSON.stringify(response));
 
-                // Check AuthTokenValidation
-                if (response.AuthTokenValidation.IsTokenOk == true)
+                if (response.success == true)
                 {
-                    // binding user information
-                    $scope.bankCount = 0;
+                    if (typeof response.BankName !== 'undefined')
+                    {
+                        $scope.bankCount += 1;
+                        $scope.bankName = response.BankName;
+                        $scope.bankNickname = response.BankNickname;
+                        $scope.accntNum = response.AccountName;
+                        $scope.bankImg = response.BankImageURL;
+                        $scope.bankStatus = response.AccountStatus;
+                        $scope.bankAllowed = response.allowed;
+                        $scope.bankCreatedOn = response.dateCreated;
+                    }
+                    console.log("Get Banks SUCCESS (Controller)");
                 }
-                else // Auth Token was not valid on server
+                else
                 {
-                    authenticationService.ClearUserData();
-                    window.location.href = 'login.html';
+                    console.log("Get Banks FAILURE (Controller)");
                 }
             });
 		}

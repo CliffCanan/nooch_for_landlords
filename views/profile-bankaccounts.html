@@ -20,7 +20,7 @@
 
         <div class="pmbb-header">
 
-            <h2><i class="md md-account-balance m-r-5"></i> Manage Your {{bankCount}} Bank Account<span data-ng-if="bankCount > 1">s</span></h2>
+            <h2><i class="md md-account-balance m-r-5"></i> Manage Your <span data-ng-if="bankCount > 1">{{bankCount}} </span>Bank Account<span data-ng-if="bankCount > 1">s</span></h2>
 
             <p>Below are the accounts you have already added to Nooch.</p>
 
@@ -39,28 +39,29 @@
 
             <div class="bank-container">
 
-                <div class="media" data-ng-repeat="bank in bctrl.bankList.banks" id="bank{{bank.id}}">
+            <!--<div class="media" data-ng-repeat="bank in bctrl.bankList.banks" id="bank{{bank.id}}">-->
+                <div class="media" id="bank1">
 
                     <div class="pull-left">
-                        <img class="media-object" src="img/bank-icons/{{bank.logo}}">
+                        <img class="media-object" src="{{ bankImg }}">
                     </div>
 
                     <div class="media-body">
 
-                        <div class="col-xs-10" data-toggle="collapse" data-target="#bankform{{$index}}" aria-expanded="false" aria-controls="bankform{{$index}}">
+                        <div class="col-xs-10" data-toggle="collapse" data-target="#bankform1" aria-expanded="false" aria-controls="bankform1">
                             <h4 class="media-heading">
-                                {{bank.name}}
+                                {{ bankName }}
                                 <span class="label label-primary m-l-15" data-ng-if="bank.primary === 1 && bank.deleted === 0">Primary</span>
-                                <a class="label label-default m-l-15 f-300" id="bank{{bank.id}}" data-bankName="{{bank.name}}" data-ng-if="bankCount > 0 && bank.primary === 0 && bank.deleted === 0" data-ng-click="bctrl.makePrimary($event)">Make Primary</a>
+                                <a class="label label-default m-l-15 f-300" id="bank1" data-bankname="{{ bankName }}" data-ng-if="bankCount > 0 " data-ng-click="bctrl.makePrimary($event)">Make Primary</a>
                             </h4>
-                            {{bank.nickname}} - {{bank.last4}}
-                            <p class="bank-status">Pending</p>
+                            {{ bankNickname }} - {{ accntNum }}
+                            <p class="bank-status">{{ bankStatus }}</p>
                         </div>
 
                         <div class="col-xs-2">
                             <ul class="actions">
                                 <li>
-                                    <a data-toggle="collapse" data-target="#bankform{{$index}}" aria-expanded="false" aria-controls="bankform{{$index}}">
+                                    <a data-toggle="collapse" data-target="#bankform1" aria-expanded="false" aria-controls="bankform{{$index}}">
                                         <i class="md md-expand-more"></i>
                                     </a>
                                 </li>
@@ -74,7 +75,7 @@
 
                     </div>
 
-                    <div class="m-t-10 collapse z-depth-1" id="bankform{{$index}}" aria-expanded="false">
+                    <div class="m-t-10 collapse z-depth-1" id="bankform1" aria-expanded="false">
 
                         <div class="card">
 
@@ -94,28 +95,28 @@
 
                                     <div class="form-group fg-line">
                                         <label for="bankName" class="fg-label">Bank Name</label>
-                                        <input type="text" id="bankName" class="form-control" value="{{ bank.name | capitalize }}" disabled>
+                                        <input type="text" id="bankName" class="form-control" value="{{ bankName | capitalize }}" disabled>
                                     </div>
 
                                     <div class="form-group fg-line">
                                         <label for="dateAdded" class="fg-label">Date Added</label>
-                                        <input type="text" id="dateAdded" class="form-control" value="{{bank.dateAdded}}" disabled>
+                                        <input type="text" id="dateAdded" class="form-control" value="{{ bankCreatedOn }}" disabled>
                                     </div>
 
                                     <div class="form-group fg-line">
                                         <label for="status" class="fg-label">Status</label>
-                                        <input type="text" id="status" class="form-control" value="{{bank.status}}" disabled>
+                                        <input type="text" id="status" class="form-control" value="{{ bankStatus }}" disabled>
                                     </div>
 
                                     <div class="form-group fg-line">
                                         <label for="bankNotes" class="fg-label">Notes</label>
-                                        <input type="text" id="bankNotes" class="form-control" value="{{bank.notes}}" disabled>
+                                        <input type="text" id="bankNotes" class="form-control" value="" disabled>
                                     </div>
 
                                     <div class="row m-0 p-t-10">
                                         <div class="pull-right">
                                             <button class="btn btn-primary">Update</button>
-                                            <button class="btn btn-link m-l-15" data-toggle="collapse" data-target="#bankform{{$index}}" aria-expanded="false" aria-controls="bankform1">Close</button>
+                                            <button class="btn btn-link m-l-15" data-toggle="collapse" data-target="#bankform1" aria-expanded="false" aria-controls="bankform1">Close</button>
                                         </div>
                                     </div>
                                 </form>

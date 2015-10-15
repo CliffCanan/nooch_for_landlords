@@ -661,4 +661,6 @@ noochForLandlords
                     callback(response);
                 });
         };
+
+        return Operations;
     })
