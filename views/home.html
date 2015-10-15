@@ -1,0 +1,149 @@
+<header id="header" data-ng-include src="'includes/header.html'" data-ng-controller="headerCtrl as hctrl"></header>
+
+<section id="main">
+    <aside id="sidebar" data-ng-include src="'includes/sidebar-left.html'" data-ng-class="{ 'toggled': mactrl.sidebarToggle.left === true }"></aside>
+
+    <section id="content" data-ng-controller="profileCtrl as pctrl">
+
+        <div class="container">
+
+            <div class="block-header">
+                <h2>Dashboard</h2>
+
+                <ul class="actions">
+                    <li>
+                        <button class="btn btn-xs btn-default" data-ng-click="pctrl.home.bnkPrmt = 0; pctrl.home.idPrmt = 1; pctrl.home.propPrmt = 0;">1</button>
+                    </li>
+                    <li>
+                        <button class="btn btn-xs btn-default" data-ng-click="pctrl.home.bnkPrmt = 1; pctrl.home.idPrmt = 0; pctrl.home.propPrmt = 0;">2</button>
+                    </li>
+                    <li>
+                        <button class="btn btn-xs btn-default" data-ng-click="pctrl.home.bnkPrmt = 0; pctrl.home.idPrmt = 0; pctrl.home.propPrmt = 1;">3</button>
+                    </li>
+                </ul>
+
+            </div>
+
+            <div class="mini-charts">
+                <div class="row">
+                    <div class="col-sm-6 col-md-3">
+                        <div class="mini-charts-item bgm-blue" data-ng-click="pctrl.goTo('props')">
+                            <div class="clearfix">
+                                <i class="md md-business md-4x c-white pull-left m-l-25" style="width:80px"></i>
+                                <div class="count">
+                                    <span>Properties</span>
+                                    <h2>{{ propCount }}</h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 col-md-3">
+                        <div class="mini-charts-item bgm-lightblue" data-ng-click="pctrl.goTo('props')">
+                            <div class="clearfix">
+                                <i class="md md-account-circle md-4x c-white pull-left m-l-25" style="width:80px"></i>
+                                <div class="count">
+                                    <span>Units</span>
+                                    <h2>{{ userInfo.unitsCount }}</h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 col-md-3">
+                        <div class="mini-charts-item bgm-deeporange nolink">
+                            <div class="clearfix">
+                                <i class="md md-inbox md-4x c-white pull-left m-l-25" style="width:80px"></i>
+                                <div class="count">
+                                    <small>Rent Due This Month</small>
+                                    <h2>$ 0</h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 col-md-3">
+                        <div class="mini-charts-item bgm-green" data-ng-click="pctrl.goTo('hist')">
+                            <div class="clearfix">
+                                <i class="md md-attach-money md-4x c-white pull-left m-l-25" style="width:80px"></i>
+                                <div class="count">
+                                    <small>Rent Collected This Month</small>
+                                    <h2>$ 0</h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="jumbotron p-50 p-t-30 p-b-30 z-depth-1" id="welcome">
+                <div class="row">
+
+                    <div class="col-xs-12 col-sm-7">
+                        <h1>Hi {{ userInfo.firstName | capitalize }}!</h1>
+                        <p>Welcome to Nooch, the easiest way to collect rent payments.</p>
+                        <p>Get started by completing your profile.</p>
+                        <p><a class="btn btn-primary btn-lg" data-ng-click="pctrl.goTo('1')" role="button">Get Started <i class="md md-arrow-forward m-l-5"></i></a></p>
+                    </div>
+
+                    <div class="col-xs-12 col-sm-5 homePromptCard" id="addBank" data-ng-if="pctrl.home.bnkPrmt === 1" data-ng-click="pctrl.goTo('2')">
+                        <div class="card z-depth-1">
+                            <div class="card-header text-center p-5">
+                                <i class="md md-2x md-add-circle-outline c-blue m-r-5" style="line-height:78px;"></i><i class="md md-4x md-business c-blue "></i>
+                                <h2 class="f-22">Connect A Bank Account</h2>
+                            </div>
+
+                            <div class="card-body card-padding text-center p-t-5">
+                                <p class="m-b-15">
+                                    Don't worry - no routing or account numbers needed.  Just select your bank and enter the online banking credentials you already use.
+                                    <i class="md-lock c-gray f-16" data-trigger="hover" data-toggle="popover" data-placement="bottom" data-content="We don't store or even see your login info." data-original-title="Security Comes First"></i>
+                                </p>
+                                <p class="f-400 m-b-5">Here are a few banks you can link:</p>
+                                <div class="row bank-row">
+                                    <img src="img/bank-icons/boa.png" alt="Bank of America" />
+                                    <img src="img/bank-icons/tdbank.png" alt="TD Bank" />
+                                    <img src="img/bank-icons/pnc.png" alt="PNC" />
+                                    <img src="img/bank-icons/usbank.png" alt="US Bank" />
+                                    <img src="img/bank-icons/wells.png" alt="Wells Fargo" />
+                                </div>
+                                <div>
+                                    <small>...plus many more &nbsp;<i class="md md-chevron-right"></i></small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12 col-sm-5 homePromptCard" id="profile" data-ng-if="pctrl.home.idPrmt === 1" data-ng-click="pctrl.goTo('1')">
+                        <div class=" card z-depth-1">
+                        <div class="card-header text-center p-5">
+                            <i class="md md-2x md-add-circle-outline c-blue m-r-5" style="line-height:78px;"></i><i class="md md-4x md-person c-blue "></i>
+                            <h2 class="f-22">Complete Your Profile</h2>
+                        </div>
+
+                        <div class="card-body card-padding text-center p-t-5">
+                            <p>Before accepting payments, please complete your profile. Click here to begin.</p>
+                        </div>
+                    </div>
+                    </div>
+
+                    <div class="col-xs-12 col-sm-5 homePromptCard" id="addProp" data-ng-if="pctrl.home.propPrmt === 1" data-ng-click="pctrl.goTo('3')">
+                        <div class="card z-depth-1">
+                            <div class="card-header text-center p-5">
+                                <i class="md md-2x md-add-circle-outline c-blue m-r-5" style="line-height:78px;"></i><i class="md md-4x md-business c-blue "></i>
+                                <h2 class="f-22">Add A Property</h2>
+                            </div>
+
+                            <div class="card-body card-padding text-center p-t-5">
+                                <p>Add your properties so renters can find them and you can get paid!</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </section>
+</section>
+
+<footer id="footer" data-ng-include src="'includes/footer.html'"></footer>

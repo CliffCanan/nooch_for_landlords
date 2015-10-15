@@ -1,0 +1,282 @@
+<header id="header" data-ng-include src="'includes/header.html'" data-ng-controller="headerCtrl as hctrl"></header>
+
+<section id="main">
+
+    <aside id="sidebar" data-ng-include src="'includes/sidebar-left.html'" data-ng-class="{ 'toggled': mactrl.sidebarToggle.left === true }"></aside>
+
+    <section id="content" data-ng-controller="profileCtrl as pctrl">
+
+        <div class="container">
+
+            <div class="block-header">
+                <h2>{{ userInfo.firstName }} {{userInfo.lastName}} <small>{{ company.name | capitalize  }}</small></h2>
+
+                <ul class="actions m-t-20 hidden-xs">
+                    <li class="dropdown">
+                        <a href="" data-toggle="dropdown">
+                            <i class="md md-more-vert"></i>
+                        </a>
+
+                        <ul class="dropdown-menu dropdown-menu-right">
+                            <li>
+                                <a href="index.html#/profile/profile-bankaccounts">Bank Settings</a>
+                            </li>
+                            <li>
+                                <a href="index.html#/profile/profile-notifications">Notification Settings</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="alert alert-danger alert-dismissible animated flipInX" role="alert" data-ng-if="isIdVerified != 1">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                Please <a data-ng-click="runWizard()" class="alert-link" data-toggle="tooltip" data-placement="auto" data-original-title="Launch ID Verification wizard.">verify your identity</a> to start accepting payments today!
+            </div>
+
+            <div class="card z-depth-1" id="profile-main">
+
+                <div class="pm-overview c-overflow">
+
+                    <div class="pmo-pic z-depth-2">
+                        <div class="p-relative" data-ng-click="pctrl.editProfilePic()">
+                            <a href="">
+                                <img class="img-responsive" src="{{ userInfo.userImage }}" alt="Profile Picture" id="userProfilePic">
+                            </a>
+
+                            <a class="pmop-edit">
+                                <i class="md md-camera-alt"></i> <span class="hidden-xs">Update Profile Picture</span>
+                            </a>
+                        </div>
+
+
+                        <div class="pmo-stat bgm-lightblue">
+                            <div class="col-xs-6">
+                                <h2 class="m-0 c-white">{{ propCount }}</h2>
+                                Total Properties
+                            </div>
+                            <div class="col-xs-6">
+                                <h2 class="m-0 c-white">{{ userInfo.tenantsCount }}</h2>
+                                Total Tenants
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!--<div class="pmo-block pmo-contact hidden-xs">
+                            <h2>Contact</h2>
+
+                            <ul>
+                                <li><i class="md md-phone"></i> {{ pctrl.mobileNumber }}</li>
+                                <li><i class="md md-email"></i> {{ pctrl.emailAddress }}</li>
+                                <li><i class="socicon socicon-twitter"></i> {{ pctrl.twitter }}</li>
+                                <li>
+                                    <i class="md md-location-on"></i>
+                                    <address class="m-b-0">
+                                        {{ pctrl.address1 }}, <br />
+                                        {{ pctrl.addressCity }}, <br />
+                                        {{ pctrl.addressCountry }}
+                                    </address>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="pmo-block pmo-items hidden-xs">
+                            <h2>Tenants</h2>
+
+                            <div class="pmob-body">
+                                <div class="row">
+                                    <a href="" class="col-xs-2">
+                                        <img class="img-circle" src="img/profile-pics/1.jpg" alt="">
+                                    </a>
+                                    <a href="" class="col-xs-2">
+                                        <img class="img-circle" src="img/profile-pics/2.jpg" alt="">
+                                    </a>
+                                    <a href="" class="col-xs-2">
+                                        <img class="img-circle" src="img/profile-pics/3.jpg" alt="">
+                                    </a>
+                                    <a href="" class="col-xs-2">
+                                        <img class="img-circle" src="img/profile-pics/4.jpg" alt="">
+                                    </a>
+                                    <a href="" class="col-xs-2">
+                                        <img class="img-circle" src="img/profile-pics/5.jpg" alt="">
+                                    </a>
+                                    <a href="" class="col-xs-2">
+                                        <img class="img-circle" src="img/profile-pics/6.jpg" alt="">
+                                    </a>
+                                    <a href="" class="col-xs-2">
+                                        <img class="img-circle" src="img/profile-pics/7.jpg" alt="">
+                                    </a>
+                                    <a href="" class="col-xs-2">
+                                        <img class="img-circle" src="img/profile-pics/8.jpg" alt="">
+                                    </a>
+                                    <a href="" class="col-xs-2">
+                                        <img class="img-circle" src="img/profile-pics/1.jpg" alt="">
+                                    </a>
+                                    <a href="" class="col-xs-2">
+                                        <img class="img-circle" src="img/profile-pics/2.jpg" alt="">
+                                    </a>
+                                    <a href="" class="col-xs-2">
+                                        <img class="img-circle" src="img/profile-pics/3.jpg" alt="">
+                                    </a>
+                                    <a href="" class="col-xs-2">
+                                        <img class="img-circle" src="img/profile-pics/4.jpg" alt="">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>-->
+
+                </div>
+
+                <div class="pm-body clearfix" id="profileMain">
+
+                    <ul class="tab-nav tn-justified" data-ng-include="'includes/profile-menu.html'"></ul>
+
+                    <!-- This is where the other Profile sub-pages are injected (profile-bankaccounts, profile-notifications, etc.)-->
+                    <data ui-view></data>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Change Profile Picture -->
+        <div class="modal fade" id="addPic" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Change Profile Picture</h4>
+                        <button type="button" class="btn btn-default btn-icon modalclose" data-dismiss="modal"><i class="md md-close"></i></button>
+                    </div>
+                    <div class="modal-body text-center">
+                        <input id="profilePicFileInput" type="file" class="file-loading">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-link" ng-click="saveProfilePic()">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal ID Verification -->
+        <div class="modal fade" id="idVer" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <div class="modal-header">
+                        <h4 class="modal-title">Identity Verification <i class="md md-verified-user text-success m-l-10"></i></h4>
+                        <button type="button" class="btn btn-default btn-icon modalclose" data-ng-click="cancelIdVer()"><i class="md md-close"></i></button>
+                    </div>
+
+                    <div class="modal-body">
+
+                        <div class="row">
+                            <div id="idVerWiz" class="col-sm-12">
+
+                                <h3><i class="md md-person m-r-5"></i> Profile Info</h3>
+                                <section>
+
+                                    <form id="idVerForm1" role="form">
+                                        <div class="well well-sm">
+                                            <div class="ast">To keep Nooch safe for everyone<span class="desk-only">*</span>, we need to verify your identity. Please complete the following fields.</div>
+                                        </div>
+
+                                        <dl class="dl-horizontal" id="nameGrp">
+                                            <dt class="p-t-10">Legal Name</dt>
+                                            <dd>
+                                                <div class="form-group">
+                                                    <div class="fg-line">
+                                                        <input id="idVer-name" data-ng-model="userInfo.fullName" type="text" class="form-control capitalize" value="{{ userInfo.fullName }}" placeholder="eg. Arnold Palmer" required>
+                                                        <i class="md-info m-l-10" data-trigger="hover" data-toggle="popover" data-placement="auto" data-content="Please enter YOUR legal name. This should be the same name as it is listed on your bank account." data-original-title="Your Legal Name"></i>
+                                                    </div>
+                                                </div>
+                                            </dd>
+                                        </dl>
+
+                                        <dl class="dl-horizontal" id="dobGrp">
+                                            <dt class="p-t-10">Date of Birth</dt>
+                                            <dd>
+                                                <div class="input-group form-group">
+                                                    <span class="input-group-addon"><i class="md md-event"></i></span>
+                                                    <div class="dtp-container dropdown fg-line p-l-0">
+                                                        <input id="idVer-dob" data-format="MM/DD/YYYY" data-ng-model="userInfo.birthDay" type='text' class="form-control" data-toggle="dropdown" placeholder="eg. 08/05/1978">
+                                                    </div>
+                                                </div>
+                                            </dd>
+                                        </dl>
+
+                                        <dl class="dl-horizontal" id="ssnGrp">
+                                            <dt class="p-t-10">SSN<small>Last 4 Digits Only</small></dt>
+                                            <dd>
+                                                <div class="form-group">
+                                                    <div class="dtp-container dropdown fg-line">
+                                                        <span id="ssnPrefix">XXX - XX -</span>
+                                                        <input id="idVer-ssn" data-ng-model="userInfo.ssnLast4" type='text' class="form-control" value="{{ userInfo.ssnLast4 }}" placeholder="1234">
+                                                    </div>
+                                                </div>
+                                            </dd>
+                                        </dl>
+
+                                    </form>
+
+                                </section>
+
+                                <h3><i class="md md-place m-r-5"></i> Address</h3>
+                                <section>
+
+                                    <div class="well wellsm">
+                                        <div class="f-16">
+                                            Please enter your <span class="f-600">current</span> street address.
+                                        </div>
+                                    </div>
+
+                                    <dl class="dl-horizontal" id="addressGrp">
+                                        <dt class="p-t-10">Street Address</dt>
+                                        <dd>
+                                            <div class="form-group">
+                                                <div class="dtp-container dropdown fg-line">
+                                                    <input id="idVer-address" data-ng-model="pctrl.address1" type='text' class="form-control" value="{{ pctrl.address1 | capitalize }}" placeholder="1600 Pennsylvania Ave">
+                                                </div>
+                                            </div>
+                                        </dd>
+                                    </dl>
+
+                                    <dl class="dl-horizontal" id="zipGrp">
+                                        <dt class="p-t-10">ZIP Code</dt>
+                                        <dd>
+                                            <div class="form-group">
+                                                <div class="dtp-container dropdown fg-line">
+                                                    <input id="idVer-zip" data-ng-model="pctrl.zip" type='text' class="form-control" value="{{ pctrl.zip }}" placeholder="eg. 90210" data-input-mask="{mask: '00000'}">
+                                                </div>
+                                            </div>
+                                        </dd>
+                                    </dl>
+
+                                </section>
+
+                                <h3><i class="md md-image m-r-5"></i> Add a Picture</h3>
+                                <section>
+
+                                    <div class="well well-sm m-b-10">
+                                        <div class="f-15">Please attach a picture of yourself.</div>
+                                        <div><small>(optional)</small></div>
+                                    </div>
+
+                                    <div class="text-center">
+                                        <input id="IdWizPic_FileInput" type="file" class="file-loading">
+                                    </div>
+
+                                </section>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+</section>
+
+<footer id="footer" data-ng-include src="'includes/footer.html'"></footer>
