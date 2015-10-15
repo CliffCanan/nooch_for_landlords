@@ -1,0 +1,44 @@
+{  
+   "list":[
+        {
+            "id":1,
+            "img": "1.png",
+            "propName": "Wayne Apartments",
+            "address": "76 W. Lancaster Ave",
+            "units": 52,
+            "tenants": 20
+        },
+        {
+            "id":2,
+            "img": "2.png",
+            "propName": "Oakmont Towers",
+            "address": "1020 Continental Road",
+            "units": 38,
+            "tenants": 14
+        },
+        {
+            "id":3,
+            "img": "3.png",
+            "propName": "Main Property",
+            "address": "1702 Girard Ave",
+            "units": 22,
+            "tenants": 10
+        },
+        {
+            "id":4,
+            "img": "4.png",
+            "propName": "Shore Place",
+            "address": "480 Cedar Rd",
+            "units": 3,
+            "tenants": 1
+        },
+        {
+            "id":5,
+            "img": "5.png",
+            "propName": "11 St. James Street",
+            "address": "760 Roosevelt Blvd",
+            "units": 12,
+            "tenants": 5
+        }
+   ]
+}

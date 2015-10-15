@@ -1,0 +1,235 @@
+﻿<!DOCTYPE html>
+<html class="login-content" data-ng-app="noochForLandlords">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Nooch For Landlords | Login</title>
+
+    <!-- Vendor CSS -->
+    <link rel="stylesheet" href="vendors/bower_components/animate.css/animate.min.css">
+    <link rel="stylesheet" href="vendors/bower_components/material-design-iconic-font/css/material-design-iconic-font.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="vendors/bower_components/sweetalert/dist/sweetalert-override.min.css">
+
+    <!-- CSS -->
+    <link href="css/app.min.1.css" rel="stylesheet">
+    <link href="css/app.min.2.css" rel="stylesheet">
+    <link href="css/custom.css" rel="stylesheet">
+</head>
+
+<body class="login-content" data-ng-controller="loginCtrl as lctrl">
+
+    <div id="loginLogo">
+        <div class="animated bounceInDown">
+            <img src="img/nooch-logo.svg" />
+        </div>
+    </div>
+
+    <!-- Login -->
+    <div class="lc-block toggled animated fadeIn hidden" id="l-login">
+
+        <form id="login" ng-submit="lctrl.loginAttmpt()">
+
+            <div class="form-group fg-float" id="usernameGrp">
+                <span><i class="md md-mail"></i></span>
+                <div class="fg-line">
+                    <input id="username" type="text" class="input-lg form-control fg-input" data-ng-model="LoginData.username">
+                </div>
+                <label class="fg-label" for="username">Email</label>
+            </div>
+
+            <div class="form-group fg-float" id="pwGrp">
+                <span><i class="md md-lock"></i></span>
+                <div class="fg-line">
+                    <input id="pw" type="password" class="input-lg form-control fg-input" data-ng-model="LoginData.password">
+                </div>
+                <label class="fg-label" for="pw">Password</label>
+                <a class="help-block forgotpw" data-ng-click="showBlock('forgotpw')">Forgot Password?</a>
+            </div>
+
+            <div class="clearfix"></div>
+
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" value="" id="rememberMeCheck">
+                    <i class="input-helper"></i>
+                    Keep me signed in
+                </label>
+            </div>
+
+            <div class="text-center f-300 m-t-15">
+                <small>By logging in you agree our <a href="https://www.nooch.com/tos">TOS</a>.</small>
+            </div>
+
+            <button type="submit" class="btn btn-login btn-primary btn-float" data-toggle="tooltip" data-placement="auto" data-title="SUBMIT"><i class="md md-arrow-forward"></i></button>
+
+        </form>
+
+        <div class="m-t-20">
+            <button type="button" class="btn btn-primary pull-right" data-ng-click="showBlock('signup')">Sign Up</button>
+        </div>
+
+    </div>
+
+
+    <!-- Register -->
+    <div class="lc-block animated fadeIn hidden" id="l-register">
+
+        <form id="reg" ng-submit="lctrl.registerAttmpt()">
+
+            <div class="row">
+                <div class="form-group fg-float halfwidth" id="fnameGrp">
+                    <span><i class="md md-person"></i></span>
+
+                    <div class="fg-line">
+                        <input type="text" id="fname" class="input-lg form-control fg-input" data-ng-model="SignupData.firstName">
+                    </div>
+                    <label class="fg-label" for="fname">First Name</label>
+                </div>
+
+                <div class="form-group fg-float halfwidth" id="lnameGrp">
+                    <div class="fg-line">
+                        <input type="text" id="lname" class="input-lg form-control fg-input" data-ng-model="SignupData.lastName">
+                    </div>
+                    <label class="fg-label push-over" for="lname">Last Name</label>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group fg-float" id="emGrp">
+                    <span><i class="md md-mail"></i></span>
+                    <div class="fg-line">
+                        <input type="text" id="em" class="input-lg form-control fg-input" data-ng-model="SignupData.eMail">
+                    </div>
+                    <label class="fg-label" for="em">Email Address</label>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group fg-float m-b-15" id="pwregGrp">
+                    <span><i class="md md-lock"></i></span>
+                    <div class="fg-line">
+                        <input type="password" id="pwreg" class="input-lg form-control fg-input" data-ng-model="SignupData.pass">
+                    </div>
+                    <label class="fg-label" for="pwreg">Password</label>
+                </div>
+            </div>
+
+            <div class="clearfix"></div>
+
+            <div class="checkbox" id="tosboxGrp" checked="false">
+                <label data-ng-click="tosClicked()">
+                    <input type="checkbox">
+                    <i class="input-helper"></i>
+                    I agree to Nooch's <a href="">Terms of Service</a>.
+                </label>
+            </div>
+
+            <button id="createAccnt" type="submit" class="btn btn-login btn-success btn-float animated"><i class="md md-arrow-forward"></i></button>
+
+            <div class="m-t-20">
+                <button data-block="#l-login" class="btn btn-default pull-left" data-ng-click="showBlock('login')"><i class="md md-arrow-back m-r-5"></i> Back</button>
+            </div>
+
+        </form>
+
+    </div>
+
+
+    <!-- Forgot Password -->
+    <div class="lc-block animated fadeIn hidden" id="l-forget-password">
+
+        <form id="forgotpw" ng-submit="lctrl.forgotPwAttmpt()">
+
+            <p class="text-left f-19">Please enter your email address below.  If a Nooch account exists for that email, we will send you a a reset password link.</p>
+
+            <div class="form-group fg-float m-t-25 m-b-35" id="emforgotGrp">
+                <span><i class="md md-mail"></i></span>
+                <div class="fg-line">
+                    <input type="text" id="emforgot" class="input-lg form-control fg-input" data-ng-model="LoginData.forgotPassword">
+                </div>
+                <label class="fg-label" for="em">Email Address</label>
+            </div>
+
+            <button type="submit" class="btn btn-login btn-primary btn-float"><i class="md md-arrow-forward"></i></button>
+
+            <div class="m-t-20">
+                <button data-block="#l-login" class="btn btn-default pull-left" data-ng-click="showBlock('login')"><i class="md md-arrow-back m-r-5"></i> Back</button>
+            </div>
+
+        </form>
+
+    </div>
+
+
+    <!-- Older IE warning message -->
+    <!--[if lt IE 9]>
+        <div class="ie-warning">
+            <h1 class="c-white">Warning!!</h1>
+            <p>You are using an outdated version of Internet Explorer, please upgrade <br/>to any of the following web browsers to access this website.</p>
+            <div class="iew-container">
+                <ul class="iew-download">
+                    <li>
+                        <a href="http://www.google.com/chrome/">
+                            <img src="img/browsers/chrome.png" alt="">
+                            <div>Chrome</div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.mozilla.org/en-US/firefox/new/">
+                            <img src="img/browsers/firefox.png" alt="">
+                            <div>Firefox</div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://www.opera.com">
+                            <img src="img/browsers/opera.png" alt="">
+                            <div>Opera</div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.apple.com/safari/">
+                            <img src="img/browsers/safari.png" alt="">
+                            <div>Safari</div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://windows.microsoft.com/en-us/internet-explorer/download-ie">
+                            <img src="img/browsers/ie.png" alt="">
+                            <div>IE (New)</div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <p>Sorry for the inconvenience!</p>
+        </div>
+    <![endif]-->
+    <!-- Core -->
+    <script src="vendors/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="vendors/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <!-- Angular -->
+    <script src="vendors/angular/angular.min.js"></script>
+    <script src="vendors/angular/angular-route.min.js"></script>
+    <script src="vendors/angular/angular-resource.min.js"></script>
+    <script src="vendors/angular/angular-animate.min.js"></script>
+
+    <script src="vendors/bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+    <script src="vendors/bower_components/angular-loading-bar/src/loading-bar.js"></script>
+    <script src="vendors/bower_components/oclazyload/dist/ocLazyLoad.min.js"></script>
+
+    <script src="vendors/bower_components/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="vendors/blockUI/blockui.min.js"></script>
+    <script src="vendors/bower_components/fingerprintjs2/dist/fingerprint2.min.js"></script>
+
+    <!-- App level -->
+    <script src="js/app.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/controllers.js"></script>
+    <script src="js/services.js"></script>
+    <script src="js/appSettings.js"></script>
+    <script src="js/modules/form.js"></script>
+    <script src="js/modules/demo.js"></script>
+</body>
+</html>
