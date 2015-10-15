@@ -166,9 +166,9 @@ noochForLandlords
 
 
         getProperties = function () {
-            console.log('get properties called user details -> ' + userdetails.memberId + ' ' + userdetails.accessToken);
+            console.log('propertiesCtrl -> get properties called user details -> [MemberID: ' + userdetails.memberId + '], [LandlordID: ' + userdetails.landlordId + '], [Token: ' + userdetails.accessToken + ']');
 
-            propertiesService.GetProperties(userdetails.memberId, userdetails.accessToken, function (data) {
+            propertiesService.GetProperties(userdetails.landlordId, userdetails.accessToken, function (data) {
 				if (data.AuthTokenValidation.IsTokenOk == true)
 				{
 					if (data.IsSuccess == true) {
@@ -235,13 +235,13 @@ noochForLandlords
 
         function getPropertyDetails()
         {
-            console.log('get properties called user details -> ' + userdetails.memberId + ' ' + userdetails.accessToken);
+            console.log('propDetailsCtrl -> get properties called user details -> [MemberID: ' + userdetails.memberId + '], [LandlordID: ' + userdetails.landlordId + '], [Token: ' + userdetails.accessToken + ']');
 
             var propId = propDetailsService.get();
 
             if (propId != null && propId.length > 0)
             {
-                propDetailsService.getPropFromDb(propId, userdetails.memberId, userdetails.accessToken, function (data) 
+                propDetailsService.getPropFromDb(propId, userdetails.landlordId, userdetails.accessToken, function (data)
                 {
 					if (data.AuthTokenValidation.IsTokenOk == true)
 					{
@@ -389,7 +389,7 @@ noochForLandlords
 										// calling service here to remove unit from db
 										var userdetails = authenticationService.GetUserDetails();
 
-										propDetailsService.deleteUnit(data['UnitId'], userdetails.memberId, userdetails.accessToken, function (data) {
+										propDetailsService.deleteUnit(data['UnitId'], userdetails.landlordId, userdetails.accessToken, function (data) {
 											if (data.IsSuccess == true) {
 
 												$scope.propUnitsTable.row(btn.parents('tr')).remove().draw();
@@ -502,7 +502,7 @@ noochForLandlords
 				$scope.inputData.state = $scope.selectedProperty.state;
                 $scope.inputData.propId = $scope.selectedProperty.propertyId;
 
-                propertiesService.EditProperty($scope.inputData, userdetails.memberId, userdetails.accessToken, function (data) {
+                propertiesService.EditProperty($scope.inputData, userdetails.landlordId, userdetails.accessToken, function (data) {
                     if (data.IsSuccess == true) {
                         $scope.editPropInfo = 0;
                         growlService.growl('Property details updated successfully!', 'success');
@@ -617,7 +617,7 @@ noochForLandlords
                 {
                     if (!isAlreadyPublished)
                     {
-                        propertiesService.SetPropertyStatus(propDetailsService.get(), true, userdetails.memberId, userdetails.accessToken, function (data2) {
+                        propertiesService.SetPropertyStatus(propDetailsService.get(), true, userdetails.landlordId, userdetails.accessToken, function (data2) {
 
                             if (data2.IsSuccess == true)
                             {
@@ -643,7 +643,7 @@ noochForLandlords
                 {
                     if (isAlreadyPublished)
                     {
-                        propertiesService.SetPropertyStatus(propDetailsService.get(), false, userdetails.memberId, userdetails.accessToken, function (data2) {
+                        propertiesService.SetPropertyStatus(propDetailsService.get(), false, userdetails.landlordId, userdetails.accessToken, function (data2) {
 
                             if (data2.IsSuccess == true) {
                                 setIsPublished(0);
@@ -821,14 +821,14 @@ noochForLandlords
                         unitData.TenantId = $('#addUnitModal #unitTenants option:selected').val();
                     }
 
-                    propertiesService.AddNewUnit(propId, unitData, userdetails.memberId, userdetails.accessToken, function (data) {
+                    propertiesService.AddNewUnit(propId, unitData, userdetails.landlordId, userdetails.accessToken, function (data) {
 						console.log("Add New Unit service response...");
 						console.log(data);
 
                         if (data.IsSuccess == true)
                         {
 							// Update table to add row for the newly created unit immediately (instead of waiting for page refresh)
-							$scope.addTblRow(unitData.IsTenantAdded , userdetails.memberId, data.PropertyIdGenerated, unitData.UnitNum, unitData.Rent, "", "", "", "", false, false, "Published", false, false );
+                            $scope.addTblRow(unitData.IsTenantAdded, userdetails.landlordId, data.PropertyIdGenerated, unitData.UnitNum, unitData.Rent, "", "", "", "", false, false, "Published", false, false);
 
                             swal({
                                 title: "Unit Added",
@@ -930,7 +930,7 @@ noochForLandlords
                     }
 
                     var userdetails = authenticationService.GetUserDetails();
-                    getProfileService.SendEmailsToTenants(userdetails.memberId, userdetails.accessToken, emailObj, function (data)
+                    getProfileService.SendEmailsToTenants(userdetails.landlordId, userdetails.accessToken, emailObj, function (data)
                     {
                         if (data.IsSuccess)
                         {
@@ -1144,7 +1144,7 @@ noochForLandlords
                     var propertyId = attrs.propid;
                     var userdetails = authenticationService.GetUserDetails();
 
-                    console.log('member id -> ' + userdetails.memberId);
+                    console.log('Delete Property Directive -> Landlord ID: ' + userdetails.landlordId);
 
                     swal({
                         title: "Are you sure?",
@@ -1159,7 +1159,7 @@ noochForLandlords
                     }, function (isConfirm) {
                         if (isConfirm)
                         {
-                            propertiesService.RemoveProperty(propertyId, userdetails.memberId, userdetails.accessToken, function (data2) {
+                            propertiesService.RemoveProperty(propertyId, userdetails.landlordId, userdetails.accessToken, function (data2) {
                                 if (data2.IsSuccess == true) {
 
                                     swal("Deleted!", "That property has been deleted.", "success");
@@ -1284,25 +1284,6 @@ noochForLandlords
                             };
                         });
 
-
-                        //none of these methods are triggering after removing selected file
-                        ////event fired after deleting selected file
-                        //$('#addPropPicFileInput').on('filedeleted', function (event, key) {
-                        //    console.log('file removed ----XXXXXXXXXXXXXXXXXXXXXXXXXXXX');
-                        //});
-
-                        //$('#addPropPicFileInput').on('filesuccessremove', function (event, id) {
-                        //    if (some_processing_function(id)) {
-                        //        console.log('Uploaded thumbnail successfully removed');
-                        //    } else {
-                        //        return false; // abort the thumbnail removal
-                        //    }
-                        //});
-
-                        //$('#addPropPicFileInput').on('filereset', function (event) {
-                        //    console.log('Uploaded thumbnail successfully removed');
-                        //});
-
                         $('.wizard.vertical > .content').animate({ height: "32em" }, 750)
                         return true;
                     }
@@ -1416,7 +1397,7 @@ noochForLandlords
                 //console.log('single unit val ' + $scope.inputData.SingleUnitRent);
             }
 
-            propertiesService.SaveProperty($scope.inputData, userdetails.memberId, userdetails.accessToken, function (data) {
+            propertiesService.SaveProperty($scope.inputData, userdetails.landlordId, userdetails.accessToken, function (data) {
                 if (data.IsSuccess == false) {
                     swal({
                         title: "Ooops Error!",
@@ -1440,7 +1421,7 @@ noochForLandlords
                     }, function (isConfirm) {
                         if (isConfirm) {
 
-                            propertiesService.SetPropertyStatus(data.PropertyIdGenerated, true, userdetails.memberId, userdetails.accessToken, function (data2) {
+                            propertiesService.SetPropertyStatus(data.PropertyIdGenerated, true, userdetails.landlordId, userdetails.accessToken, function (data2) {
 
                                 if (data2.IsSuccess == false) {
 
@@ -1674,14 +1655,14 @@ noochForLandlords
 
             $scope.userInfoInSession = userdetails;
 
-            getProfileService.GetData(userdetails.memberId, userdetails.accessToken, function (response) {
+            getProfileService.GetData(userdetails.landlordId, userdetails.accessToken, function (response) {
                 console.log('Profile Controller -> User profile data -> ' + JSON.stringify(response));
 
 				// Check AuthTokenValidation
 				if (response.AuthTokenValidation.IsTokenOk == true)
 				{
 					// binding user information
-					$scope.userInfo.isIdVerified = response.isIdVerified;
+				    $scope.userInfo.isIdVerified = response.isIdVerified;
 
 					$scope.userInfo.type = response.AccountType;
 					$scope.userInfo.subtype = response.SubType;
@@ -1730,6 +1711,7 @@ noochForLandlords
 					$scope.userInfo.propertiesCount = response.PropertiesCount;
 					$scope.userInfo.unitsCount = response.UnitsCount;
 
+					console.log($rootScope.isIdVerified);
 
 					// Get Company Info
 					$scope.company = {
@@ -1739,31 +1721,36 @@ noochForLandlords
 
 				    // CLIFF (10.10.15): Adding code for showing the New User Tour
 				    // Instance the tour
-					var tour = new Tour({
-					    name: 'newLandlordUserTour',
-					    storage: true, // just for testing
-					    debug: true, // just for testing
-					    backdrop: true,
-					    orphan: true, //Allow to show the step regardless whether its element is not set, is not present in the page or is hidden. The step is fixed positioned in the middle of the page.
-					    steps: [
-                        {
-                            element: ".tour-step#tour-step-one",
-                            title: "Title of my step",
-                            content: "Content of my step"
-                        },
-                        {
-                            element: ".tour-step#tour-step-one",
-                            title: "Title of my step",
-                            content: "Content of my step"
-                        }
-					    ]
-					});
+					if ($rootScope.hasSeenNewUserTour != true)
+					{
+					    var tour = new Tour({
+					        name: 'newLandlordUserTour',
+					        //storage: true, // just for testing
+					        debug: true, // just for testing
+					        backdrop: true,
+					        orphan: true, //Allow to show the step regardless whether its element is not set, is not present in the page or is hidden. The step is fixed positioned in the middle of the page.
+					        steps: [
+                            {
+                                element: ".tour-step#tour-step-one",
+                                title: "Title of my step",
+                                content: "Content of my step"
+                            },
+                            {
+                                element: ".tour-step#tour-step-one",
+                                title: "Title of my step",
+                                content: "Content of my step"
+                            }
+					        ]
+					    });
 
-				    // Initialize the tour
-					tour.init();
+					    // Initialize the tour
+					    tour.init();
 
-				    // Start the tour
-					tour.start();
+					    // Start the tour
+					    tour.start();
+
+					    $rootScope.hasSeenNewUserTour = true;
+					}
 				}
 				else // Auth Token was not valid on server
 				{
@@ -1852,7 +1839,7 @@ noochForLandlords
         this.submit = function (item, message) {
 
             var deviceInfo = {
-                LandlorId: $scope.userInfoInSession.memberId,
+                LandlorId: $scope.userInfoInSession.landlordId,
                 AccessToken: $scope.userInfoInSession.accessToken
             };
 
@@ -1965,7 +1952,7 @@ noochForLandlords
                 showUpload: false,
                 uploadUrl: URLs.UploadLandlordProfileImage,  // NEED TO ADD URL TO SERVICE FOR SAVING PROFILE PIC (SEPARATELY FROM SAVING THE REST OF THE PROFILE INFO)
                 uploadExtraData: {
-                    LandlorId: $scope.userInfoInSession.memberId,
+                    LandlorId: $scope.userInfoInSession.landlordId,
                     AccessToken: $scope.userInfoInSession.accessToken
                 },
                 showPreview: true,
@@ -2184,7 +2171,7 @@ noochForLandlords
                                     showUpload: false,
                                     uploadUrl: URLs.UploadLandlordProfileImage,  // NEED TO ADD URL TO SERVICE FOR SAVING PROFILE PIC (SEPARATELY FROM SAVING THE REST OF THE PROFILE INFO)
                                     uploadExtraData: {
-                                        LandlorId: $scope.userInfoInSession.memberId,
+                                        LandlorId: $scope.userInfoInSession.landlordId,
                                         AccessToken: $scope.userInfoInSession.accessToken
                                     },
                                     showPreview: true,
@@ -2231,7 +2218,7 @@ noochForLandlords
 
 
                     var DeviceInfo = {
-                        LandlorId: $scope.userInfoInSession.memberId,
+                        LandlorId: $scope.userInfoInSession.landlordId,
                         AccessToken: $scope.userInfoInSession.accessToken
                     };
 
@@ -2379,7 +2366,7 @@ noochForLandlords
 
             $scope.userInfoInSession = userdetails;
 
-            getBanksService.getBanks(userdetails.memberId, userdetails.accessToken, function (response) {
+            getBanksService.getBanks(userdetails.landlordId, userdetails.accessToken, function (response) {
                 console.log('Banks Controller -> Get Banks Response data -> ' + JSON.stringify(response));
 
                 if (response.success == true)
@@ -2436,7 +2423,7 @@ noochForLandlords
                     closeOnCancel: true
                 }, function (isConfirm) {
                     if (isConfirm) {
-                        $('#bankAdd iframe').attr("src", "http://54.201.43.89/noochweb/trans/Add-Bank.aspx?MemberId=B3A6CF&ll=yes");
+                        $('#bankAdd iframe').attr("src", "http://54.201.43.89/noochweb/trans/Add-Bank.aspx?MemberId=" + $scope.userInfoInSession.memberId + "&ll=yes");
                         $('#bankAdd').modal({
                             keyboard: false
                         })
@@ -2587,7 +2574,7 @@ noochForLandlords
         if (authenticationService.IsValidUser() == true) {
             var userdetails = authenticationService.GetUserDetails();
 
-            getProfileService.GetAccountCompletionStats(userdetails.memberId, userdetails.accessToken, function (response) {
+            getProfileService.GetAccountCompletionStats(userdetails.landlordId, userdetails.accessToken, function (response) {
                 console.log("GetAccountCompletionStats is... (next line):");
                 console.log(response);
 
@@ -2625,7 +2612,7 @@ noochForLandlords
 
         $scope.ResendVerificationEmailOrSMS = function (sendWhat) {
             var userdetails = authenticationService.GetUserDetails();
-            getProfileService.ResendVerificationEmailOrSMS(userdetails.memberId, "Landlord", sendWhat, function (response) {
+            getProfileService.ResendVerificationEmailOrSMS(userdetails.landlordId, "Landlord", sendWhat, function (response) {
 				console.log(response);
 				console.log(response.IsSuccess);
                 if (response.IsSuccess && response.IsSuccess == true) 
@@ -2860,6 +2847,8 @@ noochForLandlords
 
                             $('form#login').unblock();
 
+                            console.log(response);
+
                             if (response.IsSuccess == true) {
 
                                 if ($('#rememberMeCheck').prop("checked") == true) {
@@ -2867,7 +2856,7 @@ noochForLandlords
                                     localStorage.setItem('userLoginPass', $scope.LoginData.password);  
                                 }
 
-                                authenticationService.SetUserDetails($scope.LoginData.username, response.MemberId, response.AccessToken);
+                                authenticationService.SetUserDetails($scope.LoginData.username, response.MemberId, response.LandlordId, response.AccessToken);
                                 window.location.href = 'index.html#/profile/profile-about';
                             }
                             else {
@@ -3065,7 +3054,9 @@ noochForLandlords
                                                 //regForm.unblock();
 
                                                 if (response.IsSuccess == true) {
-                                                    authenticationService.SetUserDetails(username, response.MemberId, response.AccessToken);
+                                                    $rootScope.hasSeenNewUserTour = false;
+
+                                                    authenticationService.SetUserDetails(username, response.MemberId, response.LandlordId, response.AccessToken);
                                                     window.location.href = 'index.html#/home';
                                                 }
                                                 else // Should never not be successful... the user would have *just* created their account

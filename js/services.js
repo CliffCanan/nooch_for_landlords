@@ -440,9 +440,10 @@ noochForLandlords
         };
 
 
-        Operations.SetUserDetails = function (username, memberId, accessToken) {
+        Operations.SetUserDetails = function (username, memberId, landlordId, accessToken) {
             localStorage.setItem('username', username);
             localStorage.setItem('memberId', memberId);
+            localStorage.setItem('landlordId', landlordId);
             localStorage.setItem('accessToken', accessToken);
         };
 
@@ -456,6 +457,7 @@ noochForLandlords
             var User = {};
             User.username = localStorage.getItem('username');
             User.memberId = localStorage.getItem('memberId');
+            User.landlordId = localStorage.getItem('landlordId');
             User.accessToken = localStorage.getItem('accessToken');
 
             return User;
