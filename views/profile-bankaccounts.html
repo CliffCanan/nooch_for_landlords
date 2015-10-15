@@ -1,7 +1,5 @@
 <div data-ng-controller="banksCtrl as bctrl" id="prof-ba">
 
-    <div class="pull-right"><button class="btn btn-xs btn-default" data-ng-click="bctrl.toggleBankView()">Toggle View</button></div>
-
     <div class="jumbotron text-center m-b-0" data-ng-if="bankCount === 0 || bankCount === nil">
         <h2>Start Getting Paid</h2>
 
@@ -169,18 +167,5 @@
             </div>
         </div>
     </div>
-
-    <script>
-        $("#toggleView").click(function () {
-            if ($('.jumbotron').hasClass('hide'))
-            {
-                $('.jumbotron').removeClass('hide');
-                $('#bankView2').addClass('hide');
-            } else {
-                $('.jumbotron').addClass('hide');
-                $('#bankView2').removeClass('hide');
-            }
-        });
-    </script>
 
 </div>

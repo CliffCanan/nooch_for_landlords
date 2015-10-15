@@ -1,88 +1,90 @@
 <ul class="header-inner">
-	<li id="menu-trigger" data-target="mainmenu" data-toggle-sidebar data-model-left="mactrl.sidebarToggle.left" data-ng-class="{ 'open': mactrl.sidebarToggle.left === true }">
-		<div class="line-wrap">
-			<div class="line top"/>
-			<div class="line center"/>
-			<div class="line bottom"/>
-		</div>
-	</li>
+    <li id="menu-trigger" data-target="mainmenu" data-toggle-sidebar data-model-left="mactrl.sidebarToggle.left" data-ng-class="{ 'open': mactrl.sidebarToggle.left === true }">
+        <div class="line-wrap">
+            <div class="line top" />
+            <div class="line center" />
+            <div class="line bottom" />
+        </div>
+    </li>
 
-	<li class="logo hidden-xs">
-		<a href="index.html">NOOCH | Landlord Admin {{ layoutSS }}</a>
-	</li>
+    <li class="logo hidden-xs">
+        <a href="index.html">NOOCH | Landlord Admin {{ layoutSS }}</a>
+    </li>
 
-	<li class="pull-right">
-		<ul class="top-menu">
+    <li class="pull-right">
+        <ul class="top-menu">
 
-			<!--<li id="toggle-width">
+            <!--<li id="toggle-width">
                 <div class="toggle-switch">
-                    <input id="tw-switch" type="checkbox" hidden="hidden" data-change-layout="mactrl.layoutType"> 
+                    <input id="tw-switch" type="checkbox" hidden="hidden" data-change-layout="mactrl.layoutType">
                     <label for="tw-switch" class="ts-helper"></label>
                 </div>
             </li>-->
 
-			<li class="dropdown nav-btn-dropdown">
+            <li class="dropdown nav-btn-dropdown">
 
-				<a data-toggle="dropdown" class="noExtraWaves">
-					<img src="{{ userDetailsRoot.imgUrl }}" id="nav-profile-pic"/>
-					{{userDetailsRoot.fName}} {{userDetailsRoot.lName}}
-					<i class="md md-person m-l-10"/>
-				</a>
+                <a data-toggle="dropdown" class="noExtraWaves">
+                    <img src="{{ userDetailsRoot.imgUrl }}" id="nav-profile-pic" />
+                    {{userDetailsRoot.fName}} {{userDetailsRoot.lName}}
+                    <i class="md md-person m-l-10" />
+                </a>
 
-				<ul class="dropdown-menu dm-icon" role="menu">
-					<li>
-						<a data-ui-sref="profile.profile-about">
-							<i class="md md-person"/> Profile</a>
-					</li>
-					<li>
-						<a data-ui-sref="properties">
-							<i class="md md-business"/> Properties</a>
-					</li>
-					<li class="divider"/>
-					<li>
-						<a data-ui-sref="history">
-							<i class="md md-attach-money"/> Payments</a>
-					</li>
-				</ul>
-			</li>
+                <ul class="dropdown-menu dm-icon" role="menu">
+                    <li>
+                        <a data-ui-sref="profile.profile-about">
+                            <i class="md md-person" /> Profile
+                        </a>
+                    </li>
+                    <li>
+                        <a data-ui-sref="properties">
+                            <i class="md md-business" /> Properties
+                        </a>
+                    </li>
+                    <li class="divider" />
+                    <li>
+                        <a data-ui-sref="history">
+                            <i class="md md-attach-money" /> Payments
+                        </a>
+                    </li>
+                </ul>
+            </li>
 
-			<!--<li class="dropdown">
-				<a data-toggle="dropdown" class="tm-notification" href="">
-					<i class="tmn-counts">6</i>
-				</a>
-				<div class="dropdown-menu dropdown-menu-lg stop-propagate pull-right">
-					<div class="listview" id="notifications">
-						<div class="lv-header">
-									Notification
-							<ul class="actions">
-								<li class="dropdown">
-									<a href="" data-ng-click="hctrl.clearNotification($event)">
-										<i class="md md-done-all"/>
-									</a>
-								</li>
-							</ul>
-						</div>
-						<div class="lv-body c-overflow">
-							<a class="lv-item" ng-href="" ng-repeat="w in hctrl.messageResult.list">
-								<div class="media">
-									<div class="pull-left">
-										<img class="lv-img-sm" ng-src="img/profile-pics/{{ w.img }}" alt=""/>
-									</div>
-									<div class="media-body">
-										<div class="lv-title">{{ w.user }}</div>
-										<small class="lv-small">{{ w.text }}</small>
-									</div>
-								</div>
-							</a>
-						</div>
+            <!--<li class="dropdown">
+                <a data-toggle="dropdown" class="tm-notification" href="">
+                    <i class="tmn-counts">6</i>
+                </a>
+                <div class="dropdown-menu dropdown-menu-lg stop-propagate pull-right">
+                    <div class="listview" id="notifications">
+                        <div class="lv-header">
+                                    Notification
+                            <ul class="actions">
+                                <li class="dropdown">
+                                    <a href="" data-ng-click="hctrl.clearNotification($event)">
+                                        <i class="md md-done-all"/>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="lv-body c-overflow">
+                            <a class="lv-item" ng-href="" ng-repeat="w in hctrl.messageResult.list">
+                                <div class="media">
+                                    <div class="pull-left">
+                                        <img class="lv-img-sm" ng-src="img/profile-pics/{{ w.img }}" alt=""/>
+                                    </div>
+                                    <div class="media-body">
+                                        <div class="lv-title">{{ w.user }}</div>
+                                        <small class="lv-small">{{ w.text }}</small>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
 
-						<a class="lv-footer" href="">View Previous</a>
-					</div>
+                        <a class="lv-footer" href="">View Previous</a>
+                    </div>
 
-				</div>
-			</li>-->
-
-			<!--<li class="dropdown hidden-xs">
+                </div>
+            </li>-->
+            <!--<li class="dropdown hidden-xs">
                 <a data-toggle="dropdown" class="tm-task" href=""><i class="tmn-counts">2</i></a>
                 <div class="dropdown-menu pull-right dropdown-menu-lg">
                     <div class="listview">
@@ -142,29 +144,32 @@
                 </div>
             </li>-->
 
-			<li class="dropdown">
-				<a data-toggle="dropdown" class="tm-settings" href=""/>
-				<ul class="dropdown-menu dm-icon pull-right">
-					<li>
-						<a data-ng-click="hctrl.fullScreen()" href="">
-							<i class="md md-fullscreen"/> Toggle Fullscreen</a>
-					</li>
-					<li>
-						<a data-ui-sref="profile.profile-about">
-							<i class="md md-person"/> My Profile</a>
-					</li>
-					<li>
-						<a data-ui-sref="profile.profile-bankaccounts">
-							<i class="md md-settings"/> Account Settings</a>
-					</li>
-					<li>
-						<a data-ng-click="hctrl.fullScreen()">
-							<i class="md md-exit-to-app"/> Logout</a>
-					</li>
-				</ul>
-			</li>
+            <li class="dropdown">
+                <a data-toggle="dropdown" class="tm-settings" href="" />
+                <ul class="dropdown-menu dm-icon pull-right">
+                    <li>
+                        <a data-ng-click="hctrl.fullScreen()" href="">
+                            <i class="md md-fullscreen" /> Toggle Fullscreen
+                        </a>
+                    </li>
+                    <li>
+                        <a data-ui-sref="profile.profile-about">
+                            <i class="md md-person" /> My Profile
+                        </a>
+                    </li>
+                    <li>
+                        <a data-ui-sref="profile.profile-bankaccounts">
+                            <i class="md md-settings" /> Account Settings
+                        </a>
+                    </li>
+                    <li>
+                        <a data-ng-click="hctrl.logout()">
+                            <i class="md md-exit-to-app" /> Logout
+                        </a>
+                    </li>
+                </ul>
+            </li>
 
-		</ul>
+        </ul>
 
-	</ul>
-	
+</ul>

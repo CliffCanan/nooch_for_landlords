@@ -1681,7 +1681,6 @@ noochForLandlords
 				if (response.AuthTokenValidation.IsTokenOk == true)
 				{
 					// binding user information
-					$scope.userInfo.accountStatus = "Identity Verified";
 					$scope.userInfo.isIdVerified = response.isIdVerified;
 
 					$scope.userInfo.type = response.AccountType;
@@ -2077,6 +2076,9 @@ noochForLandlords
 
                         $('input#idVer-name').focus();
 
+                        // Need to initialize the Popover b/c it's in a modal here
+                        $('[data-toggle="popover"]').popover()
+
                         var dobPicker = $('#idVer-dob');
                         $compile(dobPicker)($scope);
 						
@@ -2192,7 +2194,7 @@ noochForLandlords
                                     resizePreference: 'width'
                                 });
 
-                                $('#idVerWiz > .content').animate({ height: "30em" }, 700)
+                                $('#idVerWiz > .content').animate({ height: "28em" }, 700)
                                 return true;
                             }
                             else {
@@ -2213,8 +2215,6 @@ noochForLandlords
                     $scope.cancelIdVer();
                 },
                 onFinished: function (event, currentIndex) {
-                    // HIDE THE MODAL CONTAINING THE WIZARD
-                    $('#idVer').modal('hide')
 
                     // SUBMIT DATA TO NOOCH SERVER
                     var legalName = $('#idVer-name').val();
@@ -2235,9 +2235,12 @@ noochForLandlords
                         AccessToken: $scope.userInfoInSession.accessToken
                     };
 
-                    getProfileService.submitIdVerWizard(deviceInfo, fullName, birthDay, ssnLast4, address, zip, function (response) {
+                    getProfileService.submitIdVerWizard(DeviceInfo, fullName, birthDay, ssnLast4, address, zip, function (response) {
                         console.log("submitIdVerWizard Response... (2240)");
                         console.log(response);
+
+                        // HIDE THE MODAL CONTAINING THE WIZARD
+                        $('#idVer').modal('hide')
 
                         if (response.success == true)
                         {
@@ -2319,9 +2322,6 @@ noochForLandlords
                 }
 
             }
-
-
-            
         }
 		
 		$scope.cancelIdVer = function () {
@@ -2337,13 +2337,13 @@ noochForLandlords
                     closeOnCancel: true
                 }, function (isConfirm) {
                     if (isConfirm) {
-						$('#idVer').modal('hide');
-						setTimeout(function () {
-							console.log("DESTROYING STEPS");
-							$('#idVerWiz').steps('destroy');
-						}, 250);
+                        setTimeout(function () {
+                            $('#idVer').modal('hide');
+                            setTimeout(function () {
+                                $('#idVerWiz').steps('destroy');
+                            }, 250);
+                        }, 250);
                     }
-                    else { }
                 });
             }
     })
@@ -2376,10 +2376,24 @@ noochForLandlords
         if (authenticationService.IsValidUser() == true) {
 
             var userdetails = authenticationService.GetUserDetails();
-			console.log(userdetails);
-            //$scope.propCount = 0;
 
             $scope.userInfoInSession = userdetails;
+
+            getBanksService.getBanks(userdetails.memberId, userdetails.accessToken, function (response) {
+                console.log('Banks Controller -> Get Banks Response data -> ' + JSON.stringify(response));
+
+                // Check AuthTokenValidation
+                if (response.AuthTokenValidation.IsTokenOk == true)
+                {
+                    // binding user information
+                    $scope.bankCount = 0;
+                }
+                else // Auth Token was not valid on server
+                {
+                    authenticationService.ClearUserData();
+                    window.location.href = 'login.html';
+                }
+            });
 		}
 		else
 		{
@@ -2422,7 +2436,8 @@ noochForLandlords
                     else { }
                 });
             }
-            else {
+            else // No bank attached yet
+            {
                 $('#bankAdd iframe').attr("src", "http://54.201.43.89/noochweb/trans/Add-Bank.aspx?MemberId=" + $scope.userInfoInSession.memberId + "&ll=yes");
 				//$('#bankAdd iframe').attr("src", "https://noochme.com/noochweb/trans/Add-Bank.aspx?MemberId=" + $scope.userInfoInSession.memberId + "&ll=yes");
                 $('#bankAdd').modal({
@@ -2449,19 +2464,6 @@ noochForLandlords
                 }
             });
         }
-
-        // For demo purposes to toggle First Time view on/off
-        this.toggleBankView = function () {
-            console.log("ToggleBankView fired, $scope.bankCount now is: " + $scope.bankCount);
-
-            if ($scope.bankCount > 0) {
-                $scope.bankCount = 0;
-            }
-            else {
-                $scope.bankCount = 1;
-            }
-        }
-
     })
 
     // Delete Bank Account Popup

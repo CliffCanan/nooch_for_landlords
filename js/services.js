@@ -320,29 +320,6 @@ noochForLandlords
         }
     }])*/
 
-    // =========================================================================
-    // Bank Accounts Data
-    // =========================================================================
-
-    .service('getBanksService', ['$resource', function ($resource) {
-        this.getBank = function (id, name, nickname, logo, last4, status, dateAdded, notes) {
-            console.log("getBanksService reached");
-
-            var bankList = $resource("data/bankAccountsList.json");
-
-            return bankList.get({
-                id: id,
-                name: name,
-                nickname: nickname,
-                logo: logo,
-                last4: last4,
-                status: status,
-                dateAdded: dateAdded,
-                notes: notes
-            })
-        }
-    }])
-
 
     // =========================================================================
     // Nice Scroll - Custom Scroll bars
@@ -407,6 +384,7 @@ noochForLandlords
     .service('authenticationService', function ($http) {
 
         var Operations = {};
+
         Operations.Login = function (username, password, ip, callback) {
 
             var data = {};
@@ -551,7 +529,6 @@ noochForLandlords
         };
 
 
-
         Operations.SendEmailsToTenants = function (userId, accessTok, emailObj, callback) {
 
             var dataDevice = {};
@@ -561,8 +538,6 @@ noochForLandlords
             var data = {};
             data.DeviceInfo = dataDevice;
             data.EmailInfo = emailObj;
-
-
 
 
             $http.post(URLs.SendEmailsToTenants, data)
@@ -657,13 +632,33 @@ noochForLandlords
 
             $http.post(URLs.submitIdVerWizard, data)
                 .success(function (response) {
-                    if (response.IsSuccess && response.IsSuccess == true) {
-                        authenticationService.ManageToken(response.AuthTokenValidation);
-                        console.log('Services.js -> submitIdVerWizard response SUCCESS');
-                    }
+                    console.log('Services.js -> submitIdVerWizard response SUCCESS');
+
                     callback(response);
                 });
         };
 
         return Operations;
+    })
+
+
+    // =========================================================================
+    // Bank Accounts Data
+    // =========================================================================
+    .service('getBanksService', function ($http, authenticationService) {
+
+        var Operations = {};
+
+        Operations.getBanks = function (landlordId, accessToken, callback) {
+
+            var data = {};
+            data.LandlorId = landlordId;
+            data.AccessToken = accessToken;
+
+            $http.post(URLs.GetBanks, data)
+                .success(function (response) {
+                    console.log("Services -> GetBanks -> SUCCESS!");
+                    callback(response);
+                });
+        };
     })
