@@ -15206,12 +15206,6 @@ body.login-content:before {
   position: relative;
 }
 
-#profile-main .pmb-block .pmbb-header .actions {
-  position: absolute;
-  top: -2px;
-  right: 0;
-}
-
 #profile-main .pmb-block .pmbb-header h2 {
   margin: 0;
   font-weight: 100;

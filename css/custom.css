@@ -202,10 +202,9 @@ a, a *,
 
 .label {
     border-radius: 10px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
-    font-size: 80%;
+    box-shadow: 0 3px 5px -2px rgba(0, 0, 0, 0.15);
     font-weight: 500;
-    text-shadow: 0 -1px 0 rgba(31,32,33,.35);
+    text-shadow: 0 -1px 0 rgba(31,32,33,.32);
 }
 
 .well {
@@ -254,6 +253,17 @@ input[type='password'] {
 .uppercase {
     text-transform: uppercase;
 }
+
+.fade {
+    opacity: 0;
+    -webkit-transition: opacity .25s ease-in-out;
+    -o-transition: opacity .25s ease-in-out;
+    transition: opacity .25s ease-in-out;
+}
+
+    .fade.in {
+        opacity: 1;
+    }
 
 .ng-hide.ng-hide-animate {
     display: none !important;
@@ -921,6 +931,33 @@ form .checkbox.haserror .input-helper:before {
         cursor: pointer;
     }
 
+    #profile-main .pmb-block .pmbb-header h2 {
+        font-weight: 300;
+        display: inline-block;
+    }
+
+    #profile-main .pmb-block .pmbb-header .actions {
+        display: inline-block;
+        position: relative;
+        left: 9px;
+        top: -3px;
+    }
+
+        #profile-main .pmb-block .pmbb-header .actions:before {
+            content: "";
+            background: rgba(147,149,152,.6);
+            width: 1px;
+            height: 20px;
+            float: left;
+            margin-right: 5px;
+            position: relative;
+            top: 3px;
+        }
+
+        #profile-main .pmb-block .pmbb-header .actions > li {
+            height: 0;
+        }
+
 #profAbout > .well {
     margin: 20px 20px 0;
     padding: 15px;
@@ -931,10 +968,6 @@ form .checkbox.haserror .input-helper:before {
         font-size: 20px;
         font-weight: 300;
     }
-
-#profile-main .pmb-block .pmbb-header h2 {
-    font-weight: 300;
-}
 
 .pmo-stat > .col-xs-6 {
     float: none;
@@ -971,10 +1004,18 @@ form .checkbox.haserror .input-helper:before {
     letter-spacing: .25px;
 }
 
-#profileMain .pmbb-body dt button.btn-icon {
+#profileMain .pmbb-body button.btn-icon {
     text-transform: none;
     cursor: default;
     margin: 0 auto;
+    width: 32px;
+    height: 32px;
+}
+
+#profileMain .socialContainer dd a,
+#profileMain .socialContainer dd span {
+    position: relative;
+    top: 5px;
 }
 
 .bootstrap-datetimepicker-widget {
@@ -995,6 +1036,7 @@ form .checkbox.haserror .input-helper:before {
 .socialContainer > .dl-horizontal dd {
     margin-left: 80px;
 }
+
 
 @media (min-width: 768px) {
     .dl-horizontal dt {
@@ -1242,10 +1284,6 @@ form .checkbox.haserror .input-helper:before {
         margin-left: 160px;
     }
 
-    #profile-main .pmb-block .pmbb-header .actions {
-        right: 20px;
-    }
-
     .form-group .help-block {
         font-size: 14px;
     }
@@ -1268,6 +1306,25 @@ form .checkbox.haserror .input-helper:before {
         font-weight: 300;
         letter-spacing: .3px;
     }
+
+    .popover.tour-newLandlordUserTour {
+        border-radius: 6px;
+    }
+
+        .popover.tour-newLandlordUserTour .popover-title {
+            font-size: 17px;
+            padding: 15px 15px 8px;
+        }
+
+        .popover.tour-newLandlordUserTour .popover-content {
+            font-size: 15px;
+            padding: 0 15px 15px;
+        }
+
+        .popover.tour-newLandlordUserTour .btn-sm {
+            font-size: 13px;
+            padding: 8px 10px;
+        }
 }
 
 
@@ -1356,8 +1413,7 @@ form .checkbox.haserror .input-helper:before {
     font-weight: normal;
 }
 
-#notif-tog-container .row > *:nth-child(2),
-#notif-tog-container .row > *:nth-child(3) {
+#notif-tog-container .row > *:not(:first-child) {
     text-align: center;
 }
 
