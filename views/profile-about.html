@@ -158,11 +158,19 @@
                 <div class="pmbb-body">
                     <div class="pmbb-view" data-ng-if="pctrl.editContactInfo === 0">
                         <dl class="dl-horizontal">
-                            <dt>Email Address</dt>
+                            <dt>
+                                <i class="md md-error c-red m-r-5" ng-if="IsEmailVerified == 0"></i>
+                                <i class="md md-check c-green m-r-5" ng-if="IsEmailVerified == 1"></i>
+                                Email Address
+                            </dt>
                             <dd>{{ userInfo.emailAddress }}</dd>
                         </dl>
                         <dl class="dl-horizontal">
-                            <dt>Mobile Phone</dt>
+                            <dt>
+                                <i class="md md-error c-red m-r-5" ng-if="IsPhoneVerified == 0"></i>
+                                <i class="md md-check c-green m-r-5" ng-if="IsPhoneVerified == 1"></i>
+                                Mobile Phone
+                            </dt>
                             <dd>{{ userInfo.mobileNumber }}</dd>
                         </dl>
                         <dl class="dl-horizontal">

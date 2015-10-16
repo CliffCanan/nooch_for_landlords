@@ -222,7 +222,7 @@ noochForLandlords
 
 
         getProperties = function () {
-            console.log('propertiesCtrl -> get properties called user details -> [MemberID: ' + userdetails.memberId + '], [LandlordID: ' + userdetails.landlordId + '], [Token: ' + userdetails.accessToken + ']');
+            //console.log('propertiesCtrl -> get properties called user details -> [MemberID: ' + userdetails.memberId + '], [LandlordID: ' + userdetails.landlordId + '], [Token: ' + userdetails.accessToken + ']');
 
             propertiesService.GetProperties(userdetails.landlordId, userdetails.accessToken, function (data) {
 				if (data.AuthTokenValidation.IsTokenOk == true)
@@ -278,10 +278,6 @@ noochForLandlords
     // PROPERTY DETAILS CONTROLLER
     .controller('propDetailsCtrl', function ($compile, authenticationService, $scope, propertiesService, propDetailsService, getProfileService, growlService, $state) {
 
-        $scope.selectedProperty = {
-
-        };
-
         $scope.tenantsListForThisPorperty = new Array();
 
         //console.log('list count in tenants before setting data in.' + $scope.tenantsListForThisPorperty.length);
@@ -301,10 +297,9 @@ noochForLandlords
                 {
 					if (data.AuthTokenValidation.IsTokenOk == true)
 					{
+					    console.log(data);
 						if (data.IsSuccess == true)
 						{
-							// data binding goes in here
-
 							var propStatus = 0;
 
 							if (data.PropertyDetails.PropStatus == "Published") {
@@ -328,20 +323,30 @@ noochForLandlords
 								"propertyStatus": data.PropertyDetails.PropStatus,
 								"pastDue": data.AllTenantsWithPassedDueDateCount,
 								"defaultBankName": data.BankAccountDetails.BankName,
-								"defaultBankNickname": data.BankAccountDetails.BankAccountNick + " - " + data.BankAccountDetails.BankAccountNumString,
+								"defaultBankNickname": data.BankAccountDetails.BankAccountNick,
 								"bankImage": data.BankAccountDetails.BankIcon,
 								"propertyId": data.PropertyDetails.PropertyId
+							}
+
+                            // If Nickname was empty, try the Account Number string as backup
+							if ($scope.selectedProperty.defaultBankNickname == null)
+							{
+							    if (data.BankAccountDetails.BankAccountNumString != null)
+							    {
+							        $scope.selectedProperty.defaultBankNickname = data.BankAccountDetails.BankAccountNumString
+							    }
 							}
 
 							$scope.allUnitsList = data.PropertyDetails.AllUnits;
 
 							$('.selectpicker').selectpicker('refresh');
 
+							console.log($scope.selectedProperty);
 							console.log("UNIT LIST...");
-							console.log($scope.allUnitsList);
+							//console.log($scope.allUnitsList);
 
 							$scope.propUnitsTable = $('#propUnits').on('init.dt', function () {
-								//console.log( 'Table initialisation complete: '+new Date().getTime() );
+								//console.log('Table initialisation complete');
 							}).DataTable({
 								data: $scope.allUnitsList,
 								columns: [
@@ -401,8 +406,12 @@ noochForLandlords
 							// EDIT UNIT BTN CLICKED
 							$('#propUnits tbody .btn.editUnitBtn').click(function () {
 
+							    $scope.addingNewUnit = false;
+
 								var data = $scope.propUnitsTable.row($(this).parents('tr')).data();
 								console.log(data);
+
+								$scope.editingUnitId = data['UnitId'];
 
 								$('#addUnitModal .modal-title').html('Edit This Unit in: <strong>' + $scope.selectedProperty.name + '</strong>');
 								$('#addUnitModal #unitNum').val(data['UnitNumber']);
@@ -451,7 +460,7 @@ noochForLandlords
 												$scope.propUnitsTable.row(btn.parents('tr')).remove().draw();
 												swal({
 													title: "Unit Removed",
-													text: "Unit #" + data['UnitNumber'] + " has been successfully removed from " + $scope.selectedProperty.name + ".",
+													text: "Unit successfully removed from " + $scope.selectedProperty.name + ".",
 													type: "success",
 													confirmButtonText: "Ok"
 												}, function() {
@@ -808,7 +817,10 @@ noochForLandlords
 
         // Add Unit Button
 		$scope.addUnit = function () {
-            // Set the modal Title Text (b/c the same modal is used for Edit Unit and Add Unit)
+		    // Set the modal Title Text (b/c the same modal is used for Edit Unit and Add Unit)
+		    $scope.addingNewUnit = true;
+		    $scope.editingUnitId = "";
+
 			$('#addUnitModal .modal-title').html('Add a New Unit in: <strong>' + $scope.selectedProperty.name + '</strong>');
 
             // Reset the form
@@ -864,7 +876,7 @@ noochForLandlords
                     unitData.Rent = $('#addUnitModal #monthlyRent').val();
                     unitData.DueDate = $('#addUnitModal #unitRentDueDate option:selected').text();
                     unitData.RentStartDate = $('#addUnitModal #addUnitDatePicker').val();
-                    unitData.AgreementDuration = $('#addUnitModal #rentDurationInMonths option:selected').text();
+                    unitData.RentDuration = $('#addUnitModal #rentDurationInMonths option:selected').text();
 
                     if ($('#addUnitModal #unitTenants option:selected').text() == "Select A Tenant" ||
                         $('#addUnitModal #unitTenants option:selected').text() == "NO TENANT YET")
@@ -877,42 +889,90 @@ noochForLandlords
                         unitData.TenantId = $('#addUnitModal #unitTenants option:selected').val();
                     }
 
-                    propertiesService.AddNewUnit(propId, unitData, userdetails.landlordId, userdetails.accessToken, function (data) {
-						console.log("Add New Unit service response...");
-						console.log(data);
+                    // NOW CHECK WHETHER WE SHOULD CREATEA A *NEW* UNIT OR JUST EDIT IF THIS IS AN EXISTING UNIT
+                    if ($scope.addingNewUnit == true)
+                    {
+                        // Add a New Unit
+                        unitData.isNewUnit = true;
+                        unitData.UnitId = "";
 
-                        if (data.IsSuccess == true)
-                        {
-							// Update table to add row for the newly created unit immediately (instead of waiting for page refresh)
-                            $scope.addTblRow(unitData.IsTenantAdded, userdetails.landlordId, data.PropertyIdGenerated, unitData.UnitNum, unitData.Rent, "", "", "", "", false, false, "Published", false, false);
+                        propertiesService.AddNewUnit(propId, unitData, userdetails.landlordId, userdetails.accessToken, function (data) {
+                            console.log("Add New Unit service response...");
+                            console.log(data);
 
-                            swal({
-                                title: "Unit Added",
-                                text: "This unit has been added successfully.",
-                                type: "success",
-                                showCancelButton: true,
-                                confirmButtonColor: "#3FABE1",
-                                confirmButtonText: "Terrific",
-                                cancelButtonText: "Add Another One",
-                                closeOnCancel: true,
-                            }, function (isConfirm) {
-                                if (!isConfirm) {
-                                    $scope.addUnit();
-                                }
-                            });
-                        }
-                        else
-                        {
-                            swal({
-                                title: "Uh Oh",
-                                text: data.ErrorMessage,
-                                type: "error",
-                                showCancelButton: false,
-                                confirmButtonColor: "#3FABE1",
-                                confirmButtonText: "Ok",
-                            });
-                        }
-                    });
+                            if (data.IsSuccess == true) {
+                                // Update table to add row for the newly created unit immediately (instead of waiting for page refresh)
+                                $scope.addTblRow(unitData.IsTenantAdded, userdetails.landlordId, data.PropertyIdGenerated, unitData.UnitNum, unitData.Rent, "", "", "", "", false, false, "Published", false, false);
+
+                                swal({
+                                    title: "Unit Added",
+                                    text: "This unit has been added successfully.",
+                                    type: "success",
+                                    showCancelButton: true,
+                                    confirmButtonColor: "#3FABE1",
+                                    confirmButtonText: "Terrific",
+                                    cancelButtonText: "Add Another One",
+                                    closeOnCancel: true,
+                                }, function (isConfirm) {
+                                    if (!isConfirm) {
+                                        $scope.addUnit();
+                                    }
+                                });
+                            }
+                            else {
+                                swal({
+                                    title: "Uh Oh",
+                                    text: data.ErrorMessage,
+                                    type: "error",
+                                    showCancelButton: false,
+                                    confirmButtonColor: "#3FABE1",
+                                    confirmButtonText: "Ok",
+                                });
+                            }
+                        });
+                    }
+                    else
+                    {
+                        // Editing An Existing Unit
+                        unitData.isNewUnit = false;
+                        unitData.UnitId = $scope.editingUnitId;
+
+                        propertiesService.EditUnitInProperty(propId, unitData, userdetails.landlordId, userdetails.accessToken, function (data) {
+                            console.log("Edit Unit service response...");
+                            console.log(data);
+
+                            if (data.IsSuccess == true) {
+                                // Update table to add row for the newly created unit immediately (instead of waiting for page refresh)
+                                $scope.addTblRow(unitData.IsTenantAdded, userdetails.landlordId, data.PropertyIdGenerated, unitData.UnitNum, unitData.Rent, "", "", "", "", false, false, "Published", false, false);
+
+                                swal({
+                                    title: "Unit Updated",
+                                    text: "That unit has been updated successfully.",
+                                    type: "success",
+                                    showCancelButton: false,
+                                    confirmButtonColor: "#3FABE1",
+                                    confirmButtonText: "OK",
+                                }, function () {
+                                    // Now get the Property's details from the server again to update the data table
+                                    // (Actually might not need to do this... because of the $scope.addTbleRow()... think that updates if the unit already exists somehow)
+                                    //console.log("Attempting to destroy the Data Table");
+                                    //$scope.propUnitsTable.destroy();
+                                    //getPropertyDetails();
+                                });
+                            }
+                            else {
+                                swal({
+                                    title: "Uh Oh",
+                                    text: "We had some trouble updating that unit.  Please try again, or contact <a href='mailto:support@nooch.com' target='_blank'>Nooch Support</a>!",
+                                    type: "error",
+                                    showCancelButton: false,
+                                    confirmButtonColor: "#3FABE1",
+                                    confirmButtonText: "Ok",
+                                    html: true
+                                });
+                            }
+                        });
+                    }
                 }
                 else {
                     updateValidationUi("monthlyRent", false);
@@ -1453,7 +1513,7 @@ noochForLandlords
                 //console.log('single unit val ' + $scope.inputData.SingleUnitRent);
             }
 
-            propertiesService.SaveProperty($scope.inputData, userdetails.landlordId, userdetails.accessToken, function (data) {
+            propertiesService.SaveProperty($scope.inputData, userdetails.landlordId, userdetails.memberId, userdetails.accessToken, function (data) {
                 if (data.IsSuccess == false) {
                     swal({
                         title: "Ooops Error!",
@@ -1731,7 +1791,7 @@ noochForLandlords
 					$rootScope.userDetailsRoot.fName = response.FirstName;
 					$rootScope.userDetailsRoot.lName = response.LastName;
 					$rootScope.isIdVerified = response.isIdVerified;
-					$rootScope.isPhoneVerified = response.IsPhoneVerified;
+					$rootScope.IsPhoneVerified = response.IsPhoneVerified;
 					$rootScope.IsEmailVerified = response.IsEmailVerified;
 
 					$scope.userInfo.birthDay = response.DOB;
@@ -2613,23 +2673,18 @@ noochForLandlords
     .controller('accntChecklistCtrl', function ($rootScope, $scope, getProfileService, authenticationService) {
 
         $scope.checklistItems = {
-            confirmEmail: 1,
-            connectBank: 0,
-            confirmPhone: 1,
-            verifyId: 0,
+            isBankAdded: 0,
             addProp: 0,
             addTenant: 0,
             acceptPayment: 0,
             percentComplete: 0
         }
 
-
         if (authenticationService.IsValidUser() == true) {
             var userdetails = authenticationService.GetUserDetails();
 
             getProfileService.GetAccountCompletionStats(userdetails.landlordId, userdetails.accessToken, function (response) {
-                console.log("GetAccountCompletionStats is... (next line):");
-                console.log(response);
+                //console.log(response);
 
                 if (response.AllPropertysCount > 0) {
                     $scope.checklistItems.addProp = 1;
@@ -2643,19 +2698,22 @@ noochForLandlords
                     $scope.checklistItems.addTenant = 0;
                 }
 
-                $scope.checklistItems.connectBank = response.IsAccountAdded;
-                $scope.checklistItems.confirmEmail = response.IsEmailVerified;
-                $scope.checklistItems.confirmPhone = response.IsPhoneVerified;
-                $scope.checklistItems.verifyId = response.isIdVerified;
-                $rootScope.isIdVerified = response.isIdVerified; // Also updating the RootScope
+                $scope.checklistItems.isBankAdded = response.IsAccountAdded;
                 $scope.checklistItems.acceptPayment = response.IsAnyRentReceived;
 
+                console.log($rootScope.isIdVerified);
+                console.log($rootScope.IsPhoneVerified);
+                console.log($rootScope.IsEmailVerified);
 
-                $scope.checklistItems.percentComplete = ((($scope.checklistItems.confirmEmail + $scope.checklistItems.confirmPhone + $scope.checklistItems.verifyId +
-                             $scope.checklistItems.connectBank + $scope.checklistItems.addProp + $scope.checklistItems.addTenant + $scope.checklistItems.acceptPayment)
+                $scope.checklistItems.percentComplete = ((($rootScope.IsEmailVerified + $rootScope.IsPhoneVerified + $rootScope.isIdVerified +
+                             $scope.checklistItems.isBankAdded + $scope.checklistItems.addProp + $scope.checklistItems.addTenant + $scope.checklistItems.acceptPayment)
                              / 7) * 100).toFixed(0);
 
-                console.log('percent profile ' + $scope.checklistItems.percentComplete);
+                // Script for the Counters for Facts Section
+                var numAnim = new CountUp("countUp", 0, $scope.checklistItems.percentComplete, 0, 3, {
+                    useEasing: true
+                });
+                numAnim.start();
             });
         }
         else {
@@ -2667,8 +2725,8 @@ noochForLandlords
             var userdetails = authenticationService.GetUserDetails();
             getProfileService.ResendVerificationEmailOrSMS(userdetails.landlordId, "Landlord", sendWhat, function (response) {
 				console.log(response);
-				console.log(response.IsSuccess);
-                if (response.IsSuccess && response.IsSuccess == true) 
+
+				if (response.IsSuccess && response.IsSuccess == true)
 				{
 					console.log("Inside success");
                     if (sendWhat == "Email") {

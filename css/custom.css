@@ -588,6 +588,15 @@ form .alert {
     top: 11px;
 }
 
+.modal-backdrop.fade {
+  opacity: 0;
+  filter: alpha(opacity=0);
+}
+
+.modal-backdrop.in {
+  opacity: 0.5;
+  filter: alpha(opacity=50);
+}
 
 /**** POPOVERS ****/
 .popover {
@@ -1278,6 +1287,13 @@ form .checkbox.haserror .input-helper:before {
 @media (min-width: 768px) {
     #profileMain .pmbb-body .dl-horizontal dt {
         overflow: visible;
+    }
+
+    #profileMain .pmbb-body .dl-horizontal dt > i {
+        font-size: 18px;
+        line-height: 1.1;
+        position: relative;
+        top: -2px;
     }
 
     .dl-horizontal dd {

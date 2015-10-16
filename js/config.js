@@ -80,7 +80,19 @@ noochForLandlords
         //------------------------------
         .state('properties', {
             url: '/properties',
-            templateUrl: 'views/properties.html'
+            templateUrl: 'views/properties.html',
+            resolve: {
+                loadPlugin: function ($ocLazyLoad) {
+                    return $ocLazyLoad.load([
+                        {
+                            name: 'vendors',
+                            files: [
+                                'vendors/countup/countup.min.js'
+                            ]
+                        }
+                    ])
+                }
+            }
         })
         .state('add-property', {
             url: '/add-property',

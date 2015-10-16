@@ -7330,16 +7330,6 @@ button.close {
   background-color: #000000;
 }
 
-.modal-backdrop.fade {
-  opacity: 0;
-  filter: alpha(opacity=0);
-}
-
-.modal-backdrop.in {
-  opacity: 0.5;
-  filter: alpha(opacity=50);
-}
-
 .modal-header {
   padding: 15px;
   border-bottom: 1px solid transparent;
