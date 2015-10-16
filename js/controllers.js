@@ -2701,25 +2701,33 @@ noochForLandlords
                 $scope.checklistItems.isBankAdded = response.IsAccountAdded;
                 $scope.checklistItems.acceptPayment = response.IsAnyRentReceived;
 
-                console.log($rootScope.isIdVerified);
-                console.log($rootScope.IsPhoneVerified);
-                console.log($rootScope.IsEmailVerified);
-
                 $scope.checklistItems.percentComplete = ((($rootScope.IsEmailVerified + $rootScope.IsPhoneVerified + $rootScope.isIdVerified +
                              $scope.checklistItems.isBankAdded + $scope.checklistItems.addProp + $scope.checklistItems.addTenant + $scope.checklistItems.acceptPayment)
                              / 7) * 100).toFixed(0);
 
-                // Script for the Counters for Facts Section
-                var numAnim = new CountUp("countUp", 0, $scope.checklistItems.percentComplete, 0, 3, {
-                    useEasing: true
-                });
-                numAnim.start();
+                setTimeout(function () {
+                    $('#acntChecklistCard .main-pie').easyPieChart({
+                        size: 130,
+                        barColor: "#3fabe1",
+                        trackColor: "#f2f2f2",
+                        scaleColor: "#dfe0e0",
+                        lineCap: "round",
+                        animate: 2300,
+                    });
+
+                    var numAnim = new CountUp("countUp", 0, $scope.checklistItems.percentComplete, 0, 2.5);
+                    numAnim.start();
+                }, 100);
+
+               // setTimeout(function () {
+                    // Script for the Counters for Facts Section
+                    
+                //}, 1000);
             });
         }
         else {
             window.location.href = 'login.html';
         }
-
 
         $scope.ResendVerificationEmailOrSMS = function (sendWhat) {
             var userdetails = authenticationService.GetUserDetails();
