@@ -1731,6 +1731,8 @@ noochForLandlords
 					$rootScope.userDetailsRoot.fName = response.FirstName;
 					$rootScope.userDetailsRoot.lName = response.LastName;
 					$rootScope.isIdVerified = response.isIdVerified;
+					$rootScope.isPhoneVerified = response.IsPhoneVerified;
+					$rootScope.IsEmailVerified = response.IsEmailVerified;
 
 					$scope.userInfo.birthDay = response.DOB;
 
@@ -2480,6 +2482,56 @@ noochForLandlords
                 }
             });
         }
+
+        $scope.deleteBank = function () {
+            console.log("DELETE BANK DIRECTIVE");
+
+            swal({
+                title: "Are you sure?",
+                text: "You are about to delete this property from your account.  This cannot be undone.",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Yes, delete it",
+                cancelButtonText: "No, keep it",
+                closeOnConfirm: false,
+                closeOnCancel: false
+            }, function (isConfirm) {
+                if (isConfirm)
+                {
+                    getBanksService.deleteBank(userdetails.landlordId, userdetails.memberId, userdetails.accessToken, function (response) {
+                        console.log('Banks Controller -> Get Banks Response data -> ' + JSON.stringify(response));
+
+                        if (response.success == true)
+                        {
+                            if (response.msg == "ok")
+                            {
+                                $scope.bankCount = 1;
+                                $scope.bankName = "";
+                                $scope.bankNickname = "";
+                                $scope.accntNum = "";
+                                $scope.bankImg = "";
+                                $scope.bankStatus = "";
+                                $scope.bankAllowed = "";
+                                $scope.bankCreatedOn = "";
+
+                                swal("Deleted!", "That bank has been deleted.", "success");
+                            }
+                            console.log("Get Banks SUCCESS (Controller)");
+                        }
+                        else
+                        {
+                            console.log("Get Banks FAILURE (Controller)");
+
+                            swal("Oh No!", "We ran into some trouble trying to delete that bank.  Please try again!", "error");
+                        }
+                    });
+
+                    $('.media#bank').fadeOut();
+                }
+            });
+        }
+
     })
 
     // Delete Bank Account Popup
@@ -2488,29 +2540,7 @@ noochForLandlords
             restrict: 'A',
             link: function (scope, element, attrs) {
                 element.click(function () {
-                    console.log("DELETE BANK DIRECTIVE");
-                    console.log(attrs.id);
-                    var bankId = attrs.id;
-                    swal({
-                        title: "Are you sure?",
-                        text: "You are about to delete this property from your account.  This cannot be undone.",
-                        type: "warning",
-                        showCancelButton: true,
-                        confirmButtonColor: "#DD6B55",
-                        confirmButtonText: "Yes, delete it",
-                        cancelButtonText: "No, keep it",
-                        closeOnConfirm: false,
-                        closeOnCancel: false
-                    }, function (isConfirm) {
-                        if (isConfirm) {
-                            swal("Deleted!", "That bank has been deleted.", "success");
-
-                            $('.media#bank' + bankId).fadeOut();
-                        }
-                        else {
-                            swal("Cancelled", "No worries, this bank is safe :)");
-                        }
-                    });
+                    
                 });
             }
         }

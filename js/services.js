@@ -664,5 +664,19 @@ noochForLandlords
                 });
         };
 
+        Operations.deleteBank = function (landlordId, memberId, accessToken, callback) {
+
+            var data = {};
+            data.LandlordId = landlordId;
+            data.AccessToken = accessToken;
+            data.MemberId = memberId;
+
+            $http.post(URLs.DeleteBank, data)
+                .success(function (response) {
+                    console.log("Services -> DeleteBank -> SUCCESS!");
+                    callback(response);
+                });
+        };
+
         return Operations;
     })
