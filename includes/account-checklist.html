@@ -9,8 +9,8 @@
         <div class="lv-body">
 
             <div class="text-center">
-                <div class="easy-pie main-pie animate fadeIn" data-percent="{{checklistItems.percentComplete}}" dat-chart>
-                    <div class="percent c-blue" id="countUp">{{ checklistItems.percentComplete }}</div>
+                <div class="easy-pie main-pie animated fadeIn" data-percent="{{checklistItems.percentComplete}}" dat-chart>
+                    <div class="percent c-blue" id="countUp">0</div>
                     <div class="pie-title c-gray">Account Progress</div>
                 </div>
             </div>
@@ -235,22 +235,3 @@
 </div>
 
 <script src="vendors/bower_components/jquery.easy-pie-chart/dist/jquery.easypiechart.min.js"></script>
-
-<script>
-    setTimeout(function () {
-        $('#acntChecklistCard .main-pie').easyPieChart({
-            size: 130,
-            barColor: "#3fabe1",
-            trackColor: "#f2f2f2",
-            scaleColor: "#dfe0e0",
-            lineCap: "round",
-            animate: 1750,
-        });
-    }, 200);
-
-    //$('#acntChecklistCard .main-pie').mouseenter(function () {
-    //    setTimeout(function () {
-    //        $('#acntChecklistCard .main-pie').data('easyPieChart').update(40);
-    //    }, 3000);
-    //});
-</script>
