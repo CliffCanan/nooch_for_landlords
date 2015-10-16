@@ -16,7 +16,10 @@ var URLs = {
     EditProfileData: PATH + 'Users/EditUserInfo',
     submitIdVerWizard: PATH + 'Users/submitLandlordIdVerWiz',
     UploadLandlordProfileImage: PATH + 'Users/UploadLandlordProfileImage',
+
+    // Bank APIs
     GetBanks: PATH + 'Users/GetBankAccountDetails',
+    DeleteBank: PATH + 'Users/DeleteSynapseBankAccount',
 
     // Property APIs
     AddProperty: PATH + 'Properties/AddNewProperty',

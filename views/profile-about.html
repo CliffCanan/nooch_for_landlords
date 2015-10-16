@@ -52,10 +52,6 @@
                             <dt>Date of Birth</dt>
                             <dd>{{ userInfo.birthDay }}</dd>
                         </dl>
-                        <!--<dl class="dl-horizontal">
-                            <dt>SSN<small>Last 4 Only</small></dt>
-                            <dd>{{ userInfo.ssnLast4 }}</dd>
-                        </dl>-->
                     </div>
 
                     <form data-ng-submit="pctrl.submit('personalInfo', 'Profile Information')" class="pmbb-edit" data-ng-if="pctrl.editPersonalInfo === 1">
@@ -77,14 +73,6 @@
                                 </div>
                             </dd>
                         </dl>
-                        <!--<dl class="dl-horizontal">
-                            <dt class="p-t-10">SSN<small>Last 4 Digits Only</small></dt>
-                            <dd>
-                                <div class="dtp-container dropdown fg-line">
-                                    <input data-ng-model="userInfo.ssnLast4" type='num' class="form-control" value="{{ userInfo.ssnLast4 }}" placeholder="eg. 1234" data-input-mask="{mask: '0000'}">
-                                </div>
-                            </dd>
-                        </dl>-->
 
                         <div class="m-t-30 text-center">
                             <button class="btn btn-primary" type="submit">Save</button>
