@@ -57,7 +57,7 @@ noochForLandlords
 
         var Operations = {};
 
-        Operations.SaveProperty = function (propertyData, memberId, accessToken, callback) {
+        Operations.SaveProperty = function (propertyData, landlordId, memberId, accessToken, callback) {
 
             var data = {};
             data.PropertyName = propertyData.propertyName;
@@ -70,7 +70,8 @@ noochForLandlords
             data.IsMultipleUnitsAdded = propertyData.IsMultipleUnitsAdded;
 
             data.User = {
-                LandlorId: memberId,
+                LandlordId: landlordId,
+                MemberId: memberId,
                 AccessToken: accessToken
             };
 
@@ -103,33 +104,53 @@ noochForLandlords
                 });
         };
 
-        Operations.AddNewUnit = function (propertyId, unitData, memberId, accessToken, callback) {
+        Operations.AddNewUnit = function (propertyId, unitData, landlordId, accessToken, callback) {
 
             var data = {};
-
 
             data.PropertyId = propertyId;
             data.Unit = unitData;
 
             data.User = {
-                LandlorId: memberId,
+                LandlorId: landlordId,
                 AccessToken: accessToken
             };
-
 
 
             $http.post(URLs.AddNewUnitInProperty, data)
                 .success(function (response) {
                     if (response.IsSuccess && response.IsSuccess == true) {
                         authenticationService.ManageToken(response.AuthTokenValidation);
-                        // console.log('came in success');
                     }
                     callback(response);
                 });
         };
 
 
-        Operations.EditProperty = function (propertyData, memberId, accessToken, callback) {
+        Operations.EditUnitInProperty = function (propertyId, unitData, landlordId, accessToken, callback) {
+
+            var data = {};
+
+            data.PropertyId = propertyId;
+            data.Unit = unitData;
+
+            data.User = {
+                LandlorId: landlordId,
+                AccessToken: accessToken
+            };
+
+
+            $http.post(URLs.EditUnitInProperty, data)
+                .success(function (response) {
+                    if (response.IsSuccess && response.IsSuccess == true) {
+                        authenticationService.ManageToken(response.AuthTokenValidation);
+                    }
+                    callback(response);
+                });
+        };
+
+
+        Operations.EditProperty = function (propertyData, landlordId, accessToken, callback) {
 
             var data = {};
             data.PropertyName = propertyData.propertyName;
@@ -141,7 +162,7 @@ noochForLandlords
             data.PropertyId = propertyData.propId;
 
             data.User = {
-                LandlorId: memberId,
+                LandlordId: landlordId,
                 AccessToken: accessToken
             };
 

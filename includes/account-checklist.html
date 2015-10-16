@@ -3,14 +3,14 @@
     <div class="listview" data-ng-controller="accntChecklistCtrl as chkLstCtrl">
 
         <div class="lv-header">
-            Account Checklist <i class="md md-content-paste m-l-10"></i>
+            Account Checklist <i class="md md-assignment-turned-in m-l-10"></i>
         </div>
 
         <div class="lv-body">
 
             <div class="text-center">
                 <div class="easy-pie main-pie animate fadeIn" data-percent="{{checklistItems.percentComplete}}" dat-chart>
-                    <div class="percent c-blue">{{ checklistItems.percentComplete }}</div>
+                    <div class="percent c-blue" id="countUp">{{ checklistItems.percentComplete }}</div>
                     <div class="pie-title c-gray">Account Progress</div>
                 </div>
             </div>
@@ -50,7 +50,7 @@
             <div class="lv-item">
                 <div class="checkbox media">
                     <div class="pull-right">
-                        <ul class="actions" ng-if="isPhoneVerified == 0">
+                        <ul class="actions" ng-if="IsPhoneVerified == 0">
                             <li class="dropdown">
                                 <a href="" data-toggle="dropdown">
                                     <i class="md md-info"></i>
@@ -64,16 +64,16 @@
                     </div>
                     <div class="media-body">
                         <label>
-                            <span ng-if="isPhoneVerified == 0">
+                            <span ng-if="IsPhoneVerified == 0">
                                 <input type="checkbox" disabled>
                                 <i class="input-helper"></i>
                                 <span> Confirm Phone Number</span>
                             </span>
-                            <span ng-if="isPhoneVerified == 1">
+                            <span ng-if="IsPhoneVerified == 1">
                                 <input type="checkbox" disabled checked>
                                 <i class="input-helper"></i>
                                 <span><s>Confirm Phone Number</s></span>
-                            </span>                            
+                            </span>
                         </label>
                     </div>
                 </div>
@@ -115,14 +115,14 @@
             <div class="lv-item">
                 <div class="checkbox media">
                     <div class="pull-right">
-                        <ul class="actions" ng-if="checklistItems.connectBank == 0">
+                        <ul class="actions" ng-if="checklistItems.isBankAdded == 0">
                             <li class="dropdown">
                                 <a href="" data-toggle="dropdown">
                                     <i class="md md-info"></i>
                                 </a>
 
                                 <ul class="dropdown-menu dropdown-menu-right">
-                                <!--<li><a href="">Learn More</a></li>-->
+                                    <!--<li><a href="">Learn More</a></li>-->
                                     <li><a href="#/profile/profile-bankaccounts">Go Now</a></li>
                                 </ul>
                             </li>
@@ -130,12 +130,12 @@
                     </div>
                     <div class="media-body">
                         <label>
-                            <span ng-if="checklistItems.connectBank == 0">
+                            <span ng-if="checklistItems.isBankAdded == 0">
                                 <input type="checkbox" disabled>
                                 <i class="input-helper"></i>
                                 <span>Connect Bank Account</span>
                             </span>
-                            <span ng-if="checklistItems.connectBank == 1">
+                            <span ng-if="checklistItems.isBankAdded == 1">
                                 <input type="checkbox" disabled checked>
                                 <i class="input-helper"></i>
                                 <span><s>Connect Bank Account</s></span>
