@@ -151,7 +151,7 @@ noochForLandlords
         // CLIFF (10.10.15): Adding code for showing the New User Tour
         // Instance the tour
 
-        if ($rootScope.hasSeenNewUserTour != true)
+        if ($rootScope.hasSeenNewUserTour != true && $rootScope.isIdVerified === false)
         {
             console.log('HOME -> starting tour!');
 
@@ -341,9 +341,9 @@ noochForLandlords
 
 							$('.selectpicker').selectpicker('refresh');
 
-							console.log($scope.selectedProperty);
+							//console.log($scope.selectedProperty);
 							console.log("UNIT LIST...");
-							//console.log($scope.allUnitsList);
+							console.log($scope.allUnitsList);
 
 							$scope.propUnitsTable = $('#propUnits').on('init.dt', function () {
 								//console.log('Table initialisation complete');
@@ -403,6 +403,80 @@ noochForLandlords
 								trigger: "hover"
 							});
 
+							// SEND MESSAGE BTN CLICKED
+							$('#propUnits tbody .btn.msgUnitBtn').click(function () {
+								var data = $scope.propUnitsTable.row($(this).parents('tr')).data();
+								console.log(data);
+
+								$scope.editingUnitId = data['UnitId'];
+
+								if (data['IsOccupied'] != null && data['IsOccupied'] == true) {
+									// Reset each field
+									$('#sndMsgForm #tenantMsgGrp').removeClass('has-error').removeClass('has-success');
+									$('#sndMsgForm #msgGrp').removeClass('has-error').removeClass('has-success');
+									$('#sndMsgForm #msg').val('');
+
+									if ($('#tenantMsgGrp .help-block').length) {
+										$('#tenantMsgGrp .help-block').slideUp();
+									}
+									if ($('#msgGrp .help-block').length) {
+										$('#msgGrp .help-block').slideUp();
+									}
+
+									$('#sndMsgForm .well div').text('Enter a message below to send to ' + data['TenantName']);
+
+									$('#sendMsgModal').modal();
+								}
+								else
+								{
+									swal({
+										title: "Unoccupied Unit",
+										text: "That unit has no tenant yet!  Would you like to invite a tenant to pay rent for this unit?",
+										type: "warning",
+										confirmButtonColor: "#3fabe1",
+										confirmButtonText: "Yes",
+										showCancelButton: true,
+										cancelButtonText: "Not Now",
+										closeOnConfirm: false
+									}, function (isConfirm) {
+										console.log("Checkpoint bravo");
+										if (isConfirm)
+										{
+											swal({
+												title: "Unoccupied Unit",
+												text: "Enter your tenant's email address and we will invite them to pay their rent for this unit.",
+												type: "input",
+												inputPlaceholder: "example@email.com",
+												showCancelButton: true,
+												confirmButtonColor: "#3fabe1",
+												confirmButtonText: "Send",
+												cancelButtonText: "Cancel",
+												closeOnConfirm: false
+											}, function (input) {
+												console.log(input);
+												if (input ==="")
+												{
+													swal.showInputError("Please enter an email address!")
+													return false;
+												}
+
+												// NEED TO ADD CODE HERE TO CALL SERVICE FOR SENDING AN INVITE TO THE TENANT
+
+												// On Success
+												swal({
+													title: "Invite Sent",
+													text: "Your request has been sent.  We will notify you when this person accepts and signs up.",
+													type: "success",
+													confirmButtonColor: "#3fabe1",
+													confirmButtonText: "Great"
+												});
+												
+											});
+										}
+									});
+								}
+							});
+							
 							// EDIT UNIT BTN CLICKED
 							$('#propUnits tbody .btn.editUnitBtn').click(function () {
 
@@ -2792,9 +2866,9 @@ noochForLandlords
         $(document).ready(function() {
             //if ($('#l-login').hasClass('hidden')) {
             setTimeout(function() {
-                $('#l-login').removeClass('hidden');
+                $('#l-register').removeClass('hidden');
             }, 500, function() {
-                $('#l-login').removeClass('bounceIn').addClass('fadeIn');
+                $('#l-register').removeClass('bounceIn').addClass('fadeIn');
             });
             // This function checks a field on focusout (when the user moves to the next field) and updates Validation UI accordingly
             $(document).on("focusout", "form#reg input", function() {
@@ -2974,7 +3048,7 @@ noochForLandlords
                                     localStorage.setItem('userLoginName', $scope.LoginData.username);
                                     localStorage.setItem('userLoginPass', $scope.LoginData.password);  
                                 }
-                                $rootScope.hasSeenNewUserTour = false;
+
                                 authenticationService.SetUserDetails($scope.LoginData.username, response.MemberId, response.LandlordId, response.AccessToken);
                                 window.location.href = 'index.html#/home';
                             }

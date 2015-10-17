@@ -176,8 +176,8 @@
                                     <div class="profile-view">
 
                                         <div class="pv-header">
-                                            <div class="pv-main" data-ng-click="editPropPic()">
-                                                <img src="{{ selectedProperty.imgUrl }}" alt="Property Picture" id='propImage'>
+                                            <div class="pv-main animated zoomIn" data-ng-click="editPropPic()">
+                                                <img src="{{ selectedProperty.imgUrl }}" id='propImage' alt="Property Picture">
                                             </div>
                                         </div>
 
@@ -475,7 +475,7 @@
                             <div class="f-16">Tell us a little about the unit.</div>
                         </div>
 
-                        <div class="form-group col-sm-6" id="unitNumGrp">
+                        <div class="col-xs-12 col-sm-6" id="unitNumGrp">
                             <label for="unitNum" class="col-sm-5 p-l-0 p-r-0 control-label">Unit Number</label>
 
                             <div class="col-sm-7">
@@ -485,7 +485,7 @@
                             </div>
                         </div>
 
-                        <div class="form-group col-sm-6" id="nicknameGrp">
+                        <div class="col-xs-12 col-sm-6" id="nicknameGrp">
                             <label for="nickname" class="col-sm-4 p-r-0 control-label">
                                 Nickname
                                 <small>
@@ -494,13 +494,13 @@
                             </label>
                             <div class="col-sm-8">
                                 <div class="fg-line">
-                                    <input type='text' id="nickname" class="form-control placeholder-sm" placeholder="'Attic', 'Nancy's House'" maxlength="20" required>
+                                    <input type='text' id="nickname" class="form-control placeholder-sm" placeholder="'Attic', 'Nancy's House'" maxlength="30" required>
                                 </div>
                             </div>
 
                         </div>
 
-                        <div class="form-group" id="monthlyRentGrp">
+                        <div class="col-xs-12" id="monthlyRentGrp">
                             <label for="monthlyRent" class="col-sm-3 control-label">Monthly Rent</label>
                             <div class="col-sm-3 p-r-0">
                                 <div class="input-group">
@@ -510,7 +510,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <label for="memo" class="col-sm-2 p-r-0 control-label">Due On</label>
+                            <label for="unitRentDueDate" class="col-sm-2 p-r-0 control-label">Due On</label>
                             <div class="col-sm-4">
                                 <select data-select-picker id="unitRentDueDate">
                                     <option selected>1st of Month</option>
@@ -521,13 +521,13 @@
                             </div>
                         </div>
 
-                        <div class="form-group" id="tenantGrp">
-                            <label for="tenant" class="col-sm-3 control-label"><i class="md md-person m-r-5"></i>Tenant<small>Optional</small></label>
+                        <div class="col-xs-12" id="tenantGrp">
+                            <label for="unitTenants" class="col-sm-3 control-label"><i class="md md-person m-r-5"></i>Tenant<small>Optional</small></label>
                             <div class="col-sm-9">
                                 <select data-select-picker data-live-search="true" id="unitTenants">
                                     <option selected="">Select A Tenant</option>
                                     <option data-ng-repeat="tenant in tenantsListForThisPorperty" value="{{tenant.TenantId}}">{{tenant.Name}} </option>
-                                    <option>NO TENANT YET</option>
+                                    <option value="1">NO TENANT YET</option>
                                     <!--<option>Frank Quinterro &nbsp;(quit.frank@gmail.com)</option>
                                     <option>Kareem O'Leary &nbsp;(lighteningbolt@gmail.com)</option>
                                     <option>Usain Quick &nbsp;(lighteningbolt@gmail.com)</option>-->
@@ -535,17 +535,17 @@
                             </div>
                         </div>
 
-                        <div class="form-group" id="memoGrp">
-                            <label for="memo" class="col-sm-3 control-label">Start Date<small>Optional</small></label>
+                        <div class="col-xs-12" id="startDateGrp">
+                            <label for="addUnitDatePicker" class="col-sm-3 control-label">Start Date<small>Optional</small></label>
                             <div class="col-sm-4">
                                 <div class="input-group">
                                     <span class="input-group-addon p-r-0"><i class="md md-event"></i></span>
                                     <div class="dtp-container dropdown fg-line p-r-0">
-                                        <input id="addUnitDatePicker" data-dt-picker data-format="MM/DD/YYYY" type='text' class="form-control date-picker" data-toggle="dropdown" placeholder="eg. 08/05/1978">
+                                        <input id="addUnitDatePicker" data-dt-picker data-format="MM/DD/YYYY" type='text' class="form-control date-picker" data-toggle="dropdown" placeholder="07/04/1976">
                                     </div>
                                 </div>
                             </div>
-                            <label for="memo" class="col-sm-1 p-l-0 p-r-0 control-label">Length</label>
+                            <label for="rentDurationInMonths" class="col-sm-1 p-l-0 p-r-0 control-label">Length</label>
                             <div class="col-sm-4">
                                 <select data-select-picker id="rentDurationInMonths">
                                     <option selected="">1 Month</option>
@@ -562,7 +562,7 @@
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default pull-left" data-dismiss="modal"><i class="md md-close m-r-10"></i>Cancel</button>
-                    <button type="button" id="submitChargeTenant" class="btn btn-primary" ng-click="addUnit_submit()"><i class="md md-check m-r-10"></i>Save Unit</button>
+                    <button type="button" id="submitChargeTenant" class="btn btn-primary pull-right" ng-click="addUnit_submit()"><i class="md md-check m-r-10"></i>Save Unit</button>
                 </div>
 
             </div>
