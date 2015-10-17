@@ -2514,7 +2514,6 @@ noochForLandlords
 
     .controller('banksCtrl', function ($scope, authenticationService, getBanksService) {
         this.isBankAttached = true;
-        $scope.bankCount = 0;
 
 		// Get User's Info from DB
         if (authenticationService.IsValidUser() == true) {

@@ -966,7 +966,7 @@ form .checkbox.haserror .input-helper:before {
         top: -3px;
     }
 
-        #profile-main .pmb-block .pmbb-header .actions:before {
+        #profAbout .pmb-block .pmbb-header .actions:before {
             content: "";
             background: rgba(147,149,152,.6);
             width: 1px;
@@ -2287,8 +2287,8 @@ table tbody .unitInTable {
     @-webkit-keyframes fadeInRightSm {
         0% {
             opacity: 0;
-            -webkit-transform: translate3d(12%, 0, 0);
-            transform: translate3d(12%, 0, 0);
+            -webkit-transform: translate3d(10%, 0, 0);
+            transform: translate3d(10%, 0, 0);
         }
 
         100% {
@@ -2301,8 +2301,8 @@ table tbody .unitInTable {
     @keyframes fadeInRightSm {
         0% {
             opacity: 0;
-            -webkit-transform: translate3d(12%, 0, 0);
-            transform: translate3d(12%, 0, 0);
+            -webkit-transform: translate3d(10%, 0, 0);
+            transform: translate3d(10%, 0, 0);
         }
 
         100% {

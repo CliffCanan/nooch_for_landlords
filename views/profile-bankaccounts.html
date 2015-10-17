@@ -1,6 +1,6 @@
-<div data-ng-controller="banksCtrl as bctrl" id="prof-ba">
+<div class="animated fadeInRightSm" data-ng-controller="banksCtrl as bctrl" id="prof-ba">
 
-    <div class="jumbotron text-center m-b-0" data-ng-if="bankCount === 0 || bankCount === nil">
+    <div class="jumbotron text-center m-b-0" data-ng-if="bankCount === 0">
         <h2>Start Getting Paid</h2>
 
         <p class="m-b-25">
@@ -51,8 +51,8 @@
                         <div class="col-xs-10" data-toggle="collapse" data-target="#bankform1" aria-expanded="false" aria-controls="bankform1">
                             <h4 class="media-heading">
                                 {{ bankName | capitalize }}
-                                <span class="label label-primary m-l-15" data-ng-if="bankCount > 1">Primary</span>
-                                <a class="label label-default m-l-15 f-300" id="bank1" data-bankname="{{ bankName }}" data-ng-if="bankCount > 0 " data-ng-click="bctrl.makePrimary($event)">Make Primary</a>
+                                <span class="label label-primary m-l-15" data-ng-if="bankCount === 1">Primary</span>
+                                <a class="label label-default m-l-15 f-300" id="bank1" data-bankname="{{ bankName }}" data-ng-if="bankCount > 1" data-ng-click="bctrl.makePrimary($event)">Make Primary</a>
                             </h4>
                             {{ bankNickname | capitalize }} - {{ accntNum }}
                             <p class="bank-status">{{ bankStatus | capitalize}}</p>

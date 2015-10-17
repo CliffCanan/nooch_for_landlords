@@ -36,8 +36,8 @@ noochForLandlords
                             files: [
                                 'vendors/sparklines/jquery.sparkline.min.js',
                                 'vendors/bower_components/jquery.easy-pie-chart/dist/jquery.easypiechart.min.js',
-                                'vendors/bower_components/simpleWeather/jquery.simpleWeather.min.js',
-                                'vendors/bower_components/bootstrap-tour/build/js/bootstrap-tour.min.js'
+                                'vendors/bower_components/bootstrap-tour/build/js/bootstrap-tour.min.js',
+                                'vendors/countup/countup.min.js'
                             ]
                         }
                     ])
