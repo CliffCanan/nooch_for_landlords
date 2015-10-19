@@ -6,8 +6,11 @@ noochForLandlords
     .controller('noochAdminCtrl', function ($rootScope, $timeout, $state, growlService, authenticationService) {
 
 		if (!authenticationService.IsValidUser()) {
-            growlService.growl('Please login to continue!', 'inverse');
-            window.location.href = 'login.html';
+		    console.log("adminCtrl -> User no longer valid!");
+
+		    growlService.growl('Please login to continue!', 'inverse');
+		    alert("User's auth token has expired... about to redirect to login page");
+		    window.location.href = 'login.html';
         }
 
         // Detect Mobile Browser
@@ -44,8 +47,12 @@ noochForLandlords
     // ===============================================================
     .controller('headerCtrl', function ($rootScope, $timeout, messageService, authenticationService) {
         if (!authenticationService.IsValidUser()) {
+            console.log("headCtrl -> User no longer valid!");
             window.location.href = 'login.html';
         }
+        console.log("HEADER -> USERNAME AND PW Storage...!");
+        console.log(localStorage.getItem('userLoginName'));
+        console.log(localStorage.getItem('userLoginPass'));
 
 		$rootScope.userDetailsRoot = {};
 		
@@ -101,7 +108,8 @@ noochForLandlords
                 closeOnConfirm: false
             }, function (isConfirm) {
                 if (isConfirm) {
-                    localStorage.clear();
+                    //localStorage.clear();
+                    localStorage.setItem('userLoginPass', "");
                     window.location.href = 'login.html';
                 }
             });
@@ -150,7 +158,6 @@ noochForLandlords
     .controller('homeCtrl', function ($rootScope, $scope, getProfileService, authenticationService) {
         // CLIFF (10.10.15): Adding code for showing the New User Tour
         // Instance the tour
-
         if ($rootScope.hasSeenNewUserTour != true && $rootScope.isIdVerified === false)
         {
             console.log('HOME -> starting tour!');
@@ -206,7 +213,7 @@ noochForLandlords
             }
 
             if (destination == '1') {
-                $rootScope.fromHome = true;
+                $rootScope.shouldDisplayOverviewAlert = true;
                 window.location.href = '#/profile/profile-about';
             }
             else if (destination == '2') {
@@ -290,13 +297,13 @@ noochForLandlords
 				}
 				else // Auth Token was not valid on server
 				{
-					authenticationService.ClearUserData();
+					//authenticationService.ClearUserData();
 					window.location.href = 'login.html';
 				}
             });
         };
 
-        $timeout(function () { getProperties(); }, 800);
+        $timeout(function () { getProperties(); }, 400);
     })
 
 
@@ -540,7 +547,7 @@ noochForLandlords
 								console.log(data['UnitId']);
 
 								swal({
-									title: "Remove unit #<span class='text-primary'>" + data['UnitNumber'] + "</span> from <span class='text-primary'>" + $scope.selectedProperty.name + "</span>?",
+									title: "Remove unit <span class='text-primary'>" + data['UnitNumber'] + "</span> from <span class='text-primary' style='display:inline-block'>" + $scope.selectedProperty.name + "</span>?",
 									text: "Note: this cannot be un-done!",
 									type: "warning",
 									showCancelButton: true,
@@ -589,7 +596,7 @@ noochForLandlords
 					}
 					else // Auth Token was not valid on server
 					{
-						authenticationService.ClearUserData();
+						//authenticationService.ClearUserData();
 						window.location.href = 'login.html';
 					}
                 });
@@ -1860,6 +1867,9 @@ noochForLandlords
     //=================================================
 
     .controller('profileCtrl', function ($rootScope, $scope, $compile, growlService, getProfileService, propertiesService, authenticationService) {
+        console.log("PROFILE -> USERNAME AND PW Storage...!");
+        console.log(localStorage.getItem('userLoginName'));
+        console.log(localStorage.getItem('userLoginPass'));
 
         $scope.userInfo = {};
 
@@ -1893,6 +1903,7 @@ noochForLandlords
 					$rootScope.IsEmailVerified = response.IsEmailVerified;
 					$rootScope.emailAddress = response.UserEmail;
 					$rootScope.ContactNumber = response.MobileNumber;
+					$rootScope.unitsCount = response.UnitsCount;
 
 					$scope.userInfo.birthDay = response.DOB;
 
@@ -1929,6 +1940,7 @@ noochForLandlords
 					$rootScope.propCount = response.PropertiesCount;
 					$scope.userInfo.propertiesCount = response.PropertiesCount;
 					$scope.userInfo.unitsCount = response.UnitsCount;
+					
 
 					// Set Company Info
 					$scope.company = {
@@ -1936,11 +1948,11 @@ noochForLandlords
 						ein: response.CompanyEID
 					}
 				}
-				else // Auth Token was not valid on server
+				/*else // Auth Token was not valid on server
 				{
 					authenticationService.ClearUserData();
 					window.location.href = 'login.html';
-				}
+				}*/
             });
         }
         else
@@ -2200,40 +2212,42 @@ noochForLandlords
         console.log("$rootScope.isIdVerified... (2018):");
         console.log($rootScope.isIdVerified);
 
-        if ($rootScope.isIdVerified == false)
+        if ($rootScope.isIdVerified === false)
         {
-			console.log("ID IS NOT VERIFIED YET");
-            // SINCE THIS CONTROLLER GETS CALLED ON MULTIPLE PAGES, THIS WILL ATTEMPT TO RUN THE WIZARD ON EVERY PAGE, CAUSING ERRORS SINCE IT'S
-            // ONLY SUPPOSED TO RUN ON THE PROFILE-ABOUT PAGE.  THE INTENT OF THIS BLOCK WAS TO INITIATE THE MODAL W/ THE WIZARD UPON PAGE LOAD
-            // ONLY WHEN ON THE PROFILE-ABOUT PAGE.  BUT I COULDN'T MOVE THE WIZARD CODE TO ANOTHER CONTROLLER BECAUSE I NEED ACCESS TO THE PROFILE
-            // INFO VARIABLES ABOVE... BUT THOSE REALLY SHOULD BE SEPARATED INTO A RE-USABLE 'SERVICE' SO THAT ANY CONTROLLER CAN ACCESS THEM...
-            // NEED TO WORK ON THAT...
-            if ($rootScope.fromHome == true) {
-				$rootScope.fromHome = false;
-				//$scope.runWizard();
+            console.log("ID IS NOT VERIFIED YET");
+
+            if ($rootScope.shouldDisplayOverviewAlert === true)
+            {
+                $rootScope.shouldDisplayOverviewAlert = false;
+
 				swal({
-                title: "Secure, Private Payments",
-                text: "<p>Nooch is a quick, secure way to collect rent payments without giving out your personal or bank details.</p>" +
-                      "<ul class='fa-ul'><li><i class='fa-li fa fa-check'></i>Verify You Identity</li>" +
-                      "<li><i class='fa-li fa fa-check'></i>Attach your bank account</li>" +
-                      "<li><i class='fa-li fa fa-check'></i>Add your properties to start collecting rent</li></ul>",
-                imageUrl: "img/secure.svg",
-                imageSize: "194x80",
-                showCancelButton: true,
-                cancelButtonText: "Verify Later",
-                confirmButtonColor: "#3fabe1",
-                confirmButtonText: "Verify ID Now",
-                //closeOnCancel: true,
-                customClass: "securityAlert",
-                allowEscapeKey: false,
-                html: true
-            }, function (isConfirm) {
-                if (isConfirm)
-                { 
-					$scope.runWizard();
-				}
-            });
-			}
+                    title: "Secure, Private Payments",
+                    text: "<p>Nooch is a quick, secure way to collect rent payments without giving out your personal or bank details.</p>" +
+                          "<ul class='fa-ul'><li><i class='fa-li fa fa-check'></i>Verify You Identity</li>" +
+                          "<li><i class='fa-li fa fa-check'></i>Attach your bank account</li>" +
+                          "<li><i class='fa-li fa fa-check'></i>Add your properties to start collecting rent</li></ul>",
+                    imageUrl: "img/secure.svg",
+                    imageSize: "194x80",
+                    showCancelButton: true,
+                    cancelButtonText: "Verify Later",
+                    confirmButtonColor: "#3fabe1",
+                    confirmButtonText: "Verify ID Now",
+                    //closeOnCancel: true,
+                    customClass: "securityAlert",
+                    allowEscapeKey: false,
+                    html: true
+                }, function (isConfirm) {
+                    if (isConfirm)
+                    { 
+					    $scope.runWizard();
+				    }
+                });
+            }
+            else if ($rootScope.shouldLaunchWizOnLoad === true)
+            {
+                $rootScope.shouldLaunchWizOnLoad = false;
+                $scope.runWizard();
+            }
         }
         $scope.runWizard = function () { runIdWizard(); }
 
@@ -2366,11 +2380,11 @@ noochForLandlords
                                         icon: '<span class="md md-panorama m-r-10 kv-caption-icon"></span>',
                                     },
                                     maxFileCount: 1,
-                                    maxFileSize: 250,
-                                    msgSizeTooLarge: "File '{name}' ({size} KB) exceeds the maximum allowed file size of {maxSize} KB. Please try a slightly smaller picture!",
+                                    maxFileSize: 350,
+                                    msgSizeTooLarge: "File '{name}' ({size} KB) is too big a file! Please try a picture under {maxSize} KB!",
                                     showCaption: false,
                                     showUpload: false,
-                                    uploadUrl: URLs.UploadLandlordProfileImage,  // NEED TO ADD URL TO SERVICE FOR SAVING PROFILE PIC (SEPARATELY FROM SAVING THE REST OF THE PROFILE INFO)
+                                    uploadUrl: URLs.UploadLandlordProfileImage,
                                     uploadExtraData: {
                                         LandlorId: $scope.userInfoInSession.landlordId,
                                         AccessToken: $scope.userInfoInSession.accessToken
@@ -2416,7 +2430,6 @@ noochForLandlords
                     var ssnLast4 = $scope.userInfo.ssnLast4;
                     var address = $scope.userInfo.address1;
                     var zip = $scope.userInfo.zip;
-
 
                     var DeviceInfo = {
                         LandlorId: $scope.userInfoInSession.landlordId,
@@ -2569,7 +2582,7 @@ noochForLandlords
     // Profile - BANK ACCOUNTS
     //=================================================
 
-    .controller('banksCtrl', function ($scope, authenticationService, getBanksService) {
+    .controller('banksCtrl', function ($rootScope, $scope, authenticationService, getBanksService) {
         this.isBankAttached = true;
 
 		// Get User's Info from DB
@@ -2621,8 +2634,32 @@ noochForLandlords
 
         //this.bankList = getBanksService.getBank(this.id, this.name, this.nickname, this.logo, this.last, this.status, this.dateAdded, this.notes, this.primary, this.deleted);
 
-        this.addBank = function () {
-            if ($scope.bankCount > 0) {
+        $scope.addBank = function () {
+
+            if ($rootScope.isIdVerified === false)
+            {
+                swal({
+                    title: "Help Us Keep Nooch Safe",
+                    text: "Before you link your bank account, please take 1 minute to verify your identity by completing your profile.<span style='display:block;margin-top:14px;'>This helps us make sure Nooch is safe for everyone.  We will only ask for this info once and will never share it publicly without your explicit permission.  All data is stored with encryption on secure servers.</span>",
+                    type: "warning",
+                    customClass: 'smallText',
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Verify Now",
+                    cancelButtonText: "Later",
+                    closeOnCancel: true,
+                    html: true
+                }, function (isConfirm) {
+                    if (isConfirm)
+                    {
+                        $rootScope.shouldLaunchWizOnLoad = true;
+                        window.location.href = '#/profile/profile-about';
+                    }
+                });
+            }
+
+            if ($scope.bankCount > 0)
+            {
                 var plural = "";
                 if ($scope.bankCount > 1) {
                     plural = "s";
@@ -2652,6 +2689,7 @@ noochForLandlords
             {
                 $('#bankAdd iframe').attr("src", "http://noochme.com/noochweb/trans/Add-Bank.aspx?MemberId=" + $scope.userInfoInSession.memberId + "&ll=yes");
 				//$('#bankAdd iframe').attr("src", "https://noochme.com/noochweb/trans/Add-Bank.aspx?MemberId=" + $scope.userInfoInSession.memberId + "&ll=yes");
+
                 $('#bankAdd').modal({
                     keyboard: false
                 })
@@ -2678,8 +2716,6 @@ noochForLandlords
         }
 
         $scope.deleteBank = function () {
-            console.log("DELETE BANK DIRECTIVE");
-
             swal({
                 title: "Are you sure?",
                 text: "You are about to delete this property from your account.  This cannot be undone.",
@@ -2733,43 +2769,44 @@ noochForLandlords
     // Profile - PASSWORD
     //=================================================
 
-    .controller('pwCtrl', function ($rootScope, $scope, authenticationService, updatePwService) {
+    .controller('pwCtrl', function ($rootScope, $scope, authenticationService) {
         $scope.pwData = {
             current: '',
             newPw: '',
             confirmPw: ''
         };
+
         $scope.forgotPwEmail = $rootScope.emailAddress;
 
-        $scope.updatePwSubmit = function ()  {
-
+        $scope.updatePwSubmit = function () {
+            console.log($('#currentPw').val());
             // Check Username (email) field for length
-            if ($('#currentPw').val() && $('#currentPw').length > 6)
+            if ($('#currentPw').val() && $('#currentPw').val().length > 6)
             {
                 updateValidationUi("currentPw", true);
 
-                if ($('#newPw').val() && $('#currentPw').length > 6)
+                if ($('#newPw').val() && $('#newPw').val().length > 6)
                 {
                     updateValidationUi("newPw", true);
 
-                    if ($('#confirmPw').val() && $('#currentPw').length > 6)
+                    if ($('#confirmPw').val() && $('#confirmPw').val().length > 6)
                     {
                         updateValidationUi("confirmPw", true);
 
                         // ADD THE LOADING BOX
-                        $('#forgotPw').block({
+                        $('#forgotPw > div').block({
                             message: '<span><i class="fa fa-refresh fa-spin fa-loading"></i></span><br/><span class="loadingMsg">Updating password...</span>',
                             css: {
                                 border: 'none',
-                                padding: '26px 10px 22px',
+                                padding: '26px 10px 23px',
                                 backgroundColor: '#000',
                                 '-webkit-border-radius': '14px',
                                 '-moz-border-radius': '14px',
                                 'border-radius': '14px',
                                 opacity: '.75',
-                                width: '50%',
-                                left: '5%',
-                                top: '20px',
+                                width: '76%',
+                                left: '12%',
+                                top: '-10px',
                                 color: '#fff'
                             }
                         });
@@ -2798,18 +2835,17 @@ noochForLandlords
                         }
                     }
                     else {
-                        updateValidationUi("pw", false);
+                        updateValidationUi("confirmPw", false);
                     }
                 }
                 else {
-                    updateValidationUi("username", false);
+                    updateValidationUi("newPw", false);
                 }
             }
             else {
-                updateValidationUi("username", false);
+                updateValidationUi("currentPw", false);
             }
         }
-
 
         $scope.forgotPwSubmit = function () {
             var email = $scope.forgotPwEmail;
@@ -2818,19 +2854,19 @@ noochForLandlords
                 updateValidationUi("emforgot", true);
 
                 // ADD THE LOADING BOX
-                $('#forgotPw').block({
+                $('#forgotPw > div').block({
                     message: '<span><i class="fa fa-refresh fa-spin fa-loading"></i></span><br/><span class="loadingMsg">Submitting Reset PW Request...</span>',
                     css: {
                         border: 'none',
                         padding: '26px 10px 23px',
                         backgroundColor: '#000',
-                        '-webkit-border-radius': '12px',
-                        '-moz-border-radius': '12px',
-                        'border-radius': '12px',
-                        opacity: '.8',
-                        width: '86%',
-                        left: '7%',
-                        top: '25px',
+                        '-webkit-border-radius': '14px',
+                        '-moz-border-radius': '14px',
+                        'border-radius': '14px',
+                        opacity: '.75',
+                        width: '76%',
+                        left: '12%',
+                        top: '-10px',
                         color: '#fff'
                     }
                 });
@@ -2843,19 +2879,20 @@ noochForLandlords
 
                     if (response.IsSuccess == true)
                     {
-                        $scope.LoginData.forgotPassword = '';
-
                         swal({
                             title: "Reset Link Sent",
-                            text: "If that email address is associated with a Nooch account, you will receive an email with a link to reset your password.",
-                            type: "success"
+                            text: "We just sent a reset password link to <strong>" + email + "</strong>.  Please click the link in that email to create a new password.",
+                            type: "success",
+                            html: true
                         });
                     }
                     else { // This will just be for a general server error where the server doesn't return any 'success' parameter at all
+                        console.log(response);
                         swal({
                             title: "Oh No!",
-                            text: "Looks like we ran into a little trouble processing your request. Please try again or contact support@nooch.com for more help.",
-                            type: "error"
+                            text: "Looks like we ran into a little trouble processing your request. Please try again or contact <a href='mailto:support@nooch.com' target='_blank'>Nooch Support</a> for more help.",
+                            type: "error",
+                            html: true
                         });
                     }
                 });
@@ -3152,6 +3189,9 @@ noochForLandlords
     //=================================================
 
     .controller('loginCtrl', function ($scope, $rootScope, authenticationService) {
+        console.log("LOGIN -> USERNAME AND PW Storage...!");
+        console.log(localStorage.getItem('userLoginName'));
+        console.log(localStorage.getItem('userLoginPass'));
 
         $(document).ready(function() {
 
@@ -3174,13 +3214,11 @@ noochForLandlords
             //checking if exists something in local storage
             
             if (localStorage.getItem('userLoginName') != null &&
-                localStorage.getItem('userLoginName').length > 0 &&
-                localStorage.getItem('userLoginPass') != null &&
-                localStorage.getItem('userLoginPass').length > 0)
+                localStorage.getItem('userLoginName').length > 0)
             {
-                console.log("USERNAME AND PW STORAGE EXIST!");
+                console.log("USERNAME IN STORAGE EXISTS!");
                 $scope.LoginData.username = localStorage.getItem('userLoginName');
-                $scope.LoginData.password = localStorage.getItem('userLoginPass');
+                //$scope.LoginData.password = localStorage.getItem('userLoginPass');
 
                 setTimeout(function () {
                     $('#l-login').removeClass('hidden');
@@ -3357,7 +3395,15 @@ noochForLandlords
                                     title: "Oh No!",
                                     text: "Looks like either your email or password was incorrect.  Please try again.",
                                     type: "error"
+                                }, function () {
+                                    setTimeout(function () {
+                                        $('#pw').focus();
+                                    }, 200)
                                 });
+
+                                $('#pw').val('');
+                                $('#pwGrp').removeClass('has-success').addClass('has-error');
+
                                 console.log('Sign In Error: ' + response.ErrorMessage);
                             }
                         });
@@ -3598,12 +3644,12 @@ noochForLandlords
 			if ($('#tosboxGrp input').prop('checked')) 
 			{
 				console.log("TOS BOX CHECKED");
-				$('#createAccnt').addClass('bounce');
+				$('#createAccnt').addClass('pulse');
 			}
 			else
 			{
 				console.log("Should remove the animated class");
-				$('#createAccnt').removeClass('bounce');
+				$('#createAccnt').removeClass('pulse');
 			}
 		}
 

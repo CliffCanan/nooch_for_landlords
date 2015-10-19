@@ -1,38 +1,6 @@
 noochForLandlords 
 
     // =========================================================================
-    // UI - ANIMATION
-    // =========================================================================
-
-    .directive('animDemo', function($timeout){
-        return {
-            restrict: 'A',
-            link: function(scope, element, attrs) {
-                element.click(function(){
-                    var animation = $(this).text();
-                    var cardImg = $(this).closest('.card').find('img');
-                    
-                    if (animation === "hinge") {
-                        animationDuration = 2100;
-                    }
-                    else {
-                        animationDuration = 1200;
-                    }
-
-                    cardImg.removeAttr('class');
-                    cardImg.addClass('animated '+animation);
-
-                    $timeout(function(){
-                        cardImg.removeClass(animation);
-                    }, animationDuration);
-                });
-            }
-        }
-    })
-
-
-
-    // =========================================================================
     // UI - DIALOG
     // =========================================================================
 
@@ -60,41 +28,6 @@ noochForLandlords
         }
     })
 
-    //Success Message
-    .directive('swalSuccess', function(){
-        return {
-            restrict: 'A',
-            link: function(scope, element, attrs) {
-                element.click(function(){
-                    swal("Good job!", "Lorem ncidunt. Mauris eleifend ex semper, lobortis purus sed, pharetra felis", "success")
-
-                });
-            }
-        }
-    })
-
-    //Warning Message
-    .directive('swalWarning', function(){
-        return {
-            restrict: 'A',
-            link: function(scope, element, attrs) {
-                element.click(function(){
-                    swal({   
-                        title: "Are you sure?",   
-                        text: "You will not be able to recover this imaginary file!",   
-                        type: "warning",   
-                        showCancelButton: true,   
-                        confirmButtonColor: "#DD6B55",   
-                        confirmButtonText: "Yes, delete it!",   
-                        closeOnConfirm: false 
-                    }, function(){   
-                        swal("Deleted!", "Your imaginary file has been deleted.", "success"); 
-                    });
-                });
-            }
-        }
-    })
-
     //Parameter
     .directive('swalParams', function(){
         return {
@@ -117,22 +50,6 @@ noochForLandlords
                         } else {     
                             swal("Cancelled", "Your imaginary file is safe :)", "error");   
                         } 
-                    });
-                });
-            }
-        }
-    })
-
-    //Custom Image
-    .directive('swalImg', function(){
-        return {
-            restrict: 'A',
-            link: function(scope, element, attrs) {
-                element.click(function(){
-                    swal({   
-                        title: "Sweet!",   
-                        text: "Here's a custom image.",   
-                        imageUrl: "img/thumbs-up.png" 
                     });
                 });
             }

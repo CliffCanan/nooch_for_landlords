@@ -1,32 +1,20 @@
-<header id="header" data-ng-include src="'includes/header.html'" data-ng-controller="headerCtrl as hctrl"></header>
+<header id="header" data-ng-include src="'includes/header.html'" ng-controller="headerCtrl as hctrl"></header>
 
 <section id="main">
     <aside id="sidebar" data-ng-include src="'includes/sidebar-left.html'" data-ng-class="{ 'toggled': mactrl.sidebarToggle.left === true }"></aside>
 
-    <section id="content" data-ng-controller="profileCtrl as pctrl">
+    <section id="content">
 
         <div class="container" data-ng-controller="homeCtrl">
 
             <div class="block-header">
                 <h2>Dashboard</h2>
-
-                <!--<ul class="actions">
-                    <li>
-                        <button class="btn btn-xs btn-default" data-ng-click="pctrl.home.bnkPrmt = 0; pctrl.home.idPrmt = 1; pctrl.home.propPrmt = 0;">1</button>
-                    </li>
-                    <li>
-                        <button class="btn btn-xs btn-default" data-ng-click="pctrl.home.bnkPrmt = 1; pctrl.home.idPrmt = 0; pctrl.home.propPrmt = 0;">2</button>
-                    </li>
-                    <li>
-                        <button class="btn btn-xs btn-default" data-ng-click="pctrl.home.bnkPrmt = 0; pctrl.home.idPrmt = 0; pctrl.home.propPrmt = 1;">3</button>
-                    </li>
-                </ul>-->
             </div>
 
             <div class="mini-charts tour-step" id="tour-step-one">
                 <div class="row">
                     <div class="col-sm-6 col-md-3">
-                        <div class="mini-charts-item bgm-blue" data-ng-click="pctrl.goTo('props')">
+                        <div class="mini-charts-item bgm-blue" data-ng-click="goTo('props')">
                             <div class="clearfix">
                                 <i class="md md-business md-4x c-white pull-left m-l-25" style="width:80px"></i>
                                 <div class="count">
@@ -38,12 +26,12 @@
                     </div>
 
                     <div class="col-sm-6 col-md-3">
-                        <div class="mini-charts-item bgm-lightblue" data-ng-click="pctrl.goTo('props')">
+                        <div class="mini-charts-item bgm-lightblue" data-ng-click="goTo('props')">
                             <div class="clearfix">
                                 <i class="md md-account-circle md-4x c-white pull-left m-l-25" style="width:80px"></i>
                                 <div class="count">
                                     <span>Units</span>
-                                    <h2>{{ userInfo.unitsCount }}</h2>
+                                    <h2>{{ unitsCount }}</h2>
                                 </div>
                             </div>
                         </div>
@@ -62,7 +50,7 @@
                     </div>
 
                     <div class="col-sm-6 col-md-3">
-                        <div class="mini-charts-item bgm-green" data-ng-click="pctrl.goTo('hist')">
+                        <div class="mini-charts-item bgm-green" data-ng-click="goTo('hist')">
                             <div class="clearfix">
                                 <i class="md md-attach-money md-4x c-white pull-left m-l-25" style="width:80px"></i>
                                 <div class="count">
@@ -84,7 +72,7 @@
                             <h1>Hi {{ userInfo.firstName | capitalize }}!</h1>
                             <p>Welcome to Nooch, the easiest way to collect rent payments.</p>
                             <p>Get started by completing your profile.</p>
-                            <p><a class="btn btn-primary btn-lg" data-ng-click="pctrl.goTo('1')" role="button">Get Started <i class="md md-arrow-forward m-l-5"></i></a></p>
+                            <p><a class="btn btn-primary btn-lg" data-ng-click="goTo('1')" role="button">Get Started <i class="md md-arrow-forward m-l-5"></i></a></p>
                         </div>
 
                         <div class="col-xs-12 col-md-10 col-md-offset-1 homePromptCard animated fadeIn tour-step tour-step-3" id="profile" data-ng-if="isIdVerified === false" data-ng-click="goTo('1')">
@@ -140,11 +128,11 @@
                             </div>
                         </div>
 
-                        <div class="col-xs-12 col-md-10 col-md-offset-1 homePromptCard animated fadeIn" id="addTenant" data-ng-if="isIdVerified === true && isBankAvailable === true && hasAddedProperty === true && hasAddedTenant === false" data-ng-click="goTo('props')">
+                        <div class="col-xs-12 col-md-10 col-md-offset-1 col-lg-offset-2 col-lg-8 homePromptCard animated fadeIn" id="addTenant" data-ng-if="isIdVerified === true && isBankAvailable === true && hasAddedProperty === true" data-ng-click="goTo('props')">
                             <div class="card z-depth-1">
                                 <div class="card-header text-center p-5">
                                     <i class="md md-2x md-add c-blue m-r-5 bumpUp-10" style="line-height:78px;"></i><i class="md md-5x md-people c-blue "></i>
-                                    <h2 class="f-22">Invite Your Tenants</h2>
+                                    <h2 class="f-22">Invite Tenants To Pay</h2>
                                 </div>
 
                                 <div class="card-body card-padding text-center p-t-5">
@@ -153,7 +141,7 @@
                             </div>
                         </div>
 
-                        <div class="col-xs-12 col-md-10 col-md-offset-1 homePromptCard animated fadeIn" id="manageProp" data-ng-if="isIdVerified === true && isBankAvailable === true && hasAddedProperty === true && hasAddedTenant === true" data-ng-click="goTo('props')">
+                        <div class="col-xs-12 col-md-10 col-md-offset-1 col-lg-offset-2 col-lg-8 homePromptCard animated fadeIn" id="manageProp" data-ng-if="isIdVerified === true && isBankAvailable === true && hasAddedProperty === true && hasAddedTenant === true" data-ng-click="goTo('props')">
                             <div class="card z-depth-1">
                                 <div class="card-header text-center p-5">
                                     <i class="md md-2x md-add-circle-outline c-blue m-r-5" style="line-height:78px;"></i><i class="md md-4x md-business c-blue "></i>
@@ -161,7 +149,7 @@
                                 </div>
 
                                 <div class="card-body card-padding text-center p-t-5">
-                                    <p>Add your properties so renters can find them and you can get paid!</p>
+                                    <p>Add each unit to your property by setting the rent amount and due date.  Enter a tenant's email and we'll invite them to pay their rent with Nooch.</p>
                                 </div>
                             </div>
                         </div>

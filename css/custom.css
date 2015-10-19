@@ -371,6 +371,7 @@ td.unit-num {
     font-weight: 600;
     max-width: 58px !important;
     background: #fff;
+    word-break: break-all;
 }
 
 td.odd .unit-num {
@@ -532,11 +533,11 @@ td.unit-rent {
     padding: 5px;
 }
 
-    .jumbotron#welcome #homeCardContainer .card:active {
-        -webkit-transition: .2s margin-top ease-out;
-        transition: .2s margin-top ease-out;
-        margin-top: 3px;
-    }
+.jumbotron#welcome #homeCardContainer .card:active {
+    -webkit-transition: .2s margin-top ease-out;
+    transition: .2s margin-top ease-out;
+    margin-top: 3px;
+}
 
 #acntChecklistCard .lv-item span span i {
     float: right;
@@ -578,24 +579,6 @@ form .alert {
 .alert > i.md {
     font-size: 130%;
     line-height: 1;
-}
-
-.sweet-alert h2 {
-    line-height: 1.5;
-}
-
-.sweet-alert p {
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 1.4;
-    margin-top: 10px;
-}
-
-.sweet-alert button {
-    font-size: 16px;
-    font-weight: 400;
-    padding: 9px 12px;
-    margin: 26px 6px 0;
 }
 
 
@@ -888,6 +871,10 @@ body.login-content:before {
     border-radius: 6px;
 }
 
+.btn-login {
+    z-index: 999;
+}
+
 #createAccnt {
     width: 60%;
 }
@@ -920,7 +907,7 @@ form .checkbox.haserror .input-helper:before {
         }
 
             #sidebar .profile-menu > a .profile-pic > img {
-                height: auto;
+                height: 90px;
                 width: 90px;
             }
 
@@ -967,6 +954,11 @@ form .checkbox.haserror .input-helper:before {
 #profile-main {
     min-height: 400px;
 }
+
+    #profile-main .pmo-pic img {
+        border-radius: 50%;
+        margin: 0 auto 20px;
+    }
 
     #profile-main .pmo-pic .pmop-edit {
         cursor: pointer;
@@ -1108,6 +1100,7 @@ form .checkbox.haserror .input-helper:before {
     -o-transform: scale(0);
     transform: scale(0);
 }
+
 #profile-pw .nav-tabs > li.active > a:after {
     -webkit-transform: scale(1);
     -ms-transform: scale(1);
@@ -1120,9 +1113,11 @@ form .checkbox.haserror .input-helper:before {
     .dl-horizontal dt {
         width: 140px;
     }
+
     #profile-pw .dl-horizontal dt {
         width: 175px;
     }
+
     #profile-pw .dl-horizontal dd {
         margin-left: 196px;
     }
@@ -1132,9 +1127,9 @@ form .checkbox.haserror .input-helper:before {
     }
 
     #profile-main .pmo-pic img {
+        box-shadow: 0 10px 18px -3px rgba(32,33,34,.35);
         width: 80%;
-        border-radius: 3px 3px 0 0;
-        margin: 0 auto;
+        margin: 0 auto 25px;
     }
 }
 
@@ -1419,6 +1414,10 @@ form .checkbox.haserror .input-helper:before {
 
     .modal#bankAdd .modal-body {
         padding: 0 35px 10px;
+    }
+
+    #addUnitForm #nicknameGrp {
+        padding-left: 0;
     }
 }
 
@@ -2109,12 +2108,20 @@ table tbody .unitInTable {
     box-shadow: 0 0 14px rgba(0, 0, 0, 0.2), 0 14px 28px rgba(10, 10, 10, 0.4);
 }
 
+
+    .sweet-alert button {
+        font-size: 16px;
+        font-weight: 400;
+        padding: 9px 12px;
+        margin: 26px 6px 0;
+    }
+
     .sweet-alert h2 {
         font-family: "Helvetica Neue", Helvetica, "Roboto", Arial, sans-serif !important;
         color: #212121;
         margin: 20px 0 15px;
         font-size: 25px;
-        line-height: 1.6;
+        line-height: 1.5;
     }
 
     .sweet-alert p {
@@ -2125,6 +2132,10 @@ table tbody .unitInTable {
         font-size: 17px;
         line-height: 1.4;
         margin: 20px 0;
+    }
+
+    .sweet-alert.smallText p {
+        font-size: 16.5px;
     }
 
     .sweet-alert.largeText p {

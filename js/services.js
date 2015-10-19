@@ -432,8 +432,8 @@ noochForLandlords
         Operations.updatePw = function (landlordId, accessToken, current, newPw, confirmPw, callback) {
 
             var dataAuth = {};
-            data.LandlorId = landlordId;
-            data.AccessToken = accessToken;
+            dataAuth.LandlorId = landlordId;
+            dataAuth.AccessToken = accessToken;
 
             var pwInfo = {};
             pwInfo.current = current;
@@ -471,7 +471,7 @@ noochForLandlords
             User.memberId = localStorage.getItem('memberId');
             User.landlordId = localStorage.getItem('landlordId');
             User.accessToken = localStorage.getItem('accessToken');
-
+            console.log(User);
             return User;
         };
 
