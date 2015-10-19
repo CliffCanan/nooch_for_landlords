@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Nooch For Landlords | Login</title>
+    <link rel="icon" href="img/favicon.ico" type="image/x-icon">
 
     <!-- Vendor CSS -->
     <link rel="stylesheet" href="vendors/bower_components/animate.css/animate.min.css">
@@ -31,7 +32,7 @@
 
 		<p class="intro">Login</p>
 		
-        <form id="login" ng-submit="lctrl.loginAttmpt()">
+        <form id="login" class="p-relative" ng-submit="lctrl.loginAttmpt()">
 
             <div class="form-group fg-float" id="usernameGrp">
                 <span><i class="md md-mail"></i></span>
@@ -64,8 +65,8 @@
 
         </form>
 
-        <div class="m-t-20">
-            <a class="" data-ng-click="showBlock('signup')">Sign Up</a>
+        <div class="m-t-30">
+            <a class="f-00" data-ng-click="showBlock('signup')">Don't have an account? Sign up here</a>
         </div>
 
     </div>
@@ -235,7 +236,5 @@
     <script src="js/controllers.js"></script>
     <script src="js/services.js"></script>
     <script src="js/appSettings.js"></script>
-    <script src="js/modules/form.js"></script>
-    <script src="js/modules/demo.js"></script>
 </body>
 </html>

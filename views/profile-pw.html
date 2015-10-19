@@ -1,0 +1,104 @@
+<div class="pmb-block" id="profile-pw">
+    <div class="pmbb-header m-b-0">
+        <h2 class="m-b-5">
+            <i class="md md-lock m-r-5"></i> Manage Your Password
+        </h2>
+
+        <div>
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active">
+                    <a data-toggle="tab" data-target="#changePw" role="tab">Change Password</a>
+                </li>
+                <li role="presentation">
+                    <a data-toggle="tab" data-target="#forgotPw" role="tab">Forgot Password</a>
+                </li>
+            </ul>
+
+        </div>
+        <!--<ul class="actions m-t-20 hidden-xs">
+            <li class="dropdown">
+                <a href="" data-toggle="dropdown">
+                    <i class="md md-more-vert"></i>
+                </a>
+
+                <ul class="dropdown-menu dropdown-menu-right">
+                    <li>
+                        <a href="">Refresh</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>-->
+    </div>
+
+    <div class="clearfix row">
+
+        <div class="tab-content ">
+
+            <div role="tabpanel" id="changePw" class="tab-pane fade active in">
+
+                <div class="col-xs-12 col-sm-10 col-md-8">
+
+                    <form data-ng-submit="updatePwSubmit()" class="pmbb-edit">
+                        <dl class="dl-horizontal">
+                            <dt class="p-t-10">Current Password</dt>
+                            <dd>
+                                <div class="fg-line">
+                                    <input id="currentPw" type="password" class="form-control" placeholder="Current Password" data-ng-model="pwData.current">
+                                </div>
+
+                            </dd>
+                        </dl>
+
+                        <dl class="dl-horizontal">
+                            <dt class="p-t-10">New Password</dt>
+                            <dd>
+                                <div class="dtp-container dropdown fg-line">
+                                    <input id="newPw" type='password' class="form-control" placeholder="New Password" data-ng-model="pwData.newPw">
+                                </div>
+                            </dd>
+                        </dl>
+
+                        <dl class="dl-horizontal">
+                            <dt class="p-t-10">Confirm New Password</dt>
+                            <dd>
+                                <div class="dtp-container dropdown fg-line">
+                                    <input id="confirmPw" type='password' class="form-control" placeholder="Confirm New Password" data-ng-model="pwData.ConfirmPw">
+                                </div>
+                            </dd>
+                        </dl>
+
+                        <div class="m-t-30 text-center">
+                            <button class="btn center-block btn-primary" type="submit">Change Password</button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+
+            <div role="tabpanel" id="forgotPw" class="tab-pane fade">
+                
+                <div class="col-xs-12 col-sm-10 col-md-8 col-lg-7">
+
+                    <form data-ng-submit="forgotPwSubmit()" class="pmbb-edit">
+                        <dl class="dl-horizontal">
+                            <dt class="p-t-10">Email Address</dt>
+                            <dd>
+                                <div class="fg-line">
+                                    <input id="forgotPwEmail" type="email" class="form-control" placeholder="{{ emailAddress }}" data-ng-model="forgotPwEmail">
+                                </div>
+                            </dd>
+                        </dl>
+
+                        <div class="m-t-35 text-center">
+                            <button class="btn center-block btn-primary" type="submit">Send Reset Link</button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

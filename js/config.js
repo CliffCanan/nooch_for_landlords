@@ -1,13 +1,13 @@
 noochForLandlords
 
-    .run(function($templateCache,$http){
-          $http.get('includes/templates.html', {cache:$templateCache});
+    .run(function ($templateCache, $http) {
+        $http.get('includes/templates.html', { cache: $templateCache });
     })
 
     .config(function ($stateProvider, $urlRouterProvider) {
-        
-        
-       // delete $httpProvider.defaults.headers.common['X-Requested-With'];
+
+
+        // delete $httpProvider.defaults.headers.common['X-Requested-With'];
 
         $urlRouterProvider.otherwise("/home");
 
@@ -20,7 +20,7 @@ noochForLandlords
             url: '/home',
             templateUrl: 'views/home.html',
             resolve: {
-                loadPlugin: function($ocLazyLoad) {
+                loadPlugin: function ($ocLazyLoad) {
                     return $ocLazyLoad.load([
                         {
                             name: 'css',
@@ -53,7 +53,7 @@ noochForLandlords
             url: '/history',
             templateUrl: 'views/history.html',
             resolve: {
-                loadPlugin: function($ocLazyLoad) {
+                loadPlugin: function ($ocLazyLoad) {
                     return $ocLazyLoad.load([
                         {
                             name: 'css',
@@ -98,7 +98,7 @@ noochForLandlords
             url: '/add-property',
             templateUrl: 'views/property-add.html',
             resolve: {
-                loadPlugin: function($ocLazyLoad) {
+                loadPlugin: function ($ocLazyLoad) {
                     return $ocLazyLoad.load([
                         {
                             name: 'css',
@@ -129,7 +129,7 @@ noochForLandlords
             url: '/property-details',
             templateUrl: 'views/property-details.html',
             resolve: {
-                loadPlugin: function($ocLazyLoad) {
+                loadPlugin: function ($ocLazyLoad) {
                     return $ocLazyLoad.load([
                         {
                             name: 'css',
@@ -166,7 +166,7 @@ noochForLandlords
             url: '/tenant-requests',
             templateUrl: 'views/tenant-requests.html',
             resolve: {
-                loadPlugin: function($ocLazyLoad) {
+                loadPlugin: function ($ocLazyLoad) {
                     return $ocLazyLoad.load([
                         {
                             name: 'css',
@@ -194,7 +194,7 @@ noochForLandlords
             url: '/profile',
             templateUrl: 'views/profile.html',
             resolve: {
-                loadPlugin: function($ocLazyLoad) {
+                loadPlugin: function ($ocLazyLoad) {
                     return $ocLazyLoad.load([
                         {
                             name: 'css',
@@ -204,18 +204,19 @@ noochForLandlords
                                 'vendors/bower_components/jquery.steps/build/jquery.steps.css',
                                 'vendors/bower_components/bootstrap-fileinput/css/fileinput.min.css',
                                 'vendors/bower_components/bootstrap-tour/build/css/bootstrap-tour.min.css',
-                                //'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css'
+                                'https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css',
                             ]
                         },
                         {
                             name: 'vendors',
                             files: [
+                                'vendors/input-mask/input-mask.min.js',
 								'vendors/bower_components/eonasdan-bootstrap-datetimepicker/src/js/bootstrap-datetimepicker.min.js',
                                 'vendors/bower_components/jquery.steps/build/jquery.steps.js',
                                 'vendors/canvas-to-blob/canvas-to-blob.min.js',
                                 'vendors/bower_components/bootstrap-fileinput/js/fileinput.min.js',
                                 'vendors/bower_components/bootstrap-tour/build/js/bootstrap-tour.min.js',
-								'https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css'
+                                'vendors/blockUI/blockui.min.js'
                             ]
                         }
                     ]);
@@ -226,7 +227,7 @@ noochForLandlords
             url: '/profile-about',
             templateUrl: 'views/profile-about.html',
             resolve: {
-                loadPlugin: function($ocLazyLoad) {
+                loadPlugin: function ($ocLazyLoad) {
                     return $ocLazyLoad.load([
                         {
                             name: 'css',
@@ -241,7 +242,6 @@ noochForLandlords
                         {
                             name: 'vendors',
                             files: [
-                                'vendors/input-mask/input-mask.min.js',
                                 'vendors/bower_components/bootstrap-select/dist/js/bootstrap-select.min.js',
                                 'vendors/chosen_v1.4.2/chosen.jquery.min.js',
                                 'vendors/bower_components/moment/min/moment.min.js',
@@ -252,6 +252,10 @@ noochForLandlords
                     ]);
                 }
             }
+        })
+        .state('profile.profile-pw', {
+            url: '/profile-pw',
+            templateUrl: 'views/profile-pw.html'
         })
         .state('profile.profile-notifications', {
             url: '/profile-notifications',
@@ -287,4 +291,4 @@ noochForLandlords
             templateUrl: 'views/help.html'
         });
 
-});
+    });

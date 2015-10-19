@@ -197,6 +197,31 @@ noochForLandlords
 
             $rootScope.hasSeenNewUserTour = true;
         }
+
+        $scope.goTo = function (destination) {
+
+            if (typeof $scope.tour !== 'undefined') {
+                console.log('Home Controller -> TOUR WAS NOT OVER YET!');
+                $scope.tour.end();
+            }
+
+            if (destination == '1') {
+                $rootScope.fromHome = true;
+                window.location.href = '#/profile/profile-about';
+            }
+            else if (destination == '2') {
+                window.location.href = '#/profile/profile-bankaccounts';
+            }
+            else if (destination == '3') {
+                window.location.href = '#/add-property';
+            }
+            else if (destination == 'props') {
+                window.location.href = '#/properties';
+            }
+            else if (destination == 'hist') {
+                window.location.href = '#/history';
+            }
+        }
     })
 
 
@@ -1840,7 +1865,6 @@ noochForLandlords
 
         // Get User's Info from DB
         if (authenticationService.IsValidUser() == true) {
-
             var userdetails = authenticationService.GetUserDetails();
 
             $scope.userInfoInSession = userdetails;
@@ -1867,6 +1891,8 @@ noochForLandlords
 					$rootScope.isIdVerified = response.isIdVerified;
 					$rootScope.IsPhoneVerified = response.IsPhoneVerified;
 					$rootScope.IsEmailVerified = response.IsEmailVerified;
+					$rootScope.emailAddress = response.UserEmail;
+					$rootScope.ContactNumber = response.MobileNumber;
 
 					$scope.userInfo.birthDay = response.DOB;
 
@@ -1917,40 +1943,58 @@ noochForLandlords
 				}
             });
         }
-        else {
-            window.location.href = 'login.html';
+        else
+        {
+           /* if (localStorage.getItem('userLoginName') != null &&
+                localStorage.getItem('userLoginName').length > 0 &&
+                localStorage.getItem('userLoginPass') != null &&
+                localStorage.getItem('userLoginPass').length > 0)
+            {
+                $scope.LoginData = {
+                    username : localStorage.getItem('userLoginName'),
+                    pw : localStorage.getItem('userLoginPass')
+                }
+
+                var ipResults = getIP();
+
+                var ip = "";
+                var country_code = "";
+                if (ipResults != null) {
+                    if (ipResults.ip != null) {
+                        ip = ipResults.ip;
+                    }
+                    if (ipResults.country_code != null) {
+                        country_code = ipResults.country_code;
+                    }
+                }
+                console.log("IP is: " + ip + ", and Country is : " + country_code + ", username: " + localStorage.getItem('userLoginName') + ", pw: " + localStorage.getItem('userLoginPass'));
+
+                authenticationService.Login($scope.LoginData.username, $scope.LoginData.pw, ip, function (response) {
+
+                    console.log(response);
+
+                    if (response.IsSuccess == true) {
+                        console.log("Profile Controller -> Re-login Successful!");
+
+                        authenticationService.SetUserDetails($scope.LoginData.username, response.MemberId, response.LandlordId, response.AccessToken);
+
+                        //$scope.reloadRoute = function () {
+                        location.reload();
+                        //};
+                        //window.location.href = 'index.html#/home';
+                    }
+                    else {
+                        console.log('Sign In Error: ' + response.ErrorMessage);
+                        window.location.href = 'login.html';
+                    }
+                })
+            }
+            else
+            {*/
+                window.location.href = 'login.html';
+            //}
         }
-
-
-        this.goTo = function (destination) {
-
-            if (typeof $scope.tour !== 'undefined') {
-                console.log('TOUR WAS NOT OVER YET!');
-                $scope.tour.end();
-            }
-
-            if (destination == '1') {
-				$rootScope.fromHome = true;
-                window.location.href = '#/profile/profile-about';
-            }
-            else if (destination == '2') {
-                window.location.href = '#/profile/profile-bankaccounts';
-            }
-            else if (destination == '3') {
-                window.location.href = '#/add-property';
-            }
-            else if (destination == 'props') {
-                window.location.href = '#/properties';
-            }
-            else if (destination == 'hist') {
-                window.location.href = '#/history';
-            }
-        }
-
 		
-        // Account Info
-		this.tenantRequests = 3;
-
         // When user Edits one of the "Profile - About" sections
         this.editPersonalInfo = 0;
         this.editBusinessInfo = 0;
@@ -2490,6 +2534,19 @@ noochForLandlords
                     }
                 });
             }
+
+        //CLIFF (10/18/15): Added this block as part of an attempt to re-log the user in if the AuthToken is no longer valid.  I didn't get it working, so commenting this out for now.
+		/*function getIP() {
+		    if (window.XMLHttpRequest) xmlhttp = new XMLHttpRequest();
+		    else xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+
+		    xmlhttp.open("GET", "http://api.hostip.info/get_json.php", false);
+		    xmlhttp.send();
+
+		    hostipInfo = jQuery.parseJSON(xmlhttp.responseText);
+
+		    return hostipInfo;
+		}*/
     })
 
 
@@ -2531,12 +2588,16 @@ noochForLandlords
                     {
                         $scope.bankCount = 1;
                         $scope.bankName = response.BankName;
-                        $scope.bankNickname = response.BankNickname;
-                        $scope.accntNum = response.AccountName;
                         $scope.bankImg = response.BankImageURL;
                         $scope.bankStatus = response.AccountStatus;
                         $scope.bankAllowed = response.allowed;
                         $scope.bankCreatedOn = response.dateCreated;
+                        $scope.bankNickname = response.BankNickname;
+                        $scope.accntNum = response.AccountName;
+                    }
+                    else// if (response.msg == 'No banks found!')
+                    {
+                        $scope.bankCount = 0;
                     }
                     console.log("Get Banks SUCCESS (Controller)");
                 }
@@ -2667,14 +2728,213 @@ noochForLandlords
 
     })
 
-    // Delete Bank Account Popup
-    .directive('deleteBank', function () {
-        return {
-            restrict: 'A',
-            link: function (scope, element, attrs) {
-                element.click(function () {
-                    
+
+    //=================================================
+    // Profile - PASSWORD
+    //=================================================
+
+    .controller('pwCtrl', function ($rootScope, $scope, authenticationService, updatePwService) {
+        $scope.pwData = {
+            current: '',
+            newPw: '',
+            confirmPw: ''
+        };
+        $scope.forgotPwEmail = $rootScope.emailAddress;
+
+        $scope.updatePwSubmit = function ()  {
+
+            // Check Username (email) field for length
+            if ($('#currentPw').val() && $('#currentPw').length > 6)
+            {
+                updateValidationUi("currentPw", true);
+
+                if ($('#newPw').val() && $('#currentPw').length > 6)
+                {
+                    updateValidationUi("newPw", true);
+
+                    if ($('#confirmPw').val() && $('#currentPw').length > 6)
+                    {
+                        updateValidationUi("confirmPw", true);
+
+                        // ADD THE LOADING BOX
+                        $('#forgotPw').block({
+                            message: '<span><i class="fa fa-refresh fa-spin fa-loading"></i></span><br/><span class="loadingMsg">Updating password...</span>',
+                            css: {
+                                border: 'none',
+                                padding: '26px 10px 22px',
+                                backgroundColor: '#000',
+                                '-webkit-border-radius': '14px',
+                                '-moz-border-radius': '14px',
+                                'border-radius': '14px',
+                                opacity: '.75',
+                                width: '50%',
+                                left: '5%',
+                                top: '20px',
+                                color: '#fff'
+                            }
+                        });
+
+                        if (authenticationService.IsValidUser() == true) {
+                            var userdetails = authenticationService.GetUserDetails();
+
+                            authenticationService.updatePw(userdetails.landlordId, userdetails.accessToken, $scope.current, $scope.newPw, $scope.confirmPw, function (response) {
+
+                                console.log(response);
+
+                                $('#forgotPw').unblock();
+
+                                if (response.IsSuccess == true) {
+                                    authenticationService.SetUserDetails($scope.LoginData.username, response.MemberId, response.LandlordId, response.AccessToken);
+                                }
+                                else {
+                                    console.log('Reset PW Error: ' + response.ErrorMessage);
+                                    swal({
+                                        title: "Oh No!",
+                                        text: "Looks like either your email or password was incorrect.  Please try again.",
+                                        type: "error"
+                                    });
+                                }
+                            });
+                        }
+                    }
+                    else {
+                        updateValidationUi("pw", false);
+                    }
+                }
+                else {
+                    updateValidationUi("username", false);
+                }
+            }
+            else {
+                updateValidationUi("username", false);
+            }
+        }
+
+
+        $scope.forgotPwSubmit = function () {
+            var email = $scope.forgotPwEmail;
+
+            if ($scope.ValidateEmail(email)) {
+                updateValidationUi("emforgot", true);
+
+                // ADD THE LOADING BOX
+                $('#forgotPw').block({
+                    message: '<span><i class="fa fa-refresh fa-spin fa-loading"></i></span><br/><span class="loadingMsg">Submitting Reset PW Request...</span>',
+                    css: {
+                        border: 'none',
+                        padding: '26px 10px 23px',
+                        backgroundColor: '#000',
+                        '-webkit-border-radius': '12px',
+                        '-moz-border-radius': '12px',
+                        'border-radius': '12px',
+                        opacity: '.8',
+                        width: '86%',
+                        left: '7%',
+                        top: '25px',
+                        color: '#fff'
+                    }
                 });
+
+
+                // Now call service to send Reset PW email
+                authenticationService.PasswordRest(email, function (response) {
+
+                    $('#forgotPw').unblock();
+
+                    if (response.IsSuccess == true)
+                    {
+                        $scope.LoginData.forgotPassword = '';
+
+                        swal({
+                            title: "Reset Link Sent",
+                            text: "If that email address is associated with a Nooch account, you will receive an email with a link to reset your password.",
+                            type: "success"
+                        });
+                    }
+                    else { // This will just be for a general server error where the server doesn't return any 'success' parameter at all
+                        swal({
+                            title: "Oh No!",
+                            text: "Looks like we ran into a little trouble processing your request. Please try again or contact support@nooch.com for more help.",
+                            type: "error"
+                        });
+                    }
+                });
+            }
+            else {
+                updateValidationUi("emforgot", false);
+            }
+        }
+
+        $scope.ValidateEmail = function (str) {
+            console.log; ("Profile Page -> Forgot PW -> VALIDATE EMAIL REACHED")
+            if (str != null) {
+                var at = "@"
+                var dot = "."
+                var lat = str.indexOf("@")
+                var lstr = str.length
+                var ldot = str.indexOf(".")
+
+                if (lat == -1 || lat == 0 || lat == lstr) {
+                    return false
+                }
+
+                if (ldot == -1 || ldot == 0 || ldot == lstr) {
+                    return false
+                }
+
+                if (str.indexOf(at, (lat + 1)) != -1) {
+                    return false
+                }
+
+                if (str.substring(lat - 1, lat) == dot || str.substring(lat + 1, lat + 2) == dot) {
+                    return false
+                }
+
+                if (str.indexOf(dot, (lat + 2)) == -1) {
+                    return false
+                }
+
+                if (str.indexOf(" ") != -1) {
+                    return false
+                }
+
+                return true
+            }
+            return false
+        };
+
+        // Utility Function To Update Form Input's UI for Success/Error
+        updateValidationUi = function (field, success) {
+            console.log("Profile -> PW -> UpdateValidationUI - Field: " + field + "; success: " + success);
+
+            if (success == true) {
+                $('#' + field + 'Grp').removeClass('has-error').addClass('has-success');
+                if (field != 'pw' && $('#' + field + 'Grp .help-block').length) {
+                    $('#' + field + 'Grp .help-block').slideUp();
+                }
+            }
+            else {
+                $('#' + field + 'Grp').removeClass('has-success').addClass('has-error');
+
+                var helpBlockTxt = "";
+
+                if (field == "pw") {
+                    helpBlockTxt = "Please enter your password!"
+                }
+                else if (field == "pwreg") {
+                    helpBlockTxt = "Please create a strong password."
+                }
+
+                if (!$('#' + field + 'Grp .help-block').length) {
+                    $('#' + field + 'Grp').append('<small class="help-block pull-left" style="display:none">' + helpBlockTxt + '</small>');
+                    $('#' + field + 'Grp .help-block').slideDown();
+                }
+                else { $('#' + field + 'Grp .help-block').show() }
+
+                // Now focus on the element that failed validation
+                setTimeout(function () {
+                    $('#' + field + 'Grp input').focus();
+                }, 200)
             }
         }
     })
@@ -2761,16 +3021,21 @@ noochForLandlords
 
                 if (response.AllPropertysCount > 0) {
                     $scope.checklistItems.addProp = 1;
+                    $rootScope.hasAddedProperty = true;
                 } else {
                     $scope.checklistItems.addProp = 0;
+                    $rootScope.hasAddedProperty = false;
                 }
 
                 if (response.AllTenantsCount > 0) {
                     $scope.checklistItems.addTenant = 1;
+                    $rootScope.hasAddedTenant = true;
                 } else {
                     $scope.checklistItems.addTenant = 0;
+                    $rootScope.hasAddedTenant = false;
                 }
 
+                $rootScope.isBankAvailable = response.IsAccountAdded;
                 $scope.checklistItems.isBankAdded = response.IsAccountAdded;
                 $scope.checklistItems.acceptPayment = response.IsAnyRentReceived;
 
@@ -2803,7 +3068,33 @@ noochForLandlords
         }
 
         $scope.ResendVerificationEmailOrSMS = function (sendWhat) {
+
+            if (sendWhat == "SMS")
+            {
+                if ($rootScope.ContactNumber == "" ||
+                    $rootScope.ContactNumber.length < 10)
+                {
+                    swal({
+                        title: "No Phone Added Yet",
+                        text: "Looks like you still need to add your phone number before we can verify it!",
+                        type: "warning",
+                        showCancelButton: true,
+                        cancelButtonText: "Later",
+                        confirmButtonText: "Add Now",
+                        confirmButtonColor: "#3FABE1"
+                    }, function (isConfirm) {
+                        if (isConfirm)
+                        {
+                            window.location.href = '#/profile/profile-about';
+                        }
+                    });
+                }
+
+                return;
+            }
+
             var userdetails = authenticationService.GetUserDetails();
+
             getProfileService.ResendVerificationEmailOrSMS(userdetails.landlordId, "Landlord", sendWhat, function (response) {
 				console.log(response);
 
@@ -2863,12 +3154,7 @@ noochForLandlords
     .controller('loginCtrl', function ($scope, $rootScope, authenticationService) {
 
         $(document).ready(function() {
-            //if ($('#l-login').hasClass('hidden')) {
-            setTimeout(function() {
-                $('#l-register').removeClass('hidden');
-            }, 500, function() {
-                $('#l-register').removeClass('bounceIn').addClass('fadeIn');
-            });
+
             // This function checks a field on focusout (when the user moves to the next field) and updates Validation UI accordingly
             $(document).on("focusout", "form#reg input", function() {
                 var field = this.id;
@@ -2887,11 +3173,28 @@ noochForLandlords
 
             //checking if exists something in local storage
             
-            if (localStorage.getItem('userLoginName') != null && localStorage.getItem('userLoginName').length > 0 && localStorage.getItem('userLoginPass').length > 0 && localStorage.getItem('userLoginPass') != null) {
+            if (localStorage.getItem('userLoginName') != null &&
+                localStorage.getItem('userLoginName').length > 0 &&
+                localStorage.getItem('userLoginPass') != null &&
+                localStorage.getItem('userLoginPass').length > 0)
+            {
+                console.log("USERNAME AND PW STORAGE EXIST!");
                 $scope.LoginData.username = localStorage.getItem('userLoginName');
                 $scope.LoginData.password = localStorage.getItem('userLoginPass');
 
-                $('#rememberMeCheck').prop("checked", true);
+                setTimeout(function () {
+                    $('#l-login').removeClass('hidden');
+                    $('#username').val($scope.LoginData.username);
+                    $('#rememberMeCheck').prop("checked", true);
+                }, 200, function () {
+                    $('#pw').focus();
+                });
+            }
+            else
+            {
+                setTimeout(function () {
+                    $('#l-register').removeClass('hidden');
+                }, 400);
             }
 
         });
@@ -2982,8 +3285,6 @@ noochForLandlords
 
         this.loginAttmpt = function () {
 
-            // window.location.href = 'index.html#/profile/profile-about'; // FOR TESTING LOCALLY B/C AUTHENTICATION SERVICE WON'T WORK
-
             // Check Username (email) field for length
             if ($('form#login #username').val())
             {
@@ -3072,7 +3373,6 @@ noochForLandlords
             else {
                 updateValidationUi("username", false);
             }
-
         }
 
 
@@ -3313,7 +3613,7 @@ noochForLandlords
 
             if (success == true) {
                 $('#' + field + 'Grp').removeClass('has-error').addClass('has-success');
-                if ($('#' + field + 'Grp .help-block').length) {
+                if (field != 'pw' && $('#' + field + 'Grp .help-block').length) {
                     $('#' + field + 'Grp .help-block').slideUp();
                 }
             }

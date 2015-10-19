@@ -18,38 +18,6 @@ noochForLandlords
 
 
     // =========================================================================
-    // Todo List Widget Data
-    // =========================================================================
-
-    .service('todoService', ['$resource', function ($resource) {
-        this.getTodo = function (todo) {
-            var todoList = $resource("data/todo.json");
-
-            return todoList.get({
-                todo: todo
-            });
-        }
-    }])
-
-
-    // =========================================================================
-    // Recent Items Widget Data
-    // =========================================================================
-
-    .service('recentitemService', ['$resource', function ($resource) {
-        this.getRecentitem = function (id, name, price) {
-            var recentitemList = $resource("data/recent-items.json");
-
-            return recentitemList.get({
-                id: id,
-                name: name,
-                price: price
-            })
-        }
-    }])
-
-
-    // =========================================================================
     // Properties Widget Data
     // =========================================================================
 
@@ -461,6 +429,29 @@ noochForLandlords
         };
 
 
+        Operations.updatePw = function (landlordId, accessToken, current, newPw, confirmPw, callback) {
+
+            var dataAuth = {};
+            data.LandlorId = landlordId;
+            data.AccessToken = accessToken;
+
+            var pwInfo = {};
+            pwInfo.current = current;
+            pwInfo.newPw = newPw;
+            pwInfo.confirmPw = confirmPw;
+
+            var data = {};
+            data.DeviceInfo = dataAuth;
+            data.pwInfo = pwInfo;
+
+
+            $http.post(URLs.UpdatePw, data)
+                .success(function (response) {
+                    callback(response);
+                });
+        };
+
+
         Operations.SetUserDetails = function (username, memberId, landlordId, accessToken) {
             localStorage.setItem('username', username);
             localStorage.setItem('memberId', memberId);
@@ -701,3 +692,40 @@ noochForLandlords
 
         return Operations;
     })
+
+
+
+
+    /**********************/
+    /**  UNUSED SERVICES **/
+    /**********************/
+    // =========================================================================
+    // Todo List Widget Data
+    // =========================================================================
+
+    .service('todoService', ['$resource', function ($resource) {
+        this.getTodo = function (todo) {
+            var todoList = $resource("data/todo.json");
+
+            return todoList.get({
+                todo: todo
+            });
+        }
+    }])
+
+
+    // =========================================================================
+    // Recent Items Widget Data
+    // =========================================================================
+
+    .service('recentitemService', ['$resource', function ($resource) {
+        this.getRecentitem = function (id, name, price) {
+            var recentitemList = $resource("data/recent-items.json");
+
+            return recentitemList.get({
+                id: id,
+                name: name,
+                price: price
+            })
+        }
+    }])

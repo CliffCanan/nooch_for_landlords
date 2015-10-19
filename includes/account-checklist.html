@@ -50,7 +50,7 @@
             <div class="lv-item">
                 <div class="checkbox media">
                     <div class="pull-right">
-                        <ul class="actions" ng-if="IsPhoneVerified == 0">
+                        <ul class="actions" ng-if="IsPhoneVerified === false">
                             <li class="dropdown">
                                 <a href="" data-toggle="dropdown">
                                     <i class="md md-info"></i>
@@ -63,18 +63,21 @@
                         </ul>
                     </div>
                     <div class="media-body">
-                        <label>
-                            <span ng-if="IsPhoneVerified == 0">
+                        <label data-toggle="dropdown">
+                            <span ng-if="IsPhoneVerified === false">
                                 <input type="checkbox" disabled>
                                 <i class="input-helper"></i>
                                 <span> Confirm Phone Number</span>
                             </span>
-                            <span ng-if="IsPhoneVerified == 1">
+                            <span ng-if="IsPhoneVerified === true">
                                 <input type="checkbox" disabled checked>
                                 <i class="input-helper"></i>
                                 <span><s>Confirm Phone Number</s></span>
                             </span>
                         </label>
+                        <ul class="dropdown-menu dropdown-menu-right">
+                            <li><a href="#" ng-click="ResendVerificationEmailOrSMS('SMS');">Resend Verification SMS</a></li>
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -82,7 +85,7 @@
             <div class="lv-item">
                 <div class="checkbox media">
                     <div class="pull-right">
-                        <ul class="actions" ng-if="isIdVerified == 0">
+                        <ul class="actions" ng-if="isIdVerified === false">
                             <li class="dropdown">
                                 <a href="" data-toggle="dropdown">
                                     <i class="md md-info"></i>
@@ -97,12 +100,12 @@
                     </div>
                     <div class="media-body">
                         <label>
-                            <span ng-if="isIdVerified == 0">
+                            <span ng-if="isIdVerified === false">
                                 <input type="checkbox" disabled>
                                 <i class="input-helper"></i>
                                 <span>Verify Identity <i class="md md-sms-failed c-red m-l-10 md-"></i></span>
                             </span>
-                            <span ng-if="isIdVerified == 1">
+                            <span ng-if="isIdVerified === true">
                                 <input type="checkbox" disabled checked>
                                 <i class="input-helper"></i>
                                 <span><s>Verify Identity</s></span>
@@ -114,8 +117,8 @@
 
             <div class="lv-item">
                 <div class="checkbox media">
-                    <div class="pull-right">
-                        <ul class="actions" ng-if="checklistItems.isBankAdded == 0">
+                    <div class="pull-right" ng-if="isBankAvailable === false">
+                        <ul class="actions">
                             <li class="dropdown">
                                 <a href="" data-toggle="dropdown">
                                     <i class="md md-info"></i>
@@ -130,12 +133,12 @@
                     </div>
                     <div class="media-body">
                         <label>
-                            <span ng-if="checklistItems.isBankAdded == 0">
+                            <span ng-if="isBankAvailable === false">
                                 <input type="checkbox" disabled>
                                 <i class="input-helper"></i>
                                 <span>Connect Bank Account</span>
                             </span>
-                            <span ng-if="checklistItems.isBankAdded == 1">
+                            <span ng-if="isBankAvailable === true">
                                 <input type="checkbox" disabled checked>
                                 <i class="input-helper"></i>
                                 <span><s>Connect Bank Account</s></span>
@@ -148,7 +151,7 @@
             <div class="lv-item">
                 <div class="checkbox media">
                     <div class="pull-right">
-                        <ul class="actions" ng-if="checklistItems.addProp == 0">
+                        <ul class="actions" ng-if="hasAddedProperty === false">
                             <li class="dropdown">
                                 <a href="" data-toggle="dropdown">
                                     <i class="md md-info"></i>
@@ -162,12 +165,12 @@
                     </div>
                     <div class="media-body">
                         <label>
-                            <span ng-if="checklistItems.addProp == 0">
+                            <span ng-if="hasAddedProperty === false">
                                 <input type="checkbox" disabled>
                                 <i class="input-helper"></i>
                                 <span>Add Property</span>
                             </span>
-                            <span ng-if="checklistItems.addProp == 1">
+                            <span ng-if="hasAddedProperty === true">
                                 <input type="checkbox" disabled checked>
                                 <i class="input-helper"></i>
                                 <span><s>Add Property</s></span>
@@ -180,7 +183,7 @@
             <div class="lv-item">
                 <div class="checkbox media">
                     <div class="pull-right">
-                        <ul class="actions" ng-if="checklistItems.addTenant == 0">
+                        <ul class="actions" ng-if="hasAddedTenant === false">
                             <li class="dropdown">
                                 <a href="" data-toggle="dropdown">
                                     <i class="md md-info"></i>
@@ -194,12 +197,12 @@
                     </div>
                     <div class="media-body">
                         <label>
-                            <span ng-if="checklistItems.addTenant == 0">
+                            <span ng-if="hasAddedTenant == false">
                                 <input type="checkbox" disabled>
                                 <i class="input-helper"></i>
                                 <span>Add a Tenant</span>
                             </span>
-                            <span ng-if="checklistItems.addTenant == 1">
+                            <span ng-if="hasAddedTenant === true">
                                 <input type="checkbox" disabled checked>
                                 <i class="input-helper"></i>
                                 <span><s>Add a Tenant</s></span>
