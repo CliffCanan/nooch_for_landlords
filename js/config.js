@@ -203,7 +203,6 @@ noochForLandlords
                                 'vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css',
                                 'vendors/bower_components/jquery.steps/build/jquery.steps.css',
                                 'vendors/bower_components/bootstrap-fileinput/css/fileinput.min.css',
-                                'vendors/bower_components/bootstrap-tour/build/css/bootstrap-tour.min.css',
                                 'https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css',
                             ]
                         },
@@ -215,7 +214,6 @@ noochForLandlords
                                 'vendors/bower_components/jquery.steps/build/jquery.steps.js',
                                 'vendors/canvas-to-blob/canvas-to-blob.min.js',
                                 'vendors/bower_components/bootstrap-fileinput/js/fileinput.min.js',
-                                'vendors/bower_components/bootstrap-tour/build/js/bootstrap-tour.min.js',
                                 'vendors/blockUI/blockui.min.js'
                             ]
                         }
@@ -236,7 +234,8 @@ noochForLandlords
                                 'vendors/bower_components/bootstrap-select/dist/css/bootstrap-select.min.css',
                                 'vendors/chosen_v1.4.2/chosen.min.css',
                                 'vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css',
-                                'vendors/bower_components/jquery.steps/build/jquery.steps.css'
+                                'vendors/bower_components/jquery.steps/build/jquery.steps.css',
+                                'vendors/bower_components/bootstrap-tour/build/css/bootstrap-tour.min.css',
                             ]
                         },
                         {
@@ -246,7 +245,8 @@ noochForLandlords
                                 'vendors/chosen_v1.4.2/chosen.jquery.min.js',
                                 'vendors/bower_components/moment/min/moment.min.js',
 								'vendors/bower_components/eonasdan-bootstrap-datetimepicker/src/js/bootstrap-datetimepicker.min.js',
-                                'vendors/bower_components/jquery.steps/build/jquery.steps.js'
+                                'vendors/bower_components/jquery.steps/build/jquery.steps.js',
+                                'vendors/bower_components/bootstrap-tour/build/js/bootstrap-tour.min.js',
                             ]
                         }
                     ]);

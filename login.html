@@ -30,8 +30,8 @@
     <!-- Login -->
     <div class="lc-block animated fadeIn hidden" id="l-login">
 
-		<p class="intro">Login</p>
-		
+        <p class="intro">Login</p>
+
         <form id="login" class="p-relative" ng-submit="lctrl.loginAttmpt()">
 
             <div class="form-group fg-float" id="usernameGrp">
@@ -75,7 +75,7 @@
     <!-- Register -->
     <div class="lc-block toggled animated fadeIn hidden" id="l-register">
 
-		<p class="intro">Sign Up</p>
+        <p class="intro">Sign Up</p>
 
         <form id="reg" ng-submit="lctrl.registerAttmpt()" class="col-xs-12">
 
@@ -119,24 +119,24 @@
 
             <div class="clearfix"></div>
 
-			<div class="row">
-            <div class="checkbox" id="tosboxGrp" checked="false">
-                <label data-ng-click="tosClicked()" class="f-300">
-                    <input type="checkbox">
-                    <i class="input-helper"></i>
-                    I agree to Nooch's <a href="">Terms of Service</a>.
-                </label>
-            </div>
+            <div class="row">
+                <div class="checkbox" id="tosboxGrp" checked="false">
+                    <label data-ng-click="tosClicked()" class="f-300">
+                        <input type="checkbox">
+                        <i class="input-helper"></i>
+                        I agree to Nooch's <a href="">Terms of Service</a>.
+                    </label>
+                </div>
             </div>
 
             <!--<button id="createAccnt" type="submit" class="btn btn-login btn-success btn-float animated"><i class="md md-arrow-forward"></i></button>-->
-            
-			<div class="row">
-			<button id="createAccnt" type="submit" class="btn btn-lg m-t-15 btn-success animated">Create Account</button>
 
-            <div class="m-t-20">
-                <a data-block="#l-login" class="" data-ng-click="showBlock('login')">Already have an account? Sign in<i class="md md-arrow-forward m-l-5"></i></a>
-            </div>
+            <div class="row">
+                <button id="createAccnt" type="submit" class="btn btn-lg m-t-20 btn-success animated">Create Account</button>
+
+                <div class="m-t-20">
+                    <a data-block="#l-login" class="" data-ng-click="showBlock('login')">Already have an account? Sign in<i class="md md-arrow-forward m-l-5"></i></a>
+                </div>
             </div>
 
         </form>
@@ -162,7 +162,7 @@
             <button type="submit" class="btn btn-login btn-primary btn-float"><i class="md md-arrow-forward"></i></button>
 
             <div class="m-t-20">
-                <button data-block="#l-login" class="btn btn-default pull-left" data-ng-click="showBlock('login')"><i class="md md-arrow-back m-r-5"></i> Back</button>
+                <button class="btn btn-default pull-left" data-ng-click="showBlock('login')"><i class="md md-arrow-back m-r-5"></i> Back</button>
             </div>
 
         </form>

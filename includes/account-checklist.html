@@ -31,7 +31,7 @@
                         </ul>
                     </div>
                     <div class="media-body">
-                        <label>
+                        <label data-toggle="dropdown">
                             <span ng-if="IsEmailVerified == 0">
                                 <input type="checkbox" disabled>
                                 <i class="input-helper"></i>
@@ -43,6 +43,9 @@
                                 <span><s>Confirm Email Address</s></span>
                             </span>
                         </label>
+                        <ul class="dropdown-menu dropdown-menu-right">
+                            <li><a href="#" ng-click="ResendVerificationEmailOrSMS('Email');">Resend Verification Email</a></li>
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -57,7 +60,8 @@
                                 </a>
 
                                 <ul class="dropdown-menu dropdown-menu-right">
-                                    <li><a href="#" ng-click="ResendVerificationEmailOrSMS('SMS');">Resend Verification SMS</a></li>
+                                    <li><a href="#" ng-if="ContactNumber.length > 5" ng-click="ResendVerificationEmailOrSMS('SMS');">Resend Verification SMS</a></li>
+                                    <li><a href="#" ng-click="goTo('profile');">Edit Phone Number</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -77,6 +81,7 @@
                         </label>
                         <ul class="dropdown-menu dropdown-menu-right">
                             <li><a href="#" ng-click="ResendVerificationEmailOrSMS('SMS');">Resend Verification SMS</a></li>
+                            <li><a href="#" ng-click="goTo('profile');">Edit Phone Number</a></li>
                         </ul>
                     </div>
                 </div>

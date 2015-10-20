@@ -9,7 +9,7 @@ noochForLandlords
 		    console.log("adminCtrl -> User no longer valid!");
 
 		    growlService.growl('Please login to continue!', 'inverse');
-		    alert("User's auth token has expired... about to redirect to login page");
+		    //alert("User's auth token has expired... about to redirect to login page");
 		    window.location.href = 'login.html';
         }
 
@@ -165,10 +165,10 @@ noochForLandlords
             setTimeout(function () {
                 $scope.tour = new Tour({
                     name: 'newLandlordUserTour',
-                    //storage: true,
-                    //debug: true, // just for testing
+                    storage: false,
                     backdrop: true,
                     orphan: true, //Allow to show the step regardless whether its element is not set, is not present in the page or is hidden. The step is fixed positioned in the middle of the page.
+                    template: "<div class='popover tour'><div class='arrow'></div><h3 class='popover-title'></h3><div class='popover-content'></div><div class='popover-navigation'><button class='btn btn-default' data-role='prev'><span class='fa fa-fw fa-chevron-left'></span></button><span data-role='separator'>|</span><button class='btn btn-default' data-role='next'><span class='fa fa-fw fa-chevron-right'></span></button><button class='btn btn-default' data-role='end'>Got it!</button></div></div>",
                     steps: [
                     {
                         element: ".tour-step#tour-step-one",
@@ -2212,6 +2212,7 @@ noochForLandlords
         console.log("$rootScope.isIdVerified... (2018):");
         console.log($rootScope.isIdVerified);
 
+        
         if ($rootScope.isIdVerified === false)
         {
             console.log("ID IS NOT VERIFIED YET");
@@ -2564,7 +2565,43 @@ noochForLandlords
 
 
     .controller('profileAboutCtrl', function ($rootScope, $compile, getProfileService, authenticationService, $scope) {
+        console.log("PROFILE ABOUT Controller Fired");
+        if ($rootScope.shouldShowPhoneTour === true) {
 
+            setTimeout(function ()
+            {
+            var tourPhone = new Tour({
+                name: 'editPhoneTour',
+                storage: false,
+                backdrop: true,
+                orphan: true, //Allow to show the step regardless whether its element is not set, is not present in the page or is hidden. The step is fixed positioned in the middle of the page.
+                template: "<div class='popover tour'><div class='arrow'></div><h3 class='popover-title'></h3><div class='popover-content'></div><div class='popover-navigation'><button class='btn btn-default' data-role='end'>Got it!</button></div></div>",
+                steps: [
+                    {
+                        element: "#contactInfoGrp",
+                        title: "Add Your Contact Info",
+                        content: "To complete your account and begin collecting rent, please enter your phone number here.",
+                        animation: true,
+                        backdropPadding: 10,
+                        placement: "right"
+                    }
+                ],
+                onStart: function (tour) {
+                    // The tour won't display correctly if a parent element uses any Animate.css classes... so just removing them on init
+                    $('#profAbout').removeClass('animated fadeInRightSm');
+                },
+                onEnd: function (tour) {
+                    $rootScope.shouldShowPhoneTour = false;
+                },
+            });
+
+            // Initialize the tour
+            tourPhone.init();
+
+            // Start the tour
+            tourPhone.start();
+            }, 1000);
+        }
     })
 
 
@@ -2657,42 +2694,44 @@ noochForLandlords
                     }
                 });
             }
-
-            if ($scope.bankCount > 0)
+            else
             {
-                var plural = "";
-                if ($scope.bankCount > 1) {
-                    plural = "s";
-                }
-
-                swal({
-                    title: "Add A New Bank?",
-                    text: "You already have " + $scope.bankCount + " bank account" + plural + " attached.  Would you like to add another?",
-                    type: "warning",
-                    showCancelButton: true,
-                    confirmButtonColor: "#DD6B55",
-                    confirmButtonText: "Add New Bank",
-                    cancelButtonText: "Cancel",
-                    closeOnConfirm: true,
-                    closeOnCancel: true
-                }, function (isConfirm) {
-                    if (isConfirm) {
-                        $('#bankAdd iframe').attr("src", "http://noochme.com/noochweb/trans/Add-Bank.aspx?MemberId=" + $scope.userInfoInSession.memberId + "&ll=yes");
-                        $('#bankAdd').modal({
-                            keyboard: false
-                        })
+                if ($scope.bankCount > 0)
+                {
+                    var plural = "";
+                    if ($scope.bankCount > 1) {
+                        plural = "s";
                     }
-                    else { }
-                });
-            }
-            else // No bank attached yet
-            {
-                $('#bankAdd iframe').attr("src", "http://noochme.com/noochweb/trans/Add-Bank.aspx?MemberId=" + $scope.userInfoInSession.memberId + "&ll=yes");
-				//$('#bankAdd iframe').attr("src", "https://noochme.com/noochweb/trans/Add-Bank.aspx?MemberId=" + $scope.userInfoInSession.memberId + "&ll=yes");
 
-                $('#bankAdd').modal({
-                    keyboard: false
-                })
+                    swal({
+                        title: "Add A New Bank?",
+                        text: "You already have " + $scope.bankCount + " bank account" + plural + " attached.  Would you like to add another?",
+                        type: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#DD6B55",
+                        confirmButtonText: "Add New Bank",
+                        cancelButtonText: "Cancel",
+                        closeOnConfirm: true,
+                        closeOnCancel: true
+                    }, function (isConfirm) {
+                        if (isConfirm) {
+                            $('#bankAdd iframe').attr("src", "http://noochme.com/noochweb/trans/Add-Bank.aspx?MemberId=" + $scope.userInfoInSession.memberId + "&ll=yes");
+                            $('#bankAdd').modal({
+                                keyboard: false
+                            })
+                        }
+                        else { }
+                    });
+                }
+                else // No bank attached yet
+                {
+                    $('#bankAdd iframe').attr("src", "http://noochme.com/noochweb/trans/Add-Bank.aspx?MemberId=" + $scope.userInfoInSession.memberId + "&ll=yes");
+				    //$('#bankAdd iframe').attr("src", "https://noochme.com/noochweb/trans/Add-Bank.aspx?MemberId=" + $scope.userInfoInSession.memberId + "&ll=yes");
+
+                    $('#bankAdd').modal({
+                        keyboard: false
+                    })
+                }
             }
         }
 
@@ -2791,47 +2830,70 @@ noochForLandlords
 
                     if ($('#confirmPw').val() && $('#confirmPw').val().length > 6)
                     {
-                        updateValidationUi("confirmPw", true);
+                        if ($('#newPw').val() == $('#confirmPw').val())
+                        {
+                            updateValidationUi("confirmPw", true);
 
-                        // ADD THE LOADING BOX
-                        $('#forgotPw > div').block({
-                            message: '<span><i class="fa fa-refresh fa-spin fa-loading"></i></span><br/><span class="loadingMsg">Updating password...</span>',
-                            css: {
-                                border: 'none',
-                                padding: '26px 10px 23px',
-                                backgroundColor: '#000',
-                                '-webkit-border-radius': '14px',
-                                '-moz-border-radius': '14px',
-                                'border-radius': '14px',
-                                opacity: '.75',
-                                width: '76%',
-                                left: '12%',
-                                top: '-10px',
-                                color: '#fff'
-                            }
-                        });
-
-                        if (authenticationService.IsValidUser() == true) {
-                            var userdetails = authenticationService.GetUserDetails();
-
-                            authenticationService.updatePw(userdetails.landlordId, userdetails.accessToken, $scope.current, $scope.newPw, $scope.confirmPw, function (response) {
-
-                                console.log(response);
-
-                                $('#forgotPw').unblock();
-
-                                if (response.IsSuccess == true) {
-                                    authenticationService.SetUserDetails($scope.LoginData.username, response.MemberId, response.LandlordId, response.AccessToken);
-                                }
-                                else {
-                                    console.log('Reset PW Error: ' + response.ErrorMessage);
-                                    swal({
-                                        title: "Oh No!",
-                                        text: "Looks like either your email or password was incorrect.  Please try again.",
-                                        type: "error"
-                                    });
+                            // ADD THE LOADING BOX
+                            $('#forgotPw > div').block({
+                                message: '<span><i class="fa fa-refresh fa-spin fa-loading"></i></span><br/><span class="loadingMsg">Updating password...</span>',
+                                css: {
+                                    border: 'none',
+                                    padding: '26px 10px 23px',
+                                    backgroundColor: '#000',
+                                    '-webkit-border-radius': '14px',
+                                    '-moz-border-radius': '14px',
+                                    'border-radius': '14px',
+                                    opacity: '.75',
+                                    width: '76%',
+                                    left: '12%',
+                                    top: '-10px',
+                                    color: '#fff'
                                 }
                             });
+
+                            if (authenticationService.IsValidUser() == true) {
+                                var userdetails = authenticationService.GetUserDetails();
+
+                                authenticationService.updatePw(userdetails.landlordId, userdetails.accessToken, $scope.pwData.current, $scope.pwData.newPw, $scope.pwData.confirmPw, function (response) {
+
+                                    console.log(response);
+
+                                    $('#forgotPw').unblock();
+
+                                    if (response.success === true) {
+                                        //authenticationService.SetUserDetails($scope.LoginData.username, response.MemberId, response.LandlordId, response.AccessToken);
+                                        swal({
+                                            title: "Password Updated",
+                                            text: "Your password has been successfully updated.",
+                                            type: "success",
+                                            customClass: "largeText"
+                                        });
+
+                                        $('#currentPwGrp').removeClass('has-success');
+                                        $('#newPwGrp').removeClass('has-success');
+                                        $('#confirmPwGrp').removeClass('has-success');
+                                        $('#currentPw').val('');
+                                        $('#newPw').val('');
+                                        $('#confirmPw').val('');
+                                    }
+                                    else {
+                                        var msg = "Looks like either your email or password was incorrect.  Please try again.";
+                                        if (response.msg != null && response.msg.indexOf("Current password was incorrect") > -1) {
+                                            msg = "Looks like your current password was not correct. Please try again or if you don't remember your password, click \"Forgot Password\".";
+                                        }
+                                        swal({
+                                            title: "Oh No!",
+                                            text: msg,
+                                            type: "error",
+                                            customClass: "largeText"
+                                        });
+                                    }
+                                });
+                            }
+                        }
+                        else {
+                            updateValidationUi("confirmPw2", false);
                         }
                     }
                     else {
@@ -2944,26 +3006,40 @@ noochForLandlords
         updateValidationUi = function (field, success) {
             console.log("Profile -> PW -> UpdateValidationUI - Field: " + field + "; success: " + success);
 
-            if (success == true) {
+            if (success == true)
+            {
+                if (field == "confirmPw2") {
+                    field = "confirmPw";
+                }
                 $('#' + field + 'Grp').removeClass('has-error').addClass('has-success');
+
                 if (field != 'pw' && $('#' + field + 'Grp .help-block').length) {
                     $('#' + field + 'Grp .help-block').slideUp();
                 }
             }
-            else {
-                $('#' + field + 'Grp').removeClass('has-success').addClass('has-error');
-
+            else
+            {
                 var helpBlockTxt = "";
 
-                if (field == "pw") {
-                    helpBlockTxt = "Please enter your password!"
+                if (field == "currentPw") {
+                    helpBlockTxt = "Please enter your current password!"
                 }
-                else if (field == "pwreg") {
-                    helpBlockTxt = "Please create a strong password."
+                else if (field == "newPw") {
+                    helpBlockTxt = "Please enter a strong new password."
+                }
+                else if (field == "confirmPw") {
+                    helpBlockTxt = "Please confirm your new password."
+                }
+                else if (field == "confirmPw2") {
+                    helpBlockTxt = "New password does not match confirm password."
+                    field = "confirmPw";
                 }
 
-                if (!$('#' + field + 'Grp .help-block').length) {
-                    $('#' + field + 'Grp').append('<small class="help-block pull-left" style="display:none">' + helpBlockTxt + '</small>');
+                $('#' + field + 'Grp').removeClass('has-success').addClass('has-error');
+
+                if (!$('#' + field + 'Grp .help-block').length)
+                {
+                    $('#' + field + 'Grp').append('<small class="help-block pull-right f-14" style="display:none">' + helpBlockTxt + '</small>');
                     $('#' + field + 'Grp .help-block').slideDown();
                 }
                 else { $('#' + field + 'Grp .help-block').show() }
@@ -3076,7 +3152,7 @@ noochForLandlords
                 $scope.checklistItems.isBankAdded = response.IsAccountAdded;
                 $scope.checklistItems.acceptPayment = response.IsAnyRentReceived;
 
-                $scope.checklistItems.percentComplete = ((($rootScope.IsEmailVerified + $rootScope.IsPhoneVerified + $rootScope.isIdVerified +
+                $scope.checklistItems.percentComplete = Number((($rootScope.IsEmailVerified + $rootScope.IsPhoneVerified + $rootScope.isIdVerified +
                              $scope.checklistItems.isBankAdded + $scope.checklistItems.addProp + $scope.checklistItems.addTenant + $scope.checklistItems.acceptPayment)
                              / 7) * 100).toFixed(0);
 
@@ -3089,18 +3165,14 @@ noochForLandlords
                         lineCap: "round",
                         animate: 2300,
                     });
-
-                    var numAnim = new CountUp("countUp", 0, $scope.checklistItems.percentComplete, 0, 2.5);
+                    console.log(typeof $scope.checklistItems.percentComplete);
+                    var numAnim = new CountUp("countUp", 0,Number($scope.checklistItems.percentComplete), 0, 2.5);
                     numAnim.start();
-                }, 100);
-
-               // setTimeout(function () {
-                    // Script for the Counters for Facts Section
-                    
-                //}, 1000);
+                }, 200);
             });
         }
-        else {
+        else 
+        {
             window.location.href = 'login.html';
         }
 
@@ -3122,7 +3194,7 @@ noochForLandlords
                     }, function (isConfirm) {
                         if (isConfirm)
                         {
-                            window.location.href = '#/profile/profile-about';
+                            $scope.goTo("profile");
                         }
                     });
                 }
@@ -3171,6 +3243,14 @@ noochForLandlords
             });
         };
 
+        $scope.goTo = function (destination) {
+            if (destination == "profile")
+            {
+                $rootScope.shouldDisplayOverviewAlert = false;
+                $rootScope.shouldShowPhoneTour = true;
+                window.location.href = '#/profile/profile-about';
+            }
+        }
     })
 
     // Account Checklist Pie Chart (EASY PIE CHART)
@@ -3545,7 +3625,7 @@ noochForLandlords
 
                                 // Now call service to register a new Landlord user
                                 authenticationService.RegisterLandlord($scope.SignupData.firstName, $scope.SignupData.lastName, $scope.SignupData.eMail, $scope.SignupData.pass, $scope.fngrprnt, ip, country_code, function (response) {
-
+                                    console.log(response);
                                     regForm.unblock();
 
                                     // Cliff (9/10/15): Users should be automatically logged in after creating an account... send them to the Home page.
@@ -3562,8 +3642,9 @@ noochForLandlords
                                             title: "Great Success",
                                             text: 'Congrats - you have successfully registered your Nooch account. Click below to get started!',
                                             type: "success",
+                                            customClass: "largeText",
                                             confirmButtonColor: "#3FABE1",
-                                            confirmButtonText: "Let's Go"
+                                            confirmButtonText: "Let's Get Started!"
                                         }, function (isConfirm) {
                                             // Now log the user in & send to home page.
 
@@ -3610,11 +3691,37 @@ noochForLandlords
                                             });
                                         });
                                     }
-                                    else {
+                                    else
+                                    {
+                                        var msg = "Looks like we had some trouble creating your account.  We hate it when this happens.  Please try again or contact support@nooch.com for more help.";
+                                        var showCancel = false;
+                                        console.log(response.ErrorMessage.indexOf("already exists"));
+                                        if (response.ErrorMessage.indexOf("already exists") > -1)
+                                        {
+                                            msg = "Looks like that email address is already registered.  If you forgot your password you can reset it.  Or try using a different email address.";
+                                            showCancel = true;
+                                        }
+
                                         swal({
                                             title: "Oh No!",
-                                            text: "Looks like we had some trouble creating your account.  We hate it when this happens.  Please try again or contact support@nooch.com for more help.",
-                                            type: "error"
+                                            text: msg,
+                                            type: "error",
+                                            customClass: "largeText",
+                                            showCancelButton: showCancel,
+                                            cancelButtonText: "Forgot My Password!",
+                                            confirmButtonText: "Ok",
+                                        }, function (isConfirm) {
+                                            if (isConfirm) 
+                                            {
+                                                //setTimeout(function () {
+                                                    updateValidationUi("em", false);
+                                                //}, 300);
+                                            }
+                                            else
+                                            {
+                                                console.log("check. point. charlie..")
+                                                $scope.showBlock("forgotpw");
+                                            }
                                         });
                                     }
                                 });							
@@ -3657,10 +3764,14 @@ noochForLandlords
         updateValidationUi = function (field, success) {
             console.log("Field: " + field + "; success: " + success);
 
-            if (success == true) {
-                $('#' + field + 'Grp').removeClass('has-error').addClass('has-success');
-                if (field != 'pw' && $('#' + field + 'Grp .help-block').length) {
-                    $('#' + field + 'Grp .help-block').slideUp();
+            if (success == true)
+            {
+                if (field != "tosbox")
+                {
+                    $('#' + field + 'Grp').removeClass('has-error').addClass('has-success');
+                    if (field != 'pw' && $('#' + field + 'Grp .help-block').length) {
+                        $('#' + field + 'Grp .help-block').slideUp();
+                    }
                 }
             }
             else {
@@ -3684,7 +3795,8 @@ noochForLandlords
                     helpBlockTxt = "Please create a strong password."
                 }
                 else if (field == "tosbox") {
-                    helpBlockTxt = "Please read and agree to Nooch's Terms of Service to create your account."
+                    helpBlockTxt = "Please read and agree to Nooch's TOS to create your account."
+                    $('#createAccnt').attr("style", "margin-top:30px !important");
                 }
 
                 if (!$('#' + field + 'Grp .help-block').length) {

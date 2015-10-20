@@ -269,19 +269,9 @@ noochForLandlords
                 });
         }
 
-        function get2() {
-            var User = $resource('data/properties.json/:id', { id: '@id' });
-            console.log(User.get({ id: 4 }));
-            /*var user = User.get({ userId: 123 }, function () {
-                user.abc = true;
-                user.$save();
-            });*/
-        }
-
         return {
             set: set,
             get: get,
-            get2: get2,
             getPropFromDb: getPropertyDetailsFromDB,
             deleteUnit: deleteUnitFromProperty
         }
@@ -430,21 +420,17 @@ noochForLandlords
 
 
         Operations.updatePw = function (landlordId, accessToken, current, newPw, confirmPw, callback) {
+            console.log('UPDATE PW SERVCE REACHED');
 
-            var dataAuth = {};
-            dataAuth.LandlorId = landlordId;
-            dataAuth.AccessToken = accessToken;
-
-            var pwInfo = {};
-            pwInfo.current = current;
-            pwInfo.newPw = newPw;
-            pwInfo.confirmPw = confirmPw;
+            var AuthInfo = {};
+            AuthInfo.LandlorId = landlordId;
+            AuthInfo.AccessToken = accessToken;
 
             var data = {};
-            data.DeviceInfo = dataAuth;
-            data.pwInfo = pwInfo;
-
-
+            data.AuthInfo = AuthInfo;
+            data.currentPw = current;
+            data.newPw = newPw;
+            console.log(data);
             $http.post(URLs.UpdatePw, data)
                 .success(function (response) {
                     callback(response);
@@ -471,7 +457,7 @@ noochForLandlords
             User.memberId = localStorage.getItem('memberId');
             User.landlordId = localStorage.getItem('landlordId');
             User.accessToken = localStorage.getItem('accessToken');
-            console.log(User);
+            //console.log(User);
             return User;
         };
 
@@ -479,13 +465,13 @@ noochForLandlords
         Operations.IsValidUser = function () {
             var User = {};
             User.username = localStorage.getItem('username');
-            User.memberId = localStorage.getItem('memberId');
+            User.landlordId = localStorage.getItem('landlordId');
             User.accessToken = localStorage.getItem('accessToken');
 
-            if (User.username == null || User.memberId == null || User.accessToken == null) {
+            if (User.username == null || User.landlordId == null || User.accessToken == null) {
                 return false;
             }
-            if (User.username.length > 0 && User.memberId.length > 0 && User.accessToken.length > 0)
+            if (User.username.length > 0 && User.landlordId.length > 0 && User.accessToken.length > 0)
                 return true;
             else
                 return false;
