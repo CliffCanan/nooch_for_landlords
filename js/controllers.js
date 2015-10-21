@@ -158,39 +158,58 @@ noochForLandlords
     .controller('homeCtrl', function ($rootScope, $scope, getProfileService, authenticationService) {
         // CLIFF (10.10.15): Adding code for showing the New User Tour
         // Instance the tour
-        if ($rootScope.hasSeenNewUserTour != true && $rootScope.isIdVerified === false)
+        if ($rootScope.hasSeenNewUserTour != true && $rootScope.isIdVerified != false)
         {
             console.log('HOME -> starting tour!');
 
             setTimeout(function () {
                 $scope.tour = new Tour({
                     name: 'newLandlordUserTour',
-                    storage: false,
+                    storage: false, // Setting this to 'false' makes it run every time
                     backdrop: true,
                     orphan: true, //Allow to show the step regardless whether its element is not set, is not present in the page or is hidden. The step is fixed positioned in the middle of the page.
-                    template: "<div class='popover tour'><div class='arrow'></div><h3 class='popover-title'></h3><div class='popover-content'></div><div class='popover-navigation'><button class='btn btn-default' data-role='prev'><span class='fa fa-fw fa-chevron-left'></span></button><span data-role='separator'>|</span><button class='btn btn-default' data-role='next'><span class='fa fa-fw fa-chevron-right'></span></button><button class='btn btn-default' data-role='end'>Got it!</button></div></div>",
+                    template: "<div class='popover tour'><div class='arrow'></div><h3 class='popover-title'></h3><div class='popover-content'></div><div class='popover-navigation'><button class='btn btn-default' data-role='prev'><span class='md md-keyboard-arrow-left'></span></button>&nbsp;&nbsp;<button class='btn btn-default m-l-5' data-role='next'><span class='md md-keyboard-arrow-right'></span></button><button class='btn btn-default' data-role='end'>Got it!</button></div></div>",
+                    onStart: function (tour) {
+                        // The tour won't display correctly if a parent element uses any Animate.css classes... so just removing them on init
+                        $('#acntChklst').removeClass('animated fadeInRightSm');
+                    },
                     steps: [
                     {
                         element: ".tour-step#tour-step-one",
                         title: "Welcome To Nooch For Landlords!",
                         content: "This is your dashboard. You can see the key details of your account here.",
                         animation: true,
-                        backdropPadding: 15,
+                        backdropPadding: 10,
                         placement: "bottom"
                     },
                     {
                         element: "#sidebar",
                         title: "Find What You Need",
                         content: "Use this menu to navigate to the info you need.",
-                        backdrop: false
+                        placement: "right",
+                        backdropPadding: 6,
+                        onShow: function (tour) {
+                            $('#sidebar').css('z-index', '1105'); // this fixes an issue where the Tour backdrop would cover up the sidebar
+                        },
+                        onHide: function (tour) {
+                            $('#sidebar').css('z-index', '5'); // return to regular z-index
+                        }
+                        //backdrop: false
+                    },
+                    {
+                        element: "#acntChecklistCard",
+                        title: "How To Get Started",
+                        content: "Check out this list to see how to complete your account and start getting paid.  This checklist will show your progress as you complete each step.",
+                        placement: "left",
+                        backdropPadding: 6
                     },
                     {
                         element: ".tour-step.tour-step-3",
                         title: "Safey First",
                         content: "To get started, please complete your profile to verify your identity. It takes less than 60 seconds and helps us keep Nooch the safe and secure way to collect rent online.",
                         animation: true,
-                        backdropPadding: 5,
-                        placement: "left"
+                        placement: "left",
+                        backdropPadding: 5
                     }
                     ]
                 });
@@ -2163,7 +2182,7 @@ noochForLandlords
                 msgSizeTooLarge: "File '{name}' ({size} KB) exceeds the maximum allowed file size of {maxSize} KB. Please try a slightly smaller picture!",
                 showCaption: false,
                 showUpload: false,
-                uploadUrl: URLs.UploadLandlordProfileImage,  // NEED TO ADD URL TO SERVICE FOR SAVING PROFILE PIC (SEPARATELY FROM SAVING THE REST OF THE PROFILE INFO)
+                uploadUrl: URLs.UploadLandlordProfileImage,
                 uploadExtraData: {
                     LandlorId: $scope.userInfoInSession.landlordId,
                     AccessToken: $scope.userInfoInSession.accessToken
@@ -2191,11 +2210,12 @@ noochForLandlords
                     $('#userProfilePic').attr('src', '');
                     setTimeout(function () {
                         $('#userProfilePic').attr('src', data.response.ErrorMessage + '#' + new Date().getTime());
-                    }, 1100);
+                    }, 500);
                 }
                 else
                 {
                     $('#addPic').modal('hide');
+
                     swal({
                         title: "Oops",
                         text: data.response.ErrorMessage,
@@ -2213,43 +2233,7 @@ noochForLandlords
         console.log($rootScope.isIdVerified);
 
         
-        if ($rootScope.isIdVerified === false)
-        {
-            console.log("ID IS NOT VERIFIED YET");
-
-            if ($rootScope.shouldDisplayOverviewAlert === true)
-            {
-                $rootScope.shouldDisplayOverviewAlert = false;
-
-				swal({
-                    title: "Secure, Private Payments",
-                    text: "<p>Nooch is a quick, secure way to collect rent payments without giving out your personal or bank details.</p>" +
-                          "<ul class='fa-ul'><li><i class='fa-li fa fa-check'></i>Verify You Identity</li>" +
-                          "<li><i class='fa-li fa fa-check'></i>Attach your bank account</li>" +
-                          "<li><i class='fa-li fa fa-check'></i>Add your properties to start collecting rent</li></ul>",
-                    imageUrl: "img/secure.svg",
-                    imageSize: "194x80",
-                    showCancelButton: true,
-                    cancelButtonText: "Verify Later",
-                    confirmButtonColor: "#3fabe1",
-                    confirmButtonText: "Verify ID Now",
-                    //closeOnCancel: true,
-                    customClass: "securityAlert",
-                    allowEscapeKey: false,
-                    html: true
-                }, function (isConfirm) {
-                    if (isConfirm)
-                    { 
-					    $scope.runWizard();
-				    }
-                });
-            }
-            else if ($rootScope.shouldLaunchWizOnLoad === true)
-            {
-                $rootScope.shouldLaunchWizOnLoad = false;
-                $scope.runWizard();
-            }
-        }
+        
         $scope.runWizard = function () { runIdWizard(); }
 
         function runIdWizard() {
@@ -2273,6 +2257,8 @@ noochForLandlords
 
                 /* Events */
                 onInit: function (event, currentIndex) {
+                    $('html').css('overflow-y', 'scroll');
+
                     $('#idVerWiz > .content').animate({ height: "23em" }, 300)
 
                     setTimeout(function () {
@@ -2392,12 +2378,12 @@ noochForLandlords
                                     },
                                     showPreview: true,
                                     resizeImage: true,
-                                    maxImageWidth: 400,
-                                    maxImageHeight: 400,
+                                    maxImageWidth: 500,
+                                    maxImageHeight: 500,
                                     resizePreference: 'width'
                                 });
 
-                                $('#idVerWiz > .content').animate({ height: "26em" }, 700)
+                                $('#idVerWiz > .content').animate({ height: "28em" }, 700)
                                 return true;
                             }
                             else {
@@ -2442,6 +2428,7 @@ noochForLandlords
                         console.log(response);
 
                         // HIDE THE MODAL CONTAINING THE WIZARD
+                        $('html').css('overflow-y', 'hidden');
                         $('#idVer').modal('hide')
 
                         if (response.success == true)
@@ -2540,6 +2527,7 @@ noochForLandlords
                 }, function (isConfirm) {
                     if (isConfirm) {
                         setTimeout(function () {
+                            $('html').css('overflow-y', 'hidden');
                             $('#idVer').modal('hide');
                             setTimeout(function () {
                                 $('#idVerWiz').steps('destroy');
@@ -2566,6 +2554,7 @@ noochForLandlords
 
     .controller('profileAboutCtrl', function ($rootScope, $compile, getProfileService, authenticationService, $scope) {
         console.log("PROFILE ABOUT Controller Fired");
+
         if ($rootScope.shouldShowPhoneTour === true) {
 
             setTimeout(function ()
@@ -2601,6 +2590,41 @@ noochForLandlords
             // Start the tour
             tourPhone.start();
             }, 1000);
+        }
+
+        if ($rootScope.isIdVerified === false) {
+            console.log("ID IS NOT VERIFIED YET");
+
+            if ($rootScope.shouldDisplayOverviewAlert === true) {
+                $rootScope.shouldDisplayOverviewAlert = false;
+
+                swal({
+                    title: "Secure, Private Payments",
+                    text: "<p>Nooch is a quick, secure way to collect rent payments without giving out your personal or bank details.</p>" +
+                          "<ul class='fa-ul'><li><i class='fa-li fa fa-check'></i>Verify You Identity</li>" +
+                          "<li><i class='fa-li fa fa-check'></i>Attach your bank account</li>" +
+                          "<li><i class='fa-li fa fa-check'></i>Add your properties to start collecting rent</li></ul>",
+                    imageUrl: "img/secure.svg",
+                    imageSize: "194x80",
+                    showCancelButton: true,
+                    cancelButtonText: "Verify Later",
+                    confirmButtonColor: "#3fabe1",
+                    confirmButtonText: "Verify ID Now",
+                    //closeOnCancel: true,
+                    customClass: "securityAlert",
+                    allowEscapeKey: false,
+                    html: true
+                }, function (isConfirm) {
+                    if (isConfirm) {
+                        $scope.runWizard();
+                    }
+                });
+            }
+            else if ($rootScope.shouldLaunchWizOnLoad === true) {
+                console.log("$rootScope.shouldLaunchWizOnLoad  IS TRUE");
+                $rootScope.shouldLaunchWizOnLoad = false;
+                
+            }
         }
     })
 
@@ -2689,8 +2713,7 @@ noochForLandlords
                 }, function (isConfirm) {
                     if (isConfirm)
                     {
-                        $rootScope.shouldLaunchWizOnLoad = true;
-                        window.location.href = '#/profile/profile-about';
+                        $scope.runWizard();
                     }
                 });
             }

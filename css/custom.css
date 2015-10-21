@@ -178,6 +178,12 @@ a, a *,
         margin: 3px auto -3px;
     }
 
+.nopointer {
+    cursor: default !important;
+}
+
+i.md-info, i.md-info-outline {cursor: help;}
+
 .divider {
     height: 10px;
     margin: 1px 0;
@@ -1135,6 +1141,10 @@ form .checkbox.haserror .input-helper:before {
 
 
 /** PROFILE - VERIFY ID MDOAL & Wizard**/
+#idVer.in {
+    position: absolute;
+}
+
 #idVerWiz .content {
     min-height: 20em;
     height: 27em;
@@ -1412,9 +1422,14 @@ form .checkbox.haserror .input-helper:before {
             padding: 0 15px 15px;
         }
 
-    .popover.tour-newLandlordUserTour .btn-sm {
-        font-size: 13px;
-        padding: 8px 10px;
+    .popover.tour-newLandlordUserTour .btn:not([data-role='end']) {
+        font-size: 20px;
+        padding: 0 6px;
+        color: #3fabe1;
+    }
+
+    .popover.tour-newLandlordUserTour .btn > i {
+        line-height: 30px;
     }
 
     .modal#bankAdd .modal-body {
