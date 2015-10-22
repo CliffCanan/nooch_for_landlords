@@ -203,7 +203,6 @@ noochForLandlords
                 .success(function (response) {
                     if (response.IsSuccess && response.IsSuccess == true) {
                         authenticationService.ManageToken(response.AuthTokenValidation);
-                        //console.log('came in success');
                     }
                     callback(response);
                 });
@@ -481,6 +480,7 @@ noochForLandlords
         Operations.ManageToken = function (tokenResponse) {
             if (tokenResponse.IsTokenUpdated == true) {
                 localStorage.setItem('accessToken', tokenResponse.AccessToken);
+                localStorage.setItem('memberId', tokenResponse.MemberId);
             }
         };
 
@@ -516,7 +516,7 @@ noochForLandlords
 
 
         Operations.ResendVerificationEmailOrSMS = function (userId, userType, requestFor, callback) {
-
+            console.log("Reached ResendVerificationEmailOrSMS");
             var data = {};
             data.UserId = userId;
             data.UserType = userType;
@@ -613,7 +613,7 @@ noochForLandlords
 
 
         // Submitting ID Verification Wizard Responses
-        Operations.submitIdVerWizard = function (deviceInfo, fullName, birthDay, ssnLast4, address, zip, callback) {
+        Operations.submitIdVerWizard = function (deviceInfo, fullName, birthDay, ssnLast4, address, zip, phone, callback) {
 
             var deviceInfoObj = {
                 LandlorId: deviceInfo.LandlorId,
@@ -626,6 +626,7 @@ noochForLandlords
                 dob: birthDay,
                 staddress: address,
                 zip: zip,
+                phone: phone
             };
 
             data.DeviceInfo = deviceInfoObj;
@@ -668,10 +669,12 @@ noochForLandlords
             data.LandlordId = landlordId;
             data.AccessToken = accessToken;
             data.MemberId = memberId;
-
+            console.log(data.LandlordId);
+            console.log(data.AccessToken);
+            console.log(data.MemberId);
             $http.post(URLs.DeleteBank, data)
                 .success(function (response) {
-                    console.log("Services -> DeleteBank -> SUCCESS!");
+                    console.log("Services -> DeleteBank -> Got a response!");
                     callback(response);
                 });
         };

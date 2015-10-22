@@ -182,7 +182,9 @@ a, a *,
     cursor: default !important;
 }
 
-i.md-info, i.md-info-outline {cursor: help;}
+i.md-info, i.md-info-outline {
+    cursor: help;
+}
 
 .divider {
     height: 10px;
@@ -635,6 +637,11 @@ form .alert {
     .popover.tour .popover-content {
         font-size: 15px;
         padding: 0 10px 10px;
+    }
+
+    .popover.tour .btn.disabled {
+        color: rgba(64,65,66,.5) !important;
+        cursor: none !important;
     }
 
 .popover-title {
@@ -1182,10 +1189,18 @@ form .checkbox.haserror .input-helper:before {
         font-size: 18px;
     }
 
+#idVerWiz #dobGrp .form-group {
+    width: 100%;
+}
+
+    #idVerWiz #dobGrp .form-group .fg-line {
+        padding: 0;
+    }
+
 .form-group .help-block {
     font-size: 13px;
     font-weight: 400;
-    letter-spacing: .2px;
+    letter-spacing: .1px;
     margin-bottom: 0px;
 }
 
@@ -1202,7 +1217,30 @@ form .checkbox.haserror .input-helper:before {
     top: -5px;
 }
 
-#idVerWiz input#idVer-ssn {
+#idVerWiz #idVer-dob {
+    padding-left: 25px;
+}
+
+#idVerWiz #dobGrp .input-group-addon {
+    border-bottom: 0;
+    position: absolute;
+    z-index: 9;
+    top: 10px;
+    left: 1px;
+}
+
+#idVerWiz #dobGrp .help-block:after {
+    content: " ";
+    height: 2px;
+    width: 100%;
+    background: #fff;
+    display: block;
+    position: absolute;
+    bottom: 0;
+    z-index: 99;
+}
+
+#idVerWiz #idVer-ssn {
     padding-left: 92px;
     letter-spacing: 1px;
 }
@@ -1262,8 +1300,10 @@ form .checkbox.haserror .input-helper:before {
 
     .wizard .actions li:not(.disabled) a[href="#previous"] {
         background-color: #ffffff;
-        border: 1px solid #bbb;
+        border: none;
         color: #313233;
+        box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.12), 0 2px 10px -3px rgba(0, 0, 0, 0.1);
+
     }
 
 .bootstrap-datetimepicker-widget table thead .fa {
@@ -1382,7 +1422,7 @@ form .checkbox.haserror .input-helper:before {
     }
 
     .form-group .help-block {
-        font-size: 14px;
+        font-size: 13.5px;
     }
 
     .login-content .help-block {
@@ -1391,6 +1431,33 @@ form .checkbox.haserror .input-helper:before {
 
     #idVerWiz .content .body {
         padding: 15px 25px;
+    }
+
+    #idVerWiz #idVer-dob {
+        padding-left: 35px;
+    }
+
+    #idVerWiz .content > section:nth-child(2):after {
+        content: "* And comply with the USA Patriot Act. Imagine how bad we'd look if terrorists used Nooch. So we take it pretty seriously.";
+        color: rgba(108,110,112,0.95);
+        display: block;
+        position: absolute;
+        font-size: 12px;
+        letter-spacing: .5px;
+        font-weight: 300;
+        width: 80%;
+        left: 10%;
+        bottom: -5px;
+    }
+
+    #idVerWiz .well .ast > span {
+        font-size: 92%;
+        font-weight: 300;
+        position: relative;
+        top: -4px;
+        left: 1.5px;
+        opacity: 0.85;
+        letter-spacing: 2px;
     }
 
     .popover {

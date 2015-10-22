@@ -177,7 +177,7 @@
 
                                     <form id="idVerForm1" role="form">
                                         <div class="well well-sm">
-                                            <div class="ast">To keep Nooch safe for everyone<span class="desk-only">*</span>, we need to verify your identity. Please complete the following fields.</div>
+                                            <div class="ast">To keep Nooch safe for everyone<span class="desk-only ast">*</span>, we need to verify your identity. Please complete the following fields.</div>
                                         </div>
 
                                         <dl class="dl-horizontal" id="nameGrp">
@@ -197,7 +197,7 @@
                                             <dd>
                                                 <div class="input-group form-group">
                                                     <span class="input-group-addon"><i class="md md-event"></i></span>
-                                                    <div class="dtp-container dropdown fg-line p-l-0">
+                                                    <div class="dtp-container dropdown fg-line">
                                                         <input id="idVer-dob" data-format="MM/DD/YYYY" data-ng-model="userInfo.birthDay" type='text' class="form-control" data-toggle="dropdown" placeholder="eg. 08/05/1978">
                                                     </div>
                                                 </div>
@@ -234,7 +234,7 @@
                                         <dd>
                                             <div class="form-group">
                                                 <div class="dtp-container dropdown fg-line">
-                                                    <input id="idVer-address" data-ng-model="pctrl.address1" type='text' class="form-control" value="{{ pctrl.address1 | capitalize }}" placeholder="1600 Pennsylvania Ave">
+                                                    <input id="idVer-address" data-ng-model="userInfo.address1" type='text' class="form-control" value="{{ userInfo.address1 | capitalize }}" placeholder="1600 Pennsylvania Ave">
                                                 </div>
                                             </div>
                                         </dd>
@@ -245,7 +245,18 @@
                                         <dd>
                                             <div class="form-group">
                                                 <div class="dtp-container dropdown fg-line">
-                                                    <input id="idVer-zip" data-ng-model="pctrl.zip" type='text' class="form-control" value="{{ pctrl.zip }}" placeholder="eg. 90210" data-input-mask="{mask: '00000'}">
+                                                    <input id="idVer-zip" data-ng-model="userInfo.zip" type='text' class="form-control" value="{{ userInfo.zip }}" placeholder="eg. 90210">
+                                                </div>
+                                            </div>
+                                        </dd>
+                                    </dl>
+
+                                    <dl class="dl-horizontal" id="phoneGrp">
+                                        <dt class="p-t-10">Phone Number</dt>
+                                        <dd>
+                                            <div class="form-group">
+                                                <div class="dtp-container dropdown fg-line">
+                                                    <input id="idVer-phone" data-ng-model="userInfo.mobileNumber" type='text' class="form-control" value="{{ userInfo.mobileNumber }}" placeholder="">
                                                 </div>
                                             </div>
                                         </dd>

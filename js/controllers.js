@@ -157,12 +157,12 @@ noochForLandlords
     // ===============================================================
     .controller('homeCtrl', function ($rootScope, $scope, getProfileService, authenticationService) {
         // CLIFF (10.10.15): Adding code for showing the New User Tour
-        // Instance the tour
-        if ($rootScope.hasSeenNewUserTour != true && $rootScope.isIdVerified != false)
-        {
-            console.log('HOME -> starting tour!');
+        setTimeout(function () {
+            // Instance the tour
+            if ($rootScope.hasSeenNewUserTour != true && $rootScope.isIdVerified != true)
+            {
+                console.log('HOME -> starting tour!');
 
-            setTimeout(function () {
                 $scope.tour = new Tour({
                     name: 'newLandlordUserTour',
                     storage: false, // Setting this to 'false' makes it run every time
@@ -219,10 +219,11 @@ noochForLandlords
 
                 // Start the tour
                 $scope.tour.start();
-            }, 750);
+            
 
-            $rootScope.hasSeenNewUserTour = true;
-        }
+                $rootScope.hasSeenNewUserTour = true;
+            }
+        }, 500);
 
         $scope.goTo = function (destination) {
 
@@ -1886,9 +1887,7 @@ noochForLandlords
     //=================================================
 
     .controller('profileCtrl', function ($rootScope, $scope, $compile, growlService, getProfileService, propertiesService, authenticationService) {
-        console.log("PROFILE -> USERNAME AND PW Storage...!");
-        console.log(localStorage.getItem('userLoginName'));
-        console.log(localStorage.getItem('userLoginPass'));
+        console.log("PROFILE CTRL Fired");
 
         $scope.userInfo = {};
 
@@ -1967,11 +1966,11 @@ noochForLandlords
 						ein: response.CompanyEID
 					}
 				}
-				/*else // Auth Token was not valid on server
+				else if (response.ErrorMessage == "Auth token failure") // Auth Token was not valid on server
 				{
-					authenticationService.ClearUserData();
+					//authenticationService.ClearUserData();
 					window.location.href = 'login.html';
-				}*/
+				}
             });
         }
         else
@@ -2259,7 +2258,7 @@ noochForLandlords
                 onInit: function (event, currentIndex) {
                     $('html').css('overflow-y', 'scroll');
 
-                    $('#idVerWiz > .content').animate({ height: "23em" }, 300)
+                    $('#idVerWiz > .content').animate({ height: "24em" }, 300)
 
                     setTimeout(function () {
 
@@ -2287,6 +2286,7 @@ noochForLandlords
 
 						$('#idVer-ssn').mask("0000");
 						$('#idVer-zip').mask("00000");
+						$('#idVer-phone').mask("(000) 000-0000");
 
                     }, 750)
                 },
@@ -2294,7 +2294,7 @@ noochForLandlords
 
                     if (newIndex == 0)
                     {
-                        $('#idVerWiz > .content').animate({ height: "23em" }, 500)
+                        $('#idVerWiz > .content').animate({ height: "24em" }, 500)
                     }
 
                     // IF going to Step 2
@@ -2322,7 +2322,7 @@ noochForLandlords
                                         updateValidationUi("ssn", true);
 
                                         // Great, we can finally go to the next step of the wizard :-]
-                                        $('#idVerWiz > .content').animate({ height: "21em" }, 700)
+                                        $('#idVerWiz > .content').animate({ height: "22.5em" }, 700)
                                         return true;
                                     }
                                     else {
@@ -2347,44 +2347,55 @@ noochForLandlords
                     // IF going to Step 3
                     if (newIndex == 2) {
                         // Check Address field
-                        if ($('#idVer-address').val().length > 4) {
+                        if ($('#idVer-address').val().length > 4)
+                        {
                             updateValidationUi("address", true);
 
                             // Check ZIP code field
-                            if ($('#idVer-zip').val().length == 5) {
+                            if ($('#idVer-zip').val().length == 5)
+                            {
                                 updateValidationUi("zip", true);
 
-                                // Great, go to the next step of the wizard :-]
+                                // Check ZIP code field
+                                if ($('#idVer-phone').val().length == 14)
+                                {
+                                    updateValidationUi("phone", true);
 
-                                // FILE INPUT DOCUMENTATION: http://plugins.krajee.com/file-input#options
-                                $("#IdWizPic_FileInput").fileinput({
-                                    allowedFileTypes: ['image'],
-                                    initialPreview: [
-                                        "<img src='" + $scope.userInfo.userImage + "' class='file-preview-image' alt='Profile Picture' id='IdWizUserPicPreview'>"
-                                    ],
-                                    initialPreviewShowDelete: false,
-                                    layoutTemplates: {
-                                        icon: '<span class="md md-panorama m-r-10 kv-caption-icon"></span>',
-                                    },
-                                    maxFileCount: 1,
-                                    maxFileSize: 350,
-                                    msgSizeTooLarge: "File '{name}' ({size} KB) is too big a file! Please try a picture under {maxSize} KB!",
-                                    showCaption: false,
-                                    showUpload: false,
-                                    uploadUrl: URLs.UploadLandlordProfileImage,
-                                    uploadExtraData: {
-                                        LandlorId: $scope.userInfoInSession.landlordId,
-                                        AccessToken: $scope.userInfoInSession.accessToken
-                                    },
-                                    showPreview: true,
-                                    resizeImage: true,
-                                    maxImageWidth: 500,
-                                    maxImageHeight: 500,
-                                    resizePreference: 'width'
-                                });
+                                    // Great, go to the next step of the wizard :-]
 
-                                $('#idVerWiz > .content').animate({ height: "28em" }, 700)
-                                return true;
+                                    // FILE INPUT DOCUMENTATION: http://plugins.krajee.com/file-input#options
+                                    $("#IdWizPic_FileInput").fileinput({
+                                        allowedFileTypes: ['image'],
+                                        initialPreview: [
+                                            "<img src='" + $scope.userInfo.userImage + "' class='file-preview-image' alt='Profile Picture' id='IdWizUserPicPreview'>"
+                                        ],
+                                        initialPreviewShowDelete: false,
+                                        layoutTemplates: {
+                                            icon: '<span class="md md-panorama m-r-10 kv-caption-icon"></span>',
+                                        },
+                                        maxFileCount: 1,
+                                        maxFileSize: 350,
+                                        msgSizeTooLarge: "File '{name}' ({size} KB) is too big a file! Please try a picture under {maxSize} KB!",
+                                        showCaption: false,
+                                        showUpload: false,
+                                        uploadUrl: URLs.UploadLandlordProfileImage,
+                                        uploadExtraData: {
+                                            LandlorId: $scope.userInfoInSession.landlordId,
+                                            AccessToken: $scope.userInfoInSession.accessToken
+                                        },
+                                        showPreview: true,
+                                        resizeImage: true,
+                                        maxImageWidth: 500,
+                                        maxImageHeight: 500,
+                                        resizePreference: 'width'
+                                    });
+
+                                    $('#idVerWiz > .content').animate({ height: "28em" }, 700)
+                                    return true;
+                                }
+                                else {
+                                    updateValidationUi("phone", false);
+                                }
                             }
                             else {
                                 updateValidationUi("zip", false);
@@ -2411,20 +2422,22 @@ noochForLandlords
                     $scope.userInfo.ssnLast4 = $('#idVer-ssn').val();
                     $scope.userInfo.address1 = $('#idVer-address').val();
                     $scope.userInfo.zip = $('#idVer-zip').val();
+                    $scope.userInfo.mobileNumber = $('#idVer-phone').val();
 
                     var fullName = legalName;
                     var birthDay = $scope.userInfo.birthDay;
                     var ssnLast4 = $scope.userInfo.ssnLast4;
                     var address = $scope.userInfo.address1;
                     var zip = $scope.userInfo.zip;
+                    var phone = $scope.userInfo.mobileNumber;
 
                     var DeviceInfo = {
                         LandlorId: $scope.userInfoInSession.landlordId,
                         AccessToken: $scope.userInfoInSession.accessToken
                     };
 
-                    getProfileService.submitIdVerWizard(DeviceInfo, fullName, birthDay, ssnLast4, address, zip, function (response) {
-                        console.log("submitIdVerWizard Response... (2240)");
+                    getProfileService.submitIdVerWizard(DeviceInfo, fullName, birthDay, ssnLast4, address, zip, phone, function (response) {
+                        console.log("submitIdVerWizard Response... (2440)");
                         console.log(response);
 
                         // HIDE THE MODAL CONTAINING THE WIZARD
@@ -2441,11 +2454,19 @@ noochForLandlords
                             // THEN DISPLAY SUCCESS ALERT...
                             swal({
                                 title: "Awesome - ID Verification Submitted",
-                                text: "You have successfully submitted your information.",
+                                text: "Thanks for submitting your ID information. That helps us keep Nooch safe for everyone." + 
+                                      "<span class='show m-t-10'>Now you can link a bank account and start collecting rent payments!</span>",
                                 type: "success",
-                                showCancelButton: false,
+                                showCancelButton: true,
+                                cancelButtonText: "Add Bank Later",
                                 confirmButtonColor: "#3fabe1",
-                                confirmButtonText: "Terrific",
+                                confirmButtonText: "Add Bank Now",
+                                html: true
+                            }, function (isConfirm) {
+                                if (isConfirm)
+                                {
+                                    window.location.href = '#/profile/profile-bankaccounts';
+                                }
                             });
                         }
                         else
@@ -2472,6 +2493,11 @@ noochForLandlords
             updateValidationUi = function (field, success) {
                 console.log("Field: " + field + "; success: " + success);
 
+                if (field == "reset all") {
+                    $('#idVerWiz .form-group').removeClass('has-error');
+                    $('#idVerWiz .help-block').slideUp();
+                }
+
                 if (success == true) {
                     $('#' + field + 'Grp .form-group').removeClass('has-error').addClass('has-success');
                     $('#' + field + 'Grp .help-block').slideUp();
@@ -2485,16 +2511,24 @@ noochForLandlords
                         helpBlockTxt = "Please enter your full legal name.";
                     }
                     else if (field == "dob") {
+                        $('#idVerWiz > .content').animate({ height: "25.5em" }, 300)
                         helpBlockTxt = "Please enter your date of birth. We promise nobody ever sees this!"
                     }
                     else if (field == "ssn") {
+                        $('#idVerWiz > .content').animate({ height: "25.5em" }, 300)
                         helpBlockTxt = "Please enter just the LAST 4 digits of your SSN. This is used solely to protect your account."
                     }
                     else if (field == "address") {
+                        $('#idVerWiz > .content').animate({ height: "24em" }, 300)
                         helpBlockTxt = "Please enter the physical street address of where you currently live."
                     }
                     else if (field == "zip") {
+                        $('#idVerWiz > .content').animate({ height: "23.5em" }, 300)
                         helpBlockTxt = "Please enter the zip code for the street address above."
+                    }
+                    else if (field == "phone") {
+                        $('#idVerWiz > .content').animate({ height: "23em" }, 300)
+                        helpBlockTxt = "Please enter your full, valid phone number!"
                     }
 
                     if (!$('#' + field + 'Grp .help-block').length) {
@@ -2531,6 +2565,7 @@ noochForLandlords
                             $('#idVer').modal('hide');
                             setTimeout(function () {
                                 $('#idVerWiz').steps('destroy');
+                                updateValidationUi('reset all', null);
                             }, 250);
                         }, 250);
                     }
@@ -2559,37 +2594,37 @@ noochForLandlords
 
             setTimeout(function ()
             {
-            var tourPhone = new Tour({
-                name: 'editPhoneTour',
-                storage: false,
-                backdrop: true,
-                orphan: true, //Allow to show the step regardless whether its element is not set, is not present in the page or is hidden. The step is fixed positioned in the middle of the page.
-                template: "<div class='popover tour'><div class='arrow'></div><h3 class='popover-title'></h3><div class='popover-content'></div><div class='popover-navigation'><button class='btn btn-default' data-role='end'>Got it!</button></div></div>",
-                steps: [
-                    {
-                        element: "#contactInfoGrp",
-                        title: "Add Your Contact Info",
-                        content: "To complete your account and begin collecting rent, please enter your phone number here.",
-                        animation: true,
-                        backdropPadding: 10,
-                        placement: "right"
-                    }
-                ],
-                onStart: function (tour) {
-                    // The tour won't display correctly if a parent element uses any Animate.css classes... so just removing them on init
-                    $('#profAbout').removeClass('animated fadeInRightSm');
-                },
-                onEnd: function (tour) {
-                    $rootScope.shouldShowPhoneTour = false;
-                },
-            });
+                var tourPhone = new Tour({
+                    name: 'editPhoneTour',
+                    storage: false,
+                    backdrop: true,
+                    orphan: true, //Allow to show the step regardless whether its element is not set, is not present in the page or is hidden. The step is fixed positioned in the middle of the page.
+                    template: "<div class='popover tour'><div class='arrow'></div><h3 class='popover-title'></h3><div class='popover-content'></div><div class='popover-navigation'><button class='btn btn-default' data-role='end'>Got it!</button></div></div>",
+                    steps: [
+                        {
+                            element: "#contactInfoGrp",
+                            title: "Add Your Contact Info",
+                            content: "To complete your account and begin collecting rent, click \"<span class='text-primary'>edit</span>\" to add or edit your phone number here.",
+                            animation: true,
+                            backdropPadding: 10,
+                            placement: "right"
+                        }
+                    ],
+                    onStart: function (tour) {
+                        // The tour won't display correctly if a parent element uses any Animate.css classes... so just removing them on init
+                        $('#profAbout').removeClass('animated fadeInRightSm');
+                    },
+                    onEnd: function (tour) {
+                        $rootScope.shouldShowPhoneTour = false;
+                    },
+                });
 
-            // Initialize the tour
-            tourPhone.init();
+                // Initialize the tour
+                tourPhone.init();
 
-            // Start the tour
-            tourPhone.start();
-            }, 1000);
+                // Start the tour
+                tourPhone.start();
+            }, 500);
         }
 
         if ($rootScope.isIdVerified === false) {
@@ -2677,6 +2712,7 @@ noochForLandlords
                 }
                 else
                 {
+                    $scope.bankCount = 0;
                     console.log("Get Banks FAILURE (Controller)");
                 }
             });
@@ -2738,24 +2774,99 @@ noochForLandlords
                         closeOnCancel: true
                     }, function (isConfirm) {
                         if (isConfirm) {
-                            $('#bankAdd iframe').attr("src", "http://noochme.com/noochweb/trans/Add-Bank.aspx?MemberId=" + $scope.userInfoInSession.memberId + "&ll=yes");
-                            $('#bankAdd').modal({
-                                keyboard: false
-                            })
+                            $scope.displayAddBankIframe();
                         }
-                        else { }
                     });
                 }
                 else // No bank attached yet
                 {
-                    $('#bankAdd iframe').attr("src", "http://noochme.com/noochweb/trans/Add-Bank.aspx?MemberId=" + $scope.userInfoInSession.memberId + "&ll=yes");
-				    //$('#bankAdd iframe').attr("src", "https://noochme.com/noochweb/trans/Add-Bank.aspx?MemberId=" + $scope.userInfoInSession.memberId + "&ll=yes");
-
-                    $('#bankAdd').modal({
-                        keyboard: false
-                    })
+                    $scope.displayAddBankIframe();
                 }
             }
+        }
+
+        $scope.displayAddBankIframe = function () {
+
+            $('#bankAdd iframe').attr("src", "http://www.noochme.com/noochweb/trans/Add-Bank.aspx?MemberId=" + $scope.userInfoInSession.memberId + "&ll=yes");
+            $('#bankAdd').modal({
+                keyboard: false
+            })
+
+
+            // To handle success sent from Add Bank iFrame
+            $('body').bind('addBankComplete', function () {
+                var result = $('#bankAdd iframe').get(0).contentWindow.sendToIdVerQuestions;
+
+                // Hide the Loading Block
+                // $('.modal-content').unblock();
+
+                console.log("Callback from Add Bank page - \"sendToIdVerQuestions\" was: [" + result + "]");
+
+                // Check if extra ID Verification questions must be answered
+                if (result == true)
+                {
+                    console.log("NEED TO CREATE NEW IFRAME POINTING TO ID VERIFICATION PAGE");
+
+                    // NEED TO CREATE NEW IFRAME POINTING TO ID VERIFICATION PAGE
+                    $('#bankAdd iframe').attr("src", "https://www.noochme.com/noochweb/trans/idverification.aspx?memid=" + $scope.userInfoInSession.memberId + "&from=llapp");
+                }
+                else
+                {
+                    console.log("BANK ADDED SUCCESSFULLY, NO EXTRA ID VER NEEDED!");
+
+                    // Hide the add-bank modal
+                    $('#bankAdd').modal('hide');
+
+                    swal({
+                        title: "Bank Linked Successfully",
+                        text: "That was easy.  Next stop: add your properties to invite your tenants to pay rent on Nooch.",
+                        type: "success",
+                        showCancelButton: true,
+                        cancelButtonText: "Done",
+                        confirmButtonColor: "#3fabe1",
+                        confirmButtonText: "Add Properties",
+                        html: true
+                    }, function (isConfirm) {
+                        if (isConfirm) {
+                            window.location.href = '#/properties';
+                        }
+                    });
+                }
+            });
+
+            // To handle success sent from ID Verification iFrame
+            $('body').bind('ExraIdVerComplete', function () {
+                var result = $('#bankAdd iframe').get(0).contentWindow.isCompleted;
+
+                // Hide the Loading Block
+                // $('.modal-content').unblock();
+
+                console.log("Callback from ID Verification page - \"isCompleted\" was: [" + result + "]");
+
+                // Hide the add-bank modal
+                $('#bankAdd').modal('hide');
+
+                // Check if extra ID Verification questions were submitted successfully
+                if (result == true) {
+                    swal({
+                        title: "Bank Linked Successfully",
+                        text: "That was easy.  Next stop: add your properties to invite your tenants to pay rent on Nooch.",
+                        type: "success",
+                        showCancelButton: true,
+                        cancelButtonText: "Done",
+                        confirmButtonColor: "#3fabe1",
+                        confirmButtonText: "Add Properties",
+                        html: true
+                    }, function (isConfirm) {
+                        if (isConfirm) {
+                            window.location.href = '#/properties';
+                        }
+                    });
+                }
+                else {
+                    console.log("Problem from ID Verification Page!");                   
+                }
+            });
         }
 
         this.makePrimary = function (e) {
@@ -2780,14 +2891,15 @@ noochForLandlords
         $scope.deleteBank = function () {
             swal({
                 title: "Are you sure?",
-                text: "You are about to delete this property from your account.  This cannot be undone.",
+                text: "You are about to delete this bank account from your account.  You will have to re-link it in order to receive payments.",
                 type: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#DD6B55",
                 confirmButtonText: "Yes, delete it",
                 cancelButtonText: "No, keep it",
                 closeOnConfirm: false,
-                closeOnCancel: false
+                closeOnCancel: true,
+                customClass: "largeText"
             }, function (isConfirm) {
                 if (isConfirm)
                 {
@@ -2798,7 +2910,7 @@ noochForLandlords
                         {
                             if (response.msg == "ok")
                             {
-                                $scope.bankCount = 1;
+                                $scope.bankCount -= 1;
                                 $scope.bankName = "";
                                 $scope.bankNickname = "";
                                 $scope.accntNum = "";
@@ -3188,8 +3300,8 @@ noochForLandlords
                         lineCap: "round",
                         animate: 2300,
                     });
-                    console.log(typeof $scope.checklistItems.percentComplete);
-                    var numAnim = new CountUp("countUp", 0,Number($scope.checklistItems.percentComplete), 0, 2.5);
+
+                    var numAnim = new CountUp("countUp", 0, Number($scope.checklistItems.percentComplete), 0, 2.5);
                     numAnim.start();
                 }, 200);
             });
@@ -3200,7 +3312,7 @@ noochForLandlords
         }
 
         $scope.ResendVerificationEmailOrSMS = function (sendWhat) {
-
+            console.log("Controller -> ResendVerificationEmailOrSMS fired");
             if (sendWhat == "SMS")
             {
                 if ($rootScope.ContactNumber == "" ||
@@ -3220,15 +3332,14 @@ noochForLandlords
                             $scope.goTo("profile");
                         }
                     });
+                    return;
                 }
-
-                return;
             }
 
             var userdetails = authenticationService.GetUserDetails();
 
             getProfileService.ResendVerificationEmailOrSMS(userdetails.landlordId, "Landlord", sendWhat, function (response) {
-				console.log(response);
+				console.log(response); 
 
 				if (response.IsSuccess && response.IsSuccess == true)
 				{
