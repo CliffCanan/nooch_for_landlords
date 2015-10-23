@@ -2244,7 +2244,8 @@ noochForLandlords
 
             var deviceInfo = {
                 LandlorId: $scope.userInfoInSession.landlordId,
-                AccessToken: $scope.userInfoInSession.accessToken
+                AccessToken: $scope.userInfoInSession.accessToken,
+                MemberId: $scope.userInfoInSession.memberId
             };
 
             if (item === 'personalInfo') {

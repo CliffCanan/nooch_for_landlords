@@ -598,7 +598,8 @@ noochForLandlords
             var userInfoObj = {};
             var deviceInfoObj = {
                 LandlorId: deviceInfo.LandlorId,
-                AccessToken: deviceInfo.AccessToken
+                AccessToken: deviceInfo.AccessToken,
+                MemberId: deviceInfo.MemberId
             };
 
             var ssnToSend = "";
@@ -627,13 +628,14 @@ noochForLandlords
 
             data.DeviceInfo = deviceInfoObj;
             data.UserInfo = userInfoObj;
-
+            console.log("SERVICES -> SENDING DATA TO EDIT PROFILE METHOD -> [" + JSON.stringify(data) + "]")
             $http.post(URLs.EditProfileData, data)
                 .success(function (response) {
                     if (response.IsSuccess && response.IsSuccess == true) {
                         authenticationService.ManageToken(response.AuthTokenValidation);
                         // console.log('came in success');
                     }
+                    console.log(response);
                     callback(response);
                 });
         };
