@@ -159,7 +159,7 @@ noochForLandlords
         // CLIFF (10.10.15): Adding code for showing the New User Tour
 
         setTimeout(function () {
-            console.log("***** INSIDE HOME -> SET TIMEOUT");
+            console.log("***  INSIDE HOME -> SET TIMEOUT  ***");
             console.log($rootScope.hasSeenNewUserTour);
             console.log($rootScope.isIdVerified);
 
@@ -167,13 +167,13 @@ noochForLandlords
             if ($rootScope.hasSeenNewUserTour != true && $rootScope.isIdVerified != true)
             {
                 console.log('HOME -> starting tour!');
-                console.log($rootScope.hasSeenNewUserTour);
-                console.log($rootScope.isIdVerified);
+                //console.log($rootScope.hasSeenNewUserTour);
+                //console.log($rootScope.isIdVerified);
 
                 // Instance the tour
                 $scope.tour = new Tour({
                     name: 'newLandlordUserTour',
-                    storage: false, // Setting this to 'false' makes it run every time
+                    //storage: false, // Setting this to 'false' makes it run every time
                     backdrop: true,
                     orphan: true, //Allow to show the step regardless whether its element is not set, is not present in the page or is hidden. The step is fixed positioned in the middle of the page.
                     template: "<div class='popover tour'><div class='arrow'></div><h3 class='popover-title'></h3><div class='popover-content'></div><div class='popover-navigation'><button class='btn btn-default' data-role='prev'><span class='md md-keyboard-arrow-left'></span></button>&nbsp;&nbsp;<button class='btn btn-default m-l-5' data-role='next'><span class='md md-keyboard-arrow-right'></span></button><button class='btn btn-default' data-role='end'>Got it!</button></div></div>",
@@ -3144,11 +3144,11 @@ noochForLandlords
                             updateValidationUi("confirmPw", true);
 
                             // ADD THE LOADING BOX
-                            $('#forgotPw > div').block({
+                            $('#changePw > div').block({
                                 message: '<span><i class="fa fa-refresh fa-spin fa-loading"></i></span><br/><span class="loadingMsg">Updating password...</span>',
                                 css: {
                                     border: 'none',
-                                    padding: '26px 10px 23px',
+                                    padding: '22px 10px 23px',
                                     backgroundColor: '#000',
                                     '-webkit-border-radius': '14px',
                                     '-moz-border-radius': '14px',
@@ -3156,7 +3156,7 @@ noochForLandlords
                                     opacity: '.75',
                                     width: '76%',
                                     left: '12%',
-                                    top: '-10px',
+                                    top: '-410px',
                                     color: '#fff'
                                 }
                             });
@@ -3168,7 +3168,7 @@ noochForLandlords
 
                                     console.log(response);
 
-                                    $('#forgotPw').unblock();
+                                    $('#changePw div').unblock();
 
                                     if (response.success === true) {
                                         //authenticationService.SetUserDetails($scope.LoginData.username, response.MemberId, response.LandlordId, response.AccessToken);
@@ -3229,7 +3229,7 @@ noochForLandlords
                     message: '<span><i class="fa fa-refresh fa-spin fa-loading"></i></span><br/><span class="loadingMsg">Submitting Reset PW Request...</span>',
                     css: {
                         border: 'none',
-                        padding: '26px 10px 23px',
+                        padding: '22px 10px 23px',
                         backgroundColor: '#000',
                         '-webkit-border-radius': '14px',
                         '-moz-border-radius': '14px',
@@ -3246,7 +3246,7 @@ noochForLandlords
                 // Now call service to send Reset PW email
                 authenticationService.PasswordRest(email, function (response) {
 
-                    $('#forgotPw').unblock();
+                    $('#forgotPw > div').unblock();
 
                     if (response.IsSuccess == true)
                     {
@@ -3520,16 +3520,19 @@ noochForLandlords
 					console.log("Inside success");
                     if (sendWhat == "Email") {
                         swal({
-                            title: "Hurray!",
-                            text: "We just sent a verification link, please check your email and click the link to verify your email address.",
-                            type: "success"
+                            title: "Email Verification Resent",
+                            text: "We just re-sent a verification link to <strong>" + $rootScope.emailAddress + "</strong>, please check your email and click the link to verify your email address.",
+                            type: "success",
+                            customClass: "largeText",
+                            html: true
                         });
                     }
                     if (sendWhat == "SMS") {
                         swal({
                             title: "Hurray!",
-                            text: "We just sent you a text message, please check your phone and reply \"Go\" to the text (case doesn't matter).",
-                            type: "success"
+                            text: "We just sent a text message to <strong>" + $rootScope.ContactNumber + "</strong>, please check your phone and reply \"Go\" to the text (case doesn't matter).",
+                            type: "success",
+                            customClass: "largeText"
                         });
                     }
                 }

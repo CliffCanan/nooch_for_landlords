@@ -9570,10 +9570,12 @@ a.waves-effect .waves-ripple {
 }
 
 .close {
-  opacity: 0.5;
-  filter: alpha(opacity=50);
+  opacity: 0.65;
+  filter: alpha(opacity=65);
   font-weight: normal;
   text-shadow: none;
+  webkit-transition: .2s all ease-out;
+  transition: .2s all ease-out;
 }
 
 .close:hover {
