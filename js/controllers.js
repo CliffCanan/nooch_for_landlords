@@ -157,12 +157,20 @@ noochForLandlords
     // ===============================================================
     .controller('homeCtrl', function ($rootScope, $scope, getProfileService, authenticationService) {
         // CLIFF (10.10.15): Adding code for showing the New User Tour
+
         setTimeout(function () {
-            // Instance the tour
+            console.log("***** INSIDE HOME -> SET TIMEOUT");
+            console.log($rootScope.hasSeenNewUserTour);
+            console.log($rootScope.isIdVerified);
+
+            // Check if New User Tour should be displayed
             if ($rootScope.hasSeenNewUserTour != true && $rootScope.isIdVerified != true)
             {
                 console.log('HOME -> starting tour!');
+                console.log($rootScope.hasSeenNewUserTour);
+                console.log($rootScope.isIdVerified);
 
+                // Instance the tour
                 $scope.tour = new Tour({
                     name: 'newLandlordUserTour',
                     storage: false, // Setting this to 'false' makes it run every time
@@ -223,7 +231,7 @@ noochForLandlords
 
                 $rootScope.hasSeenNewUserTour = true;
             }
-        }, 500);
+        }, 1200);
 
         $scope.goTo = function (destination) {
 
@@ -334,18 +342,21 @@ noochForLandlords
 
         //console.log('list count in tenants before setting data in.' + $scope.tenantsListForThisPorperty.length);
 
-        var userdetails = authenticationService.GetUserDetails();
+        // unblock when ajax activity stops 
+        $(document).ajaxStop($.unblockUI);
+
+        var userDetails = authenticationService.GetUserDetails();
 
 
         function getPropertyDetails()
         {
-            console.log('propDetailsCtrl -> get properties called user details -> [MemberID: ' + userdetails.memberId + '], [LandlordID: ' + userdetails.landlordId + '], [Token: ' + userdetails.accessToken + ']');
+            console.log('propDetailsCtrl -> get properties called user details -> [MemberID: ' + userDetails.memberId + '], [LandlordID: ' + userDetails.landlordId + '], [Token: ' + userDetails.accessToken + ']');
 
             var propId = propDetailsService.get();
 
             if (propId != null && propId.length > 0)
             {
-                propDetailsService.getPropFromDb(propId, userdetails.landlordId, userdetails.accessToken, function (data)
+                propDetailsService.getPropFromDb(propId, userDetails.landlordId, userDetails.accessToken, function (data)
                 {
 					if (data.AuthTokenValidation.IsTokenOk == true)
 					{
@@ -390,12 +401,12 @@ noochForLandlords
 							}
 
 							$scope.allUnitsList = data.PropertyDetails.AllUnits;
+							$scope.allTenantsList = data.TenantsListForThisProperty;
 
 							$('.selectpicker').selectpicker('refresh');
 
-							//console.log($scope.selectedProperty);
-							console.log("UNIT LIST...");
-							console.log($scope.allUnitsList);
+							console.log("TENANT LIST...");
+							console.log($scope.allTenantsList);
 
 							$scope.propUnitsTable = $('#propUnits').on('init.dt', function () {
 								//console.log('Table initialisation complete');
@@ -406,13 +417,13 @@ noochForLandlords
 									{ data: 'UnitId' },
 									{ data: 'UnitNumber' },
 									{ data: 'UnitRent' },
-									{ data: 'TenantName' },         // Not currently being included in Units List (only tenants list)
+									{ data: 'TenantName'},
 
-									{ data: 'TenantEmail' },        // Not currently being included in Units List (only tenants list)
-									{ data: 'ImageUrl' },           // Not currently being included in Units List (only tenants list)
-									{ data: 'LastRentPaidOn' },     // Not currently being included in Units List (only tenants list)
-									{ data: 'IsRentPaidForThisMonth' }, // Not currently being included in Units List (only tenants list)
-									{ data: 'IsEmailVerified' },    // Not currently being included in Units List (only tenants list)
+									{ data: 'TenantEmail' },
+									{ data: 'ImageUrl' },
+									{ data: 'LastRentPaidOn' },
+									{ data: 'IsRentPaidForThisMonth' },
+									{ data: 'IsEmailVerified' },
 
 									{ data: 'Status' },
 									{ data: 'IsPhoneVerified' },     // Not currently being included in Units List (only tenants list)
@@ -430,14 +441,48 @@ noochForLandlords
 										"visible": false,
 										"searchable": false
 									},
-									{ className: "capitalize", "targets": [4]},
-									{ className: "text-center unit-num", "targets": [2]},
-									{ className: "text-center unit-rent", "targets": [3]},
-									{ className: "text-right", "targets": [-1]},
+                                    {
+                                        "targets": 2,
+                                    },
+                                    {
+                                        "targets": 4,
+                                        "data": "TenantName",
+                                        "render": function (data, type, full, meta) {
+                                            console.log("INSIDE DATA TABLE CREATION");
+                                            console.log(full);
+
+                                            var stringToDisplay;
+                                            if (data != null && data.length > 1)
+                                            {
+                                                stringToDisplay = data;
+                                            }
+                                            else
+                                            {
+                                                stringToDisplay = '<span class="show text-center"><a class="addTenantBtn">Add Tenant</a></span>';
+                                            }
+                                            return stringToDisplay;
+                                        }
+                                    },
+									{
+									    "targets": [4],
+									    className: "capitalize"
+									},
+									{
+									    "targets": [2],
+									    className: "text-center unit-num"
+									},
+									{
+									    "targets": [3],
+									    className: "text-center unit-rent"
+									},
+									{
+									    "targets": [-1],
+									    className: "text-right"
+									},
 								],
 								"language": {
-									"info": "Showing _START_ to _END_ of _TOTAL_ total properties.",
-									"infoEmpty": "No entries to show",
+								    "info": "Showing units <strong>_START_</strong> - <strong>_END_</strong> of <strong>_TOTAL_</strong> total units in " + $scope.selectedProperty.name,
+									"infoEmpty": "No Units Added Yet!",
 								}
 							});
 							
@@ -558,6 +603,77 @@ noochForLandlords
 								$('#addUnitModal #monthlyRent').mask("#,##0.00", { reverse: true });
 							});
 
+						    // ADD TENANT BTN CLICKED
+							$('#propUnits tbody .addTenantBtn').click(function () {
+							    var btn = $(this);
+
+							    var data = $scope.propUnitsTable.row($(this).parents('tr')).data();
+							    console.log(data);
+							    console.log(data['UnitId']);
+
+							    swal({
+							        title: "Unoccupied Unit",
+							        text: "Enter your tenant's email address and we will invite them to pay their rent for this unit.",
+							        type: "input",
+							        inputPlaceholder: "example@email.com",
+							        showCancelButton: true,
+							        cancelButtonText: "Cancel",
+							        confirmButtonColor: "#3fabe1",
+							        confirmButtonText: "Send",
+							        closeOnConfirm: false,
+							        closeOnCancel: true
+							    }, function (input) {
+							        console.log(typeof input);
+							        console.log(input);
+
+							        if (typeof input == "string") {
+							            if (input.length < 5 || $scope.ValidateEmail(input) == false) {
+							                swal.showInputError("Please enter an email address!")
+							                return false;
+							            }
+							            console.log(input.trim());
+							            // Show Loading Block
+							            $.blockUI({
+							                message: '<span><i class="md md-refresh fa-spin fa-loading"></i></span><br/><span class="loadingMsg">Inviting ' + input + '...</span>',
+							                css: {
+							                    border: 'none',
+							                    padding: '10px 10px 20px',
+							                    backgroundColor: '#000',
+							                    '-webkit-border-radius': '14px',
+							                    '-moz-border-radius': '14px',
+							                    'border-radius': '14px',
+							                    opacity: '.75',
+							                    color: '#fff'
+							                }
+							            });
+
+							            // CALL SERVICE FOR SENDING AN INVITE TO THE TENANT
+							            propDetailsService.inviteNewTenant($scope.selectedProperty.propertyId, data['UnitId'], input.trim(), "", "", data['UnitRent'], userDetails.landlordId, userDetails.accessToken, function (response) {
+                                            console.log("PropDetails Cntrlr -> InviteNewTenant Response: " + response)
+
+                                            if (response.success == true) {
+							                    // On Success
+							                    swal({
+							                        title: "Invite Sent",
+							                        text: "Your request has been sent.  We will notify you when this person accepts and signs up.",
+							                        type: "success",
+							                        confirmButtonColor: "#3fabe1",
+							                        confirmButtonText: "Great"
+							                    });
+							                }
+							                else {
+							                    swal({
+							                        title: "Uh oh...",
+							                        text: data.msg,
+							                        type: "error",
+							                        confirmButtonText: "Ok"
+							                    });
+							                }
+							            });
+							        }
+							    });
+							})
+
 							// DELETE UNIT BTN CLICKED
 							$('#propUnits tbody .btn.deleteUnitBtn').click(function () {
 								var btn = $(this);
@@ -576,34 +692,52 @@ noochForLandlords
 									cancelButtonText: "Cancel",
 									html: true
 								}, function (isConfirm) {
-									if (isConfirm) {
-										// calling service here to remove unit from db
-										var userdetails = authenticationService.GetUserDetails();
+								    if (isConfirm) {
+                                        // Show Loading Block
+								        $.blockUI({
+								            message: '<span><i class="md md-refresh fa-spin fa-loading"></i></span><br/><span class="loadingMsg">Deleting that unit...</span>',
+								            css: {
+								                border: 'none',
+								                padding: '10px 10px 20px',
+								                backgroundColor: '#000',
+								                '-webkit-border-radius': '14px',
+								                '-moz-border-radius': '14px',
+								                'border-radius': '14px',
+								                opacity: '.75',
+								                color: '#fff'
+								            }
+								        });
 
-										propDetailsService.deleteUnit(data['UnitId'], userdetails.landlordId, userdetails.accessToken, function (data) {
-											if (data.IsSuccess == true) {
+										// Call service here to remove unit from DB
+									    propDetailsService.deleteUnit(data['UnitId'], userDetails.landlordId, userDetails.accessToken, function (data) {
+									        $.unblockUI({
+									            onUnblock: function () {
 
-												$scope.propUnitsTable.row(btn.parents('tr')).remove().draw();
-												swal({
-													title: "Unit Removed",
-													text: "Unit successfully removed from " + $scope.selectedProperty.name + ".",
-													type: "success",
-													confirmButtonText: "Ok"
-												}, function() {
-													// CLIFF (10/3/15): not sure the $state.reload() is actually necessary.  We can remove the unit's row
-													//					from the table, and decrement the # of units value, which will both immediately update the UI.
-													//					But good to know about this $state.reload() function... didn't know about it!
-													//$state.reload();
-												});
-											} 
-											else {
-												swal({
-													title: "Uh oh...",
-													text: data.ErrorMessage,
-													type: "warning",
-													confirmButtonText: "Ok"
-												});
-											}
+									                if (data.IsSuccess == true) {
+											    
+												        $scope.propUnitsTable.row(btn.parents('tr')).remove().draw();
+												        swal({
+													        title: "Unit Removed",
+													        text: "Unit successfully removed from " + $scope.selectedProperty.name + ".",
+													        type: "success",
+													        confirmButtonText: "Ok"
+												        }, function() {
+													        // CLIFF (10/3/15): not sure the $state.reload() is actually necessary.  We can remove the unit's row
+													        //					from the table, and decrement the # of units value, which will both immediately update the UI.
+													        //					But good to know about this $state.reload() function... didn't know about it!
+													        //$state.reload();
+												        });
+											        } 
+											        else {
+												        swal({
+													        title: "Uh oh...",
+													        text: data.ErrorMessage,
+													        type: "warning",
+													        confirmButtonText: "Ok"
+												        });
+									                }
+									            }
+									        });
 										});
 									}
 								});
@@ -611,7 +745,7 @@ noochForLandlords
 						}
 						else
 						{
-							console.log('Error while getting  property details.');
+							console.log('PropDetails Ctrlr -> Error while property details!');
 						}
 					}
 					else // Auth Token was not valid on server
@@ -1293,6 +1427,45 @@ noochForLandlords
                 }, 200)
             }
         }
+
+        $scope.ValidateEmail = function (str) {
+            console.log; ("Property Details Ctrlr -> Validate Email reached");
+
+            if (str != null) {
+                var at = "@"
+                var dot = "."
+                var lat = str.indexOf("@")
+                var lstr = str.length
+                var ldot = str.indexOf(".")
+
+                if (lat == -1 || lat == 0 || lat == lstr) {
+                    return false
+                }
+
+                if (ldot == -1 || ldot == 0 || ldot == lstr) {
+                    return false
+                }
+
+                if (str.indexOf(at, (lat + 1)) != -1) {
+                    return false
+                }
+
+                if (str.substring(lat - 1, lat) == dot || str.substring(lat + 1, lat + 2) == dot) {
+                    return false
+                }
+
+                if (str.indexOf(dot, (lat + 2)) == -1) {
+                    return false
+                }
+
+                if (str.indexOf(" ") != -1) {
+                    return false
+                }
+
+                return true
+            }
+            return false
+        };
     })
 
     // FOR PROPERTY DETAILS TABLE (Not Used!)
@@ -3561,10 +3734,10 @@ noochForLandlords
                                 border: 'none',
                                 padding: '26px 10px 23px',
                                 backgroundColor: '#000',
-                                '-webkit-border-radius': '12px',
-                                '-moz-border-radius': '12px',
-                                'border-radius': '12px',
-                                opacity: '.8',
+                                '-webkit-border-radius': '14px',
+                                '-moz-border-radius': '14px',
+                                'border-radius': '14px',
+                                opacity: '.75',
                                 width: '86%',
                                 left: '7%',
                                 top: '25px',
@@ -3649,10 +3822,10 @@ noochForLandlords
                         border: 'none',
                         padding: '26px 10px 23px',
                         backgroundColor: '#000',
-                        '-webkit-border-radius': '12px',
-                        '-moz-border-radius': '12px',
-                        'border-radius': '12px',
-                        opacity: '.8',
+                        '-webkit-border-radius': '14px',
+                        '-moz-border-radius': '14px',
+                        'border-radius': '14px',
+                        opacity: '.75',
                         width: '86%',
                         left: '7%',
                         top: '25px',
@@ -3732,10 +3905,10 @@ noochForLandlords
                                         border: 'none',
                                         padding: '26px 10px 23px',
                                         backgroundColor: '#000',
-                                        '-webkit-border-radius': '12px',
-                                        '-moz-border-radius': '12px',
-                                        'border-radius': '12px',
-                                        opacity: '.8',
+                                        '-webkit-border-radius': '14px',
+                                        '-moz-border-radius': '14px',
+                                        'border-radius': '14px',
+                                        opacity: '.75',
                                         width: '86%',
                                         left: '7%',
                                         top: '25px',
@@ -3789,10 +3962,10 @@ noochForLandlords
                                                     border: 'none',
                                                     padding: '26px 10px 23px',
                                                     backgroundColor: '#000',
-                                                    '-webkit-border-radius': '12px',
-                                                    '-moz-border-radius': '12px',
-                                                    'border-radius': '12px',
-                                                    opacity: '.8',
+                                                    '-webkit-border-radius': '14px',
+                                                    '-moz-border-radius': '14px',
+                                                    'border-radius': '14px',
+                                                    opacity: '.75',
                                                     width: '86%',
                                                     left: '7%',
                                                     top: '25px',

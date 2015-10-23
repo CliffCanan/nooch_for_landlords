@@ -152,6 +152,7 @@ noochForLandlords
                                 'https://cdn.datatables.net/1.10.9/js/jquery.dataTables.min.js',
                                 'vendors/bower_components/eonasdan-bootstrap-datetimepicker/src/js/bootstrap-datetimepicker.min.js',
                                 'vendors/bower_components/bootstrap-fileinput/js/fileinput.min.js',
+                                'vendors/blockUI/blockui.min.js'
                             ]
                         }
                     ]);

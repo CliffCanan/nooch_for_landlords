@@ -268,11 +268,38 @@ noochForLandlords
                 });
         }
 
+        function inviteNewTenant(propId, unitId, email, fname, lname, rentAmount, landlordId, accessToken, callback) {
+            var data = {};
+
+            data.propertyId = propId;
+            data.unitId = unitId;
+            data.rent = rentAmount;
+
+            data.authData = {
+                LandlordId: landlordId,
+                AccessToken: accessToken
+            };
+
+            data.tenant = {
+                email: email,
+                firstName: fname,
+                lastName: lname
+            }
+            console.log(JSON.stringify(data));
+            $http.post(URLs.InviteTenant, data)
+                .success(function (response) {
+                    console.log("Services -> InviteNewTenant Callback reached successfully.");
+                    console.log(response);
+                    callback(response);
+                });
+        }
+
         return {
             set: set,
             get: get,
             getPropFromDb: getPropertyDetailsFromDB,
-            deleteUnit: deleteUnitFromProperty
+            deleteUnit: deleteUnitFromProperty,
+            inviteNewTenant: inviteNewTenant
         }
     }])
 

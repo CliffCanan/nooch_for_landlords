@@ -503,6 +503,16 @@ td.unit-rent {
     margin-bottom: 40px;
 }
 
+#addUnitForm .col-xs-12 div:last-child {
+    padding-right: 0;
+}
+
+#addUnitForm i.help {
+    position: absolute;
+    top: 7px;
+    right: -5px;
+    font-size: 15px;
+}
 
 /**** CARDS ****/
 .card-header .headerIcon i {
@@ -726,10 +736,14 @@ form .alert {
     font-size: 40px;
 }
 
+    .blockUI .fa-loading.md {
+        font-size: 50px;
+    }
+
 .blockUI .loadingMsg {
     display: block;
     font-size: 18px;
-    margin: 15px auto 0;
+    margin: 12px auto 0;
     font-weight: 300;
     text-shadow: 0 0 0 #fff;
 }
@@ -1303,7 +1317,6 @@ form .checkbox.haserror .input-helper:before {
         border: none;
         color: #313233;
         box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.12), 0 2px 10px -3px rgba(0, 0, 0, 0.1);
-
     }
 
 .bootstrap-datetimepicker-widget table thead .fa {
@@ -2467,6 +2480,40 @@ table tbody .unitInTable {
     animation-duration: 1.2s;
 }
 
+.fa-spin {
+    -webkit-animation: fa-spin 1.6s infinite linear;
+    animation: fa-spin 1.6s infinite linear;
+}
+
+.fa-pulse {
+    -webkit-animation: fa-spin 1s infinite steps(8);
+    animation: fa-spin 1s infinite steps(8);
+}
+
+@-webkit-keyframes fa-spin {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(359deg);
+        transform: rotate(359deg);
+    }
+}
+
+@keyframes fa-spin {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(359deg);
+        transform: rotate(359deg);
+    }
+}
+
 @media (min-width: 1100px) {
     @-webkit-keyframes fadeInRightSm {
         0% {
@@ -2504,8 +2551,8 @@ table tbody .unitInTable {
     @-webkit-keyframes fadeInUpSm {
         0% {
             opacity: 0;
-            -webkit-transform: translate3d(0, 12%, 0);
-            transform: translate3d(0, 12%, 0);
+            -webkit-transform: translate3d(0, 10%, 0);
+            transform: translate3d(0, 10%, 0);
         }
 
         100% {
@@ -2518,8 +2565,8 @@ table tbody .unitInTable {
     @keyframes fadeInUpSm {
         0% {
             opacity: 0;
-            -webkit-transform: translate3d(0, 12%, 0);
-            transform: translate3d(0, 12%, 0);
+            -webkit-transform: translate3d(0, 10%, 0);
+            transform: translate3d(0, 10%, 0);
         }
 
         100% {
