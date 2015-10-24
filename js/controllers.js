@@ -53,8 +53,11 @@ noochForLandlords
         console.log("HEADER -> USERNAME AND PW Storage...!");
         console.log(localStorage.getItem('userLoginName'));
         console.log(localStorage.getItem('userLoginPass'));
-
-		$rootScope.userDetailsRoot = {};
+        console.log(typeof $userDetailsRoot);
+        if (typeof $userDetailsRoot == 'undefined') {
+            //console.log($userDetailsRoot.imgUrl);
+            $rootScope.userDetailsRoot = {};
+        }
 		
         this.closeSearch = function () {
             angular.element('#header').removeClass('search-toggled');
@@ -449,12 +452,16 @@ noochForLandlords
                                         "data": "TenantName",
                                         "render": function (data, type, full, meta) {
                                             console.log("INSIDE DATA TABLE CREATION");
+                                            console.log(typeof data);
                                             console.log(full);
 
                                             var stringToDisplay;
-                                            if (data != null && data.length > 1)
+                                            if (full.TenantName != null && full.TenantName.length > 1)
                                             {
-                                                stringToDisplay = data;
+                                                stringToDisplay = full.TenantName;
+                                            }
+                                            else if (full.TenantEmail != null && full.TenantEmail.length > 1) {
+                                                stringToDisplay = '<span class="show text-center"><a class="msgUnitBtn">' + full.TenantEmail + '</a></span>';
                                             }
                                             else
                                             {
@@ -501,7 +508,7 @@ noochForLandlords
 							});
 
 							// SEND MESSAGE BTN CLICKED
-							$('#propUnits tbody .btn.msgUnitBtn').click(function () {
+							$('#propUnits tbody .msgUnitBtn').click(function () {
 								var data = $scope.propUnitsTable.row($(this).parents('tr')).data();
 								console.log(data);
 
@@ -565,7 +572,8 @@ noochForLandlords
 													text: "Your request has been sent.  We will notify you when this person accepts and signs up.",
 													type: "success",
 													confirmButtonColor: "#3fabe1",
-													confirmButtonText: "Great"
+													confirmButtonText: "Great",
+													customClass: "largeText"
 												});
 												
 											});
@@ -575,7 +583,7 @@ noochForLandlords
 							});
 							
 							// EDIT UNIT BTN CLICKED
-							$('#propUnits tbody .btn.editUnitBtn').click(function () {
+							$('#propUnits tbody .editUnitBtn').click(function () {
 
 							    $scope.addingNewUnit = false;
 
@@ -651,31 +659,35 @@ noochForLandlords
 							            propDetailsService.inviteNewTenant($scope.selectedProperty.propertyId, data['UnitId'], input.trim(), "", "", data['UnitRent'], userDetails.landlordId, userDetails.accessToken, function (response) {
                                             console.log("PropDetails Cntrlr -> InviteNewTenant Response: " + response)
 
-                                            if (response.success == true) {
-							                    // On Success
-							                    swal({
-							                        title: "Invite Sent",
-							                        text: "Your request has been sent.  We will notify you when this person accepts and signs up.",
-							                        type: "success",
-							                        confirmButtonColor: "#3fabe1",
-							                        confirmButtonText: "Great"
-							                    });
-							                }
-							                else {
-							                    swal({
-							                        title: "Uh oh...",
-							                        text: data.msg,
-							                        type: "error",
-							                        confirmButtonText: "Ok"
-							                    });
-							                }
+                                            $.unblockUI({
+                                                onUnblock: function () {
+                                                    if (response.success == true) {
+                                                        // On Success
+                                                        swal({
+                                                            title: "Invite Sent",
+                                                            text: "Your request has been sent.  We will notify you when this person accepts and signs up.",
+                                                            type: "success",
+                                                            confirmButtonColor: "#3fabe1",
+                                                            confirmButtonText: "Great"
+                                                        });
+                                                    }
+                                                    else {
+                                                        swal({
+                                                            title: "Uh oh...",
+                                                            text: data.msg,
+                                                            type: "error",
+                                                            confirmButtonText: "Ok"
+                                                        });
+                                                    }
+                                                }
+                                            });
 							            });
 							        }
 							    });
 							})
 
 							// DELETE UNIT BTN CLICKED
-							$('#propUnits tbody .btn.deleteUnitBtn').click(function () {
+							$('#propUnits tbody .deleteUnitBtn').click(function () {
 								var btn = $(this);
 
 								var data = $scope.propUnitsTable.row($(this).parents('tr')).data();
@@ -762,7 +774,6 @@ noochForLandlords
         };
         getPropertyDetails();
 		
-
 		$scope.addTblRow = function(withTenant, memid, unitid, unitnum, rent, tenname, tenemail, imgurl, lastpaid, isrentpaid, isemailver, status, isphonever,isbnkver ) {
 			console.log("addTblRow REACHED");
 			
@@ -2059,7 +2070,7 @@ noochForLandlords
     // Profile
     //=================================================
 
-    .controller('profileCtrl', function ($rootScope, $scope, $compile, growlService, getProfileService, propertiesService, authenticationService) {
+    .controller('profileCtrl', function ($rootScope, $scope, $compile, growlService, getProfileService, propertiesService, authenticationService, $state) {
         console.log("PROFILE CTRL Fired");
 
         $scope.userInfo = {};
@@ -2076,6 +2087,9 @@ noochForLandlords
 				// Check AuthTokenValidation
 				if (response.AuthTokenValidation.IsTokenOk == true)
 				{
+                    // Update MemberID
+				    authenticationService.SetUserDetails(response.UserEmail, response.MemberId, "", response.AuthTokenValidation.AccessToken);
+
 					// binding user information
 				    $scope.userInfo.isIdVerified = response.isIdVerified;
 
@@ -2337,7 +2351,7 @@ noochForLandlords
             }
         }
 
-        this.editProfilePic = function () {
+        $scope.editProfilePic = function () {
             $('#addPic').modal();
 
             // FILE INPUT DOCUMENTATION: http://plugins.krajee.com/file-input#options
@@ -2362,8 +2376,8 @@ noochForLandlords
                 },
                 showPreview: true,
                 resizeImage: true,
-                maxImageWidth: 400,
-                maxImageHeight: 400,
+                maxImageWidth: 500,
+                maxImageHeight: 500,
                 resizePreference: 'width'
             });
 
@@ -2378,11 +2392,14 @@ noochForLandlords
                 {
                     $('#addPic').modal('hide');
                     $scope.userInfo.userImage = data.response.ErrorMessage;
+                    $rootScope.userDetailsRoot.imgUrl = data.response.ErrorMessage + '#' + new Date().getTime();
                     $('#userPreviewPic').attr('src', data.response.ErrorMessage);
 
-                    $('#userProfilePic').attr('src', '');
+                    //$('#userProfilePic').attr('src', '');
                     setTimeout(function () {
                         $('#userProfilePic').attr('src', data.response.ErrorMessage + '#' + new Date().getTime());
+                        console.log('should call state reload...');
+                        $state.reload();
                     }, 500);
                 }
                 else
@@ -2624,6 +2641,7 @@ noochForLandlords
 
                             $scope.userInfo.isIdVerified = 1;
                             $rootScope.isIdVerified = 1;
+                            $rootScope.ContactNumber = phone;
 
                             // THEN DISPLAY SUCCESS ALERT...
                             swal({
@@ -2819,7 +2837,6 @@ noochForLandlords
                     cancelButtonText: "Verify Later",
                     confirmButtonColor: "#3fabe1",
                     confirmButtonText: "Verify ID Now",
-                    //closeOnCancel: true,
                     customClass: "securityAlert",
                     allowEscapeKey: false,
                     html: true
@@ -2832,9 +2849,120 @@ noochForLandlords
             else if ($rootScope.shouldLaunchWizOnLoad === true) {
                 console.log("$rootScope.shouldLaunchWizOnLoad  IS TRUE");
                 $rootScope.shouldLaunchWizOnLoad = false;
-                
             }
         }
+
+
+        $scope.phEmWarning = function (input) {
+            console.log(input);
+            var title;
+            var bodyTxt;
+            var imgUrl;
+            var sendWhat;
+
+            if (input == "e")
+            {
+                sendWhat = "Email";
+                title = "Verify Your Email";
+                bodyTxt = "As part of our efforts to keep Nooch the safest way to get paid, we ask all users to confirm their email address." +
+                      "<span class='show m-t-15'>Click <strong>\"Send\"</strong> to re-send the verification link.  Just click the big blue button in that email to confirm.</span>";
+            }
+            else if (input == "p")
+            {
+                sendWhat = "SMS";
+                title = "Verify Your Phone";
+                bodyTxt = "To help keep Nooch the safest way to get paid, we ask all users to confirm a valid phone number." +
+                      "<span class='show m-t-15'>We do this by sending you a text message (SMS) - just reply \"Go\" (case doesn't matter) to confirm.</span>" +
+                      "<span class='show m-t-15'>Click <strong>\"Send\"</strong> to re-send the verification SMS.</span>";
+            }
+
+            swal({
+                title: title,
+                text: bodyTxt,
+                imageUrl: "img/secure.svg",
+                imageSize: "194x80",
+                showCancelButton: true,
+                cancelButtonText: "Verify Later",
+                confirmButtonColor: "#3fabe1",
+                confirmButtonText: "Send Now",
+                html: true
+            }, function (isConfirm) {
+                if (isConfirm) {
+                    $scope.ResendVerificationEmailOrSMS(sendWhat);
+                }
+            });
+        }
+
+        $scope.ResendVerificationEmailOrSMS = function (sendWhat) {
+            console.log("Profile Controller -> ResendVerificationEmailOrSMS fired");
+
+            if (sendWhat == "SMS")
+            {
+                if ($rootScope.ContactNumber == "" ||
+                    $rootScope.ContactNumber.length < 10)
+                {
+                    swal({
+                        title: "No Phone Added Yet",
+                        text: "Looks like you still need to add your phone number before we can verify it!",
+                        type: "warning",
+                        showCancelButton: true,
+                        cancelButtonText: "Later",
+                        confirmButtonText: "Add Now",
+                        confirmButtonColor: "#3FABE1"
+                    }, function (isConfirm) {
+                        if (isConfirm)
+                        {
+                            $scope.goTo("profile");
+                        }
+                    });
+                    return;
+                }
+            }
+
+            var userdetails = authenticationService.GetUserDetails();
+
+            getProfileService.ResendVerificationEmailOrSMS(userdetails.landlordId, "Landlord", sendWhat, function (response) {
+				console.log(response); 
+
+				if (response.IsSuccess && response.IsSuccess == true)
+				{
+					console.log("Inside success");
+                    if (sendWhat == "Email") {
+                        swal({
+                            title: "Email Verification Resent",
+                            text: "We just re-sent a verification link to <strong>" + $rootScope.emailAddress + "</strong>, please check your email and click the link to verify your email address.",
+                            type: "success",
+                            customClass: "largeText",
+                            html: true
+                        });
+                    }
+                    if (sendWhat == "SMS") {
+                        swal({
+                            title: "SMS Verification Sent!",
+                            text: "We just sent a text message to <strong>" + $rootScope.ContactNumber + "</strong>, please check your phone and reply \"Go\" to the text (case doesn't matter).",
+                            type: "success",
+                            customClass: "largeText",
+                            html: true
+                        });
+                    }
+                }
+                else 
+				{
+                    var msgtxt = "";
+                    if (response.ErrorMessage.indexOf('Already Activated') > -1) {
+                        msgtxt = "Looks like your account is already verified! If you continue to see messages saying your email is not verified, please contact Nooch support so we can straighten things out!";
+                    }
+                    else if (response.ErrorMessage.indexOf('Already Verified') > -1) {
+                        msgtxt = "Looks like your phone number is already verified! If you continue to see messages saying your email is not verified, please contact Nooch support so we can straighten things out!";
+                    }
+                    swal({
+                        title: "Oh no!",
+                        text: msgtxt,
+                        type: "warning"
+                    });
+                }
+            });
+        };
     })
 
 
@@ -3486,7 +3614,7 @@ noochForLandlords
         }
 
         $scope.ResendVerificationEmailOrSMS = function (sendWhat) {
-            console.log("Controller -> ResendVerificationEmailOrSMS fired");
+            console.log("Accnt Checklist Controller -> ResendVerificationEmailOrSMS fired");
             if (sendWhat == "SMS")
             {
                 if ($rootScope.ContactNumber == "" ||
@@ -3518,23 +3646,24 @@ noochForLandlords
 				if (response.IsSuccess && response.IsSuccess == true)
 				{
 					console.log("Inside success");
-                    if (sendWhat == "Email") {
-                        swal({
-                            title: "Email Verification Resent",
-                            text: "We just re-sent a verification link to <strong>" + $rootScope.emailAddress + "</strong>, please check your email and click the link to verify your email address.",
-                            type: "success",
-                            customClass: "largeText",
-                            html: true
-                        });
-                    }
-                    if (sendWhat == "SMS") {
-                        swal({
-                            title: "Hurray!",
-                            text: "We just sent a text message to <strong>" + $rootScope.ContactNumber + "</strong>, please check your phone and reply \"Go\" to the text (case doesn't matter).",
-                            type: "success",
-                            customClass: "largeText"
-                        });
-                    }
+					if (sendWhat == "Email") {
+					    swal({
+					        title: "Email Verification Resent",
+					        text: "We just re-sent a verification link to <strong>" + $rootScope.emailAddress + "</strong>, please check your email and click the link to verify your email address.",
+					        type: "success",
+					        customClass: "largeText",
+					        html: true
+					    });
+					}
+					if (sendWhat == "SMS") {
+					    swal({
+					        title: "SMS Verification Sent!",
+					        text: "We just sent a text message to <strong>" + $rootScope.ContactNumber + "</strong>, please check your phone and reply \"Go\" to the text (case doesn't matter).",
+					        type: "success",
+					        customClass: "largeText",
+					        html: true
+					    });
+					}
                 }
                 else 
 				{

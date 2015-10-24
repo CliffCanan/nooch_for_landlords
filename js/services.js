@@ -465,10 +465,19 @@ noochForLandlords
 
 
         Operations.SetUserDetails = function (username, memberId, landlordId, accessToken) {
-            localStorage.setItem('username', username);
-            localStorage.setItem('memberId', memberId);
-            localStorage.setItem('landlordId', landlordId);
-            localStorage.setItem('accessToken', accessToken);
+
+            if (username != "") {
+                localStorage.setItem('username', username);
+            }
+            if (memberId != "") {
+                localStorage.setItem('memberId', memberId);
+            }
+            if (landlordId != "") {
+                localStorage.setItem('landlordId', landlordId);
+            }
+            if (accessToken != "") {
+                localStorage.setItem('accessToken', accessToken);
+            }
         };
 
 
@@ -543,14 +552,14 @@ noochForLandlords
 
 
         Operations.ResendVerificationEmailOrSMS = function (userId, userType, requestFor, callback) {
-            console.log("Reached ResendVerificationEmailOrSMS");
             var data = {};
             data.UserId = userId;
             data.UserType = userType;
             data.RequestFor = requestFor;
-
+            console.log("SERVICES -> ResendVerificationEmailOrSMS METHOD -> [" + JSON.stringify(data) + "]")
             $http.post(URLs.ResendVerificationEmailAndSMS, data)
                 .success(function (response) {
+                    console.log(response);
                     callback(response);
                 });
         };

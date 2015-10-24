@@ -178,11 +178,27 @@ a, a *,
         margin: 3px auto -3px;
     }
 
+#addPic .file-input > .btn {
+    cursor: pointer !important;
+    margin: 0 auto !important;
+    border-radius: 6px;
+    max-width: 190px;
+    padding: 9px 20px;
+    font-size: 15px;
+}
+
+#addPic .file-input-ajax-new > .btn-file {
+    display: block;
+}
+
+
+
 .nopointer {
     cursor: default !important;
 }
 
-i.md-info, i.md-info-outline {
+i.md-info, i.md-info-outline,
+i.help {
     cursor: help;
 }
 
@@ -1423,9 +1439,9 @@ form .checkbox.haserror .input-helper:before {
         overflow: visible;
     }
 
-        #profileMain .pmbb-body .dl-horizontal dt > i {
-            font-size: 18px;
-            line-height: 1.1;
+        #profileMain .pmbb-body .dl-horizontal dt i:not(.socicon) {
+            font-size: 17px;
+            line-height: 1.2;
             position: relative;
             top: -2px;
         }
