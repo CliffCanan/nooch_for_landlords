@@ -413,13 +413,9 @@ td.unit-rent {
         margin-right: 4px;
     }
 
-/* OLD PROP DETAILS TABLE */
-#propDetailsTbl.table > thead > tr > th, #propDetailsTbl.table > tbody > tr > th,
-#propDetailsTbl.table > tfoot > tr > th, #propDetailsTbl.table > thead > tr > td,
-#propDetailsTbl.table > tbody > tr > td, #propDetailsTbl.table > tfoot > tr > td {
-    padding: 15px 8px;
-}
 
+
+/* OLD PROP DETAILS TABLE */
 #propDetailsTbl .media-body {
     overflow: visible;
     padding-left: 10px;

@@ -80,7 +80,7 @@ noochForLandlords
             data.Unit = unitData;
 
             data.User = {
-                LandlorId: landlordId,
+                LandlordId: landlordId,
                 AccessToken: accessToken
             };
 
@@ -103,7 +103,7 @@ noochForLandlords
             data.Unit = unitData;
 
             data.User = {
-                LandlorId: landlordId,
+                LandlordId: landlordId,
                 AccessToken: accessToken
             };
 
@@ -637,7 +637,9 @@ noochForLandlords
 
             data.DeviceInfo = deviceInfoObj;
             data.UserInfo = userInfoObj;
+
             console.log("SERVICES -> SENDING DATA TO EDIT PROFILE METHOD -> [" + JSON.stringify(data) + "]")
+
             $http.post(URLs.EditProfileData, data)
                 .success(function (response) {
                     if (response.IsSuccess && response.IsSuccess == true) {

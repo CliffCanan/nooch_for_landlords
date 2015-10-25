@@ -408,8 +408,10 @@ noochForLandlords
 
 							$('.selectpicker').selectpicker('refresh');
 
-							console.log("TENANT LIST...");
-							console.log($scope.allTenantsList);
+							console.log("UNITS LIST...");
+							console.log(typeof $scope.allUnitsList);
+							console.log($scope.allUnitsList);
+							console.log($scope.allUnitsList[0]);
 
 							$scope.propUnitsTable = $('#propUnits').on('init.dt', function () {
 								//console.log('Table initialisation complete');
@@ -451,28 +453,35 @@ noochForLandlords
                                         "targets": 4,
                                         "data": "TenantName",
                                         "render": function (data, type, full, meta) {
-                                            console.log("INSIDE DATA TABLE CREATION");
-                                            console.log(typeof data);
                                             console.log(full);
 
-                                            var stringToDisplay;
-                                            if (full.TenantName != null && full.TenantName.length > 1)
+                                            var name = full.TenantName;
+                                            var htmlToDisplay;
+
+
+                                            if (name != null && name.length > 1)
                                             {
-                                                stringToDisplay = full.TenantName;
+                                                htmlToDisplay = '<div><img src="' + full.ImageUrl + '"></div>' +
+                                                                '<div class="capitalize">' + name + '</div>';
                                             }
                                             else if (full.TenantEmail != null && full.TenantEmail.length > 1) {
-                                                stringToDisplay = '<span class="show text-center"><a class="msgUnitBtn">' + full.TenantEmail + '</a></span>';
+                                                var classToAdd = "";
+                                                if (full.Status == "Pending Invite") {
+                                                    classToAdd = 'text-warning';
+                                                }
+                                                htmlToDisplay = '<span class="show text-center"><a class="msgUnitBtn">' + full.TenantEmail + '</a></span>' +
+                                                                  '<span class="show text-center status ' + classToAdd + '">' + full.Status + '</span>';
                                             }
                                             else
                                             {
-                                                stringToDisplay = '<span class="show text-center"><a class="addTenantBtn">Add Tenant</a></span>';
+                                                htmlToDisplay = '<span class="show text-center"><a class="addTenantBtn"><i class="md md-add m-r-5"></i>Add Tenant</a></span>';
                                             }
-                                            return stringToDisplay;
+                                            return htmlToDisplay;
                                         }
                                     },
 									{
 									    "targets": [4],
-									    className: "capitalize"
+									    className: ""
 									},
 									{
 									    "targets": [2],
@@ -573,7 +582,7 @@ noochForLandlords
 													type: "success",
 													confirmButtonColor: "#3fabe1",
 													confirmButtonText: "Great",
-													customClass: "largeText"
+												    customClass: "largeText",
 												});
 												
 											});
@@ -597,6 +606,26 @@ noochForLandlords
 								$('#addUnitModal #unitNumGrp').removeClass('has-error').removeClass('has-success');
 								$('#addUnitModal #monthlyRentGrp').removeClass('has-error').removeClass('has-success');
 								$('#addUnitModal #monthlyRent').val(data['UnitRent']);
+
+								if (data['IsOccupied'] == true &&
+                                    data['TenantName'] != null && data['TenantName'].length > 2)
+								{
+								    $('#addUnitForm #tenantGrp > div').html('<p class="form-control-static capitalize" id="tenantStatic" data-memid="' + data['MemberId'] +
+                                                                            '">' + data['TenantName'] + '<a class="text-danger m-l-15" ng-click="clearTenantInModal()><i class="md md-highlight-remove m-r-5"></i>remove</a></p>');
+								    $compile($('#addUnitForm #tenantGrp > div a'))($scope);
+								}
+								else if (data['IsOccupied'] == true &&
+                                         data['TenantEmail'] != null && data['TenantEmail'].length > 2)
+								{
+								    $('#addUnitForm #tenantGrp > div').html('<p class="form-control-static" id="tenantStatic" data-memid="' + data['MemberId'] +
+                                                                            '">' + data['TenantEmail'] + '<a class="text-danger small m-l-15" data-ng-click="clearTenantInModal()"><i class="md md-highlight-remove m-r-5"></i>remove</a></p>');
+								    $compile($('#addUnitForm #tenantGrp > div a'))($scope);
+								}
+								else
+								{
+								    $scope.clearTenantInModal();
+								}
+
 								$('#addUnitModal select').val('');
 
 								if ($('#unitNumGrp .help-block').length) {
@@ -1088,6 +1117,7 @@ noochForLandlords
 
         // Add Unit Button
 		$scope.addUnit = function () {
+
 		    // Set the modal Title Text (b/c the same modal is used for Edit Unit and Add Unit)
 		    $scope.addingNewUnit = true;
 		    $scope.editingUnitId = "";
@@ -1095,6 +1125,7 @@ noochForLandlords
 			$('#addUnitModal .modal-title').html('Add a New Unit in: <strong>' + $scope.selectedProperty.name + '</strong>');
 
             // Reset the form
+		    $scope.clearTenantInModal();
             $('#addUnitModal input').val('');
             $('#addUnitModal select').val('');
             $('#addUnitModal #unitNumGrp').removeClass('has-error').removeClass('has-success');
@@ -1149,23 +1180,35 @@ noochForLandlords
                     unitData.RentStartDate = $('#addUnitModal #addUnitDatePicker').val();
                     unitData.RentDuration = $('#addUnitModal #rentDurationInMonths option:selected').text();
 
-                    if ($('#addUnitModal #unitTenants option:selected').text() == "Select A Tenant" ||
-                        $('#addUnitModal #unitTenants option:selected').text() == "NO TENANT YET")
+                    console.log(document.getElementById("tenantStatic"));
+                    console.log(document.getElementById("unitTenantEm"));
+
+                    if (document.getElementById("tenantStatic") && $('#tenantGrp #tenantStatic').attr('data-memid') != null)
                     {
-                        unitData.IsTenantAdded = false;
+                        unitData.TenantId = $('#tenantGrp #tenantStatic').attr('data-memid');
+                        unitData.IsTenantAdded = true;
+                        console.log('CHECKPOINT 1... ' );
+                    }
+                    else if (document.getElementById("unitTenantEm") && $('#unitTenantEm').val().trim().length > 1)
+                    {
+                        unitData.TenantEmail = $('#unitTenantEm').val().trim();
+                        unitData.IsTenantAdded = true;
+                        console.log('CHECKPOINT 2');
                     }
                     else
                     {
-                        unitData.IsTenantAdded = true;
-                        unitData.TenantId = $('#addUnitModal #unitTenants option:selected').val();
+                        unitData.IsTenantAdded = false;
+                        console.log('CHECKPOINT 3');
                     }
+                    console.log(JSON.stringify(unitData));
 
-                    // NOW CHECK WHETHER WE SHOULD CREATEA A *NEW* UNIT OR JUST EDIT IF THIS IS AN EXISTING UNIT
+                    // NOW CHECK WHETHER WE SHOULD CREATE A A *NEW* UNIT OR JUST EDIT IF THIS IS AN EXISTING UNIT
                     if ($scope.addingNewUnit == true)
                     {
                         // Add a New Unit
                         unitData.isNewUnit = true;
                         unitData.UnitId = "";
+                        console.log(JSON.stringify(unitData));
 
                         propertiesService.AddNewUnit(propId, unitData, userdetails.landlordId, userdetails.accessToken, function (data) {
                             console.log("Add New Unit service response...");
@@ -1207,9 +1250,10 @@ noochForLandlords
                         // Editing An Existing Unit
                         unitData.isNewUnit = false;
                         unitData.UnitId = $scope.editingUnitId;
+                        console.log(JSON.stringify(unitData));
 
                         propertiesService.EditUnitInProperty(propId, unitData, userdetails.landlordId, userdetails.accessToken, function (data) {
-                            console.log("Edit Unit service response...");
+                            console.log("PropDetails Ctrlr -> Edit Unit service response...");
                             console.log(data);
 
                             if (data.IsSuccess == true) {
@@ -1254,6 +1298,10 @@ noochForLandlords
             }
         }
 
+        $scope.clearTenantInModal = function () {
+            $('#addUnitForm #tenantGrp > div').html('<div class="fg-line"><input type="text" id="unitTenantEm" class="form-control placeholder-sm" placeholder="Enter Tenant\'s Email" maxlength="50"></div>');
+            $compile($('#addUnitForm #tenantGrp #unitTenantEm'))($scope);
+        }
 
         // Send Message Modal
         $scope.sendMsg = function (howMany) {

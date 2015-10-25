@@ -16,14 +16,6 @@
 
             <div class="container">
 
-                <div class="block-header hidden">
-                    <div class="row">
-                        <div class="col-sm-9 col-lg-8">
-                            <h2 class="col-xs-9" style="padding:2px 0;">Add a New Property</h2>
-                        </div>
-                    </div>
-                </div>
-
                 <div class="row">
 
                     <div class="col-xs-12 col-sm-8 col-md-9">
@@ -32,7 +24,7 @@
 
                             <div class="card-header p-b-15">
                                 <div class="row">
-                                    <h2 class="col-xs-12 col-sm-3 col-lg-4">
+                                    <h2 class="col-xs-12 md-add col-sm-3 col-lg-4">
                                         {{ selectedProperty.name  | capitalize}}
                                         <small class="hidden-xs" data-ng-if="selectedProperty.published === 1">
                                             Published &nbsp;|&nbsp;
@@ -477,7 +469,6 @@
 
                         <div class="col-xs-12 col-sm-6" id="unitNumGrp">
                             <label for="unitNum" class="col-sm-5 p-l-0 p-r-0 control-label">Unit Number</label>
-
                             <div class="col-sm-7 p-r-0">
                                 <div class="fg-line">
                                     <input type='text' id="unitNum" class="form-control placeholder-sm" placeholder="'3a' or '1st Floor'" maxlength="25" required>
@@ -493,7 +484,6 @@
                                     <i class="md md-info-outline help" data-trigger="click" data-toggle="popover" data-placement="auto" data-content="Instead of a unit #, use this field to enter a name to identify this unit." data-original-title="No Unit Number?"></i>
                                 </div>
                             </div>
-
                         </div>
 
                         <div class="col-xs-12" id="monthlyRentGrp">
@@ -520,14 +510,18 @@
                         <div class="col-xs-12" id="tenantGrp">
                             <label for="unitTenants" class="col-sm-3 control-label"><i class="md md-person m-r-5"></i>Tenant<small>Optional</small></label>
                             <div class="col-sm-9">
-                                <select data-select-picker data-live-search="true" id="unitTenants">
+                                <div class="fg-line">
+                                    <input type="text" id="unitTenantEm" class="form-control placeholder-sm" placeholder="Enter Tenant's Email" maxlength="50">
+                                </div>
+
+                                <!--<select data-select-picker data-live-search="true" id="unitTenants">
                                     <option selected="">Select A Tenant</option>
                                     <option data-ng-repeat="tenant in tenantsListForThisPorperty" value="{{tenant.TenantId}}">{{tenant.Name}} </option>
                                     <option value="1">NO TENANT YET</option>
-                                    <!--<option>Frank Quinterro &nbsp;(quit.frank@gmail.com)</option>
+                                    <option>Frank Quinterro &nbsp;(quit.frank@gmail.com)</option>
                                     <option>Kareem O'Leary &nbsp;(lighteningbolt@gmail.com)</option>
-                                    <option>Usain Quick &nbsp;(lighteningbolt@gmail.com)</option>-->
-                                </select>
+                                    <option>Usain Quick &nbsp;(lighteningbolt@gmail.com)</option>
+                                </select>-->
                             </div>
                         </div>
 
