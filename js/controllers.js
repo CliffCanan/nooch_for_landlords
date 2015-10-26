@@ -339,6 +339,25 @@ noochForLandlords
 
         // unblock when ajax activity stops 
         $(document).ajaxStop($.unblockUI);
+        $(document).ready(function () {
+
+            setTimeout(function () {
+                console.log('read------yy');
+                $('.selectpicker').selectpicker('refresh');
+
+                $('.bs-select').selectpicker('refresh');
+
+                $('.bs-select').selectpicker('refresh');
+
+                
+
+
+            }, 3000);
+
+            
+        });
+        
+        
 
         var userDetails = authenticationService.GetUserDetails();
 
@@ -397,6 +416,9 @@ noochForLandlords
 
 							$scope.allUnitsList = data.PropertyDetails.AllUnits;
 							$scope.allTenantsList = data.TenantsListForThisProperty;
+
+							console.log("TENANTS LIST...");
+							console.log($scope.allTenantsList);
 
 							$('.selectpicker').selectpicker('refresh');
 

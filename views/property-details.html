@@ -576,14 +576,22 @@
                         <div class="form-group" id="tenantMsgGrp">
                             <label for="tenantMsg" class="col-sm-3 control-label"><i class="md md-person m-r-5"></i>Tenant</label>
                             <div class="col-sm-9">
-                                <select id="tenantMsg" data-select-picker data-live-search="true">
+
+                                <select ng-model="allTenantsList" ng-options="tenant.Name for tenant in alltenantslist track by tenant.TenantId" id="tenantMsg" data-select-picker data-live-search="true">
                                     <option value="0">Select A Tenant</option>
-                                    <option data-ng-repeat="tenant in tenantList.tenants">{{tenant.name}} &nbsp;{{tenant.last4}}</option>
+                                </select>
+
+
+
+
+                                <!--<select id="tenantMsg" data-select-picker data-live-search="true">
+                                    <option value="0">Select A Tenant</option>
+                                    <option data-ng-repeat="tenant.Name for tenant in allTenantsList track by tenant.TenantId" value="1">{{tenant.Name}} </option>
                                     <option>NO TENANT YET</option>
                                     <option>Frank Quinterro &nbsp;(quit.frank@gmail.com)</option>
                                     <option>Kareem O'Leary &nbsp;(lighteningbolt@gmail.com)</option>
                                     <option>Usain Quick &nbsp;(lighteningbolt@gmail.com)</option>
-                                </select>
+                                </select>-->
                             </div>
                         </div>
 
