@@ -290,7 +290,7 @@ noochForLandlords
 						var index;
 
 						for (index = 0; index < data.AllProperties.length; ++index) {
-							console.log(data.AllProperties[index]);
+							//console.log(data.AllProperties[index]);
 
 							var propItem = {
 								id: data.AllProperties[index].PropertyId,
@@ -401,12 +401,14 @@ noochForLandlords
 							$('.selectpicker').selectpicker('refresh');
 
 							console.log("UNITS LIST...");
-							console.log(typeof $scope.allUnitsList);
 							console.log($scope.allUnitsList);
-							console.log($scope.allUnitsList[0]);
 
 							$scope.propUnitsTable = $('#propUnits').on('init.dt', function () {
-								//console.log('Table initialisation complete');
+							    console.log('Table initialisation complete');
+							    setTimeout(function () {
+							        $('#propUnits').removeClass('animated fadeIn');
+							    }, 1700);
+
 							}).DataTable({
 								data: $scope.allUnitsList,
 								columns: [
@@ -450,7 +452,6 @@ noochForLandlords
                                             var name = full.TenantName;
                                             var htmlToDisplay;
 
-
                                             if (name != null && name.length > 1)
                                             {
                                                 htmlToDisplay = '<div><img src="' + full.ImageUrl + '"></div>' +
@@ -466,7 +467,7 @@ noochForLandlords
                                             }
                                             else
                                             {
-                                                htmlToDisplay = '<span class="show text-center"><a class="addTenantBtn btn"><i class="md md-add m-r-5"></i>Add Tenant</a></span>';
+                                                htmlToDisplay = '<span class="show text-center"><a class="addTenantBtn btn btn-default"><i class="md md-add m-r-5"></i>Add Tenant</a></span>';
                                             }
                                             return htmlToDisplay;
                                         }
@@ -558,25 +559,56 @@ noochForLandlords
 												cancelButtonText: "Cancel",
 												closeOnConfirm: false
 											}, function (input) {
-												console.log(input);
-												if (input ==="")
-												{
-													swal.showInputError("Please enter an email address!")
-													return false;
-												}
+											    if (typeof input == "string") {
+											        if (input.length < 5 || $scope.ValidateEmail(input) == false) {
+											            swal.showInputError("Please enter an email address!")
+											            return false;
+											        }
+											        console.log(input.trim());
+											        // Show Loading Block
+											        $.blockUI({
+											            message: '<span><i class="md md-refresh fa-spin fa-loading"></i></span><br/><span class="loadingMsg">Inviting ' + input + '...</span>',
+											            css: {
+											                border: 'none',
+											                padding: '10px 10px 20px',
+											                backgroundColor: '#000',
+											                '-webkit-border-radius': '14px',
+											                '-moz-border-radius': '14px',
+											                'border-radius': '14px',
+											                opacity: '.75',
+											                color: '#fff'
+											            }
+											        });
 
-												// NEED TO ADD CODE HERE TO CALL SERVICE FOR SENDING AN INVITE TO THE TENANT
+											        // CALL SERVICE FOR SENDING AN INVITE TO THE TENANT
+											        propDetailsService.inviteNewTenant($scope.selectedProperty.propertyId, data['UnitId'], input.trim(), "", "", data['UnitRent'], userDetails.landlordId, userDetails.accessToken, function (response) {
+											            console.log("PropDetails Cntrlr -> InviteNewTenant Response: " + response)
 
-												// On Success
-												swal({
-													title: "Invite Sent",
-													text: "Your request has been sent.  We will notify you when this person accepts and signs up.",
-													type: "success",
-													confirmButtonColor: "#3fabe1",
-													confirmButtonText: "Great",
-												    customClass: "largeText",
-												});
-												
+											            $.unblockUI({
+											                onUnblock: function () {
+											                    if (response.success == true) {
+											                        // On Success
+											                        swal({
+											                            title: "Invite Sent",
+											                            text: "Your request has been sent.  We will notify you when this person accepts and signs up.",
+											                            type: "success",
+											                            confirmButtonColor: "#3fabe1",
+											                            confirmButtonText: "Great",
+											                            customClass: "largeText",
+											                        });
+											                    }
+											                    else {
+											                        swal({
+											                            title: "Uh oh...",
+											                            text: data.msg,
+											                            type: "error",
+											                            confirmButtonText: "Ok"
+											                        });
+											                    }
+											                }
+											            });
+											        });
+											    }
 											});
 										}
 									});
@@ -652,9 +684,6 @@ noochForLandlords
 							        closeOnConfirm: false,
 							        closeOnCancel: true
 							    }, function (input) {
-							        console.log(typeof input);
-							        console.log(input);
-
 							        if (typeof input == "string") {
 							            if (input.length < 5 || $scope.ValidateEmail(input) == false) {
 							                swal.showInputError("Please enter an email address!")
@@ -676,6 +705,7 @@ noochForLandlords
 							                }
 							            });
 
+							            //console.log($scope.propUnitsTable.)
 							            // CALL SERVICE FOR SENDING AN INVITE TO THE TENANT
 							            propDetailsService.inviteNewTenant($scope.selectedProperty.propertyId, data['UnitId'], input.trim(), "", "", data['UnitRent'], userDetails.landlordId, userDetails.accessToken, function (response) {
                                             console.log("PropDetails Cntrlr -> InviteNewTenant Response: " + response)
@@ -683,13 +713,15 @@ noochForLandlords
                                             $.unblockUI({
                                                 onUnblock: function () {
                                                     if (response.success == true) {
+                                                        //$scope.propUnitsTable
                                                         // On Success
                                                         swal({
                                                             title: "Invite Sent",
                                                             text: "Your request has been sent.  We will notify you when this person accepts and signs up.",
                                                             type: "success",
                                                             confirmButtonColor: "#3fabe1",
-                                                            confirmButtonText: "Great"
+                                                            confirmButtonText: "Great",
+                                                            customClass: "largeText",
                                                         });
                                                     }
                                                     else {
@@ -741,6 +773,8 @@ noochForLandlords
 								            }
 								        });
 
+								        var wasThisUnitOccupied = data['IsOccupied'] == true ? true : false;
+
 										// Call service here to remove unit from DB
 									    propDetailsService.deleteUnit(data['UnitId'], userDetails.landlordId, userDetails.accessToken, function (data) {
 									        $.unblockUI({
@@ -748,12 +782,19 @@ noochForLandlords
 
 									                if (data.IsSuccess == true) {
 											    
-												        $scope.propUnitsTable.row(btn.parents('tr')).remove().draw();
+									                    $scope.propUnitsTable.row(btn.parents('tr')).remove().draw();
+									                    $scope.selectedProperty.units -= 1;
+									                    if (wasThisUnitOccupied) {
+									                        $scope.selectedProperty.tenants -= 1;
+									                    }
+
+
 												        swal({
 													        title: "Unit Removed",
 													        text: "Unit successfully removed from " + $scope.selectedProperty.name + ".",
 													        type: "success",
-													        confirmButtonText: "Ok"
+													        confirmButtonText: "Ok",
+                                                            customClass: "largeText"
 												        }, function() {
 													        // CLIFF (10/3/15): not sure the $state.reload() is actually necessary.  We can remove the unit's row
 													        //					from the table, and decrement the # of units value, which will both immediately update the UI.
@@ -778,7 +819,7 @@ noochForLandlords
 						}
 						else
 						{
-							console.log('PropDetails Ctrlr -> Error while property details!');
+							console.log('PropDetails Ctrlr -> Error while getting property details!');
 						}
 					}
 					else // Auth Token was not valid on server
@@ -1519,6 +1560,7 @@ noochForLandlords
         };
     })
 
+
     // FOR PROPERTY DETAILS TABLE (Not Used!)
     .directive('propDetailsTable', function ($compile) {
         return {
@@ -1599,6 +1641,7 @@ noochForLandlords
             }
         }
     })
+
 
     // Delete Property Popup
     .directive('deleteProp', function (propertiesService, authenticationService) {

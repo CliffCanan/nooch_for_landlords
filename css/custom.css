@@ -388,6 +388,11 @@ table tbody td .label {
     padding: 2px;
 }
 
+#propUnits th.text-right,
+#propUnits tbody tr > td:last-child {
+    padding-right: 10px;
+}
+
 .unit-num {
     padding: 2px !important;
 }
@@ -1647,6 +1652,10 @@ form .checkbox.haserror .input-helper:before {
     font-weight: normal;
 }
 
+.toggle-switch.disabled label {
+    cursor: not-allowed;
+}
+
 #notif-tog-container .row > *:not(:first-child) {
     text-align: center;
 }
@@ -1725,6 +1734,10 @@ table .btn-icon .md {
 
 table .btn-icon:hover .md {
     color: #3fabe1;
+}
+
+table .btn-icon .md-clear {
+    color: #a94442;
 }
 
 /** For the Wizard Plugin **/
@@ -2094,6 +2107,12 @@ addPropWiz .content {
 }
 
 @media screen and (min-width:768px) {
+    #unitsTableCard {
+        min-height: 300px;
+        -webkit-transition: .5s all;
+        transition: .5s all;
+    }
+
     .propDetails_UnitsTenants .propDetailsStatBadge > div:not(.popover) {
         padding: 14px 16px 6px;
     }
