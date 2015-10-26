@@ -24,7 +24,7 @@
 
                             <div class="card-header p-b-15">
                                 <div class="row">
-                                    <h2 class="col-xs-12 md-add col-sm-3 col-lg-4">
+                                    <h2 class="col-xs-12 col-sm-3 col-lg-4">
                                         {{ selectedProperty.name  | capitalize}}
                                         <small class="hidden-xs" data-ng-if="selectedProperty.published === 1">
                                             Published &nbsp;|&nbsp;
@@ -169,7 +169,7 @@
 
                                         <div class="pv-header">
                                             <div class="pv-main animated zoomIn" data-ng-click="editPropPic()">
-                                                <img src="{{ selectedProperty.imgUrl }}" id='propImage' alt="Property Picture">
+                                                <img ng-src="{{ selectedProperty.imgUrl }}" id='propImage' alt="Property Picture">
                                             </div>
                                         </div>
 
@@ -295,7 +295,7 @@
                                     <p class="m-b-10">All rent payments for this property will be deposited into:</p>
 
                                     <div class="m-b-15 text-center">
-                                        <img class="media-object" src="{{ selectedProperty.bankImage }}" alt="Bank Icon">
+                                        <img class="media-object" ng-src="{{ selectedProperty.bankImage }}" alt="Bank Icon">
 
                                         <div class="media-body p-b-10">
                                             <div class="">
@@ -397,10 +397,7 @@
                             <div class="col-sm-9">
                                 <select id="tenant" data-select-picker data-live-search="true">
                                     <option>Select A Tenant</option>
-                                    <option data-ng-repeat="tenant in tenantsListForThisPorperty">{{tenant.Name}} &nbsp;{{tenant.TenantId}}</option>
-                                    <!--<option>Frank Quinterro &nbsp;(quit.frank@gmail.com)</option>
-                                    <option>Kareem O'Leary &nbsp;(lighteningbolt@gmail.com)</option>
-                                    <option>Usain Quick &nbsp;(lighteningbolt@gmail.com)</option>-->
+                                    <option data-ng-repeat="tenant in tenantsListForThisPorperty">{{ tenant.Name }} &nbsp;{{ tenant.TenantId }}</option>
                                 </select>
                             </div>
                         </div>

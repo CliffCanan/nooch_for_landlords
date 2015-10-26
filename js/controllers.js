@@ -50,15 +50,12 @@ noochForLandlords
             console.log("headCtrl -> User no longer valid!");
             window.location.href = 'login.html';
         }
-        console.log("HEADER -> USERNAME AND PW Storage...!");
-        console.log(localStorage.getItem('userLoginName'));
-        console.log(localStorage.getItem('userLoginPass'));
-        console.log(typeof $userDetailsRoot);
-        if (typeof $userDetailsRoot == 'undefined') {
+
+        if (typeof $rootScope.userDetailsRoot == 'undefined') {
             //console.log($userDetailsRoot.imgUrl);
             $rootScope.userDetailsRoot = {};
         }
-		
+
         this.closeSearch = function () {
             angular.element('#header').removeClass('search-toggled');
         }
@@ -151,7 +148,6 @@ noochForLandlords
                 launchIntoFullscreen(document.documentElement);
             }
         }
-
     })
 
 
@@ -159,19 +155,16 @@ noochForLandlords
     //      HOME
     // ===============================================================
     .controller('homeCtrl', function ($rootScope, $scope, getProfileService, authenticationService) {
-        // CLIFF (10.10.15): Adding code for showing the New User Tour
 
         setTimeout(function () {
-            console.log("***  INSIDE HOME -> SET TIMEOUT  ***");
-            console.log($rootScope.hasSeenNewUserTour);
-            console.log($rootScope.isIdVerified);
+            //console.log("***  INSIDE HOME -> SET TIMEOUT  ***");
+            //console.log($rootScope.hasSeenNewUserTour);
+            //console.log($rootScope.isIdVerified);
 
             // Check if New User Tour should be displayed
             if ($rootScope.hasSeenNewUserTour != true && $rootScope.isIdVerified != true)
             {
                 console.log('HOME -> starting tour!');
-                //console.log($rootScope.hasSeenNewUserTour);
-                //console.log($rootScope.isIdVerified);
 
                 // Instance the tour
                 $scope.tour = new Tour({
@@ -185,43 +178,43 @@ noochForLandlords
                         $('#acntChklst').removeClass('animated fadeInRightSm');
                     },
                     steps: [
-                    {
-                        element: ".tour-step#tour-step-one",
-                        title: "Welcome To Nooch For Landlords!",
-                        content: "This is your dashboard. You can see the key details of your account here.",
-                        animation: true,
-                        backdropPadding: 10,
-                        placement: "bottom"
-                    },
-                    {
-                        element: "#sidebar",
-                        title: "Find What You Need",
-                        content: "Use this menu to navigate to the info you need.",
-                        placement: "right",
-                        backdropPadding: 6,
-                        onShow: function (tour) {
-                            $('#sidebar').css('z-index', '1105'); // this fixes an issue where the Tour backdrop would cover up the sidebar
+                        {
+                            element: ".tour-step#tour-step-one",
+                            title: "Welcome To Nooch For Landlords!",
+                            content: "This is your dashboard. You can see the key details of your account here.",
+                            animation: true,
+                            backdropPadding: 10,
+                            placement: "bottom"
                         },
-                        onHide: function (tour) {
-                            $('#sidebar').css('z-index', '5'); // return to regular z-index
+                        {
+                            element: "#sidebar",
+                            title: "Find What You Need",
+                            content: "Use this menu to navigate to the info you need.",
+                            placement: "right",
+                            backdropPadding: 6,
+                            onShow: function (tour) {
+                                $('#sidebar').css('z-index', '1105'); // this fixes an issue where the Tour backdrop would cover up the sidebar
+                            },
+                            onHide: function (tour) {
+                                $('#sidebar').css('z-index', '5'); // return to regular z-index
+                            }
+                            //backdrop: false
+                        },
+                        {
+                            element: "#acntChecklistCard",
+                            title: "How To Get Started",
+                            content: "Check out this list to see how to complete your account and start getting paid.  This checklist will show your progress as you complete each step.",
+                            placement: "left",
+                            backdropPadding: 6
+                        },
+                        {
+                            element: ".tour-step.tour-step-3",
+                            title: "Safey First",
+                            content: "To get started, please complete your profile to verify your identity. It takes less than 60 seconds and helps us keep Nooch the safe and secure way to collect rent online.",
+                            animation: true,
+                            placement: "left",
+                            backdropPadding: 5
                         }
-                        //backdrop: false
-                    },
-                    {
-                        element: "#acntChecklistCard",
-                        title: "How To Get Started",
-                        content: "Check out this list to see how to complete your account and start getting paid.  This checklist will show your progress as you complete each step.",
-                        placement: "left",
-                        backdropPadding: 6
-                    },
-                    {
-                        element: ".tour-step.tour-step-3",
-                        title: "Safey First",
-                        content: "To get started, please complete your profile to verify your identity. It takes less than 60 seconds and helps us keep Nooch the safe and secure way to collect rent online.",
-                        animation: true,
-                        placement: "left",
-                        backdropPadding: 5
-                    }
                     ]
                 });
 
@@ -291,14 +284,13 @@ noochForLandlords
 				if (data.AuthTokenValidation.IsTokenOk == true)
 				{
 					if (data.IsSuccess == true) {
-						// data binding goes in here
 
 						$rootScope.propCount = data.AllProperties.length;
 
 						var index;
 
 						for (index = 0; index < data.AllProperties.length; ++index) {
-							//console.log(data.AllProperties[index]);
+							console.log(data.AllProperties[index]);
 
 							var propItem = {
 								id: data.AllProperties[index].PropertyId,
@@ -474,7 +466,7 @@ noochForLandlords
                                             }
                                             else
                                             {
-                                                htmlToDisplay = '<span class="show text-center"><a class="addTenantBtn"><i class="md md-add m-r-5"></i>Add Tenant</a></span>';
+                                                htmlToDisplay = '<span class="show text-center"><a class="addTenantBtn btn"><i class="md md-add m-r-5"></i>Add Tenant</a></span>';
                                             }
                                             return htmlToDisplay;
                                         }
@@ -2119,7 +2111,7 @@ noochForLandlords
     //=================================================
 
     .controller('profileCtrl', function ($rootScope, $scope, $compile, growlService, getProfileService, propertiesService, authenticationService, $state) {
-        console.log("PROFILE CTRL Fired");
+        //console.log("PROFILE CTRL Fired");
 
         $scope.userInfo = {};
 
@@ -2467,11 +2459,10 @@ noochForLandlords
             $('#profilePicFileInput').fileinput('upload'); // This should automatically call the URL specified in 'uploadUrl' parameter above
         }
 
-        console.log("$rootScope.isIdVerified... (2018):");
-        console.log($rootScope.isIdVerified);
+        //console.log("$rootScope.isIdVerified... (2463):");
+        //console.log($rootScope.isIdVerified);
 
-        
-        
+
         $scope.runWizard = function () { runIdWizard(); }
 
         function runIdWizard() {
@@ -3757,9 +3748,6 @@ noochForLandlords
     //=================================================
 
     .controller('loginCtrl', function ($scope, $rootScope, authenticationService) {
-        console.log("LOGIN -> USERNAME AND PW Storage...!");
-        console.log(localStorage.getItem('userLoginName'));
-        console.log(localStorage.getItem('userLoginPass'));
 
         $(document).ready(function() {
 
@@ -3784,17 +3772,22 @@ noochForLandlords
             if (localStorage.getItem('userLoginName') != null &&
                 localStorage.getItem('userLoginName').length > 0)
             {
-                console.log("USERNAME IN STORAGE EXISTS!");
+                console.log("Username found in storage");
+
                 $scope.LoginData.username = localStorage.getItem('userLoginName');
                 //$scope.LoginData.password = localStorage.getItem('userLoginPass');
+                $('#username').val('');
 
                 setTimeout(function () {
                     $('#l-login').removeClass('hidden');
                     $('#username').val($scope.LoginData.username);
+                    $('#usernameGrp .fg-line').addClass('fg-toggled');
                     $('#rememberMeCheck').prop("checked", true);
-                }, 200, function () {
-                    $('#pw').focus();
-                });
+
+                    setTimeout(function () {
+                        $('#pw').focus();
+                    }, 400);
+                }, 300);
             }
             else
             {

@@ -123,10 +123,10 @@
                     </div>
 
                     <!-- Property View -->
-                    <div class="row" data-ng-if="propCount > 0">
+                    <div class="row" data-ng-if="propCount > 0 && propResult.length > 0">
                         <div class="col-sm-4 propCard animated fadeInUpSm" data-ng-repeat="w in propResult" id="property{{w.id}}">
 
-                            <div class="card profile-view">
+                            <div class="card profile-view" ng-if="w.name != null">
 
                                 <div>
                                     <button data-delete-prop class="btn btn-icon btn-danger closeFloat" data-propid="{{w.id}}" data-toggle="tooltip" data-placement="top" data-original-title="Delete this property">
@@ -135,8 +135,8 @@
                                 </div>
 
                                 <div class="pv-header">
-                                    <div class="pv-main">
-                                        <img src="{{w.img}}" alt="Property Picture" id="{{w.id}}" data-ng-click="setSelectedId($event)">
+                                    <div class="pv-main" ng-if="w.img.length > 2">ff
+                                        <img ng-src="{{ w.img }}" alt="Property Picture" id="{{w.id}}" data-ng-click="setSelectedId($event)">
                                     </div>
                                 </div>
 

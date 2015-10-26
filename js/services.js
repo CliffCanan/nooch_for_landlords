@@ -66,7 +66,6 @@ noochForLandlords
                 .success(function (response) {
                     if (response.IsSuccess && response.IsSuccess == true) {
                         authenticationService.ManageToken(response.AuthTokenValidation);
-                        // console.log('came in success');
                     }
                     callback(response);
                 });
@@ -138,7 +137,6 @@ noochForLandlords
                 .success(function (response) {
                     if (response.IsSuccess && response.IsSuccess == true) {
                         authenticationService.ManageToken(response.AuthTokenValidation);
-                        // console.log('came in success');
                     }
                     callback(response);
                 });
@@ -162,7 +160,6 @@ noochForLandlords
                 .success(function (response) {
                     if (response.IsSuccess && response.IsSuccess == true) {
                         authenticationService.ManageToken(response.AuthTokenValidation);
-                        //console.log('came in success');
                     }
                     callback(response);
                 });
@@ -240,7 +237,6 @@ noochForLandlords
                 .success(function (response) {
                     if (response.IsSuccess && response.IsSuccess == true) {
                         authenticationService.ManageToken(response.AuthTokenValidation);
-                        //console.log('came in success');
                     }
                     callback(response);
                 });
@@ -262,7 +258,6 @@ noochForLandlords
                 .success(function (response) {
                     if (response.IsSuccess && response.IsSuccess == true) {
                         authenticationService.ManageToken(response.AuthTokenValidation);
-                        //console.log('came in success');
                     }
                     callback(response);
                 });
@@ -288,7 +283,6 @@ noochForLandlords
             console.log(JSON.stringify(data));
             $http.post(URLs.InviteTenant, data)
                 .success(function (response) {
-                    console.log("Services -> InviteNewTenant Callback reached successfully.");
                     console.log(response);
                     callback(response);
                 });
@@ -446,7 +440,6 @@ noochForLandlords
 
 
         Operations.updatePw = function (landlordId, accessToken, current, newPw, confirmPw, callback) {
-            console.log('UPDATE PW SERVCE REACHED');
 
             var AuthInfo = {};
             AuthInfo.LandlorId = landlordId;
@@ -456,7 +449,8 @@ noochForLandlords
             data.AuthInfo = AuthInfo;
             data.currentPw = current;
             data.newPw = newPw;
-            console.log(data);
+            //console.log("[" + JSON.stringify(data) + "]");
+
             $http.post(URLs.UpdatePw, data)
                 .success(function (response) {
                     callback(response);
@@ -544,7 +538,6 @@ noochForLandlords
                 .success(function (response) {
                     if (response.IsSuccess && response.IsSuccess == true) {
                         authenticationService.ManageToken(response.AuthTokenValidation);
-                        // console.log('came in success');
                     }
                     callback(response);
                 });
@@ -556,7 +549,8 @@ noochForLandlords
             data.UserId = userId;
             data.UserType = userType;
             data.RequestFor = requestFor;
-            console.log("SERVICES -> ResendVerificationEmailOrSMS METHOD -> [" + JSON.stringify(data) + "]")
+            //console.log("SERVICES -> ResendVerificationEmailOrSMS METHOD -> [" + JSON.stringify(data) + "]")
+
             $http.post(URLs.ResendVerificationEmailAndSMS, data)
                 .success(function (response) {
                     console.log(response);
@@ -593,7 +587,6 @@ noochForLandlords
                 .success(function (response) {
                     if (response.IsSuccess && response.IsSuccess == true) {
                         authenticationService.ManageToken(response.AuthTokenValidation);
-                        // console.log('came in success');
                     }
                     callback(response);
                 });
@@ -644,7 +637,6 @@ noochForLandlords
                 .success(function (response) {
                     if (response.IsSuccess && response.IsSuccess == true) {
                         authenticationService.ManageToken(response.AuthTokenValidation);
-                        // console.log('came in success');
                     }
                     console.log(response);
                     callback(response);
@@ -673,8 +665,8 @@ noochForLandlords
 
             $http.post(URLs.submitIdVerWizard, data)
                 .success(function (response) {
-                    console.log('Services.js -> submitIdVerWizard response SUCCESS');
-
+                    console.log('Services.js -> submitIdVerWizard response received');
+                    console.log(response);
                     callback(response);
                 });
         };
@@ -698,7 +690,6 @@ noochForLandlords
 
             $http.post(URLs.GetBanks, data)
                 .success(function (response) {
-                    console.log("Services -> GetBanks -> SUCCESS!");
                     callback(response);
                 });
         };
@@ -709,9 +700,9 @@ noochForLandlords
             data.LandlordId = landlordId;
             data.AccessToken = accessToken;
             data.MemberId = memberId;
-            console.log(data.LandlordId);
-            console.log(data.AccessToken);
-            console.log(data.MemberId);
+
+            //console.log("[" + JSON.stringify(data) + "]");
+
             $http.post(URLs.DeleteBank, data)
                 .success(function (response) {
                     console.log("Services -> DeleteBank -> Got a response!");
