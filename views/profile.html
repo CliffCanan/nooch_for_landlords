@@ -147,7 +147,7 @@
                                             <dd>
                                                 <div class="form-group">
                                                     <div class="fg-line">
-                                                        <input id="idVer-name" data-ng-model="userInfo.fullName" type="text" class="form-control capitalize" value="{{ userInfo.fullName }}" placeholder="eg. Arnold Palmer" required>
+                                                        <input id="idVer-name" data-ng-model="userInfo.fullName" type="text" class="form-control capitalize" value="{{ userInfo.fullName }}" placeholder="eg. Arnold Palmer" maxlength="40" required />
                                                         <i class="md md-info-outline m-l-10" data-trigger="hover" data-toggle="popover" data-placement="auto" data-content="Please enter YOUR legal name. This should be the same name as it is listed on your bank account." data-original-title="Your Legal Name"></i>
                                                     </div>
                                                 </div>
@@ -160,7 +160,7 @@
                                                 <div class="input-group form-group">
                                                     <span class="input-group-addon"><i class="md md-event"></i></span>
                                                     <div class="dtp-container dropdown fg-line">
-                                                        <input id="idVer-dob" data-format="MM/DD/YYYY" data-ng-model="userInfo.birthDay" type='text' class="form-control" data-toggle="dropdown" placeholder="eg. 08/05/1978">
+                                                        <input id="idVer-dob" data-format="MM/DD/YYYY" data-ng-model="userInfo.birthDay" type='text' class="form-control" data-toggle="dropdown" placeholder="eg. 08/05/1978" />
                                                     </div>
                                                 </div>
                                             </dd>
@@ -172,7 +172,7 @@
                                                 <div class="form-group">
                                                     <div class="dtp-container dropdown fg-line">
                                                         <span id="ssnPrefix">XXX - XX -</span>
-                                                        <input id="idVer-ssn" data-ng-model="userInfo.ssnLast4" type='text' class="form-control" value="{{ userInfo.ssnLast4 }}" placeholder="1234">
+                                                        <input id="idVer-ssn" data-ng-model="userInfo.ssnLast4" type='text' class="form-control" value="{{ userInfo.ssnLast4 }}" placeholder="1234" />
                                                     </div>
                                                 </div>
                                             </dd>
@@ -196,7 +196,7 @@
                                         <dd>
                                             <div class="form-group">
                                                 <div class="dtp-container dropdown fg-line">
-                                                    <input id="idVer-address" data-ng-model="userInfo.address1" type='text' class="form-control" value="{{ userInfo.address1 | capitalize }}" placeholder="1600 Pennsylvania Ave">
+                                                    <input id="idVer-address" data-ng-model="userInfo.address1" type='text' class="form-control" value="{{ userInfo.address1 | capitalize }}" placeholder="1600 Pennsylvania Ave" maxlength="50" />
                                                 </div>
                                             </div>
                                         </dd>
@@ -207,7 +207,7 @@
                                         <dd>
                                             <div class="form-group">
                                                 <div class="dtp-container dropdown fg-line">
-                                                    <input id="idVer-zip" data-ng-model="userInfo.zip" type='text' class="form-control" value="{{ userInfo.zip }}" placeholder="eg. 90210">
+                                                    <input id="idVer-zip" data-ng-model="userInfo.zip" type='text' class="form-control" value="{{ userInfo.zip }}" placeholder="eg. 90210" maxlength="6" />
                                                 </div>
                                             </div>
                                         </dd>
@@ -218,7 +218,7 @@
                                         <dd>
                                             <div class="form-group">
                                                 <div class="dtp-container dropdown fg-line">
-                                                    <input id="idVer-phone" data-ng-model="userInfo.mobileNumber" type='text' class="form-control" value="{{ userInfo.mobileNumber }}" placeholder="">
+                                                    <input id="idVer-phone" data-ng-model="userInfo.mobileNumber" type='text' class="form-control" value="{{ userInfo.mobileNumber }}" placeholder="" maxlength="18" />
                                                 </div>
                                             </div>
                                         </dd>

@@ -210,7 +210,7 @@ noochForLandlords
                         {
                             element: ".tour-step.tour-step-3",
                             title: "Safey First",
-                            content: "To get started, please complete your profile to verify your identity. It takes less than 60 seconds and helps us keep Nooch the safe and secure way to collect rent online.",
+                            content: "To get started, please complete your profile to verify your identity. It takes less than 60 seconds and helps keep Nooch the safe and secure way to collect rent online.",
                             animation: true,
                             placement: "left",
                             backdropPadding: 5
@@ -442,12 +442,45 @@ noochForLandlords
 									},
                                     {
                                         "targets": 2,
+                                        "data": "UnitNumber",
+                                        "render": function ( data, type, full, meta ) {
+                                            var htmlToReturn = data;
+
+                                            if (data.length > 11) {
+                                                htmlToReturn = '<span style="font-size:12.5px;letter-spacing:-.5px;">' + data.substr(0, 12) + '...</span>'
+                                            }
+                                            else if (data.length > 10) {
+                                                htmlToReturn = '<span style="font-size:13px;letter-spacing:-.5px;">' + data.substr(0, 11) + '...</span>'
+                                            }
+                                            else if (data.length > 9)
+                                            {
+                                                htmlToReturn = '<span style="font-size:13.5px;letter-spacing:-.5px;">' + data.substr(0, 10) + '...</span>'
+                                            }
+                                            return htmlToReturn;
+                                        }
+                                    },
+                                    {
+                                        "targets": 3,
+                                        "data": "UnitRent",
+                                        "render": function (data, type, full, meta) {
+                                            var dueDate = full.DueDate;
+                                            var htmlToDisplay;
+
+                                            if (dueDate.length > 2) {
+                                                htmlToDisplay = '<div>$&nbsp;' + data + '</div>' +
+                                                                    '<div><small>Due: ' + dueDate + '</small></div>';
+                                            }
+                                            else {
+                                                htmlToDisplay = '$&nbsp;' + data;
+                                            }
+                                            return htmlToDisplay;
+                                        }
                                     },
                                     {
                                         "targets": 4,
                                         "data": "TenantName",
                                         "render": function (data, type, full, meta) {
-                                            console.log(full);
+                                            //console.log(full);
 
                                             var name = full.TenantName;
                                             var htmlToDisplay;
@@ -515,6 +548,17 @@ noochForLandlords
 								console.log(data);
 
 								$scope.editingUnitId = data['UnitId'];
+
+								if (data['IsOccupied'] == true &&
+                                    data['TenantName'] != null && data['TenantName'].length > 2) {
+								    $('#sndMsgForm #tenantMsgGrp > div').html('<p class="form-control-static capitalize" id="tenantStatic" data-memid="' + data['MemberId'] +
+                                                                            '">' + data['TenantName'] + '</p>');
+								}
+								else if (data['IsOccupied'] == true &&
+                                         data['TenantEmail'] != null && data['TenantEmail'].length > 2) {
+								    $('#sndMsgForm #tenantMsgGrp > div').html('<p class="form-control-static" id="tenantStatic" data-memid="' + data['MemberId'] +
+                                                                            '">' + data['TenantEmail'] + '</p>');
+								}
 
 								if (data['IsOccupied'] != null && data['IsOccupied'] == true) {
 									// Reset each field
@@ -631,6 +675,24 @@ noochForLandlords
 								$('#addUnitModal #monthlyRentGrp').removeClass('has-error').removeClass('has-success');
 								$('#addUnitModal #monthlyRent').val(data['UnitRent']);
 
+								var shouldUseCurrentDate = data['DateAdded'] != null && data['DateAdded'].length > 2 ? false : true;
+								var dateToUse = shouldUseCurrentDate == false ? data['DateAdded'] : new Date();
+
+								$('#addUnitDatePicker').datetimepicker({
+								    format: 'MM/DD/YYYY',
+								    allowInputToggle: true,
+								    useCurrent: shouldUseCurrentDate,
+								    defaultDate: moment(dateToUse).add(1, 'd'),
+								    icons: {
+								        previous: 'fa fa-fw fa-chevron-circle-left',
+								        next: 'fa fa-fw fa-chevron-circle-right',
+								        clear: 'fa fa-fw fa-trash-o'
+								    },
+								    minDate: new Date(),
+								    viewMode: 'months',
+								    //debug: true
+								});
+
 								if (data['IsOccupied'] == true &&
                                     data['TenantName'] != null && data['TenantName'].length > 2)
 								{
@@ -713,7 +775,8 @@ noochForLandlords
                                             $.unblockUI({
                                                 onUnblock: function () {
                                                     if (response.success == true) {
-                                                        //$scope.propUnitsTable
+                                                        console.log("Cntrlr -> InviteNewTenant response from server successful - redrawing table...");
+                                                        $scope.propUnitsTable.draw();
                                                         // On Success
                                                         swal({
                                                             title: "Invite Sent",
@@ -722,6 +785,8 @@ noochForLandlords
                                                             confirmButtonColor: "#3fabe1",
                                                             confirmButtonText: "Great",
                                                             customClass: "largeText",
+                                                        }, function () {
+                                                            $state.reload();
                                                         });
                                                     }
                                                     else {
@@ -856,7 +921,6 @@ noochForLandlords
 					$scope.selectedProperty.tenants = numOfTenants.toString();
 				}
 			}
-
 		
 			$scope.propUnitsTable.row.add({ 
 				"MemberId":memid, 
@@ -1171,7 +1235,23 @@ noochForLandlords
                 $('#monthlyRentGrp .help-block').slideUp();
             }
 
-            $('#addUnitModal').modal();
+
+            $('#addUnitModal').modal();		    
+
+            $('#addUnitDatePicker').datetimepicker({
+                format: 'MM/DD/YYYY',
+                allowInputToggle: true,
+                useCurrent: true,
+                //defaultDate: moment("1980 01 01", "YYYY MM DD"),
+                icons: {
+                    previous: 'fa fa-fw fa-chevron-circle-left',
+                    next: 'fa fa-fw fa-chevron-circle-right',
+                    clear: 'fa fa-fw fa-trash-o'
+                },
+                minDate: new Date(),
+                viewMode: 'months',
+                //debug: true
+            });
 
             $('#addUnitModal #monthlyRent').mask("#,##0.00", { reverse: true });
 
@@ -1208,10 +1288,10 @@ noochForLandlords
                     var unitData = {};
                     unitData.UnitNum = $('#addUnitModal #unitNum').val();
                     unitData.UnitNickName = $('#addUnitModal #nickname').val();
-                    unitData.Rent = $('#addUnitModal #monthlyRent').val();
-                    unitData.DueDate = $('#addUnitModal #unitRentDueDate option:selected').text();
-                    unitData.RentStartDate = $('#addUnitModal #addUnitDatePicker').val();
-                    unitData.RentDuration = $('#addUnitModal #rentDurationInMonths option:selected').text();
+                    unitData.Rent = $('#monthlyRent').val();
+                    unitData.DueDate = ($('#unitRentDueDate option:selected').text().length > 1) ? $('#unitRentDueDate option:selected').text() : "First of Month";
+                    unitData.RentStartDate = $('#addUnitDatePicker').val();
+                    unitData.LeaseLength = $('#addUnitModal #rentDurationInMonths option:selected').text();
 
                     console.log(document.getElementById("tenantStatic"));
                     console.log(document.getElementById("unitTenantEm"));
@@ -1233,10 +1313,10 @@ noochForLandlords
                         unitData.IsTenantAdded = false;
                         console.log('CHECKPOINT 3');
                     }
-                    console.log(JSON.stringify(unitData));
+                    //console.log(JSON.stringify(unitData));
 
                     // NOW CHECK WHETHER WE SHOULD CREATE A A *NEW* UNIT OR JUST EDIT IF THIS IS AN EXISTING UNIT
-                    if ($scope.addingNewUnit == true)
+                    if ($scope.addingNewUnit === true)
                     {
                         // Add a New Unit
                         unitData.isNewUnit = true;
@@ -1291,7 +1371,7 @@ noochForLandlords
 
                             if (data.IsSuccess == true) {
                                 // Update table to add row for the newly created unit immediately (instead of waiting for page refresh)
-                                $scope.addTblRow(unitData.IsTenantAdded, userdetails.landlordId, data.PropertyIdGenerated, unitData.UnitNum, unitData.Rent, "", "", "", "", false, false, "Published", false, false);
+                                // $scope.addTblRow(unitData.IsTenantAdded, userdetails.landlordId, data.PropertyIdGenerated, unitData.UnitNum, unitData.Rent, "", "", "", "", false, false, "Published", false, false);
 
                                 swal({
                                     title: "Unit Updated",
@@ -1302,10 +1382,12 @@ noochForLandlords
                                     confirmButtonText: "OK",
                                 }, function () {
                                     // Now get the Property's details from the server again to update the data table
-                                    // (Actually might not need to do this... because of the $scope.addTbleRow()... think that updates if the unit already exists somehow)
+                                    // (Actually might not need to do this... because of the $scope.addTbleRow()... think that updates if the unit already exists somehow...
+                                    // (UPDATE) actually, maybe not.  Haven't figured out the best plan for this yet.)
                                     //console.log("Attempting to destroy the Data Table");
                                     //$scope.propUnitsTable.destroy();
                                     //getPropertyDetails();
+                                    $state.reload();
                                 });
                             }
                             else {
@@ -1558,6 +1640,12 @@ noochForLandlords
             }
             return false
         };
+
+        $('#addUnitModal').on('hidden.bs.modal', function (e) {
+            // Destroy (Reset) Date Time Picker
+            console.log("HIDING THE ADD UNIT MODAL!");
+            $('#addUnitDatePicker').data("DateTimePicker").destroy();
+        })
     })
 
 
@@ -1878,7 +1966,6 @@ noochForLandlords
                 // iterating through all units
 
                 $scope.inputData.IsSingleUnitProperty = false;
-                $scope.inputData.IsMultiUnitProperty = true;
 
                 $('#addedUnits > div').each(function (da, ht) {
                     var unitObject = {};
@@ -1888,9 +1975,13 @@ noochForLandlords
                         //console.log(dtt);
                         temp = temp + 1;
                         if (temp == 1) {
+                            // CLIFF (10/25/15): EVENTUALLY SHOULD ADD A CHECK HERE TO SEE IF THE PERSON ENTERE ALL NUMBERS OR INCLDED
+                            // A FEW CHARACTERS, MEANING THEY PROBABLY ENTERED A "NICKNAME" NOT A "UNIT #"
                             unitObject.UnitNum = $(this).val();
                         }
                         if (temp == 2) {
+                            // CLIFF (10/25/15): Should also add a check here to make sure the amount isn't too low (user might not realize 
+                            //                   the cents are included, so they might enter "20.00" when they meant "2000.00")
                             unitObject.Rent = $(this).val();
                         }
                     });
@@ -2110,7 +2201,7 @@ noochForLandlords
 
             setWizardContentHeight();
 
-            var templateUnit = "<div class=\"row m-b-15\"><div class=\"col-xs-6\"><div class=\"fg-float form-group p-r-20 m-b-10 m-l-15\"><div class=\"fg-line\"><input type=\"text\" id=\"addUnit_Num" + $scope.unitInputsShowing + "\" class=\"form-control fg-input\" maxlength=\"5\"></div><label class=\"fg-label\">Unit #</label></div></div>" +
+            var templateUnit = "<div class=\"row m-b-15\"><div class=\"col-xs-6\"><div class=\"fg-float form-group p-r-20 m-b-10 m-l-15\"><div class=\"fg-line\"><input type=\"text\" id=\"addUnit_Num" + $scope.unitInputsShowing + "\" class=\"form-control fg-input\" maxlength=\"15\"></div><label class=\"fg-label\">Unit # (or Nickname)</label></div></div>" +
                                                          "<div class=\"col-xs-6\"><div class=\"fg-float form-group p-r-20 m-b-10 m-l-0\"><div class=\"fg-line dollar\"><input type=\"text\" id=\"addUnit_Amnt" + $scope.unitInputsShowing + "\" class=\"form-control fg-input\" maxlength=\"7\"></div><label class=\"fg-label\">Rent Amount</label></div></div></div>";
             var newUnit = "#unit" + $scope.unitInputsShowing;
 
@@ -2574,7 +2665,7 @@ noochForLandlords
                     if (currentIndex == 0)
                     {
                         // Check Name field for length
-                        if ($('#idVer-name').val().length > 4)
+                        if ($('#idVer-name').val().trim().length > 4)
                         {
                             var trimmedName = $('#idVer-name').val().trim();
                             $('#idVer-name').val(trimmedName);
@@ -2620,9 +2711,12 @@ noochForLandlords
                     // IF going to Step 3
                     if (newIndex == 2) {
                         // Check Address field
-                        if ($('#idVer-address').val().length > 4)
+                        if ($('#idVer-address').val().trim().length > 4)
                         {
                             updateValidationUi("address", true);
+
+                            var trimmedAddress = $('#idVer-address').val().trim();
+                            $('#idVer-address').val(trimmedAddress);
 
                             // Check ZIP code field
                             if ($('#idVer-zip').val().length == 5)
@@ -3807,18 +3901,41 @@ noochForLandlords
                         updateValidationUi(field, true);
                     }
                 }
-            })
-
-
-            //checking if exists something in local storage
+            })            
             
-            if (localStorage.getItem('userLoginName') != null &&
-                localStorage.getItem('userLoginName').length > 0)
+            if (getParameterByName("from") == "lp1" &&
+                getParameterByName("em") != "")
             {
-                console.log("Username found in storage");
+                console.log(getParameterByName("em"));
+                $scope.LoginData.username = getParameterByName("em");
+
+                $('#username').val('');
+
+                setTimeout(function () {
+                    $('#l-register').removeClass('hidden');
+                    $('#em').val($scope.LoginData.username);
+                    $('#emGrp .fg-line').addClass('fg-toggled');
+                }, 300);
+
+                swal({
+                    title: 'Great Success',
+                    text: '<p>Thanks for your interest in Nooch For Landlords!</p>' +
+                          '<p>You can get started right now by completing your new Nooch account. &nbsp;Just enter your name, pick a password, and you\'re good to go!</p>',
+                    type: 'success',
+                    confirmButtonText: 'Great!',
+                    customClass: 'largeText',
+                    html: true
+                }, function (isConfirm) {
+                    $('#fname').focus();
+                });
+            }
+            else if (localStorage.getItem('userLoginName') != null &&
+                     localStorage.getItem('userLoginName').length > 0)  //checking if exists something in local storage
+            {
+                //console.log("Username found in storage");
 
                 $scope.LoginData.username = localStorage.getItem('userLoginName');
-                //$scope.LoginData.password = localStorage.getItem('userLoginPass');
+
                 $('#username').val('');
 
                 setTimeout(function () {
@@ -3838,7 +3955,6 @@ noochForLandlords
                     $('#l-register').removeClass('hidden');
                 }, 400);
             }
-
         });
 
 		$scope.showBlock = function(destination) {
@@ -4164,11 +4280,12 @@ noochForLandlords
 
                                         swal({
                                             title: "Great Success",
-                                            text: 'Congrats - you have successfully registered your Nooch account. Click below to get started!',
+                                            text: 'Congrats - you have your new Nooch account has been created successfully! &nbsp;Click below to get started',
                                             type: "success",
                                             customClass: "largeText",
                                             confirmButtonColor: "#3FABE1",
-                                            confirmButtonText: "Let's Get Started!"
+                                            confirmButtonText: "Let's Get Started!",
+                                            html: true
                                         }, function (isConfirm) {
                                             // Now log the user in & send to home page.
 
@@ -4355,6 +4472,13 @@ noochForLandlords
                 return letter.toUpperCase();
             });
             return string;
+        }
+
+        function getParameterByName(name) {
+            name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+            var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+                results = regex.exec(location.search);
+            return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
         }
     })
 

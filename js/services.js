@@ -232,7 +232,7 @@ noochForLandlords
                 LandlorId: memberId,
                 AccessToken: accessToken
             };
-
+            //console.log(JSON.stringify(data));
             $http.post(URLs.GetPropertyDetails, data)
                 .success(function (response) {
                     if (response.IsSuccess && response.IsSuccess == true) {

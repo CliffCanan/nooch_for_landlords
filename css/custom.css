@@ -178,7 +178,7 @@ a, a *,
         margin: 3px auto -3px;
     }
 
-#addPic .file-input > .btn {
+.file-input > .btn {
     cursor: pointer !important;
     margin: 0 auto !important;
     border-radius: 6px;
@@ -388,13 +388,17 @@ table tbody td .label {
     padding: 2px;
 }
 
+table#propUnits > tbody > tr > td {
+    padding: 11px 8px;
+}
+
 #propUnits th.text-right,
 #propUnits tbody tr > td:last-child {
     padding-right: 10px;
 }
 
 .unit-num {
-    padding: 2px !important;
+    padding: 1px !important;
 }
 
 td.unit-num {
@@ -409,16 +413,14 @@ td.odd .unit-num {
 }
 
 td.unit-rent {
-    padding: 5px;
+    padding: 4px;
     border-radius: 10px 0 0 10px;
 }
 
-    td.unit-rent:before {
-        content: "$";
-        margin-right: 4px;
-    }
-
-
+#propUnits .btn-icon {
+    width: 32px;
+    height: 32px;
+}
 
 /* OLD PROP DETAILS TABLE */
 #propDetailsTbl .media-body {
@@ -1377,6 +1379,28 @@ form .checkbox.haserror .input-helper:before {
     overflow: hidden;
 }
 
+#idVerWiz .content > section:nth-child(2):after {
+    content: "*...and comply with the USA Patriot Act. Imagine how bad we'd look if terrorists used Nooch. So we take it pretty seriously.";
+    color: rgba(64,65,66,0.9);
+    display: block;
+    position: absolute;
+    bottom: -10px;
+    font-size: 12.5px;
+    letter-spacing: .5px;
+    font-weight: 300;
+    width: 80%;
+    left: 10%;
+}
+
+#idVerWiz .well .ast > span {
+    font-size: 92%;
+    font-weight: 300;
+    position: relative;
+    top: -1px;
+    left: 1px;
+    opacity: 0.85;
+}
+
 /****************************
 /****   MOBILE SCREENS   ****
  ****************************/
@@ -1398,27 +1422,6 @@ form .checkbox.haserror .input-helper:before {
         bottom: 8px;
         font-size: 16px;
         letter-spacing: 1px;
-    }
-
-    #idVerWiz .content > section:nth-child(2):after {
-        content: "* And comply with the USA Patriot Act. Imagine how bad we'd look if terrorists used Nooch. So we take it pretty seriously.";
-        color: rgba(88,90,92,0.95);
-        display: block;
-        position: absolute;
-        bottom: -10px;
-        font-size: 12.5px;
-        letter-spacing: .5px;
-        font-weight: 300;
-        width: 80%;
-        left: 10%;
-    }
-
-    #idVerWiz .well .ast > span {
-        font-size: 92%;
-        font-weight: 300;
-        position: relative: top: -1px;
-        left: 1px;
-        opacity: 0.85;
     }
 
     .bootstrap-datetimepicker-widget {
@@ -1468,15 +1471,7 @@ form .checkbox.haserror .input-helper:before {
     }
 
     #idVerWiz .content > section:nth-child(2):after {
-        content: "* And comply with the USA Patriot Act. Imagine how bad we'd look if terrorists used Nooch. So we take it pretty seriously.";
-        color: rgba(108,110,112,0.95);
-        display: block;
-        position: absolute;
         font-size: 12px;
-        letter-spacing: .5px;
-        font-weight: 300;
-        width: 80%;
-        left: 10%;
         bottom: -5px;
     }
 
@@ -1496,7 +1491,13 @@ form .checkbox.haserror .input-helper:before {
 
     .login-content .form-group {
         margin-bottom: 20px;
+        -webkit-transition: .4s margin ease;
+        transition: .4s margin ease;
     }
+
+        .login-content .form-group.has-error {
+            margin-bottom: 30px;
+        }
 
     .login-content .fg-float .fg-toggled + .fg-label {
         top: -20px;
@@ -1722,14 +1723,15 @@ form .checkbox.haserror .input-helper:before {
 }
 
 table .btn-icon .md {
-    font-size: 17px;
-    top: 8.5px;
+    font-size: 16px;
+    top: 5px;
+    left: 1px;
     position: relative;
     color: #444;
-    -webkit-transition: color .2s ease;
-    -moz-transition: color .2s ease;
-    -o-transition: color .2s ease;
-    transition: color .2s ease;
+    -webkit-transition: color .15s ease;
+    -moz-transition: color .15s ease;
+    -o-transition: color .15s ease;
+    transition: color .15s ease;
 }
 
 table .btn-icon:hover .md {
@@ -1745,8 +1747,15 @@ table .btn-icon .md-clear {
     top: -15px;
 }
 
+
 addPropWiz .content {
     min-height: 22em;
+}
+
+
+#addPropWiz .alert-danger {
+    padding: 8px 20px !important;
+    font-size: 15px;
 }
 
 .actions > ul > li > a {
@@ -2200,6 +2209,7 @@ addPropWiz .content {
 .file-input {
     overflow: visible;
     overflow-x: hidden;
+    padding-bottom: 6px;
 }
 
 
@@ -2546,6 +2556,11 @@ table tbody .unitInTable {
 }
 
 @media (min-width: 1100px) {
+    .login-content .form-group.has-error {
+        margin-bottom: 35px;
+    }
+
+
     @-webkit-keyframes fadeInRightSm {
         0% {
             opacity: 0;

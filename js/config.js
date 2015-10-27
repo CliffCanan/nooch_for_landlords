@@ -141,6 +141,7 @@ noochForLandlords
                                 'vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css',
                                 'vendors/bower_components/bootstrap-fileinput/css/fileinput.min.css',
                                 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css',
+                                'https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css'
                             ]
                         },
                         {
@@ -204,7 +205,7 @@ noochForLandlords
                                 'vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css',
                                 'vendors/bower_components/jquery.steps/build/jquery.steps.css',
                                 'vendors/bower_components/bootstrap-fileinput/css/fileinput.min.css',
-                                'https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css',
+                                'https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css'
                             ]
                         },
                         {
