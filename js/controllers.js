@@ -342,13 +342,13 @@ noochForLandlords
         $(document).ready(function () {
 
             setTimeout(function () {
-                console.log('read------yy');
-                $('.selectpicker').selectpicker('refresh');
+              //  console.log('read------yy');
+                $('#tenantMsg').selectpicker();
+                $('#tenantMsg').selectpicker('refresh');
 
-                $('.bs-select').selectpicker('refresh');
-
-                $('.bs-select').selectpicker('refresh');
-
+                $('#tenant').selectpicker();
+                $('#tenant').selectpicker('refresh');
+                
                 
 
 
@@ -408,16 +408,23 @@ noochForLandlords
                             // If Nickname was empty, try the Account Number string as backup
 							if ($scope.selectedProperty.defaultBankNickname == null)
 							{
-							    if (data.BankAccountDetails.BankAccountNumString != null)
-							    {
-							        $scope.selectedProperty.defaultBankNickname = data.BankAccountDetails.BankAccountNumString
+							    if (data.BankAccountDetails.BankAccountNumString != null) {
+							        $scope.selectedProperty.defaultBankNickname = data.BankAccountDetails.BankAccountNumString;
 							    }
 							}
 
 							$scope.allUnitsList = data.PropertyDetails.AllUnits;
 							$scope.allTenantsList = data.TenantsListForThisProperty;
+							if ($scope.allTenantsList.length > 0) {
 
-							console.log("TENANTS LIST...");
+							    $scope.allTenantsList.splice(0, 0, { "TenantId": "0", "Name": "Select A Tenant" });
+
+
+						        $scope.tenantSelected = $scope.allTenantsList[0];
+						    }
+
+
+						    console.log("TENANTS LIST...");
 							console.log($scope.allTenantsList);
 
 							$('.selectpicker').selectpicker('refresh');

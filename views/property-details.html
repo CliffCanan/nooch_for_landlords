@@ -394,10 +394,7 @@
                         <div class="form-group" id="tenantGrp">
                             <label for="tenant" class="col-sm-3 control-label">To</label>
                             <div class="col-sm-9">
-                                <select id="tenant" data-select-picker data-live-search="true">
-                                    <option>Select A Tenant</option>
-                                    <option data-ng-repeat="tenant in tenantsListForThisPorperty">{{ tenant.Name }} &nbsp;{{ tenant.TenantId }}</option>
-                                </select>
+                                <select id="tenant" ng-model='tenantSelected' ng-options='c.Name for c in allTenantsList track by c.TenantId'></select>
                             </div>
                         </div>
 
@@ -577,13 +574,17 @@
                             <label for="tenantMsg" class="col-sm-3 control-label"><i class="md md-person m-r-5"></i>Tenant</label>
                             <div class="col-sm-9">
 
-                                <select ng-model="allTenantsList" ng-options="tenant.Name for tenant in alltenantslist track by tenant.TenantId" id="tenantMsg" data-select-picker data-live-search="true">
+                                <!--<select ng-model="allTenantsList" ng-options="tenant.Name for tenant in alltenantslist track by tenant.TenantId" id="tenantMsg" data-select-picker data-live-search="true">
                                     <option value="0">Select A Tenant</option>
+                                    
+                                </select>-->
+
+                                <select id="tenantMsg" ng-model='tenantSelected' ng-options='c.Name for c in allTenantsList track by c.TenantId'>
+                                    
                                 </select>
+                                
 
-
-
-
+                                
                                 <!--<select id="tenantMsg" data-select-picker data-live-search="true">
                                     <option value="0">Select A Tenant</option>
                                     <option data-ng-repeat="tenant.Name for tenant in allTenantsList track by tenant.TenantId" value="1">{{tenant.Name}} </option>
