@@ -1699,7 +1699,7 @@ mark,
 }
 
 .text-primary {
-    color: #2196f3;
+    color: #1f8ec6;
 }
 
 a.text-primary:hover {
@@ -3961,8 +3961,8 @@ select[multiple].form-group-lg .form-control {
 
 .btn-primary {
     color: #ffffff;
-    background-color: #2196f3;
-    border-color: #0d8aee;
+    background-color: #199ee0;
+    border-color: #20a5e6;
 }
 
     .btn-primary:hover,
@@ -6142,7 +6142,7 @@ a.label:focus {
     }
 
 .label-primary {
-    background-color: #2196f3;
+    background-color: #0fa1ea;
 }
 
     .label-primary[href]:hover,
@@ -9372,7 +9372,7 @@ a.waves-effect .waves-ripple {
 }
 
 .c-blue {
-    color: #2196f3 !important;
+    color: #0fa1ea !important;
 }
 
 .bgm-purple {
@@ -9698,7 +9698,7 @@ body #content {
 }
 
 #header {
-    background: #4285F4;
+    background: #25a7e7;
     box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.3);
     height: 65px;
     position: fixed;

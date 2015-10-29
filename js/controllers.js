@@ -471,15 +471,15 @@ noochForLandlords
                                         "render": function ( data, type, full, meta ) {
                                             var htmlToReturn = data;
 
-                                            if (data.length > 11) {
-                                                htmlToReturn = '<span style="font-size:12.5px;letter-spacing:-.5px;">' + data.substr(0, 12) + '...</span>'
+                                            if (data.length > 12) {
+                                                htmlToReturn = '<span style="font-size:12.5px;letter-spacing:-.5px;">' + data.substr(0, 11) + '...</span>'
                                             }
-                                            else if (data.length > 10) {
-                                                htmlToReturn = '<span style="font-size:13px;letter-spacing:-.5px;">' + data.substr(0, 11) + '...</span>'
+                                            else if (data.length > 11) {
+                                                htmlToReturn = '<span style="font-size:13px;letter-spacing:-.5px;">' + data.substr(0, 10) + '...</span>'
                                             }
-                                            else if (data.length > 9)
+                                            else if (data.length > 10)
                                             {
-                                                htmlToReturn = '<span style="font-size:13.5px;letter-spacing:-.5px;">' + data.substr(0, 10) + '...</span>'
+                                                htmlToReturn = '<span style="font-size:13.5px;letter-spacing:-.5px;">' + data.substr(0, 9) + '...</span>'
                                             }
                                             return htmlToReturn;
                                         }
@@ -490,8 +490,7 @@ noochForLandlords
                                         "render": function (data, type, full, meta) {
                                             var dueDate = full.DueDate;
                                             var htmlToDisplay;
-                                            console.log(typeof dueDate);
-                                            console.log(dueDate);
+                                            //console.log(dueDate);
 
                                             if (dueDate != null && dueDate.length > 2) {
                                                 htmlToDisplay = '<div>$&nbsp;' + data + '</div>' +
@@ -575,34 +574,37 @@ noochForLandlords
 								console.log(data);
 
 								$scope.editingUnitId = data['UnitId'];
+								
+								if (data['IsOccupied'] != null && data['IsOccupied'] == true)
+								{
+								    if (data['TenantName'] != null && data['TenantName'].length > 2)
+								    {
+								        $('#sndMsgForm #tenantMsgGrp > div').html('<p class="form-control-static capitalize" id="tenantStatic" data-memid="' +
+                                                                                  data['MemberId'] + '">' + data['TenantName'] + '</p>');
+								    }
+								    else if (data['TenantEmail'] != null && data['TenantEmail'].length > 2)
+								    {
+								        $('#sndMsgForm #tenantMsgGrp > div').html('<p class="form-control-static" id="tenantStatic" data-memid="' +
+                                                                                  data['MemberId'] + '">' + data['TenantEmail'] + '</p>');
+								    }
 
-								if (data['IsOccupied'] == true &&
-                                    data['TenantName'] != null && data['TenantName'].length > 2) {
-								    $('#sndMsgForm #tenantMsgGrp > div').html('<p class="form-control-static capitalize" id="tenantStatic" data-memid="' + data['MemberId'] +
-                                                                            '">' + data['TenantName'] + '</p>');
-								}
-								else if (data['IsOccupied'] == true &&
-                                         data['TenantEmail'] != null && data['TenantEmail'].length > 2) {
-								    $('#sndMsgForm #tenantMsgGrp > div').html('<p class="form-control-static" id="tenantStatic" data-memid="' + data['MemberId'] +
-                                                                            '">' + data['TenantEmail'] + '</p>');
-								}
 
-								if (data['IsOccupied'] != null && data['IsOccupied'] == true) {
-									// Reset each field
-									$('#sndMsgForm #tenantMsgGrp').removeClass('has-error').removeClass('has-success');
-									$('#sndMsgForm #msgGrp').removeClass('has-error').removeClass('has-success');
-									$('#sndMsgForm #msg').val('');
+								    // Reset each field
+								    $('#sndMsgForm #tenantMsgGrp').removeClass('has-error').removeClass('has-success');
+								    $('#sndMsgForm #msgGrp').removeClass('has-error').removeClass('has-success');
+								    $('#sndMsgForm #msg').val('');
 
-									if ($('#tenantMsgGrp .help-block').length) {
-										$('#tenantMsgGrp .help-block').slideUp();
-									}
-									if ($('#msgGrp .help-block').length) {
-										$('#msgGrp .help-block').slideUp();
-									}
+								    if ($('#tenantMsgGrp .help-block').length) {
+								        $('#tenantMsgGrp .help-block').slideUp();
+								    }
+								    if ($('#msgGrp .help-block').length) {
+								        $('#msgGrp .help-block').slideUp();
+								    }
 
-									$('#sndMsgForm .well div').text('Enter a message below to send to ' + data['TenantName']);
+								    $('#sndMsgForm .well div').text('Enter a message below to send to ' + data['TenantName']);
 
-									$('#sendMsgModal').modal();
+								    $scope.IsMessageForall = false;
+								    $('#sendMsgModal').modal();
 								}
 								else
 								{
@@ -616,8 +618,8 @@ noochForLandlords
 										cancelButtonText: "Not Now",
 										closeOnConfirm: false
 									}, function (isConfirm) {
-										console.log("Checkpoint bravo");
-										if (isConfirm)
+
+									    if (isConfirm)
 										{
 											swal({
 												title: "Unoccupied Unit",
@@ -653,7 +655,8 @@ noochForLandlords
 
 											        // CALL SERVICE FOR SENDING AN INVITE TO THE TENANT
 											        propDetailsService.inviteNewTenant($scope.selectedProperty.propertyId, data['UnitId'], input.trim(), "", "", data['UnitRent'], userDetails.landlordId, userDetails.accessToken, function (response) {
-											            console.log("PropDetails Cntrlr -> InviteNewTenant Response: " + response)
+											            console.log("PropDetails Cntrlr -> InviteNewTenant Response...");
+											            console.log(response);
 
 											            $.unblockUI({
 											                onUnblock: function () {
@@ -666,6 +669,8 @@ noochForLandlords
 											                            confirmButtonColor: "#3fabe1",
 											                            confirmButtonText: "Great",
 											                            customClass: "largeText",
+											                        }, function () {
+											                            $state.reload();
 											                        });
 											                    }
 											                    else {
@@ -705,11 +710,17 @@ noochForLandlords
 								var shouldUseCurrentDate = data['DateAdded'] != null && data['DateAdded'].length > 2 ? false : true;
 								var dateToUse = shouldUseCurrentDate == false ? data['DateAdded'] : new Date();
 
+								console.log(data['DateAdded']);
+								console.log(shouldUseCurrentDate);
+								console.log(dateToUse);
+								console.log(moment(dateToUse));
+								console.log(moment(dateToUse).add(1, 'd'));
+
 								$('#addUnitDatePicker').datetimepicker({
 								    format: 'MM/DD/YYYY',
 								    allowInputToggle: true,
 								    useCurrent: shouldUseCurrentDate,
-								    defaultDate: moment(dateToUse).add(1, 'd'),
+								    //defaultDate: moment(dateToUse).add(1, 'd'),
 								    icons: {
 								        previous: 'fa fa-fw fa-chevron-circle-left',
 								        next: 'fa fa-fw fa-chevron-circle-right',
@@ -719,6 +730,12 @@ noochForLandlords
 								    viewMode: 'months',
 								    //debug: true
 								});
+								if (shouldUseCurrentDate) {
+								    $('#addUnitDatePicker').val(moment().add(1, 'M').startOf('month').format('MMM D, YYYY'));
+								}
+								else {
+								    $('#addUnitDatePicker').val(moment(dateToUse).format('MMM D, YYYY'));
+								}
 
 								if (data['IsOccupied'] == true &&
                                     data['TenantName'] != null && data['TenantName'].length > 2)
@@ -1253,6 +1270,7 @@ noochForLandlords
             $('#addUnitModal input').val('');
             $('#addUnitModal select').val('');
             $('#addUnitModal #unitNumGrp').removeClass('has-error').removeClass('has-success');
+            $('#addUnitModal #nicknameGrp').removeClass('has-error').removeClass('has-success');
             $('#addUnitModal #monthlyRentGrp').removeClass('has-error').removeClass('has-success');
 
             if ($('#unitNumGrp .help-block').length) {
@@ -1323,22 +1341,22 @@ noochForLandlords
                     console.log(document.getElementById("tenantStatic"));
                     console.log(document.getElementById("unitTenantEm"));
 
+                    unitData.TenantId = "";
+                    unitData.TenantEmail = "";
+
                     if (document.getElementById("tenantStatic") && $('#tenantGrp #tenantStatic').attr('data-memid') != null)
                     {
                         unitData.TenantId = $('#tenantGrp #tenantStatic').attr('data-memid');
                         unitData.IsTenantAdded = true;
-                        console.log('CHECKPOINT 1... ' );
                     }
                     else if (document.getElementById("unitTenantEm") && $('#unitTenantEm').val().trim().length > 1)
                     {
                         unitData.TenantEmail = $('#unitTenantEm').val().trim();
                         unitData.IsTenantAdded = true;
-                        console.log('CHECKPOINT 2');
                     }
                     else
                     {
                         unitData.IsTenantAdded = false;
-                        console.log('CHECKPOINT 3');
                     }
                     //console.log(JSON.stringify(unitData));
 
@@ -1356,7 +1374,8 @@ noochForLandlords
 
                             if (data.IsSuccess == true) {
                                 // Update table to add row for the newly created unit immediately (instead of waiting for page refresh)
-                                $scope.addTblRow(unitData.IsTenantAdded, userdetails.landlordId, data.PropertyIdGenerated, unitData.UnitNum, unitData.Rent, "", "", "", "", false, false, "Published", false, false);
+                                
+                                $scope.addTblRow(unitData.IsTenantAdded, userdetails.landlordId, data.PropertyIdGenerated, unitData.UnitNum, unitData.Rent, "", unitData.TenantEmail, "", "", false, false, "Invited", false, false);
 
                                 swal({
                                     title: "Unit Added",
@@ -1367,10 +1386,11 @@ noochForLandlords
                                     confirmButtonText: "Terrific",
                                     cancelButtonText: "Add Another One",
                                     closeOnCancel: true,
+                                    customClass: "largeText"
                                 }, function (isConfirm) {
                                     if (!isConfirm) {
                                         $scope.addUnit();
-                                        $state.reload();
+                                        //$state.reload();
                                     }
                                 });
                             }
@@ -1504,12 +1524,15 @@ noochForLandlords
                     {
                         // for single person
                         emailObj.IsForAllOrOne = "One";
-                        emailObj.TenantIdToBeMessaged = "B3A6CF7B-561F-4105-99E4-406A215CCF61";  // ID of tenant to be send from here..hard coded for now
+                        //console.log($('#tenantStatic').attr('data-memid'));
+                        emailObj.TenantIdToBeMessaged = $('#tenantStatic').attr('data-memid');  // ID of tenant to be send from here..hard coded for now
                     }
 
                     var userdetails = authenticationService.GetUserDetails();
                     getProfileService.SendEmailsToTenants(userdetails.landlordId, userdetails.accessToken, emailObj, function (data)
                     {
+                        console.log(data);
+
                         if (data.IsSuccess)
                         {
                             $('#sendMsgModal').modal('hide');
@@ -1586,7 +1609,7 @@ noochForLandlords
 
         // Utility Function To Update Form Input's UI for Success/Error (Works for all forms on the Property Details page...like 4 of them)
         updateValidationUi = function (field, success) {
-            console.log("Field: " + field + "; success: " + success);
+            //console.log("Field: " + field + "; success: " + success);
 
             if (success == true)
             {
@@ -2836,7 +2859,7 @@ noochForLandlords
                             $rootScope.isIdVerified = 1;
                             $rootScope.ContactNumber = phone;
 
-                            // THEN DISPLAY SUCCESS ALERT...
+                            // THEN DISPLAY SUCCESS ALERT
                             swal({
                                 title: "Awesome - ID Verification Submitted",
                                 text: "Thanks for submitting your ID information. That helps us keep Nooch safe for everyone." + 
@@ -2858,7 +2881,7 @@ noochForLandlords
                         {
                             growlService.growl(response.ErrorMessage, 'danger');
 
-                            // THEN DISPLAY FAILURE ALERT...
+                            // THEN DISPLAY FAILURE ALERT
                             swal({
                                 title: "Oh No!",
                                 text: "Looks like we had some trouble submitting your information.  Please try again or contact <a href='mailto:support@nooch.com' target='_blank'>Nooch Support</a> and we will help resolve the issue.",
