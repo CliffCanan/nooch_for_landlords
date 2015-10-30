@@ -135,8 +135,8 @@
                                 </div>
 
                                 <div class="pv-header">
-                                    <div class="pv-main" ng-if="w.img.length > 2">
-                                        <img ng-src="{{ w.img }}" alt="Property Picture" id="{{w.id}}" data-ng-click="setSelectedId($event)">
+                                    <div class="pv-main" style="background-image: url('{{ w.img }}');" ng-if="w.img.length > 2" id="{{w.id}}" data-ng-click="setSelectedId($event)">
+                                        
                                     </div>
                                 </div>
 

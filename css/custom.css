@@ -448,6 +448,27 @@ td.unit-rent {
     height: 32px;
 }
 
+.dataTables_wrapper .dataTables_paginate .paginate_button.current,
+.dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
+    background: #ffffff;
+    border-color: #ccc;
+    border-radius: 50%;
+    color: #666 !important;
+    width: 36px;
+    height: 36px;
+    box-shadow: none !important;
+}
+
+.dataTables_wrapper .dataTables_length,
+.dataTables_wrapper .dataTables_filter,
+.dataTables_wrapper .dataTables_info,
+.dataTables_wrapper .dataTables_processing,
+.dataTables_wrapper .dataTables_paginate {
+    font-size: 13.5px;
+    letter-spacing: .2px;
+    color: #444;
+}
+
 /* OLD PROP DETAILS TABLE */
 #propDetailsTbl .media-body {
     overflow: visible;
@@ -1717,6 +1738,8 @@ form .checkbox.haserror .input-helper:before {
 
 .propCard .pv-header > .pv-main {
     background-color: #fff;
+    background-size: cover;
+    cursor: pointer;
     overflow: hidden;
     margin: 0 auto !important;
     left: 0;
@@ -1730,7 +1753,6 @@ form .checkbox.haserror .input-helper:before {
 
     .propCard .pv-header > .pv-main > img {
         border-radius: 80px;
-        cursor: pointer;
         width: auto;
         height: 155px;
         position: absolute;
@@ -2130,6 +2152,10 @@ addPropWiz .content {
 
 .file-input .btn > i {
     margin-right: 10px;
+}
+
+table.dataTable.no-footer {
+    margin-bottom: 10px;
 }
 
 .dataTables_wrapper .dataTables_filter input {
