@@ -83,6 +83,7 @@ noochForLandlords
                 AccessToken: accessToken
             };
 
+            console.log(JSON.stringify(data));
 
             $http.post(URLs.AddNewUnitInProperty, data)
                 .success(function (response) {

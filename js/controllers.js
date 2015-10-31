@@ -344,13 +344,7 @@ noochForLandlords
 
                 $('#tenant').selectpicker();
                 $('#tenant').selectpicker('refresh');
-                
-                
-
-
-            }, 3000);
-
-            
+            }, 3000);    
         });
         
         
@@ -401,7 +395,7 @@ noochForLandlords
 								"propertyId": data.PropertyDetails.PropertyId
 							}
 
-                            // If Nickname was empty, try the Account Number string as backup
+                            // If Bank nickname value was empty, try the Account Number string as backup
 							if ($scope.selectedProperty.defaultBankNickname == null)
 							{
 							    if (data.BankAccountDetails.BankAccountNumString != null) {
@@ -415,6 +409,7 @@ noochForLandlords
 
 							    $scope.allTenantsList.splice(0, 0, { "TenantId": "0", "Name": "Select A Tenant" });
 
+							    console.log($scope.allTenantsList);
 
 						        $scope.tenantSelected = $scope.allTenantsList[0];
 						    }
@@ -442,16 +437,14 @@ noochForLandlords
 									{ data: 'UnitNumber' },
 									{ data: 'UnitRent' },
 									{ data: 'TenantName'},
-
 									{ data: 'TenantEmail' },
 									{ data: 'ImageUrl' },
 									{ data: 'LastRentPaidOn' },
 									{ data: 'IsRentPaidForThisMonth' },
 									{ data: 'IsEmailVerified' },
-
 									{ data: 'Status' },
-									{ data: 'IsPhoneVerified' },     // Not currently being included in Units List (only tenants list)
-									{ data: 'IsBankAccountAdded' },  // Not currently being included in Units List (only tenants list)
+									{ data: 'IsPhoneVerified' },
+									{ data: 'IsBankAccountAdded' },
 									{
 										data: null,
 										defaultContent: '<a href="" class=\'btn btn-icon btn-default m-r-10 editUnitBtn\'><span class=\'md md-edit\'></span></a>' +
@@ -1188,8 +1181,11 @@ noochForLandlords
 
         // Charge Tenant Button
         $scope.chargeTenant = function (e) {
+            console.log(e.target.id);
+
             $('#chargeTenantModal').modal();
 
+            // Reset Charge Tenant Form
             $('#chargeTenantForm input').val('');
             $('#chargeTenantForm #tenantGrp').removeClass('has-error').removeClass('has-success');
             $('#chargeTenantForm #amountGrp').removeClass('has-error').removeClass('has-success');
@@ -1201,9 +1197,29 @@ noochForLandlords
                 $('#amountGrp .help-block').slideUp();
             }
 
-            var $setUpSelectTenantDropdown = $('#chargeTenantForm #tenantGrp select option:last-child').attr('data-ng-repeat', 'tenant in pdctrl.tenantList.tenants');
-            // $compile($setUpSelectTenantDropdown)($scope);
+            // Set Memo
+            memoType = e.target.id;
+            memoToUse = "";
+            if (memoType === "secDeposit") {
+                memoToUse = "Security Deposit";
+            }
+            else if (memoType === "rent") {
+                memoToUse = "Rent Payment" + moment(new Date()).format('MMM YYYY');
+            }
+            else if (memoType === "damage") {
+                memoToUse = "Damage Fee";
+            }
+
+            $('#chargeTenantForm #memo').val(memoToUse);
             $('#chargeTenantForm #amount').mask("#,##0.00", { reverse: true });
+
+            $('#chargeTenantForm #tenantGrp select').selectpicker({
+                style: 'btn-danger',
+                size: 4
+            });
+
+            //var $setUpSelectTenantDropdown = $('#chargeTenantForm #tenantGrp select option:last-child').attr('data-ng-repeat', 'tenant in pdctrl.tenantList.tenants');
+            // $compile($setUpSelectTenantDropdown)($scope);
         }
 
 		$('#submitChargeTenant').click(function() {
@@ -1228,18 +1244,49 @@ noochForLandlords
                     {
                         updateValidationUi("amount", true);
 
-                        $('#chargeTenantModal').modal('hide');
 
-                        // Finally, submit the data and display success alert
-                        swal({
-                            title: "Payment Request Sent",
-                            text: "Your tenant will be notified about your payment request.  We will update you when they complete the payment.",
-                            type: "success",
-                            showCancelButton: false,
-                            confirmButtonColor: "#3FABE1",
-                            confirmButtonText: "Ok",
-                            closeOnConfirm: trimmedName,
-                            closeOnCancel: false
+                        // Prepare data to be submitted to DB
+                        var userdetails = authenticationService.GetUserDetails();
+
+                        var transInfo = {};
+                        transInfo.Memo = $('#chargeTenantForm #memo').val();
+                        transInfo.Amount = $('#chargeTenantForm #amount').val();
+                        transInfo.TenantId = $scope.tenantSelected; // STILL NEED TO GET THE DROP-DOWN SELECTOR CONFIGURED
+                        transInfo.IsRecurring = $('#recur').is(":checked");;
+
+                        console.log(JSON.stringify(transInfo));
+return;
+                        propertiesService.chargeTenant(transInfo, userdetails.landlordId, userdetails.accessToken, function (data) {
+                            console.log("Cntrlr -> Charge Tenant service response...");
+                            console.log(data);
+
+                            if (data.IsSuccess == true) {
+                                // Update table to add row for the newly created unit immediately (instead of waiting for page refresh)
+
+                                $('#chargeTenantModal').modal('hide');
+
+                                // Finally, submit the data and display success alert
+                                swal({
+                                    title: "Payment Request Sent",
+                                    text: "Your tenant will be notified about your payment request.  We will update you when they complete the payment.",
+                                    type: "success",
+                                    showCancelButton: false,
+                                    confirmButtonColor: "#3FABE1",
+                                    confirmButtonText: "Ok",
+                                    closeOnConfirm: trimmedName,
+                                    customClass: "largeText"
+                                });
+                            }
+                            else {
+                                swal({
+                                    title: "Uh Oh",
+                                    text: data.ErrorMessage,
+                                    type: "error",
+                                    showCancelButton: false,
+                                    confirmButtonColor: "#3FABE1",
+                                    confirmButtonText: "Ok"
+                                });
+                            }
                         });
                     }
                     else {
@@ -1347,16 +1394,16 @@ noochForLandlords
                     if (document.getElementById("tenantStatic") && $('#tenantGrp #tenantStatic').attr('data-memid') != null)
                     {
                         unitData.TenantId = $('#tenantGrp #tenantStatic').attr('data-memid');
-                        unitData.IsTenantAdded = true;
+                        unitData.IsTenantAdded = "true";
                     }
                     else if (document.getElementById("unitTenantEm") && $('#unitTenantEm').val().trim().length > 1)
                     {
                         unitData.TenantEmail = $('#unitTenantEm').val().trim();
-                        unitData.IsTenantAdded = true;
+                        unitData.IsTenantAdded = "true";
                     }
                     else
                     {
-                        unitData.IsTenantAdded = false;
+                        unitData.IsTenantAdded = "false";
                     }
                     //console.log(JSON.stringify(unitData));
 
@@ -1390,7 +1437,11 @@ noochForLandlords
                                 }, function (isConfirm) {
                                     if (!isConfirm) {
                                         $scope.addUnit();
-                                        //$state.reload();
+                                    }
+                                    else {
+                                        setTimeout(function () {
+                                            $state.reload();
+                                        }, 500);
                                     }
                                 });
                             }
@@ -1694,7 +1745,6 @@ noochForLandlords
 
         $('#addUnitModal').on('hidden.bs.modal', function (e) {
             // Destroy (Reset) Date Time Picker
-            console.log("HIDING THE ADD UNIT MODAL!");
             $('#addUnitDatePicker').data("DateTimePicker").destroy();
         })
     })

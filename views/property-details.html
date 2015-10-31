@@ -73,10 +73,10 @@
 
                                             <ul class="dropdown-menu dm-icon w-100">
                                                 <li class="dropdown-header"><i class="md md-attach-money m-r-5"></i>For what?</li>
-                                                <li><a id="secDeposit" ng-click="chargeTenant($event)"><i class="md md-lock-outline"></i>Security Deposit</a></li>
-                                                <li><a id="rent" ng-click="chargeTenant($event)"><i class="md md-today"></i>Rent</a></li>
-                                                <li><a id="damage" ng-click="chargeTenant($event)"><i class="md md-report"></i>Damage Fee</a></li>
-                                                <li><a id="other" ng-click="chargeTenant($event)"><i class="md md-format-list-bulleted"></i>Other</a></li>
+                                                <li><a id="secDeposit" data-memo="secDeposit" ng-click="chargeTenant($event)"><i class="md md-lock-outline"></i>Security Deposit</a></li>
+                                                <li><a id="rent" data-memo="rent" ng-click="chargeTenant($event)"><i class="md md-today"></i>Rent</a></li>
+                                                <li><a id="damage" data-memo="damage" ng-click="chargeTenant($event)"><i class="md md-report"></i>Damage Fee</a></li>
+                                                <li><a id="other" data-memo="other" ng-click="chargeTenant($event)"><i class="md md-format-list-bulleted"></i>Other</a></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -394,7 +394,10 @@
                         <div class="form-group" id="tenantGrp">
                             <label for="tenant" class="col-sm-3 control-label">To</label>
                             <div class="col-sm-9">
-                                <select id="tenant" ng-model='tenantSelected' ng-options='c.Name for c in allTenantsList track by c.TenantId'></select>
+                                <select class="selectpicker" id="tenant" ng-model='tenantSelected'><!-- ng-options='c.Name for c in allTenantsList track by c.TenantId'>-->
+                                    <option class="" selected value="default">Select A Tenant</option>
+                                    <option ng-repeat="option in allTenantsList" value="{{option}}">{{option}}</option>
+                                </select>
                             </div>
                         </div>
 
@@ -528,9 +531,9 @@
                             <label for="rentDurationInMonths" class="col-sm-1 p-l-0 p-r-0 control-label">Length</label>
                             <div class="col-sm-4">
                                 <select data-select-picker id="rentDurationInMonths">
-                                    <option selected="">1 Month</option>
+                                    <option>1 Month</option>
                                     <option>6 Months</option>
-                                    <option>12 Months</option>
+                                    <option selected>12 Months</option>
                                     <option>24 Months</option>
                                     <option>Other</option>
                                 </select>
