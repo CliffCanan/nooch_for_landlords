@@ -206,8 +206,33 @@ noochForLandlords
                 });
         };
 
+
+        Operations.ChargeTenant = function (transInfo, landlordId, accessToken, callback) {
+
+            var data = {};
+            data.TransRequest = transInfo;
+
+            data.User = {
+                LandlordId: landlordId,
+                AccessToken: accessToken
+            };
+
+            console.log(JSON.stringify(data));
+
+            $http.post(URLs.ChargeTenant, data)
+                .success(function (response) {
+                    console.log(response);
+                    if (response.IsSuccess && response.IsSuccess == true) {
+                        authenticationService.ManageToken(response.AuthTokenValidation);
+                    }
+                    callback(response);
+                });
+        };
+
+
         return Operations;
     }])
+
 
     .service('propDetailsService', ['$http', 'authenticationService', '$resource', function ($http, authenticationService, $resource) {
         // FOR GOING TO THE INDIDVIDUAL PROPERTY'S DETAILS PAGE

@@ -394,10 +394,11 @@
                         <div class="form-group" id="tenantGrp">
                             <label for="tenant" class="col-sm-3 control-label">To</label>
                             <div class="col-sm-9">
-                                <select class="selectpicker" id="tenant" ng-model='tenantSelected'><!-- ng-options='c.Name for c in allTenantsList track by c.TenantId'>-->
-                                    <option class="" selected value="default">Select A Tenant</option>
-                                    <option ng-repeat="option in allTenantsList" value="{{option}}">{{option}}</option>
+
+                                <select class="selectpicker dynamic" id="tenant" ng-model='tenantSelected' data-live-search="true" data-header="Select a tenant to charge">
+                                    <option ng-repeat="option in allTenantsList" title="{{ option['TenantEmail'] }} &nbsp; (Unit: {{ option['UnitNumber'] }})" value="{{ option['TenantId'] }}" data-content="<img src='{{ option['ImageUrl'] }} ' class='pickerUserPic' /><div class='tenantNameEmailDiv'>{{ option['TenantEmail'] }} <small>{{ option['Name'] }}</small></div><span class='text-primary'>&nbsp; ({{ option['UnitNumber'] }})</span><span class='label label-success m-l-5 m-r-10 pull-right'>User</span>">{{ option['TenantEmail'] }}</option>
                                 </select>
+
                             </div>
                         </div>
 
@@ -574,25 +575,10 @@
                             <label for="tenantMsg" class="col-sm-3 control-label"><i class="md md-person m-r-5"></i>Tenant</label>
                             <div class="col-sm-9">
 
-                                <!--<select ng-model="allTenantsList" ng-options="tenant.Name for tenant in alltenantslist track by tenant.TenantId" id="tenantMsg" data-select-picker data-live-search="true">
-                                    <option value="0">Select A Tenant</option>
-                                    
-                                </select>-->
-
-                                <select id="tenantMsg" ng-model='tenantSelected' ng-options='c.Name for c in allTenantsList track by c.TenantId'>
-                                    
+                                <select class="selectpicker dynamic" id="tenantMsg" ng-model='tenantSelectedForMsg' data-live-search="true" data-header="Select a tenant to message">
+                                    <option ng-repeat="option in allTenantsList" title="{{ option['TenantEmail'] }} &nbsp; (Unit: {{ option['UnitNumber'] }})" value="{{ option['TenantId'] }}" data-content="<img src='{{ option['ImageUrl'] }} ' class='pickerUserPic' /><div class='tenantNameEmailDiv'>{{ option['TenantEmail'] }} <small>{{ option['Name'] }}</small></div><span class='text-primary'>&nbsp; ({{ option['UnitNumber'] }})</span><span class='label label-success m-l-5 m-r-10 pull-right'>User</span>">{{ option['TenantEmail'] }}</option>
                                 </select>
-                                
 
-                                
-                                <!--<select id="tenantMsg" data-select-picker data-live-search="true">
-                                    <option value="0">Select A Tenant</option>
-                                    <option data-ng-repeat="tenant.Name for tenant in allTenantsList track by tenant.TenantId" value="1">{{tenant.Name}} </option>
-                                    <option>NO TENANT YET</option>
-                                    <option>Frank Quinterro &nbsp;(quit.frank@gmail.com)</option>
-                                    <option>Kareem O'Leary &nbsp;(lighteningbolt@gmail.com)</option>
-                                    <option>Usain Quick &nbsp;(lighteningbolt@gmail.com)</option>
-                                </select>-->
                             </div>
                         </div>
 
