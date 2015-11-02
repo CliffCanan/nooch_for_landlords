@@ -15042,18 +15042,6 @@ body.login-content {
     }
 }
 
-@media (min-width: 1200px) {
-    #profile-main .pm-body {
-        padding-left: 300px;
-    }
-}
-
-@media (min-width: 768px) and (max-width: 1200px) {
-    #profile-main .pm-body {
-        padding-left: 250px;
-    }
-}
-
 @media (max-width: 767px) {
     #profile-main .pm-body {
         padding-left: 0;

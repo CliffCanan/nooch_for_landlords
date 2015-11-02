@@ -486,6 +486,7 @@ noochForLandlords
                                     {
                                         "targets": 4,
                                         "data": "TenantName",
+                                        className: "unitTenant",
                                         "render": function (data, type, full, meta) {
                                             //console.log(full);
 
@@ -494,7 +495,7 @@ noochForLandlords
 
                                             if (name != null && name.length > 1)
                                             {
-                                                htmlToDisplay = '<div><img src="' + full.ImageUrl + '"></div>' +
+                                                htmlToDisplay = '<div class="imgContainer"><span style="background-image: url(' + full.ImageUrl + ');"></span></div>' +
                                                                 '<div class="capitalize">' + name + '</div>';
                                             }
                                             else if (full.TenantEmail != null && full.TenantEmail.length > 1) {
@@ -512,10 +513,6 @@ noochForLandlords
                                             return htmlToDisplay;
                                         }
                                     },
-									{
-									    "targets": [4],
-									    className: ""
-									},
 									{
 									    "targets": [2],
 									    className: "text-center unit-num"
@@ -787,7 +784,8 @@ noochForLandlords
 							        confirmButtonColor: "#3fabe1",
 							        confirmButtonText: "Send",
 							        closeOnConfirm: false,
-							        closeOnCancel: true
+							        closeOnCancel: true,
+                                    customClass: "largeText"
 							    }, function (input) {
 							        if (typeof input == "string") {
 							            if (input.length < 5 || $scope.ValidateEmail(input) == false) {
@@ -994,7 +992,7 @@ noochForLandlords
 
         // Edit Property Details (Address, phone, etc.)
         $scope.updatePropInfo = function () {
-
+            console.log("TEST #1");
             if ($scope.editPropInfo == 1) {
 
                 // Preparing data to be sent for updating property
@@ -1007,7 +1005,7 @@ noochForLandlords
 				$scope.inputData.state = $scope.selectedProperty.state;
                 $scope.inputData.propId = $scope.selectedProperty.propertyId;
 
-                propertiesService.EditProperty($scope.inputData, userdetails.landlordId, userdetails.accessToken, function (data) {
+                propertiesService.EditProperty($scope.inputData, userDetails.landlordId, userDetails.accessToken, function (data) {
                     if (data.IsSuccess == true) {
                         $scope.editPropInfo = 0;
                         growlService.growl('Property details updated successfully!', 'success');

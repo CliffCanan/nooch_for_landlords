@@ -448,6 +448,25 @@ td.unit-rent {
     height: 32px;
 }
 
+#propUnits .unitTenant .imgContainer {
+    width: 44px;
+    height: 44px;
+    float: left;
+}
+
+    #propUnits .unitTenant .imgContainer > span {
+        width: 100%;
+        height: 44px;
+        display: block;
+        border-radius: 50%;
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+
+#propUnits .unitTenant div:last-child {
+    padding: 5px 0 0 50px;
+}
+
 .dataTables_wrapper .dataTables_paginate .paginate_button.current,
 .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
     background: #ffffff;
@@ -1001,13 +1020,6 @@ form .checkbox.haserror .input-helper:before {
     box-shadow: 0 1px 12px -1px rgba(240,50,50,.8);
 }
 
-
-@media (min-width: 767px) {
-    .login-content .lc-block {
-        min-width: 480px;
-    }
-}
-
 /**** LEFT SIDEBAR ****/
 #sidebar,
 #sidebar .sidebar-inner {
@@ -1504,6 +1516,15 @@ form .checkbox.haserror .input-helper:before {
         font-size: 13.5px;
     }
 
+    #propUnits .unit-rent {
+        padding: 5px;
+        width: 85px !important;
+    }
+
+    .login-content .lc-block {
+        min-width: 480px;
+    }
+
     .login-content .help-block {
         font-size: 14px;
     }
@@ -1607,6 +1628,7 @@ form .checkbox.haserror .input-helper:before {
     #profile-main .pmo-pic img {
         box-shadow: 0 10px 18px -3px rgba(32,33,34,.35);
         width: 80%;
+        max-width: 150px;
         margin: 0 auto 25px;
     }
 }
@@ -1635,6 +1657,9 @@ form .checkbox.haserror .input-helper:before {
         margin-top: 2px;
     }
 
+.bank-container .actions {
+    min-width: 65px;
+}
 
 .bank-container .media {
     margin-bottom: 40px;
@@ -1647,8 +1672,8 @@ form .checkbox.haserror .input-helper:before {
 }
 
 .bank-container .media-heading {
-    font-size: 15.5px;
-    margin-bottom: 10px;
+    font-size: 15px;
+    margin-bottom: 3px;
     padding-top: 8px;
 }
 
@@ -2352,11 +2377,16 @@ table tbody .unitInTable {
     }
 
     #profile-main .pm-overview {
-        max-width: 250px !important;
+        max-width: 210px !important;
+        padding: 20px 0;
     }
 
     #profile-main .pm-body {
-        padding-left: 250px;
+        padding-left: 210px;
+    }
+
+    #profile-main .pmo-pic {
+        margin: 0px;
     }
 
     #addPropWizard .pager {
@@ -2468,6 +2498,11 @@ table tbody .unitInTable {
             box-shadow: 0 4px 25px -10px rgba(12,57,79,.4) !important;
         }
 
+    .sweet-alert .sa-input-error::before,
+    .sweet-alert .sa-input-error::after {
+        height: 5px;
+    }
+
     .sweet-alert .sa-error-container {
         margin-left: -30px;
         margin-right: -30px;
@@ -2498,6 +2533,7 @@ table tbody .unitInTable {
 
         .sweet-alert fieldset .sa-input-error {
             display: none;
+            top: 22px;
         }
 
 .securityAlert p {
