@@ -1278,10 +1278,8 @@ noochForLandlords
                             console.log(data);
 
                             // CLIFF (11/1/15): COMMENTING OUT UNTIL WE FIX SERVER ERROR FOR ADDING THE TRANS TO THE DB.
-                            //if (data.IsSuccess == true) {
+                            if (data.IsSuccess == true) {
                                 // Update table to add row for the newly created unit immediately (instead of waiting for page refresh)
-
-                                $('#chargeTenantModal').modal('hide');
 
                                 // Finally, submit the data and display success alert
                                 swal({
@@ -1290,21 +1288,24 @@ noochForLandlords
                                     type: "success",
                                     showCancelButton: false,
                                     confirmButtonColor: "#3FABE1",
-                                    confirmButtonText: "Ok",
-                                    closeOnConfirm: trimmedName,
+                                    confirmButtonText: "Got It!",
                                     customClass: "largeText"
                                 });
-                            //}
-                            //else {
-                            //    swal({
-                            //        title: "Uh Oh",
-                            //        text: data.ErrorMessage,
-                            //        type: "error",
-                            //        showCancelButton: false,
-                            //        confirmButtonColor: "#3FABE1",
-                            //        confirmButtonText: "Ok"
-                            //    });
-                            //}
+                            }
+                            else {
+                                swal({
+                                    title: "Uh Oh",
+                                    text: "Looks like we had some trouble making that payment request.  Please try again later or contact <a href='mailto:support@nooch.money' target='_blank'>Nooch Support</a> for further assistance.",
+                                    type: "error",
+                                    showCancelButton: false,
+                                    confirmButtonColor: "#3FABE1",
+                                    confirmButtonText: "Ok",
+                                    customClass: "largeText",
+                                    html: true,
+                                }, function () {
+                                    $('#chargeTenantModal').modal('hide');
+                                });
+                            }
                         });
                     }
                     else {
@@ -3903,7 +3904,219 @@ noochForLandlords
     // HISTORY
     //=================================================
 
-    .controller('historyCtrl', function ($rootScope, $scope) {
+    .controller('historyCtrl', function ($rootScope, $scope, historyService, authenticationService) {
+
+        var userDetails = authenticationService.GetUserDetails();
+
+        historyService.GetHistory(userDetails.landlordId, userDetails.memberId, userDetails.accessToken, function (data) {
+            if (data.AuthTokenValidation.IsTokenOk == true) {
+
+                if (data.IsSuccess == true) {
+
+                    $scope.allTransList = data.Transactions;
+
+                    //if ($scope.allTransList.length > 0) {
+                        console.log("allTransList LIST...");
+                        console.log($scope.allTransList);
+                    //}
+
+                    $scope.propUnitsTable = $('#transHistory').on('init.dt', function () {
+                        setTimeout(function () {
+                            $('#transHistory').removeClass('animated fadeIn');
+                        }, 1700);
+                    }).DataTable({
+                        data: $scope.allTransList,
+                        columns: [
+                            { data: 'TransactionId' },
+                            { data: 'TenantId' },
+                            { data: 'PropertyId' },
+                            { data: 'PropertyAddress' },
+                            { data: 'TenantStatus' },
+                            { data: 'UnitId' },
+                            { data: 'UnitName' },
+                            { data: 'TenantEmail' },
+                            { data: 'Memo' },
+                            { data: 'DueDate'},
+
+                            { data: 'TransactionDate' },
+                            { data: 'TenantName' },
+                            { data: 'PropertyName' },
+                            { data: 'UnitNum' },
+                            { data: 'TransactionStatus' },
+                            { data: 'Amount' },
+                            {
+                                data: null,
+                                defaultContent: '<a href="" class=\'btn btn-icon btn-default m-r-10 editUnitBtn\'><span class=\'md md-edit\'></span></a>' +
+                                                '<a href="" class=\'btn btn-icon btn-default m-r-10 msgUnitBtn\'><span class=\'md md-chat\'></span></a> ' +
+                                                '<a href="" class=\'btn btn-icon btn-default deleteUnitBtn\'><span class=\'md md-clear\'></span></a>'
+                            }
+                        ],
+                        "columnDefs": [
+                            {
+                                "targets": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], // identifies which columns will be affected, + numbers count from left (0 index), - numbers from the right
+                                "visible": false,
+                                "searchable": false
+                            },
+                            {
+                                "targets": 10,
+                                "data": "TransactionDate",
+                                "render": function (data, type, full, meta) {
+                                    var htmlToDisplay;
+                                    var dueDateFormatted = moment(dueDate).format('MMM D, YYYY')
+                                    var dueDate = full.DueDate;
+
+                                    if (dueDate != null && dueDate.length > 2) {
+                                        return '<div style="line-height:1.2;">' + dueDateFormatted + '</div>' +
+                                                        '<span class="f-13 f-300">Due: ' + dueDate + '</span>';
+                                    }
+                                    else {
+                                        return dueDateFormatted;
+                                    }
+                                }
+                            },
+                            {
+                                "targets": 11,
+                                "data": "TenantName",
+                                //className: "unitTenant",
+                                "render": function (data, type, full, meta) {
+                                    
+                                    var name = data;
+                                    var htmlToDisplay = name;
+
+                                    htmlToDisplay = "<div class='media'><div class='pull-left'><img class='tableUserPic' src='img/contacts/" + data +
+                                                    ".jpg'></div><div class='media-body'><div class='lv-title'>" + data + "</div><small class='lv-small'>" + data + "</small></div></div>";
+
+
+                                    if (name != null && name.length > 1)
+                                    {
+                                        htmlToDisplay = '<div class="imgContainer"><span style="background-image: url(' + full.ImageUrl + ');"></span></div>' +
+                                                        '<div class="capitalize">' + name + '</div>';
+                                    }
+                                    else if (full.TenantEmail != null && full.TenantEmail.length > 1)
+                                    {
+                                        var classToAdd = "";
+                                        if (full.TenantStatus == "Invited") {
+                                            classToAdd = 'text-warning';
+                                        }
+                                        htmlToDisplay = '<span class="show text-center"><a class="msgUnitBtn">' + full.TenantEmail + '</a></span>' +
+                                                          '<span class="show text-center status ' + classToAdd + '">' + full.TenantStatus + '</span>';
+                                    }
+                                    else
+                                    {
+                                        htmlToDisplay = '<span class="show text-center"><a class="addTenantBtn btn btn-default"><i class="md md-add m-r-5"></i>Add Tenant</a></span>';
+                                    }
+                                    return htmlToDisplay;
+                                }
+                            },
+                            {
+                                "targets": 12,
+                                "data": "PropertyName",
+                                "render": function (data, type, full, meta) {
+                                    var propAddress = full.PropertyAddress;
+                                    var htmlToDisplay;
+
+                                    if (propAddress != null && propAddress.length > 2) {
+                                        htmlToDisplay = '<div style="line-height:1.2;">' + data + '</div>' +
+                                                        '<span class="f-13 f-300">' + propAddress + '</span>';
+                                    }
+                                    else {
+                                        htmlToDisplay = data;
+                                    }
+
+                                    return htmlToDisplay;
+                                }
+                            },
+                            {
+                                "targets": 13,
+                                "data": "UnitNum",
+                                "render": function (data, type, full, meta) {
+
+                                    if (data != null && data.length > 0)
+                                    {
+                                        return data;
+                                    }
+                                    else if (full.UnitName != null && full.UnitName.length > 2) {
+                                        return full.UnitName;
+                                    }
+
+                                    return "";
+                                }
+                            },
+                            {
+                                "targets": 14,
+                                "data": "TransactionStatus",
+                                "render": function (data, type, full, meta) {
+                                    var htmlToReturn = data;
+
+                                    if (data == "Paid" || data == "paid" || data == "completed") {
+                                        htmlToReturn = "<span class=\"label label-success\">" + data + "</span>";
+                                    }
+                                    else if (data == "Pending" || data == "pending") {
+                                        htmlToReturn = "<span class=\"label label-warning\">" + data + "</span>";
+                                    }
+                                    else if (data == "Rejected" || data == "rejected") {
+                                        htmlToReturn = "<span class=\"label label-danger\">" + data + "</span>";
+                                    }
+                                    else {
+                                        htmlToReturn = "<span class=\"label label-warning\">" + data + "</span>";
+                                    }
+                                    return htmlToReturn;
+                                }
+                            },
+                            {
+                                "targets": 15,
+                                "data": "Amount",
+                                "render": function (data, type, full, meta) {
+                                    //var dueDate = full.DueDate;
+                                    var htmlToDisplay;
+
+                                    htmlToDisplay = '$&nbsp;' + data;
+
+                                    return htmlToDisplay;
+                                }
+                            },
+                            {
+                                "targets": [9,11,12,13, 14],
+                                className: "text-center"
+                            },
+                            {
+                                "targets": [-1],
+                                className: "text-right"
+                            },
+                        ],
+                        "language": {
+                            "info": "Showing units <strong>_START_</strong> - <strong>_END_</strong> of <strong>_TOTAL_</strong> total payments",
+                            "infoEmpty": "No Payments Made Yet!",
+                            "emptyTable": "No payments made yet!"
+                        }
+                    });
+
+                    // Add Tooltips to Action Buttons
+                    $('#propUnits tbody .btn.editUnitBtn').tooltip({
+                        title: "Edit This Unit",
+                        trigger: "hover"
+                    });
+                    $('#propUnits tbody .btn.msgUnitBtn').tooltip({
+                        title: "Send A Message",
+                        trigger: "hover"
+                    });
+                    $('#propUnits tbody .btn.deleteUnitBtn').tooltip({
+                        title: "Delete This Unit",
+                        trigger: "hover"
+                    });
+                }
+                else {
+                    console.log('History Ctrlr -> Error while getting transaction history!');
+                }
+            }
+            else // Auth Token was not valid on server
+            {
+                //authenticationService.ClearUserData();
+                window.location.href = 'login.html';
+            }
+        });
+
+
         $scope.refreshPage = function () {
             location.reload(true);
         }

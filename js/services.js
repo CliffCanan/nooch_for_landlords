@@ -1,23 +1,6 @@
 noochForLandlords
 
     // =========================================================================
-    // Header Messages and Notifications list Data
-    // =========================================================================
-
-    .service('messageService', ['$resource', function ($resource) {
-        this.getMessage = function (img, user, text) {
-            var gmList = $resource("data/messages-notifications.json");
-
-            return gmList.get({
-                img: img,
-                user: user,
-                text: text
-            });
-        }
-    }])
-
-
-    // =========================================================================
     // Properties Widget Data
     // =========================================================================
 
@@ -232,6 +215,7 @@ noochForLandlords
 
         return Operations;
     }])
+
 
 
     .service('propDetailsService', ['$http', 'authenticationService', '$resource', function ($http, authenticationService, $resource) {
@@ -740,6 +724,36 @@ noochForLandlords
     })
 
 
+    // =========================================================================
+    // HISTORY
+    // =========================================================================
+    .service('historyService', function ($http, authenticationService, $resource) {
+
+        var Operations = {};
+
+
+        Operations.GetHistory = function (landlordId, memberId, accessToken, callback) {
+
+            var data = {};
+            data.LandlordId = landlordId;
+            data.AccessToken = accessToken;
+            data.MemberId = memberId;
+
+            //console.log(JSON.stringify(data));
+
+            $http.post(URLs.GetTransHistory, data)
+                .success(function (response) {
+                    console.log(response);
+                    if (response.IsSuccess && response.IsSuccess == true) {
+                        authenticationService.ManageToken(response.AuthTokenValidation);
+                    }
+                    callback(response);
+                });
+        };
+
+        return Operations;
+    })
+
 
 
     /**********************/
@@ -773,5 +787,22 @@ noochForLandlords
                 name: name,
                 price: price
             })
+        }
+    }])
+
+
+    // =========================================================================
+    // Header Messages and Notifications list Data
+    // =========================================================================
+
+    .service('messageService', ['$resource', function ($resource) {
+        this.getMessage = function (img, user, text) {
+            var gmList = $resource("data/messages-notifications.json");
+
+            return gmList.get({
+                img: img,
+                user: user,
+                text: text
+            });
         }
     }])

@@ -60,13 +60,16 @@ noochForLandlords
                             insertBefore: '#app-level',
                             files: [
                                 'vendors/bower_components/jquery.bootgrid/dist/jquery.bootgrid.min.css',
+                                'https://cdn.datatables.net/1.10.9/css/jquery.dataTables.min.css',
                             ]
                         },
                         {
                             name: 'vendors',
                             files: [
                                 'vendors/sparklines/jquery.sparkline.min.js',
-                                'vendors/bower_components/jquery.bootgrid/dist/jquery.bootgrid.min.js'
+                                'vendors/bower_components/jquery.bootgrid/dist/jquery.bootgrid.min.js',
+                                'https://cdn.datatables.net/1.10.9/js/jquery.dataTables.min.js',
+                                'vendors/bower_components/moment/min/moment.min.js',
                             ]
                         }
                     ])
