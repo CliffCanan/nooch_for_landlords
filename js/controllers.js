@@ -602,12 +602,15 @@ noochForLandlords
 									        if ($rootScope.isBankAvailable !== true) {
 									            swal({
 									                title: "No Bank Account Linked Yet",
-									                text: "Before you can accept a payment, you must attach a bank account..",
+									                text: "Before you can accept payments from your tenants, you must attach a bank account." +
+                                                          "<span class='show m-t-10'>It takes less than 2 minutes and if you use a major bank, you can login to your online banking account to verify immediately - <strong>no routing/account number needed</strong>.</span>" +
+                                                          "<span class='show m-t-10'>Do you want to add a bank now?</span>",
 									                type: "warning",
 									                confirmButtonText: "Add Bank Now",
 									                showCancelButton: true,
-									                cancelButtonText: "OK",
-									                customClass: "largeText"
+									                cancelButtonText: "Not Now",
+									                customClass: "smallText",
+                                                    html: true
 									            }, function (isConfirm) {
 									                if (isConfirm) {
 									                    window.location.href = '#/profile/profile-bankaccounts';
@@ -772,77 +775,98 @@ noochForLandlords
 
 							    var data = $scope.propUnitsTable.row($(this).parents('tr')).data();
 							    console.log(data);
-							    console.log(data['UnitId']);
+							    //console.log(data['UnitId']);
 
-							    swal({
-							        title: "Unoccupied Unit",
-							        text: "Enter your tenant's email address and we will invite them to pay their rent for this unit.",
-							        type: "input",
-							        inputPlaceholder: "example@email.com",
-							        showCancelButton: true,
-							        cancelButtonText: "Cancel",
-							        confirmButtonColor: "#3fabe1",
-							        confirmButtonText: "Send",
-							        closeOnConfirm: false,
-							        closeOnCancel: true,
-                                    customClass: "largeText"
-							    }, function (input) {
-							        if (typeof input == "string") {
-							            if (input.length < 5 || $scope.ValidateEmail(input) == false) {
-							                swal.showInputError("Please enter an email address!")
-							                return false;
+							    if ($rootScope.isBankAvailable !== true)
+							    {
+							        swal({
+							            title: "No Bank Account Linked Yet",
+							            text: "Before you can accept payments from your tenants, you must attach a bank account." +
+                                              "<span class='show m-t-10'>It takes less than 2 minutes and if you use a major bank, you can login to your online banking account to verify immediately - <strong>no routing/account number needed</strong>.</span>" +
+                                              "<span class='show m-t-10'>Do you want to add a bank now?</span>",
+							            type: "warning",
+							            confirmButtonText: "Add Bank Now",
+							            showCancelButton: true,
+							            cancelButtonText: "Not Now",
+							            customClass: "smallText",
+							            html: true
+							        }, function (isConfirm) {
+							            if (isConfirm) {
+							                window.location.href = '#/profile/profile-bankaccounts';
 							            }
-							            console.log(input.trim());
-							            // Show Loading Block
-							            $.blockUI({
-							                message: '<span><i class="md md-refresh fa-spin fa-loading"></i></span><br/><span class="loadingMsg">Inviting ' + input + '...</span>',
-							                css: {
-							                    border: 'none',
-							                    padding: '10px 10px 20px',
-							                    backgroundColor: '#000',
-							                    '-webkit-border-radius': '14px',
-							                    '-moz-border-radius': '14px',
-							                    'border-radius': '14px',
-							                    opacity: '.75',
-							                    color: '#fff'
+							        });
+							    }
+							    else
+							    {
+							        swal({
+							            title: "Unoccupied Unit",
+							            text: "Enter your tenant's email address and we will invite them to pay their rent for this unit.",
+							            type: "input",
+							            inputPlaceholder: "example@email.com",
+							            showCancelButton: true,
+							            cancelButtonText: "Cancel",
+							            confirmButtonColor: "#3fabe1",
+							            confirmButtonText: "Send",
+							            closeOnConfirm: false,
+							            closeOnCancel: true,
+							            customClass: "largeText"
+							        }, function (input) {
+							            if (typeof input == "string") {
+							                if (input.length < 5 || $scope.ValidateEmail(input) == false) {
+							                    swal.showInputError("Please enter an email address!")
+							                    return false;
 							                }
-							            });
+							                console.log(input.trim());
+							                // Show Loading Block
+							                $.blockUI({
+							                    message: '<span><i class="md md-refresh fa-spin fa-loading"></i></span><br/><span class="loadingMsg">Inviting ' + input + '...</span>',
+							                    css: {
+							                        border: 'none',
+							                        padding: '10px 10px 20px',
+							                        backgroundColor: '#000',
+							                        '-webkit-border-radius': '14px',
+							                        '-moz-border-radius': '14px',
+							                        'border-radius': '14px',
+							                        opacity: '.75',
+							                        color: '#fff'
+							                    }
+							                });
 
-							            //console.log($scope.propUnitsTable.)
-							            // CALL SERVICE FOR SENDING AN INVITE TO THE TENANT
-							            propDetailsService.inviteNewTenant($scope.selectedProperty.propertyId, data['UnitId'], input.trim(), "", "", data['UnitRent'], userDetails.landlordId, userDetails.accessToken, function (response) {
-                                            console.log("PropDetails Cntrlr -> InviteNewTenant Response: " + response)
+							                // CALL SERVICE FOR SENDING AN INVITE TO THE TENANT
+							                propDetailsService.inviteNewTenant($scope.selectedProperty.propertyId, data['UnitId'], input.trim(), "", "", data['UnitRent'], userDetails.landlordId, userDetails.accessToken, function (response) {
+							                    console.log("PropDetails Cntrlr -> InviteNewTenant Response: " + response)
 
-                                            $.unblockUI({
-                                                onUnblock: function () {
-                                                    if (response.success == true) {
-                                                        console.log("Cntrlr -> InviteNewTenant response from server successful - redrawing table...");
-                                                        $scope.propUnitsTable.draw();
-                                                        // On Success
-                                                        swal({
-                                                            title: "Invite Sent",
-                                                            text: "Your request has been sent.  We will notify you when this person accepts and signs up.",
-                                                            type: "success",
-                                                            confirmButtonColor: "#3fabe1",
-                                                            confirmButtonText: "Great",
-                                                            customClass: "largeText",
-                                                        }, function () {
-                                                            $state.reload();
-                                                        });
-                                                    }
-                                                    else {
-                                                        swal({
-                                                            title: "Uh oh...",
-                                                            text: data.msg,
-                                                            type: "error",
-                                                            confirmButtonText: "Ok"
-                                                        });
-                                                    }
-                                                }
-                                            });
-							            });
-							        }
-							    });
+							                    $.unblockUI({
+							                        onUnblock: function () {
+							                            if (response.success == true) {
+							                                console.log("Cntrlr -> InviteNewTenant response from server successful - redrawing table...");
+							                                $scope.propUnitsTable.draw();
+							                                // On Success
+							                                swal({
+							                                    title: "Invite Sent",
+							                                    text: "Your request has been sent.  We will notify you when this person accepts and signs up.",
+							                                    type: "success",
+							                                    confirmButtonColor: "#3fabe1",
+							                                    confirmButtonText: "Great",
+							                                    customClass: "largeText",
+							                                }, function () {
+							                                    $state.reload();
+							                                });
+							                            }
+							                            else {
+							                                swal({
+							                                    title: "Uh oh...",
+							                                    text: data.msg,
+							                                    type: "error",
+							                                    confirmButtonText: "Ok"
+							                                });
+							                            }
+							                        }
+							                    });
+							                });
+							            }
+							        });
+							    }
 							})
 
 							// DELETE UNIT BTN CLICKED
@@ -1246,12 +1270,12 @@ noochForLandlords
             }
         }
 
-		$('#submitChargeTenant').click(function() {
-			$scope.chargeTenant_Submit();
-		})
+		//$('#submitChargeTenant').click(function() {
+		//	$scope.chargeTenant_Submit();
+        //})
+
 		$scope.chargeTenant_Submit = function ()
 		{
-		    console.log($scope.tenantSelected);
             // Check Name field for length
 		    if (typeof $scope.tenantSelected != 'undefined')
 			{
@@ -1274,9 +1298,7 @@ noochForLandlords
                         transInfo.IsRecurring = $('#recur').is(":checked");;
 
                         propertiesService.ChargeTenant(transInfo, userdetails.landlordId, userdetails.accessToken, function (data) {
-                            console.log("Cntrlr -> Charge Tenant service response...");
-                            console.log(data);
-
+                            
                             // CLIFF (11/1/15): COMMENTING OUT UNTIL WE FIX SERVER ERROR FOR ADDING THE TRANS TO THE DB.
                             if (data.IsSuccess == true) {
                                 // Update table to add row for the newly created unit immediately (instead of waiting for page refresh)
@@ -2704,14 +2726,13 @@ noochForLandlords
                     $('#addPic').modal('hide');
                     $scope.userInfo.userImage = data.response.ErrorMessage;
                     $rootScope.userDetailsRoot.imgUrl = data.response.ErrorMessage + '#' + new Date().getTime();
-                    $('#userPreviewPic').attr('src', data.response.ErrorMessage);
+                    $('#userPreviewPic').css('background-image', 'url("' + data.response.ErrorMessage + '")');
 
                     //$('#userProfilePic').attr('src', '');
                     setTimeout(function () {
-                        $('#userProfilePic').attr('src', data.response.ErrorMessage + '#' + new Date().getTime());
-                        console.log('should call state reload...');
+                        $('#userPreviewPic').css('background-image', 'url("' + data.response.ErrorMessage  + '#' + new Date().getTime() + '")');
                         $state.reload();
-                    }, 500);
+                    }, 400);
                 }
                 else
                 {
@@ -2783,6 +2804,20 @@ noochForLandlords
 							maxDate: moment("1996 12 31", "MYYYY MM DD"),
 							viewMode: 'years',
 							//debug: true
+						});
+
+
+						var calendarIcon = $('#idVerForm1 .md-event');
+						//$compile(calendarIcon)($scope);
+						calendarIcon.click(function () {
+						    console.log("FOCUS REACHED!");
+						    //$('#idVer-dob').data("DateTimePicker").show();
+						    //$('#idVer-dob').focus();
+
+						    setTimeout(function () {
+						        $('#dobGrp .dtp-container.dropdown').addClass('fg-toggled open');
+						        $('#idVer-dob').data("DateTimePicker").show();
+						    }, 150);
 						});
 
 						$('#idVer-ssn').mask("0000");
@@ -3051,7 +3086,7 @@ noochForLandlords
 
             }
         }
-		
+
 		$scope.cancelIdVer = function () {
                 swal({
                     title: "Cancel ID Verification",
@@ -3082,6 +3117,7 @@ noochForLandlords
 		    $('.idVerAlert').slideUp();
 //		    $('.idVerAlert').alert('close');
 		}
+
         //CLIFF (10/18/15): Added this block as part of an attempt to re-log the user in if the AuthToken is no longer valid.  I didn't get it working, so commenting this out for now.
 		/*function getIP() {
 		    if (window.XMLHttpRequest) xmlhttp = new XMLHttpRequest();
@@ -3297,7 +3333,7 @@ noochForLandlords
     // Profile - BANK ACCOUNTS
     //=================================================
 
-    .controller('banksCtrl', function ($rootScope, $scope, authenticationService, getBanksService) {
+    .controller('banksCtrl', function ($rootScope, $scope, authenticationService, getBanksService, getProfileService) {
         this.isBankAttached = true;
 
 		// Get User's Info from DB
@@ -3357,7 +3393,7 @@ noochForLandlords
                     title: "Help Us Keep Nooch Safe",
                     text: "Before you link your bank account, please take 1 minute to verify your identity by completing your profile.<span style='display:block;margin-top:14px;'>This helps us make sure Nooch is safe for everyone.  We will only ask for this info once and will never share it publicly without your explicit permission.  All data is stored with encryption on secure servers.</span>",
                     type: "warning",
-                    customClass: 'smallText',
+                    customClass: "smallText",
                     showCancelButton: true,
                     confirmButtonColor: "#DD6B55",
                     confirmButtonText: "Verify Now",
@@ -4332,6 +4368,19 @@ noochForLandlords
 
     .controller('loginCtrl', function ($scope, $rootScope, authenticationService) {
 
+        $scope.LoginData = {
+            password: '',
+            username: '',
+            forgotPassword: ''
+        };
+
+        $scope.SignupData = {
+            firstName: '',
+            lastName: '',
+            email: '',
+            pass: ''
+        };
+
         $(document).ready(function() {
 
             // This function checks a field on focusout (when the user moves to the next field) and updates Validation UI accordingly
@@ -4352,14 +4401,14 @@ noochForLandlords
             if (getParameterByName("from") == "lp1" &&
                 getParameterByName("em") != "")
             {
-                console.log(getParameterByName("em"));
-                $scope.LoginData.username = getParameterByName("em");
+                $('#username').val(''); // Username in Login block
 
-                $('#username').val('');
+                console.log(getParameterByName("em"));
+                $scope.SignupData.email = getParameterByName("em");
 
                 setTimeout(function () {
                     $('#l-register').removeClass('hidden');
-                    $('#em').val($scope.LoginData.username);
+                    $('#em').val($scope.SignupData.email);
                     $('#emGrp .fg-line').addClass('fg-toggled');
                 }, 300);
 
@@ -4395,8 +4444,25 @@ noochForLandlords
                     }, 400);
                 }, 300);
             }
-            else
+            else if (getParameterByName("from") == "activation" &&
+                     getParameterByName("em") != null && getParameterByName("em") != "")
             {
+                $scope.LoginData.username = getParameterByName("em");
+
+                $('#username').val('');
+
+                setTimeout(function () {
+                    $('#l-login').removeClass('hidden');
+                    $('#username').val($scope.LoginData.username);
+                    $('#usernameGrp .fg-line').addClass('fg-toggled');
+                    $('#rememberMeCheck').prop("checked", true);
+
+                    setTimeout(function () {
+                        $('#pw').focus();
+                    }, 400);
+                }, 300);
+            }
+            else {
                 setTimeout(function () {
                     $('#l-register').removeClass('hidden');
                 }, 400);
@@ -4427,19 +4493,6 @@ noochForLandlords
         $(function () {
             $('[data-toggle="tooltip"]').tooltip();
         });
-
-        $scope.LoginData = {
-            password: '',
-            username: '',
-            forgotPassword: ''
-        };
-
-        $scope.SignupData = {
-            firstName: '',
-            lastName: '',
-            eMail: '',
-            pass: ''
-        };
 
 		$scope.fngrprnt = "";
 		new Fingerprint2().get(function (result) {
@@ -4646,12 +4699,15 @@ noochForLandlords
 
 
         this.registerAttmpt = function () {
-
+            if ($scope.SignupData.email &&
+                $scope.SignupData.email != 'undefined' &&
+                $scope.SignupData.email.length != 0)
+            { }
             var regForm = $('form#reg');
-            var fName = $('form#reg #fname').val();
-            var lName = $('form#reg #lname').val();
-            var email = $('form#reg #em').val();
-            var pw = $('form#reg #pwreg').val();
+            var fName = $scope.SignupData.firstName;
+            var lName = $scope.SignupData.lastName;
+            var email = $scope.SignupData.email;
+            var pw = $scope.SignupData.pass;
 
             // Check Name fields for length
             if (fName && fName.length > 1) {
@@ -4711,23 +4767,23 @@ noochForLandlords
 								console.log("IP is: " + ip + ", and Country is : " + country_code);
 
                                 // Now call service to register a new Landlord user
-                                authenticationService.RegisterLandlord($scope.SignupData.firstName, $scope.SignupData.lastName, $scope.SignupData.eMail, $scope.SignupData.pass, $scope.fngrprnt, ip, country_code, function (response) {
+                                authenticationService.RegisterLandlord($scope.SignupData.firstName, $scope.SignupData.lastName, $scope.SignupData.email, $scope.SignupData.pass, $scope.fngrprnt, ip, country_code, function (response) {
                                     console.log(response);
                                     regForm.unblock();
 
                                     // Cliff (9/10/15): Users should be automatically logged in after creating an account... send them to the Home page.
                                     if (response.IsSuccess == true) {
-                                        var username = $scope.SignupData.eMail;
+                                        var username = $scope.SignupData.email;
                                         var pw = $scope.SignupData.pass;
 
                                         $scope.SignupData.firstName = '';
                                         $scope.SignupData.lastName = '';
-                                        $scope.SignupData.eMail = '';
+                                        $scope.SignupData.email = '';
                                         $scope.SignupData.pass = '';
 
                                         swal({
                                             title: "Great Success",
-                                            text: 'Congrats - you have your new Nooch account has been created successfully! &nbsp;Click below to get started',
+                                            text: 'Congrats - your new Nooch account has been created successfully! &nbsp;Click below to get started',
                                             type: "success",
                                             customClass: "largeText",
                                             confirmButtonColor: "#3FABE1",
@@ -4783,7 +4839,7 @@ noochForLandlords
                                     {
                                         var msg = "Looks like we had some trouble creating your account.  We hate it when this happens.  Please try again or contact support@nooch.com for more help.";
                                         var showCancel = false;
-                                        console.log(response.ErrorMessage.indexOf("already exists"));
+
                                         if (response.ErrorMessage.indexOf("already exists") > -1)
                                         {
                                             msg = "Looks like that email address is already registered.  If you forgot your password you can reset it.  Or try using a different email address.";

@@ -15054,14 +15054,14 @@ body.login-content {
 }
 
 @media (min-width: 768px) {
-    #profile-main .pmo-pic img {
+    #profile-main .pmo-pic a {
         width: 100%;
         border-radius: 2px 2px 0 0;
     }
 }
 
 @media (max-width: 767px) {
-    #profile-main .pmo-pic img {
+    #profile-main .pmo-pic a {
         width: 180px;
         display: inline-block;
         height: 180px;
@@ -15083,31 +15083,6 @@ body.login-content {
         padding: 14px 4px;
     }
 }
-
-#profile-main .pmo-pic .pmop-edit {
-    position: absolute;
-    top: 0;
-    left: 0;
-    color: #fff;
-    background: rgba(0, 0, 0, 0.38);
-    text-align: center;
-    padding: 10px 10px 7px;
-    -webkit-transition: opacity;
-    -o-transition: opacity;
-    transition: opacity;
-    -webkit-transition-duration: 250ms;
-    transition-duration: 250ms;
-}
-
-    #profile-main .pmo-pic .pmop-edit:hover {
-        background: rgba(0, 0, 0, 0.8);
-    }
-
-    #profile-main .pmo-pic .pmop-edit i {
-        font-size: 18px;
-        vertical-align: middle;
-        margin-top: -3px;
-    }
 
 @media (min-width: 768px) {
     #profile-main .pmo-pic .pmop-edit {

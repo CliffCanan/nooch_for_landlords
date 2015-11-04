@@ -204,6 +204,7 @@ noochForLandlords
 
             $http.post(URLs.ChargeTenant, data)
                 .success(function (response) {
+                    console.log("Services -> Charge Tenant response...");
                     console.log(response);
                     if (response.IsSuccess && response.IsSuccess == true) {
                         authenticationService.ManageToken(response.AuthTokenValidation);
@@ -412,16 +413,18 @@ noochForLandlords
 
         Operations.RegisterLandlord = function (firstName, lastName, username, password, fingerprint, ip, country, callback) {
 
-            var data2 = {};
-            data2.FirstName = firstName;
-            data2.LastName = lastName;
-            data2.eMail = username;
-            data2.Password = password;
-            data2.fingerprint = fingerprint;
-            data2.ip = ip;
-            data2.country = country;
+            var data = {};
+            data.FirstName = firstName;
+            data.LastName = lastName;
+            data.eMail = username;
+            data.Password = password;
+            data.fingerprint = fingerprint;
+            data.ip = ip;
+            data.country = country;
 
-            $http.post(URLs.Register, data2)
+            console.log("Register Input: [" + JSON.stringify(data) + "]");
+
+            $http.post(URLs.Register, data)
                 .success(function (response) {
                     callback(response);
                 });
