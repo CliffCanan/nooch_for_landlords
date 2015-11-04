@@ -1297,7 +1297,7 @@ noochForLandlords
                         transInfo.TenantId = $scope.tenantSelected;
                         transInfo.IsRecurring = $('#recur').is(":checked");;
 
-                        propertiesService.ChargeTenant(transInfo, userdetails.landlordId, userdetails.accessToken, function (data) {
+                        propertiesService.ChargeTenant(transInfo, userdetails.landlordId, userdetails.accessToken, userDetails.memberId, function (data) {
                             
                             // CLIFF (11/1/15): COMMENTING OUT UNTIL WE FIX SERVER ERROR FOR ADDING THE TRANS TO THE DB.
                             if (data.IsSuccess == true) {

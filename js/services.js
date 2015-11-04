@@ -190,14 +190,15 @@ noochForLandlords
         };
 
 
-        Operations.ChargeTenant = function (transInfo, landlordId, accessToken, callback) {
+        Operations.ChargeTenant = function (transInfo, landlordId, accessToken, memberId, callback) {
 
             var data = {};
             data.TransRequest = transInfo;
 
             data.User = {
                 LandlordId: landlordId,
-                AccessToken: accessToken
+                AccessToken: accessToken,
+                MemberId: memberId
             };
 
             console.log(JSON.stringify(data));
@@ -206,9 +207,9 @@ noochForLandlords
                 .success(function (response) {
                     console.log("Services -> Charge Tenant response...");
                     console.log(response);
-                    if (response.IsSuccess && response.IsSuccess == true) {
-                        authenticationService.ManageToken(response.AuthTokenValidation);
-                    }
+                    //if (response.IsSuccess && response.IsSuccess == true) {
+                    //    authenticationService.ManageToken(response.AuthTokenValidation);
+                    //}
                     callback(response);
                 });
         };
