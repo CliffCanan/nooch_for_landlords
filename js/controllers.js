@@ -1279,61 +1279,60 @@ noochForLandlords
             // Check Name field for length
 		    if (typeof $scope.tenantSelected != 'undefined')
 			{
-                    updateValidationUi("tenant", true);
+		        updateValidationUi("tenant", true);
 
-                    // Check Amount field
-                    if ($('#chargeTenantForm #amount').val().length > 4 &&
-                        $('#chargeTenantForm #amount').val() > 10)
-                    {
-                        updateValidationUi("amount", true);
+		        // Check Amount field
+		        if ($('#chargeTenantForm #amount').val().length > 4 &&
+                    $('#chargeTenantForm #amount').val() > 10)
+		        {
+		            updateValidationUi("amount", true);
 
 
-                        // Prepare data to be submitted to DB
-                        var userdetails = authenticationService.GetUserDetails();
+		            // Prepare data to be submitted to DB
+		            var userdetails = authenticationService.GetUserDetails();
 
-                        var transInfo = {};
-                        transInfo.Memo = $('#chargeTenantForm #memo').val();
-                        transInfo.Amount = $('#chargeTenantForm #amount').val();
-                        transInfo.TenantId = $scope.tenantSelected;
-                        transInfo.IsRecurring = $('#recur').is(":checked");;
+		            var transInfo = {};
+		            transInfo.Memo = $('#chargeTenantForm #memo').val();
+		            transInfo.Amount = $('#chargeTenantForm #amount').val();
+		            transInfo.TenantId = $scope.tenantSelected;
+		            transInfo.IsRecurring = $('#recur').is(":checked");;
 
-                        propertiesService.ChargeTenant(transInfo, userdetails.landlordId, userdetails.accessToken, userDetails.memberId, function (data) {
-                            
-                            // CLIFF (11/1/15): COMMENTING OUT UNTIL WE FIX SERVER ERROR FOR ADDING THE TRANS TO THE DB.
-                            if (data.IsSuccess == true) {
-                                // Update table to add row for the newly created unit immediately (instead of waiting for page refresh)
+		            propertiesService.ChargeTenant(transInfo, userdetails.landlordId, userdetails.accessToken, userDetails.memberId, function (data) {
 
-                                // Finally, submit the data and display success alert
-                                swal({
-                                    title: "Payment Request Sent",
-                                    text: "Your tenant will be notified about your payment request.  We will update you when they complete the payment.",
-                                    type: "success",
-                                    showCancelButton: false,
-                                    confirmButtonColor: "#3FABE1",
-                                    confirmButtonText: "Got It!",
-                                    customClass: "largeText"
-                                });
-                            }
-                            else {
-                                swal({
-                                    title: "Uh Oh",
-                                    text: "Looks like we had some trouble making that payment request.  Please try again later or contact <a href='mailto:support@nooch.money' target='_blank'>Nooch Support</a> for further assistance.",
-                                    type: "error",
-                                    showCancelButton: false,
-                                    confirmButtonColor: "#3FABE1",
-                                    confirmButtonText: "Ok",
-                                    customClass: "largeText",
-                                    html: true,
-                                }, function () {
-                                    $('#chargeTenantModal').modal('hide');
-                                });
-                            }
-                        });
-                    }
-                    else {
-                        updateValidationUi("amount", false);
-                    }
-                
+		                if (data.IsSuccess == true) {
+
+		                    $('#chargeTenantModal').modal('hide');
+
+		                    swal({
+		                        title: "Payment Request Sent",
+		                        text: "Your tenant will be notified about your payment request. &nbsp;We will update you when they complete the payment.",
+		                        type: "success",
+		                        showCancelButton: false,
+		                        confirmButtonColor: "#3FABE1",
+		                        confirmButtonText: "Got It!",
+		                        customClass: "largeText",
+		                        html: true
+		                    });
+		                }
+		                else {
+		                    swal({
+		                        title: "Uh Oh",
+		                        text: "Looks like we had some trouble making that payment request.  Please try again later or contact <a href='mailto:support@nooch.money' target='_blank'>Nooch Support</a> for further assistance.",
+		                        type: "error",
+		                        showCancelButton: false,
+		                        confirmButtonColor: "#3FABE1",
+		                        confirmButtonText: "Ok",
+		                        customClass: "largeText",
+		                        html: true,
+		                    }, function () {
+		                        $('#chargeTenantModal').modal('hide');
+		                    });
+		                }
+		            });
+		        }
+		        else {
+		            updateValidationUi("amount", false);
+		        }
             }
             else {
                 updateValidationUi("tenant", false);
@@ -3982,9 +3981,8 @@ noochForLandlords
                             { data: 'Amount' },
                             {
                                 data: null,
-                                defaultContent: '<a href="" class=\'btn btn-icon btn-default m-r-10 editUnitBtn\'><span class=\'md md-edit\'></span></a>' +
-                                                '<a href="" class=\'btn btn-icon btn-default m-r-10 msgUnitBtn\'><span class=\'md md-chat\'></span></a> ' +
-                                                '<a href="" class=\'btn btn-icon btn-default deleteUnitBtn\'><span class=\'md md-clear\'></span></a>'
+                                defaultContent:// '<a href="" class=\'btn btn-icon btn-default m-r-10 editUnitBtn\'><span class=\'md md-edit\'></span></a>' +
+                                                '<a href="" class=\'btn btn-icon btn-default cancelTransBtn\'><span class=\'md md-clear\'></span></a>'
                             }
                         ],
                         "columnDefs": [
@@ -4128,15 +4126,11 @@ noochForLandlords
                     });
 
                     // Add Tooltips to Action Buttons
-                    $('#propUnits tbody .btn.editUnitBtn').tooltip({
-                        title: "Edit This Unit",
+                    $('.btn.cancelTransBtn').tooltip({
+                        title: "Cancel This Transaction",
                         trigger: "hover"
                     });
-                    $('#propUnits tbody .btn.msgUnitBtn').tooltip({
-                        title: "Send A Message",
-                        trigger: "hover"
-                    });
-                    $('#propUnits tbody .btn.deleteUnitBtn').tooltip({
+                    $('.btn.deleteUnitBtn').tooltip({
                         title: "Delete This Unit",
                         trigger: "hover"
                     });
