@@ -709,11 +709,6 @@ noochForLandlords
 								var shouldUseCurrentDate = data['DateAdded'] != null && data['DateAdded'].length > 2 ? false : true;
 								var dateToUse = shouldUseCurrentDate == false ? data['DateAdded'] : new Date();
 
-								console.log(data['DateAdded']);
-								console.log(shouldUseCurrentDate);
-								console.log(dateToUse);
-								console.log(moment(dateToUse));
-								console.log(moment(dateToUse).add(1, 'd'));
 
 								$('#addUnitDatePicker').datetimepicker({
 								    format: 'MM/DD/YYYY',
@@ -3950,10 +3945,10 @@ noochForLandlords
 
                     $scope.allTransList = data.Transactions;
 
-                    //if ($scope.allTransList.length > 0) {
+                    if ($scope.allTransList.length > 0) {
                         console.log("allTransList LIST...");
                         console.log($scope.allTransList);
-                    //}
+                    }
 
                     $scope.propUnitsTable = $('#transHistory').on('init.dt', function () {
                         setTimeout(function () {
@@ -4045,6 +4040,7 @@ noochForLandlords
                             {
                                 "targets": 12,
                                 "data": "PropertyName",
+                                className: "capitalize text-center",
                                 "render": function (data, type, full, meta) {
                                     var propAddress = full.PropertyAddress;
                                     var htmlToDisplay;
@@ -4110,7 +4106,7 @@ noochForLandlords
                                 }
                             },
                             {
-                                "targets": [9,11,12,13, 14],
+                                "targets": [9, 11, 13, 14],
                                 className: "text-center"
                             },
                             {
