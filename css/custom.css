@@ -8,6 +8,14 @@ body {
     padding: 30px !important;
 }
 
+.p-40 {
+    padding: 40px !important;
+}
+
+.p-50 {
+    padding: 50px !important;
+}
+
 .p-t-30 {
     padding-top: 30px !important;
 }
@@ -24,10 +32,6 @@ body {
     padding-left: 30px !important;
 }
 
-.p-40 {
-    padding: 40px !important;
-}
-
 .p-t-40 {
     padding-top: 40px !important;
 }
@@ -42,10 +46,6 @@ body {
 
 .p-l-40 {
     padding-left: 40px !important;
-}
-
-.p-50 {
-    padding: 50px !important;
 }
 
 .p-t-50 {
@@ -218,7 +218,6 @@ a, a *,
 }
 
 
-
 .nopointer {
     cursor: default !important;
 }
@@ -327,11 +326,14 @@ input[type='password'] {
 
 
 #nav-profile-pic {
-    max-height: 40px;
+    height: 40px;
+    width: 40px;
+    background-size: cover;
+    background-repeat: no-repeat;
     border-radius: 50%;
-    box-shadow: 0 6px 12px -5px rgba(4,10,28,.5);
+    box-shadow: 0 6px 12px -5px rgba(4,10,28,.4);
     position: absolute;
-    left: -66px;
+    left: -60px;
     top: -9px;
 }
 
@@ -440,23 +442,21 @@ table tbody td .label {
 }
 
 table#propUnits > tbody > tr > td {
-    padding: 11px 8px;
+    padding: 10px 4px;
 }
 
 #propUnits th.text-right,
 #propUnits tbody tr > td:last-child {
     padding-right: 10px;
-}
-
-.unit-num {
-    padding: 1px !important;
+    border-radius: 0 20px 20px 0;
 }
 
 td.unit-num {
     font-weight: 600;
     max-width: 58px !important;
-    background: #fff;
+    border-radius: 20px 0 0 20px;
     word-break: break-all;
+    padding: 1px !important;
 }
 
 td.odd .unit-num {
@@ -465,12 +465,22 @@ td.odd .unit-num {
 
 td.unit-rent {
     padding: 4px;
-    border-radius: 10px 0 0 10px;
 }
 
 #propUnits .btn-icon {
     width: 32px;
     height: 32px;
+}
+
+#propUnits .btn-link {
+    text-transform: none;
+    color: #0fa1ea;
+}
+
+#propUnits .unit-rent {
+    font-weight: 500;
+    line-height: 1.1;
+    padding: 2px;
 }
 
 #propUnits .unitTenant .imgContainer {
@@ -492,6 +502,17 @@ td.unit-rent {
     padding: 5px 0 0 50px;
 }
 
+table .wholeAmount {
+    letter-spacing: 0.5px;
+}
+
+table .cents {
+    font-size: 10px;
+    font-weight: 400;
+    vertical-align: top;
+    position: relative;
+    top: 1px;
+}
 
 /* OLD PROP DETAILS TABLE */
 #propDetailsTbl .media-body {
@@ -1551,6 +1572,14 @@ form .checkbox.haserror .input-helper:before {
         margin: 0 26px;
     }
 
+    table#propUnits > tbody > tr > td {
+        padding: 18px 5px;
+    }
+
+    table#propUnits .unit-rent {
+        padding: 14px 6px;
+    }
+
     #profileMain .pmbb-body .dl-horizontal dt {
         overflow: visible;
     }
@@ -1568,11 +1597,6 @@ form .checkbox.haserror .input-helper:before {
 
     .form-group .help-block {
         font-size: 13.5px;
-    }
-
-    #propUnits .unit-rent {
-        padding: 5px;
-        width: 85px !important;
     }
 
     .login-content .lc-block {
@@ -1682,7 +1706,7 @@ form .checkbox.haserror .input-helper:before {
     #profile-main .pmo-pic a {
         background-size: cover;
         background-repeat: no-repeat;
-        box-shadow: 0 10px 18px -3px rgba(32,33,34,.35);
+        box-shadow: 0 9px 18px -5px rgba(32,33,34,.25);
         width: 80%;
         max-width: 150px;
         margin: 0 auto 25px;
@@ -1703,6 +1727,7 @@ form .checkbox.haserror .input-helper:before {
     .jumbotron div i.md-6x:hover {
         background-color: rgba(0, 0, 0, 0.2) !important;
         margin-top: -2px;
+        margin-bottom: 2px;
     }
 
         .jumbotron div i.md-6x:hover #addBnkBtn {
@@ -1721,7 +1746,7 @@ form .checkbox.haserror .input-helper:before {
 
 .bank-container .media {
     margin-bottom: 40px;
-    border-bottom: 1px solid rgba(0,0,0,0.2);
+    border-bottom: 1px solid rgba(0,0,0,0.1);
 }
 
 .bank-container .media-object {
@@ -1773,6 +1798,10 @@ form .checkbox.haserror .input-helper:before {
 
 .addBank-container {
     height: 999px !important;
+}
+
+.well h4 {
+    line-height: 1.3;
 }
 
 .mini-charts-item .count > span {
@@ -1834,13 +1863,15 @@ form .checkbox.haserror .input-helper:before {
     position: relative;
 }
 
-    .propCard .pv-header > .pv-main > img {
-        border-radius: 80px;
-        width: auto;
+    .propCard .pv-header > .pv-main > #propImage {
+        border-radius: 50%;
+        width: 155px;
         height: 155px;
         position: absolute;
         top: 0;
         left: 0;
+        background-size: cover;
+        background-repeat: no-repeat;
     }
 
 #propertiesList.lv-lg .lv-title {
@@ -1859,13 +1890,16 @@ form .checkbox.haserror .input-helper:before {
 table .btn-icon .md {
     font-size: 16px;
     top: 5px;
-    left: 1px;
     position: relative;
     color: #444;
     -webkit-transition: color .15s ease;
     -moz-transition: color .15s ease;
     -o-transition: color .15s ease;
     transition: color .15s ease;
+}
+
+table#transHistory .btn-icon .md {
+    top: 9px;
 }
 
 table .btn-icon:hover .md {

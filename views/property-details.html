@@ -102,7 +102,7 @@
                         </div>
 
                         <!-- TABLE OF UNITS -->
-                        <div class="card z-depth-1 p-15 p-l-0 animated fadeInUpSm" id="unitsTableCard">
+                        <div class="card z-depth-1 p-t-15 p-b-10 animated fadeInUpSm" id="unitsTableCard">
 
                             <div class="card-body table-responsive">
 
@@ -168,7 +168,7 @@
 
                                         <div class="pv-header">
                                             <div class="pv-main animated zoomIn" data-ng-click="editPropPic()">
-                                                <img ng-src="{{ selectedProperty.imgUrl }}" id='propImage' alt="Property Picture">
+                                                <span style="background-image: url('{{ selectedProperty.imgUrl }}')" id='propImage'></span>
                                             </div>
                                         </div>
 

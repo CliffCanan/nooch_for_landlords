@@ -435,7 +435,7 @@ noochForLandlords
 									{ data: 'IsBankAccountAdded' },
 									{
 										data: null,
-										defaultContent: '<a href="" class=\'btn btn-icon btn-default m-r-10 editUnitBtn\'><span class=\'md md-edit\'></span></a>' +
+										defaultContent: '<a href="" class=\'btn btn-link m-r-10 editUnitBtn\'>edit</a>' +
 														'<a href="" class=\'btn btn-icon btn-default m-r-10 msgUnitBtn\'><span class=\'md md-chat\'></span></a> ' +
 														'<a href="" class=\'btn btn-icon btn-default deleteUnitBtn\'><span class=\'md md-clear\'></span></a>'
 									}
@@ -449,18 +449,19 @@ noochForLandlords
                                     {
                                         "targets": 2,
                                         "data": "UnitNumber",
+                                        className: "text-center unit-num",
                                         "render": function ( data, type, full, meta ) {
                                             var htmlToReturn = data;
 
                                             if (data.length > 12) {
-                                                htmlToReturn = '<span style="font-size:12.5px;letter-spacing:-.5px;">' + data.substr(0, 11) + '...</span>'
+                                                htmlToReturn = '<span style="font-size:12.5px;letter-spacing:-.4px;white-space:nowrap;">' + data.substr(0, 11) + '...</span>'
                                             }
                                             else if (data.length > 11) {
-                                                htmlToReturn = '<span style="font-size:13px;letter-spacing:-.5px;">' + data.substr(0, 10) + '...</span>'
+                                                htmlToReturn = '<span style="font-size:13px;letter-spacing:-.4px;white-space:nowrap;">' + data.substr(0, 10) + '...</span>'
                                             }
                                             else if (data.length > 10)
                                             {
-                                                htmlToReturn = '<span style="font-size:13.5px;letter-spacing:-.5px;">' + data.substr(0, 9) + '...</span>'
+                                                htmlToReturn = '<span style="font-size:13.5px;letter-spacing:-.4px;white-space:nowrap;">' + data.substr(0, 9) + '...</span>'
                                             }
                                             return htmlToReturn;
                                         }
@@ -468,17 +469,20 @@ noochForLandlords
                                     {
                                         "targets": 3,
                                         "data": "UnitRent",
+                                        className: "text-center unit-rent",
                                         "render": function (data, type, full, meta) {
                                             var dueDate = full.DueDate;
                                             var htmlToDisplay;
                                             //console.log(dueDate);
 
+                                            var amountArray = data.split(".");
+
                                             if (dueDate != null && dueDate.length > 2) {
-                                                htmlToDisplay = '<div>$&nbsp;' + data + '</div>' +
-                                                                    '<div><small>Due: ' + dueDate + '</small></div>';
+                                                htmlToDisplay = "<div class='wholeAmount'>$&nbsp;" + amountArray[0] + ".<span class='cents'>" + amountArray[1] + "</span></div>" +
+                                                                "<div><small>Due: <span class='f-400'>" + dueDate + "</span></small></div>";
                                             }
                                             else {
-                                                htmlToDisplay = '$&nbsp;' + data;
+                                                htmlToDisplay = "<div class='wholeAmount'>$&nbsp;" + amountArray[0] + ".<span class='cents'>" + amountArray[1] + "</span></div>";
                                             }
                                             return htmlToDisplay;
                                         }
@@ -486,7 +490,7 @@ noochForLandlords
                                     {
                                         "targets": 4,
                                         "data": "TenantName",
-                                        className: "unitTenant",
+                                        className: "unitTenant text-center",
                                         "render": function (data, type, full, meta) {
                                             //console.log(full);
 
@@ -503,8 +507,8 @@ noochForLandlords
                                                 if (full.Status == "Pending Invite") {
                                                     classToAdd = 'text-warning';
                                                 }
-                                                htmlToDisplay = '<span class="show text-center"><a class="msgUnitBtn">' + full.TenantEmail + '</a></span>' +
-                                                                  '<span class="show text-center status ' + classToAdd + '">' + full.Status + '</span>';
+                                                htmlToDisplay = '<span class="show"><a class="msgUnitBtn">' + full.TenantEmail + '</a></span>' +
+                                                                '<span class="show status ' + classToAdd + '">' + full.Status + '</span>';
                                             }
                                             else
                                             {
@@ -514,16 +518,8 @@ noochForLandlords
                                         }
                                     },
 									{
-									    "targets": [2],
-									    className: "text-center unit-num"
-									},
-									{
-									    "targets": [3],
-									    className: "text-center unit-rent"
-									},
-									{
-									    "targets": [-1],
-									    className: "text-right"
+									    "targets": [5,-1],
+									    className: "text-center"
 									},
 								],
 								"language": {
@@ -1072,7 +1068,7 @@ noochForLandlords
             {
                 var response = data.response;
 
-                console.log('Save prop pic response is ' + response);
+                console.log('Save prop pic response is ' + JSON.stringify(response));
 
                 if (data.response.IsSuccess == true)
                 {
@@ -1080,7 +1076,7 @@ noochForLandlords
                     $scope.selectedProperty.imgUrl = data.response.ErrorMessage;
 
                     $('#propPicPreview').attr('src', data.response.ErrorMessage);
-                    $('#propImage').attr('src', data.response.ErrorMessage);
+                    $('#propImage').css('background-image', data.response.ErrorMessage);
                 }
                 else
                 {
@@ -1264,10 +1260,6 @@ noochForLandlords
                 $('#tenant').selectpicker('refresh');
             }
         }
-
-		//$('#submitChargeTenant').click(function() {
-		//	$scope.chargeTenant_Submit();
-        //})
 
 		$scope.chargeTenant_Submit = function ()
 		{
@@ -2123,6 +2115,15 @@ noochForLandlords
             }
         });
 
+        $('#addPropWiz input').keydown(function (e) {
+            var code = e.keyCode || e.which;
+            if (code == 9) // Tab key
+            {
+                $(this).parents('.col-xs-12').next('.col-xs-12').find('input').focus();
+                return false;
+            }
+        });
+
 
         saveProperty = function () {
             // Send data to server
@@ -2692,7 +2693,7 @@ noochForLandlords
                     icon: '<span class="md md-panorama m-r-10 kv-caption-icon"></span>',
                 },
                 maxFileCount: 1,
-                maxFileSize: 250,
+                maxFileSize: 400,
                 msgSizeTooLarge: "File '{name}' ({size} KB) exceeds the maximum allowed file size of {maxSize} KB. Please try a slightly smaller picture!",
                 showCaption: false,
                 showUpload: false,
@@ -2703,8 +2704,8 @@ noochForLandlords
                 },
                 showPreview: true,
                 resizeImage: true,
-                maxImageWidth: 500,
-                maxImageHeight: 500,
+                maxImageWidth: 600,
+                maxImageHeight: 600,
                 resizePreference: 'width'
             });
 
@@ -4097,12 +4098,9 @@ noochForLandlords
                                 "targets": 15,
                                 "data": "Amount",
                                 "render": function (data, type, full, meta) {
-                                    //var dueDate = full.DueDate;
-                                    var htmlToDisplay;
+                                    var amountArray = data.split(".");
 
-                                    htmlToDisplay = '$&nbsp;' + data;
-
-                                    return htmlToDisplay;
+                                    return "$&nbsp;" + amountArray[0] + ".<span class='cents'>" + amountArray[1] + "</span>";
                                 }
                             },
                             {
