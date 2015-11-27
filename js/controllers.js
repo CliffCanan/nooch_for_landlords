@@ -3,7 +3,7 @@ noochForLandlords
     //      Base controller for common functions
     // ===============================================================
 
-    .controller('noochAdminCtrl', function ($rootScope, $timeout, $state, growlService, authenticationService) {
+    .controller('noochAdminCtrl', function ($rootScope, $window, $location, $timeout, $state, growlService, authenticationService) {
 
 		if (!authenticationService.IsValidUser()) {
 		    console.log("adminCtrl -> User no longer valid!");
@@ -35,6 +35,11 @@ noochForLandlords
                 this.sidebarToggle.left = false;
             }
         }
+
+        // Google Analytics Code
+        $rootScope.$on('$viewContentLoaded', function (event) {
+            $window.ga('send', 'pageview', { page: $location.url() });
+        });
     })
 
 
