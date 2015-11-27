@@ -412,6 +412,27 @@ noochForLandlords
         };
 
 
+        Operations.FBLogin = function (email, firstName,lastName,gender,photoUrl, ip,fingerprint,fbUserId, callback) {
+
+            var data = {};
+            data.FirstName = firstName;
+            data.LastName = lastName;
+            data.eMail = email;
+            data.Gender = gender;
+            data.PhotoUrl = photoUrl;
+            data.FacebookUserId = fbUserId;
+            data.UserFingerPrints = fingerprint;
+            data.Ip = ip;
+
+            console.log(data);
+
+            $http.post(URLs.LoginWithFB, data)
+                .success(function (response) {
+                    callback(response);
+                });
+        };
+
+
         Operations.RegisterLandlord = function (firstName, lastName, username, password, fingerprint, ip, country, callback) {
 
             var data = {};
