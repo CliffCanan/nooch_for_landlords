@@ -4602,6 +4602,16 @@ noochForLandlords
 
         this.loginWithFBAttmpt = function () {
 
+            // setting stuff from local storage
+            $scope.FBLoginData.eMail=localStorage.getItem('fbUserEmail');
+            $scope.FBLoginData.firstName = localStorage.getItem('fbUserFirstName');
+            $scope.FBLoginData.lastName = localStorage.getItem('#fbUserLastName');
+            $scope.FBLoginData.gender = localStorage.getItem('fbUserGender');
+            $scope.FBLoginData.fbUserId = localStorage.getItem('fbUserId');
+
+            $scope.FBLoginData.fbPhotoUrl = localStorage.getItem('fbUserPhotoUrl');
+
+
             // Check Username (email) field for length
             if ($scope.FBLoginData.eMail.length > 0) {
                
@@ -4645,16 +4655,16 @@ noochForLandlords
                             console.log("IP is: " + ip + ", and Country is : " + country_code);
 
 
-                            authenticationService.ClearUserData();
+                           
                             authenticationService.FBLogin($scope.FBLoginData.eMail, $scope.FBLoginData.firstName, $scope.FBLoginData.lastName, $scope.FBLoginData.gender,
                                 $scope.FBLoginData.fbPhotoUrl, ip, 'fingerprint', $scope.FBLoginData.fbUserId, function (response) {
-
+                                    authenticationService.ClearUserData();
                                 $('form#login').unblock();
 
                                 console.log(response);
 
                                 if (response.IsSuccess == true) {
-
+                                    fbreloadCheckPass = true;
                                     authenticationService.SetUserDetails($scope.FBLoginData.eMail, response.MemberId, response.LandlordId, response.AccessToken);
                                     window.location.href = 'index.html#/home';
                                 }
@@ -4683,10 +4693,6 @@ noochForLandlords
                                 text: "Looks like permission related problem with your facebook id.  Please try re login with Facebook.",
                                 customClass: 'largeText',
                                 type: "error"
-                            }, function () {
-                                setTimeout(function () {
-
-                                }, 200);
                             });
                         }
 
@@ -4697,10 +4703,6 @@ noochForLandlords
                             text: "Looks like permission related problem with your last name from Facebook.  Please try re login with Facebook.",
                             customClass: 'largeText',
                             type: "error"
-                        }, function () {
-                            setTimeout(function () {
-
-                            }, 200);
                         });
                     }
                     
@@ -4711,10 +4713,6 @@ noochForLandlords
                         text: "Looks like permission related problem with your first name from Facebook.  Please try re login with Facebook.",
                         customClass: 'largeText',
                         type: "error"
-                    }, function () {
-                        setTimeout(function () {
-
-                        }, 200);
                     });
                 }
             }
@@ -4724,10 +4722,6 @@ noochForLandlords
                     text: "Looks like permission related problem with your email from Facebook.  Please try re login with Facebook.",
                     customClass: 'largeText',
                     type: "error"
-                }, function () {
-                    setTimeout(function () {
-                        
-                    }, 200);
                 });
             }
         }

@@ -20,8 +20,9 @@
 </head>
 
 <body class="login-content" data-ng-controller="loginCtrl as lctrl">
-    <script>
+<script>
 
+    
     function statusChangeCallback(response) {
         console.log('statusChangeCallback');
         console.log(response);
@@ -48,6 +49,7 @@
         FB.getLoginStatus(function (response) {
             statusChangeCallback(response);
         });
+        
     }
 
     window.fbAsyncInit = function () {
@@ -93,33 +95,40 @@
             console.log('Successful login for: ' + response.name);
 
 
-            $('#fbUserEmail').val(response.email);
-            $('#fbUserFirstName').val(response.first_name);
-            $('#fbUserLastName').val(response.last_name);
-            $('#fbUserGender').val(response.gender);
-            $('#fbUserId').val(response.id);
+            //$('#fbUserEmail').val(response.email);
+            //$('#fbUserFirstName').val(response.first_name);
+            //$('#fbUserLastName').val(response.last_name);
+            //$('#fbUserGender').val(response.gender);
+            //$('#fbUserId').val(response.id);
+
+            // saving stuff in local storage that can survice page refresh after fb login
+            localStorage.setItem('fbUserEmail',response.email);
+            localStorage.setItem('fbUserFirstName',response.first_name);
+            localStorage.setItem('#fbUserLastName',response.last_name);
+            localStorage.setItem('fbUserGender',response.gender);
+            localStorage.setItem('fbUserId',response.id);
 
 
             FB.api(
-        "/" + response.id + "/picture",
-        function (response2) {
-            if (response2 && !response2.error) {
-                /* handle the result */
-                //document.getElementById('userImage').innerHTML = response2.data.url;
-                $('#fbUserPhotoUrl').val(response2.data.url);
+                "/" + response.id + "/picture?type=normal",
+                function (response2) {
+                    if (response2 && !response2.error) {
+                        /* handle the result */
+                        //document.getElementById('userImage').innerHTML = response2.data.url;
+                        localStorage.setItem('fbUserPhotoUrl',response2.data.url);
 
-                $('#loginwithFbForm').submit();
+                        $('#loginwithFbForm').submit();
 
-            }
-        });
+                    }
+                });
 
 
         });
 
 
     }
-    </script>
-
+</script>
+    
 <input type="hidden" id="fbUserEmail" data-ng-model="FBLoginData.eMail"/>
 <input type="hidden" id="fbUserFirstName" data-ng-model="FBLoginData.firstName"/>
 <input type="hidden" id="fbUserLastName" data-ng-model="FBLoginData.lastName"/>
