@@ -436,7 +436,8 @@ noochForLandlords
 									{
 										data: null,
 										defaultContent: '<a href="" class=\'btn btn-link m-r-10 editUnitBtn\'>edit</a>' +
-														'<a href="" class=\'btn btn-icon btn-default m-r-10 msgUnitBtn\'><span class=\'md md-chat\'></span></a> ' +
+														'<a href="" class=\'btn btn-icon btn-default m-r-10 uploadLeaseBtn\'><span class=\'md md-cloud\'></span></a> ' +
+                                                        '<a href="" class=\'btn btn-icon btn-default m-r-10 msgUnitBtn\'><span class=\'md md-chat\'></span></a> ' +
 														'<a href="" class=\'btn btn-icon btn-default deleteUnitBtn\'><span class=\'md md-clear\'></span></a>'
 									}
 								],
@@ -532,6 +533,10 @@ noochForLandlords
 							$('#propUnits tbody .btn.editUnitBtn').tooltip({
 								title: "Edit This Unit",
 								trigger: "hover"
+							});
+							$('#propUnits tbody .btn.uploadLeaseBtn').tooltip({
+							    title: "Upload Lease",
+							    trigger: "hover"
 							});
 							$('#propUnits tbody .btn.msgUnitBtn').tooltip({
 								title: "Send A Message",
@@ -768,8 +773,7 @@ noochForLandlords
 							    console.log(data);
 							    //console.log(data['UnitId']);
 
-							    if ($rootScope.isBankAvailable !== true)
-							    {
+							    if ($rootScope.isBankAvailable !== true) {
 							        swal({
 							            title: "No Bank Account Linked Yet",
 							            text: "Before you can accept payments from your tenants, you must attach a bank account." +
@@ -787,8 +791,7 @@ noochForLandlords
 							            }
 							        });
 							    }
-							    else
-							    {
+							    else {
 							        swal({
 							            title: "Unoccupied Unit",
 							            text: "Enter your tenant's email address and we will invite them to pay their rent for this unit.",
@@ -858,7 +861,67 @@ noochForLandlords
 							            }
 							        });
 							    }
-							})
+							});
+
+						    // UPLOAD LEASE BTN CLICKED
+							$('#propUnits tbody .uploadLeaseBtn').click(function () {
+
+							    $('#uploadLease').modal();
+
+							    var data = $scope.propUnitsTable.row($(this).parents('tr')).data();
+
+							    // FILE INPUT DOCUMENTATION: http://plugins.krajee.com/file-input#options
+							    $("#leaseFileInput").fileinput({
+							        alallowedFileExtensionslowedFileTypes: ['jpg', 'gif', 'png', 'txt', 'pdf', 'doc'],
+							        //initialPreview: [
+                                    //    "<img src='" + $scope.selectedProperty.imgUrl + "' class='file-preview-image' id='lease'>"
+							        //],
+							        initialPreviewShowDelete: false,
+							        layoutTemplates: {
+							            icon: '<span class="md md-panorama m-r-10 kv-caption-icon"></span>',
+							        },
+							        maxFileCount: 1,
+							        maxFileSize: 250,
+							        msgSizeTooLarge: "File '{name}' ({size} KB) exceeds the maximum allowed file size of {maxSize} KB. Please try a slightly smaller picture!",
+							        showCaption: false,
+							        showUpload: false,
+							        showPreview: true,
+							        resizeImage: true,
+							        maxImageWidth: 400,
+							        maxImageHeight: 400,
+							        resizePreference: 'width',
+							        uploadExtraData: {
+							            UnitId: data['UnitId']
+							        },
+							        uploadUrl: URLs.UploadLease
+							    });
+
+							    // Save Property Picture
+							    $scope.saveLeaseDoc = function () {
+							        $('#leaseFileInput').fileinput('upload');
+							    };
+
+							    $('#leaseFileInput').on('fileuploaded', function (event, data, previewId, index) {
+							        var response = data.response;
+
+							        console.log('Save Unit Lease Document response is ' + JSON.stringify(response));
+
+							        $('#uploadLease').modal('hide');
+
+							        if (data.response.IsSuccess == true)
+							        {
+                                        alert("success!")
+							        }
+							        else
+							        {
+							            swal({
+							                title: "Oops",
+							                text: data.response.ErrorMessage,
+							                type: "error"
+							            });
+							        }
+							    });
+							});
 
 							// DELETE UNIT BTN CLICKED
 							$('#propUnits tbody .deleteUnitBtn').click(function () {
@@ -1007,7 +1070,6 @@ noochForLandlords
 
         // Edit Property Details (Address, phone, etc.)
         $scope.updatePropInfo = function () {
-            console.log("TEST #1");
             if ($scope.editPropInfo == 1) {
 
                 // Preparing data to be sent for updating property
