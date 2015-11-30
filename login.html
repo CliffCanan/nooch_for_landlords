@@ -20,341 +20,279 @@
 </head>
 
 <body class="login-content" data-ng-controller="loginCtrl as lctrl">
-<script>
+    <script>
 
-    
-    function statusChangeCallback(response) {
-        console.log('statusChangeCallback');
-        console.log(response);
 
-        if (response.status === 'connected') {
-            // Logged into your app and Facebook.
-            getFBData();
-        } else if (response.status === 'not_authorized') {
-            // The person is logged into Facebook, but not your app.
-            //document.getElementById('status').innerHTML = 'Please log ' +
-            //  'into this app.';
-        } else {
-            // The person is not logged into Facebook, so we're not sure if
-            // they are logged into this app or not.
-            //document.getElementById('status').innerHTML = 'Please log ' +
-            //  'into Facebook.';
+
+        function statusChangeCallback(response) {
+            console.log('statusChangeCallback');
+            console.log(response);
+
+            if (response.status === 'connected') {
+                // Logged into your app and Facebook.
+                getFBData();
+            } else if (response.status === 'not_authorized') {
+                // The person is logged into Facebook, but not your app.
+                //document.getElementById('status').innerHTML = 'Please log ' +
+                //  'into this app.';
+            } else {
+                // The person is not logged into Facebook, so we're not sure if
+                // they are logged into this app or not.
+                //document.getElementById('status').innerHTML = 'Please log ' +
+                //  'into Facebook.';
+            }
         }
-    }
 
-    // This function is called when someone finishes with the Login
-    // Button.  See the onlogin handler attached to it in the sample
-    // code below.
-    function checkLoginState() {
-        FB.getLoginStatus(function (response) {
-            statusChangeCallback(response);
-        });
-        
-    }
+        // This function is called when someone finishes with the Login
+        // Button.  See the onlogin handler attached to it in the sample
+        // code below.
+        function checkLoginState() {
+            FB.getLoginStatus(function (response) {
+                statusChangeCallback(response);
+            });
 
-    window.fbAsyncInit = function () {
-        FB.init({
-            appId: '738390306293716',
-            cookie: true,  // enable cookies to allow the server to access
-            // the session
-            xfbml: true,  // parse social plugins on this page
-            version: 'v2.2' // use version 2.2
-        });
+        }
 
-        // Now that we've initialized the JavaScript SDK, we call
-        // FB.getLoginStatus().  This function gets the state of the
-        // person visiting this page and can return one of three states to
-        // the callback you provide.  They can be:
-        //
-        // 1. Logged into your app ('connected')
-        // 2. Logged into Facebook, but not your app ('not_authorized')
-        // 3. Not logged into Facebook and can't tell if they are logged into
-        //    your app or not.
-        //
-        // These three cases are handled in the callback function.
+        window.fbAsyncInit = function () {
+            FB.init({
+                appId: '738390306293716',
+                cookie: true,  // enable cookies to allow the server to access
+                // the session
+                xfbml: true,  // parse social plugins on this page
+                version: 'v2.2' // use version 2.2
+            });
 
-        //FB.getLoginStatus(function (response) {
-        //    statusChangeCallback(response);
-        //});
-
-    };
-
-    // Load the SDK asynchronously
-    (function (d, s, id) {
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) return;
-        js = d.createElement(s); js.id = id;
-        js.src = "//connect.facebook.net/en_US/sdk.js";
-        fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));
+        };
 
 
-    function getFBData() {
-        console.log('Welcome!  Fetching your information.... ');
-        FB.api('/me', function (response) {
-            console.log('Successful login for: ' + response.name);
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
 
 
-            //$('#fbUserEmail').val(response.email);
-            //$('#fbUserFirstName').val(response.first_name);
-            //$('#fbUserLastName').val(response.last_name);
-            //$('#fbUserGender').val(response.gender);
-            //$('#fbUserId').val(response.id);
+        function getFBData() {
 
-            // saving stuff in local storage that can survice page refresh after fb login
-            localStorage.setItem('fbUserEmail',response.email);
-            localStorage.setItem('fbUserFirstName',response.first_name);
-            localStorage.setItem('#fbUserLastName',response.last_name);
-            localStorage.setItem('fbUserGender',response.gender);
-            localStorage.setItem('fbUserId',response.id);
+            FB.api('/me', function (response) {
+
+                // saving stuff in local storage that can survice page refresh after fb login
+                localStorage.setItem('fbUserEmail', response.email);
+                localStorage.setItem('fbUserFirstName', response.first_name);
+                localStorage.setItem('#fbUserLastName', response.last_name);
+                localStorage.setItem('fbUserGender', response.gender);
+                localStorage.setItem('fbUserId', response.id);
 
 
-            FB.api(
-                "/" + response.id + "/picture?type=normal",
-                function (response2) {
-                    if (response2 && !response2.error) {
-                        /* handle the result */
-                        //document.getElementById('userImage').innerHTML = response2.data.url;
-                        localStorage.setItem('fbUserPhotoUrl',response2.data.url);
+                FB.api(
+                    "/" + response.id + "/picture?type=normal",
+                    function (response2) {
+                        if (response2 && !response2.error) {
+                            /* handle the result */
+                            //document.getElementById('userImage').innerHTML = response2.data.url;
+                            localStorage.setItem('fbUserPhotoUrl', response2.data.url);
 
-                        $('#loginwithFbForm').submit();
+                            $('#ffclick').trigger('click');
 
-                    }
-                });
-
-
-        });
+                        }
+                    });
 
 
-    }
-</script>
-    
-<input type="hidden" id="fbUserEmail" data-ng-model="FBLoginData.eMail"/>
-<input type="hidden" id="fbUserFirstName" data-ng-model="FBLoginData.firstName"/>
-<input type="hidden" id="fbUserLastName" data-ng-model="FBLoginData.lastName"/>
-<input type="hidden" id="fbUserGender" data-ng-model="FBLoginData.gender"/>
-<input type="hidden" id="fbUserId" data-ng-model="FBLoginData.fbUserId"/>
-<input type="hidden" id="fbUserPhotoUrl" data-ng-model="FBLoginData.fbPhotoUrl"/>
-    <form id="loginwithFbForm" class="p-relative" ng-submit="lctrl.loginWithFBAttmpt()"></form>
-        <div id="loginLogo">
-            <div class="animated bounceInDown">
-                <img src="img/nooch-logo.svg" />
-            </div>
+            });
+
+
+        }
+
+    </script>
+
+    <input type="hidden" id="fbUserEmail" data-ng-model="FBLoginData.eMail" />
+    <input type="hidden" id="fbUserFirstName" data-ng-model="FBLoginData.firstName" />
+    <input type="hidden" id="fbUserLastName" data-ng-model="FBLoginData.lastName" />
+    <input type="hidden" id="fbUserGender" data-ng-model="FBLoginData.gender" />
+    <input type="hidden" id="fbUserId" data-ng-model="FBLoginData.fbUserId" />
+    <input type="hidden" id="fbUserPhotoUrl" data-ng-model="FBLoginData.fbPhotoUrl" />
+    <input type="button" ng-click="lctrl.loginWithFBAttmpt()" style="display: none" id="ffclick" />
+    <div id="loginLogo">
+        <div class="animated bounceInDown">
+            <img src="img/nooch-logo.svg" />
         </div>
+    </div>
 
-        <!-- Login -->
-        <div class="lc-block animated fadeIn hidden" id="l-login">
+    <!-- Login -->
+    <div class="lc-block animated fadeIn hidden" id="l-login">
 
-            <p class="intro">Login</p>
+        <p class="intro">Login</p>
 
-            <form id="login" class="p-relative" ng-submit="lctrl.loginAttmpt()">
+        <form id="login" class="p-relative" ng-submit="lctrl.loginAttmpt()">
 
-                <div class="form-group fg-float" id="usernameGrp">
-                    <span><i class="md md-mail"></i></span>
-                    <div class="fg-line">
-                        <input id="username" type="text" class="input-lg form-control fg-input" data-ng-model="LoginData.username">
-                    </div>
-                    <label class="fg-label" for="username">Email</label>
+            <div class="form-group fg-float" id="usernameGrp">
+                <span><i class="md md-mail"></i></span>
+                <div class="fg-line">
+                    <input id="username" type="text" class="input-lg form-control fg-input" data-ng-model="LoginData.username">
                 </div>
-
-                <div class="form-group fg-float" id="pwGrp">
-                    <span><i class="md md-lock"></i></span>
-                    <div class="fg-line">
-                        <input id="pw" type="password" class="input-lg form-control fg-input" data-ng-model="LoginData.password">
-                    </div>
-                    <label class="fg-label" for="pw">Password</label>
-                    <a class="help-block forgotpw" data-ng-click="showBlock('forgotpw')">Forgot Password?</a>
-                </div>
-
-                <div class="clearfix"></div>
-
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" value="" id="rememberMeCheck">
-                        <i class="input-helper"></i>
-                        Keep me signed in
-                    </label>
-                </div>
-
-                <button type="submit" class="btn btn-login btn-primary btn-float" data-toggle="tooltip" data-placement="auto" data-title="SUBMIT"><i class="md md-arrow-forward"></i></button>
-
-            </form>
-
-            <div class="m-t-30">
-                <a class="f-00" data-ng-click="showBlock('signup')">Don't have an account? Sign up here</a>
-                <!--<fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
-                </fb:login-button>-->
-
+                <label class="fg-label" for="username">Email</label>
             </div>
 
+            <div class="form-group fg-float" id="pwGrp">
+                <span><i class="md md-lock"></i></span>
+                <div class="fg-line">
+                    <input id="pw" type="password" class="input-lg form-control fg-input" data-ng-model="LoginData.password">
+                </div>
+                <label class="fg-label" for="pw">Password</label>
+                <a class="help-block forgotpw" data-ng-click="showBlock('forgotpw')">Forgot Password?</a>
+            </div>
+
+            <div class="clearfix"></div>
+
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" value="" id="rememberMeCheck">
+                    <i class="input-helper"></i>
+                    Keep me signed in
+                </label>
+            </div>
+
+            <button type="submit" class="btn btn-login btn-primary btn-float" data-toggle="tooltip" data-placement="auto" data-title="SUBMIT"><i class="md md-arrow-forward"></i></button>
+
+        </form>
+
+        <div class="m-t-30">
+            <a class="f-00" data-ng-click="showBlock('signup')">Don't have an account? Sign up here</a> or
+            <fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
+            </fb:login-button>
+
+            <!--<input type="button" value="Login with FB" onclick="fblog();"/>-->
         </div>
 
+    </div>
 
-        <!-- Register -->
-        <div class="lc-block toggled animated fadeIn hidden" id="l-register">
 
-            <p class="intro">Sign Up</p>
+    <!-- Register -->
+    <div class="lc-block toggled animated fadeIn hidden" id="l-register">
 
-            <form id="reg" ng-submit="lctrl.registerAttmpt()" class="col-xs-12">
+        <p class="intro">Sign Up</p>
 
-                <div class="row">
-                    <div class="form-group fg-float halfwidth" id="fnameGrp">
-                        <span><i class="md md-person"></i></span>
+        <form id="reg" ng-submit="lctrl.registerAttmpt()" class="col-xs-12">
 
-                        <div class="fg-line">
-                            <input type="text" id="fname" class="input-lg form-control fg-input" data-ng-model="SignupData.firstName">
-                        </div>
-                        <label class="fg-label" for="fname">First Name</label>
+            <div class="row">
+                <div class="form-group fg-float halfwidth" id="fnameGrp">
+                    <span><i class="md md-person"></i></span>
+
+                    <div class="fg-line">
+                        <input type="text" id="fname" class="input-lg form-control fg-input" data-ng-model="SignupData.firstName">
                     </div>
-
-                    <div class="form-group fg-float halfwidth" id="lnameGrp">
-                        <div class="fg-line">
-                            <input type="text" id="lname" class="input-lg form-control fg-input" data-ng-model="SignupData.lastName">
-                        </div>
-                        <label class="fg-label push-over" for="lname">Last Name</label>
-                    </div>
+                    <label class="fg-label" for="fname">First Name</label>
                 </div>
 
-                <div class="row">
-                    <div class="form-group fg-float" id="emGrp">
-                        <span><i class="md md-mail"></i></span>
-                        <div class="fg-line">
-                            <input type="text" id="em" class="input-lg form-control fg-input" data-ng-model="SignupData.email">
-                        </div>
-                        <label class="fg-label" for="em">Email Address</label>
+                <div class="form-group fg-float halfwidth" id="lnameGrp">
+                    <div class="fg-line">
+                        <input type="text" id="lname" class="input-lg form-control fg-input" data-ng-model="SignupData.lastName">
                     </div>
+                    <label class="fg-label push-over" for="lname">Last Name</label>
                 </div>
+            </div>
 
-                <div class="row">
-                    <div class="form-group fg-float m-b-15" id="pwregGrp">
-                        <span><i class="md md-lock"></i></span>
-                        <div class="fg-line">
-                            <input type="password" id="pwreg" class="input-lg form-control fg-input" data-ng-model="SignupData.pass">
-                        </div>
-                        <label class="fg-label" for="pwreg">Password</label>
-                    </div>
-                </div>
-
-                <div class="clearfix"></div>
-
-                <div class="row">
-                    <div class="checkbox" id="tosboxGrp" checked="false">
-                        <label data-ng-click="tosClicked()" class="f-300">
-                            <input type="checkbox">
-                            <i class="input-helper"></i>
-                            I agree to Nooch's <a href="https://www.nooch.com/tos" target="_blank">Terms of Service</a>.
-                        </label>
-                    </div>
-                </div>
-
-                <!--<button id="createAccnt" type="submit" class="btn btn-login btn-success btn-float animated"><i class="md md-arrow-forward"></i></button>-->
-
-                <div class="row">
-                    <button id="createAccnt" type="submit" class="btn btn-lg m-t-20 btn-success animated">Create Account</button>
-
-                    <div class="m-t-20">
-                        <a data-block="#l-login" class="" data-ng-click="showBlock('login')">Already have an account? Sign in<i class="md md-arrow-forward m-l-5"></i></a>
-                    </div>
-                </div>
-
-            </form>
-
-        </div>
-
-
-        <!-- Forgot Password -->
-        <div class="lc-block animated fadeIn hidden" id="l-forget-password">
-
-            <form id="forgotpw" ng-submit="lctrl.forgotPwAttmpt()">
-
-                <p class="text-left f-19">Please enter your email address below. If a Nooch account exists for that email, we will send you a a reset password link.</p>
-
-                <div class="form-group fg-float m-t-25 m-b-35" id="emforgotGrp">
+            <div class="row">
+                <div class="form-group fg-float" id="emGrp">
                     <span><i class="md md-mail"></i></span>
                     <div class="fg-line">
-                        <input type="text" id="emforgot" class="input-lg form-control fg-input" data-ng-model="LoginData.forgotPassword">
+                        <input type="text" id="em" class="input-lg form-control fg-input" data-ng-model="SignupData.email">
                     </div>
                     <label class="fg-label" for="em">Email Address</label>
                 </div>
+            </div>
 
-                <button type="submit" class="btn btn-login btn-primary btn-float"><i class="md md-arrow-forward"></i></button>
+            <div class="row">
+                <div class="form-group fg-float m-b-15" id="pwregGrp">
+                    <span><i class="md md-lock"></i></span>
+                    <div class="fg-line">
+                        <input type="password" id="pwreg" class="input-lg form-control fg-input" data-ng-model="SignupData.pass">
+                    </div>
+                    <label class="fg-label" for="pwreg">Password</label>
+                </div>
+            </div>
+
+            <div class="clearfix"></div>
+
+            <div class="row">
+                <div class="checkbox" id="tosboxGrp" checked="false">
+                    <label data-ng-click="tosClicked()" class="f-300">
+                        <input type="checkbox">
+                        <i class="input-helper"></i>
+                        I agree to Nooch's <a href="https://www.nooch.com/tos" target="_blank">Terms of Service</a>.
+                    </label>
+                </div>
+            </div>
+
+            <!--<button id="createAccnt" type="submit" class="btn btn-login btn-success btn-float animated"><i class="md md-arrow-forward"></i></button>-->
+
+            <div class="row">
+                <button id="createAccnt" type="submit" class="btn btn-lg m-t-20 btn-success animated">Create Account</button>
 
                 <div class="m-t-20">
-                    <button class="btn btn-default pull-left" data-ng-click="showBlock('login')"><i class="md md-arrow-back m-r-5"></i> Back</button>
+                    <a data-block="#l-login" class="" data-ng-click="showBlock('login')">Already have an account? Sign in<i class="md md-arrow-forward m-l-5"></i></a>
                 </div>
-
-            </form>
-
-        </div>
-
-
-        <!-- Older IE warning message -->
-        <!--[if lt IE 9]>
-            <div class="ie-warning">
-                <h1 class="c-white">Warning!!</h1>
-                <p>You are using an outdated version of Internet Explorer, please upgrade <br/>to any of the following web browsers to access this website.</p>
-                <div class="iew-container">
-                    <ul class="iew-download">
-                        <li>
-                            <a href="http://www.google.com/chrome/">
-                                <img src="img/browsers/chrome.png" alt="">
-                                <div>Chrome</div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://www.mozilla.org/en-US/firefox/new/">
-                                <img src="img/browsers/firefox.png" alt="">
-                                <div>Firefox</div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="http://www.opera.com">
-                                <img src="img/browsers/opera.png" alt="">
-                                <div>Opera</div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://www.apple.com/safari/">
-                                <img src="img/browsers/safari.png" alt="">
-                                <div>Safari</div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="http://windows.microsoft.com/en-us/internet-explorer/download-ie">
-                                <img src="img/browsers/ie.png" alt="">
-                                <div>IE (New)</div>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <p>Sorry for the inconvenience!</p>
             </div>
-        <![endif]-->
-        <!-- Core -->
-        <script src="vendors/bower_components/jquery/dist/jquery.min.js"></script>
-        <script src="vendors/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 
-        <!-- Angular -->
-        <script src="vendors/angular/angular.min.js"></script>
-        <script src="vendors/angular/angular-route.min.js"></script>
-        <script src="vendors/angular/angular-resource.min.js"></script>
-        <script src="vendors/angular/angular-animate.min.js"></script>
+        </form>
 
-        <script src="vendors/bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
-        <script src="vendors/bower_components/angular-loading-bar/src/loading-bar.js"></script>
-        <script src="vendors/bower_components/oclazyload/dist/ocLazyLoad.min.js"></script>
+    </div>
 
-        <script src="vendors/bower_components/sweetalert/dist/sweetalert.min.js"></script>
-        <script src="vendors/blockUI/blockui.min.js"></script>
-        <script src="vendors/bower_components/fingerprintjs2/dist/fingerprint2.min.js"></script>
 
-        <!-- App level -->
-        <script src="js/app.js"></script>
-        <script src="js/config.js"></script>
-        <script src="js/controllers.js"></script>
-        <script src="js/services.js"></script>
-        <script src="js/appSettings.js"></script>
-        <script src="js/modules/form.js"></script>
+    <!-- Forgot Password -->
+    <div class="lc-block animated fadeIn hidden" id="l-forget-password">
+
+        <form id="forgotpw" ng-submit="lctrl.forgotPwAttmpt()">
+
+            <p class="text-left f-19">Please enter your email address below. If a Nooch account exists for that email, we will send you a a reset password link.</p>
+
+            <div class="form-group fg-float m-t-25 m-b-35" id="emforgotGrp">
+                <span><i class="md md-mail"></i></span>
+                <div class="fg-line">
+                    <input type="text" id="emforgot" class="input-lg form-control fg-input" data-ng-model="LoginData.forgotPassword">
+                </div>
+                <label class="fg-label" for="em">Email Address</label>
+            </div>
+
+            <button type="submit" class="btn btn-login btn-primary btn-float"><i class="md md-arrow-forward"></i></button>
+
+            <div class="m-t-20">
+                <button class="btn btn-default pull-left" data-ng-click="showBlock('login')"><i class="md md-arrow-back m-r-5"></i> Back</button>
+            </div>
+
+        </form>
+
+    </div>
+
+
+
+    <!-- Core -->
+    <script src="vendors/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="vendors/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <!-- Angular -->
+    <script src="vendors/angular/angular.min.js"></script>
+    <script src="vendors/angular/angular-route.min.js"></script>
+    <script src="vendors/angular/angular-resource.min.js"></script>
+    <script src="vendors/angular/angular-animate.min.js"></script>
+
+    <script src="vendors/bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+    <script src="vendors/bower_components/angular-loading-bar/src/loading-bar.js"></script>
+    <script src="vendors/bower_components/oclazyload/dist/ocLazyLoad.min.js"></script>
+
+    <script src="vendors/bower_components/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="vendors/blockUI/blockui.min.js"></script>
+    <script src="vendors/bower_components/fingerprintjs2/dist/fingerprint2.min.js"></script>
+
+    <!-- App level -->
+    <script src="js/app.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/controllers.js"></script>
+    <script src="js/services.js"></script>
+    <script src="js/appSettings.js"></script>
+    <script src="js/modules/form.js"></script>
 
 
 
