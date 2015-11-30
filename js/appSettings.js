@@ -1,4 +1,4 @@
-var PATH = 'http://noochme.com/landlords/db/api/';
+var PATH = 'https://noochme.com/landlords/db/api/';
 //var PATH = 'http://localhost:42865/db/api/';
 
 var URLs = {

@@ -4511,18 +4511,18 @@ noochForLandlords
                                 }
                             });
 
-                            var ipResults = getIP();
+                           // var ipResults = getIP();
 
-                            var ip = "";
-                            var country_code = "";
-                            if (ipResults != null) {
-                                if (ipResults.ip != null) {
-                                    ip = ipResults.ip;
-                                }
-                                if (ipResults.country_code != null) {
-                                    country_code = ipResults.country_code;
-                                }
-                            }
+                            var ip = "54.148.37.21";
+                            var country_code = "US";
+                            //if (ipResults != null) {
+                            //    if (ipResults.ip != null) {
+                            //        ip = ipResults.ip;
+                            //    }
+                            //    if (ipResults.country_code != null) {
+                            //        country_code = ipResults.country_code;
+                            //    }
+                            //}
                             console.log("IP is: " + ip + ", and Country is : " + country_code);
 
 
