@@ -4335,6 +4335,12 @@ noochForLandlords
                 }
             })
 
+            $scope.isBusiness = $('#biz').is(':checked');
+
+            $('#biz').on('change', function () {
+                $scope.isBusiness = $('#biz').is(':checked');
+            });
+
             if (getParameterByName("from") == "lp1" &&
                 getParameterByName("em") != "") {
                 $('#username').val(''); // Username in Login block
@@ -4526,7 +4532,6 @@ noochForLandlords
                             console.log("IP is: " + ip + ", and Country is : " + country_code);
 
 
-
                             authenticationService.FBLogin($scope.FBLoginData.eMail, $scope.FBLoginData.firstName, $scope.FBLoginData.lastName, $scope.FBLoginData.gender,
                                 $scope.FBLoginData.fbPhotoUrl, ip, 'fingerprint', $scope.FBLoginData.fbUserId, function (response) {
                                     authenticationService.ClearUserData();
@@ -4551,12 +4556,9 @@ noochForLandlords
                                             }, 200);
                                         });
 
-
                                         console.log('Sign In Error: ' + response.ErrorMessage);
                                     }
                                 });
-
-
                         }
                         else {
                             swal({
@@ -4566,7 +4568,6 @@ noochForLandlords
                                 type: "error"
                             });
                         }
-
                     }
                     else {
                         swal({
@@ -4576,7 +4577,6 @@ noochForLandlords
                             type: "error"
                         });
                     }
-
                 }
                 else {
                     swal({
@@ -4763,6 +4763,7 @@ noochForLandlords
             var lName = $scope.SignupData.lastName;
             var email = $scope.SignupData.email;
             var pw = $scope.SignupData.pass;
+            var isBiz = $scope.isBusiness;
 
             // Check Name fields for length
             if (fName && fName.length > 1) {
@@ -4822,7 +4823,7 @@ noochForLandlords
                                 console.log("IP is: " + ip + ", and Country is : " + country_code);
 
                                 // Now call service to register a new Landlord user
-                                authenticationService.RegisterLandlord($scope.SignupData.firstName, $scope.SignupData.lastName, $scope.SignupData.email, $scope.SignupData.pass, $scope.fngrprnt, ip, country_code, function (response) {
+                                authenticationService.RegisterLandlord($scope.SignupData.firstName, $scope.SignupData.lastName, $scope.SignupData.email, $scope.SignupData.pass, $scope.fngrprnt, ip, country_code, isBiz, function (response) {
                                     console.log(response);
                                     regForm.unblock();
 

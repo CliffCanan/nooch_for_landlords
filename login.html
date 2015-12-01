@@ -21,9 +21,6 @@
 
 <body class="login-content" data-ng-controller="loginCtrl as lctrl">
     <script>
-
-
-
         function statusChangeCallback(response) {
             console.log('statusChangeCallback');
             console.log(response);
@@ -50,7 +47,6 @@
             FB.getLoginStatus(function (response) {
                 statusChangeCallback(response);
             });
-
         }
 
         window.fbAsyncInit = function () {
@@ -61,9 +57,7 @@
                 xfbml: true,  // parse social plugins on this page
                 version: 'v2.2' // use version 2.2
             });
-
         };
-
 
         (function (d, s, id) {
             var js, fjs = d.getElementsByTagName(s)[0];
@@ -73,18 +67,15 @@
             fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));
 
-
         function getFBData() {
-
             FB.api('/me', function (response) {
 
-                // saving stuff in local storage that can survice page refresh after fb login
+                // saving stuff in local storage that can survive page refresh after fb login
                 localStorage.setItem('fbUserEmail', response.email);
                 localStorage.setItem('fbUserFirstName', response.first_name);
                 localStorage.setItem('#fbUserLastName', response.last_name);
                 localStorage.setItem('fbUserGender', response.gender);
                 localStorage.setItem('fbUserId', response.id);
-
 
                 FB.api(
                     "/" + response.id + "/picture?type=normal",
@@ -95,16 +86,10 @@
                             localStorage.setItem('fbUserPhotoUrl', response2.data.url);
 
                             $('#ffclick').trigger('click');
-
                         }
                     });
-
-
             });
-
-
         }
-
     </script>
 
     <input type="hidden" id="fbUserEmail" data-ng-model="FBLoginData.eMail" />
@@ -114,6 +99,8 @@
     <input type="hidden" id="fbUserId" data-ng-model="FBLoginData.fbUserId" />
     <input type="hidden" id="fbUserPhotoUrl" data-ng-model="FBLoginData.fbPhotoUrl" />
     <input type="button" ng-click="lctrl.loginWithFBAttmpt()" style="display: none" id="ffclick" />
+    
+    
     <div id="loginLogo">
         <div class="animated bounceInDown">
             <img src="img/nooch-logo.svg" />
@@ -159,11 +146,10 @@
         </form>
 
         <div class="m-t-30">
-            <a class="f-00" data-ng-click="showBlock('signup')">Don't have an account? Sign up here</a> or
+            <a class="f-00" data-ng-click="showBlock('signup')">Don't have an account? Sign up here</a>
+            <!--or
             <fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
-            </fb:login-button>
-
-            <!--<input type="button" value="Login with FB" onclick="fblog();"/>-->
+            </fb:login-button>-->
         </div>
 
     </div>
@@ -172,9 +158,19 @@
     <!-- Register -->
     <div class="lc-block toggled animated fadeIn hidden" id="l-register">
 
-        <p class="intro">Sign Up</p>
-
         <form id="reg" ng-submit="lctrl.registerAttmpt()" class="col-xs-12">
+            
+            <p class="intro col-xs-12">Sign Up</p>
+            
+            <div class="row">
+                <div class="pull-right m-b-15">
+                    <div class="toggle-switch" data-ts-color="blue">
+                        <span style="display:inline-block;" class="m-r-10">Business Account?&nbsp;</span>
+                        <input id="biz" type="checkbox" hidden="hidden">
+                        <label for="biz" class="ts-helper"></label>
+                    </div>
+                </div>
+            </div>
 
             <div class="row">
                 <div class="form-group fg-float halfwidth" id="fnameGrp">

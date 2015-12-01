@@ -433,7 +433,7 @@ noochForLandlords
         };
 
 
-        Operations.RegisterLandlord = function (firstName, lastName, username, password, fingerprint, ip, country, callback) {
+        Operations.RegisterLandlord = function (firstName, lastName, username, password, fingerprint, ip, country, isBiz, callback) {
 
             var data = {};
             data.FirstName = firstName;
@@ -443,6 +443,8 @@ noochForLandlords
             data.fingerprint = fingerprint;
             data.ip = ip;
             data.country = country;
+            data.isBusiness = isBiz;
+            data.shouldSendEmails = true;
 
             console.log("Register Input: [" + JSON.stringify(data) + "]");
 
