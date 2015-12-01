@@ -1,7 +1,6 @@
 var PATH = 'https://noochme.com/landlords/db/api/';
-//var PATH = 'http://localhost:42865/db/api/';
-
 var URLs = {
+    LoginWithGoogle: PATH + 'Users/LoginWithGoogle',
     LoginWithFB: PATH + 'Users/LoginWithFB',
     Login: PATH + 'Users/Login',
     Register: PATH + 'Users/RegisterLandlord',

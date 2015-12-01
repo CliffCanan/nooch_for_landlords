@@ -432,6 +432,25 @@ noochForLandlords
                 });
         };
 
+        Operations.GoogleLogin = function (email, name, photoUrl, ip, fingerprint, googleUserId, callback) {
+
+            var data = {};
+            data.Name = name;
+            data.eMail = email;
+            data.Gender = '';
+            data.PhotoUrl = photoUrl;
+            data.GoogleUserId = googleUserId;
+            data.UserFingerPrints = fingerprint;
+            data.Ip = ip;
+
+            console.log(data);
+
+            $http.post(URLs.LoginWithGoogle, data)
+                .success(function (response) {
+                    callback(response);
+                });
+        };
+
 
         Operations.RegisterLandlord = function (firstName, lastName, username, password, fingerprint, ip, country, isBiz, callback) {
 

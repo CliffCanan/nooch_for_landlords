@@ -4305,6 +4305,14 @@ noochForLandlords
             fbPhotoUrl: ''
         };
 
+
+        $scope.GoogleLoginData = {
+            eMail: '',
+            Name: '',
+            GoogleUserId: '',
+            GooglePhotoUrl: ''
+        };
+
         $scope.LoginData = {
             password: '',
             username: '',
@@ -4591,6 +4599,117 @@ noochForLandlords
                 swal({
                     title: "Oh No!",
                     text: "Looks like permission related problem with your email from Facebook.  Please try re login with Facebook.",
+                    customClass: 'largeText',
+                    type: "error"
+                });
+            }
+        }
+
+
+        this.loginWithGoogleAttmpt = function () {
+
+            // setting stuff from local storage
+            $scope.GoogleLoginData.eMail = $('#googleUserEmail').val();
+            $scope.GoogleLoginData.Name = $('#googleUserName').val();
+            $scope.GoogleLoginData.GooglePhotoUrl = $('#googleImageUrl').val();
+            $scope.GoogleLoginData.GoogleUserId = $('#googleUserId').val();
+            
+
+
+            // Check Username (email) field for length
+            if ($scope.GoogleLoginData.eMail.length > 0) {
+
+
+                if ($scope.GoogleLoginData.Name.length > 0) {
+
+                    
+
+                    if ($scope.GoogleLoginData.GoogleUserId.length > 0) {
+
+                            // ADD THE LOADING BOX
+                            $('form#login').block({
+                                message: '<span><i class="fa fa-refresh fa-spin fa-loading"></i></span><br/><span class="loadingMsg">Attempting login...</span>',
+                                css: {
+                                    border: 'none',
+                                    padding: '26px 10px 23px',
+                                    backgroundColor: '#000',
+                                    '-webkit-border-radius': '14px',
+                                    '-moz-border-radius': '14px',
+                                    'border-radius': '14px',
+                                    opacity: '.75',
+                                    width: '86%',
+                                    left: '7%',
+                                    top: '25px',
+                                    color: '#fff'
+                                }
+                            });
+
+                            // var ipResults = getIP();
+
+                            var ip = "54.148.37.21";
+                            var country_code = "US";
+                            //if (ipResults != null) {
+                            //    if (ipResults.ip != null) {
+                            //        ip = ipResults.ip;
+                            //    }
+                            //    if (ipResults.country_code != null) {
+                            //        country_code = ipResults.country_code;
+                            //    }
+                            //}
+                            console.log("IP is: " + ip + ", and Country is : " + country_code);
+
+
+                        authenticationService.GoogleLogin($scope.GoogleLoginData.eMail, $scope.GoogleLoginData.Name, $scope.GoogleLoginData.GooglePhotoUrl, ip,'fingerprint',
+                                $scope.GoogleLoginData.GoogleUserId,  function (response) {
+                                    authenticationService.ClearUserData();
+                                    $('form#login').unblock();
+
+                                    console.log(response);
+
+                                    if (response.IsSuccess == true) {
+                                        
+                                        authenticationService.SetUserDetails($scope.GoogleLoginData.eMail, response.MemberId, response.LandlordId, response.AccessToken);
+                                        window.location.href = 'index.html#/home';
+                                    }
+                                    else {
+                                        swal({
+                                            title: "Oh No!",
+                                            text: response.ErrorMessage,
+                                            customClass: 'largeText',
+                                            type: "error"
+                                        }, function () {
+                                            setTimeout(function () {
+
+                                            }, 200);
+                                        });
+
+                                        console.log('Sign In Error: ' + response.ErrorMessage);
+                                    }
+                                });
+                        }
+                        else {
+                            swal({
+                                title: "Oh No!",
+                                text: "Looks like permission related problem with your google id.  Please try re login with Google.",
+                                customClass: 'largeText',
+                                type: "error"
+                            });
+                        }
+                 
+                }
+                else {
+                    swal({
+                        title: "Oh No!",
+                        text: "Looks like permission related problem with your name from Google.  Please try re login with Google.",
+                        customClass: 'largeText',
+                        type: "error"
+                    });
+                }
+            }
+            else {
+                swal({
+                    title: "Oh No!",
+                    text: "Looks like permission related problem with your email from Google.  Please try re login with Google.",
                     customClass: 'largeText',
                     type: "error"
                 });

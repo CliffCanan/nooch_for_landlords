@@ -17,9 +17,13 @@
     <link href="css/app.min.1.css" rel="stylesheet">
     <link href="css/app.min.2.css" rel="stylesheet">
     <link href="css/custom.css" rel="stylesheet">
+
+    <meta name="google-signin-scope" content="profile email">
+    <meta name="google-signin-client_id" content="165089782996-6809k5mh5qbaa5hc0em0pkdm09heo9me.apps.googleusercontent.com">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
 </head>
 
-<body class="login-content" data-ng-controller="loginCtrl as lctrl">
+<body class="login-content" data-ng-controller="loginCtrl as lctrl" onload="removeGoogleSession()">
     <script>
         function statusChangeCallback(response) {
             console.log('statusChangeCallback');
@@ -92,15 +96,58 @@
         }
     </script>
 
+
+
+    <script type="text/javascript">
+
+        function removeGoogleSession() {
+            window.onbeforeunload = function (e) {
+                var auth2 = gapi.auth2.getAuthInstance();
+                auth2.signOut().then(function () {
+                    //console.log('User signed out.');
+                });
+            };
+        };
+
+
+
+        function onSignIn(googleUser) {
+            // Useful data for your client-side scripts:
+            var profile = googleUser.getBasicProfile();
+            //console.log("ID: " + profile.getId()); 
+            //console.log("Name: " + profile.getName());
+            //console.log("Image URL: " + profile.getImageUrl());
+            //console.log("Email: " + profile.getEmail());
+
+            
+            //var id_token = googleUser.getAuthResponse().id_token;
+            //console.log("ID Token: " + id_token);
+            $('#googleUserId').val(profile.getId());
+            $('#googleUserName').val(profile.getName());
+            $('#googleImageUrl').val(profile.getImageUrl());
+            $('#googleUserEmail').val(profile.getEmail());
+
+            $('#googleclick').trigger('click');
+        };
+    </script>
+
+
+    <input type="hidden" id="googleUserEmail" data-ng-model="GoogleLoginData.eMail" />
+    <input type="hidden" id="googleUserName" data-ng-model="GoogleLoginData.Name" />
+    <input type="hidden" id="googleImageUrl" data-ng-model="GoogleLoginData.GooglePhotoUrl" />
+    <input type="hidden" id="googleUserId" data-ng-model="GoogleLoginData.GoogleUserId" />
+
+
     <input type="hidden" id="fbUserEmail" data-ng-model="FBLoginData.eMail" />
     <input type="hidden" id="fbUserFirstName" data-ng-model="FBLoginData.firstName" />
     <input type="hidden" id="fbUserLastName" data-ng-model="FBLoginData.lastName" />
     <input type="hidden" id="fbUserGender" data-ng-model="FBLoginData.gender" />
     <input type="hidden" id="fbUserId" data-ng-model="FBLoginData.fbUserId" />
     <input type="hidden" id="fbUserPhotoUrl" data-ng-model="FBLoginData.fbPhotoUrl" />
-    <input type="button" ng-click="lctrl.loginWithFBAttmpt()" style="display: none" id="ffclick" />
-    
-    
+<input type="button" ng-click="lctrl.loginWithFBAttmpt()" style="display: none" id="ffclick"/>
+    <input type="button" ng-click="lctrl.loginWithGoogleAttmpt()" style="display: none" id="googleclick" />
+
+
     <div id="loginLogo">
         <div class="animated bounceInDown">
             <img src="img/nooch-logo.svg" />
@@ -147,9 +194,11 @@
 
         <div class="m-t-30">
             <a class="f-00" data-ng-click="showBlock('signup')">Don't have an account? Sign up here</a>
-            <!--or
+            or
             <fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
-            </fb:login-button>-->
+            </fb:login-button>
+            or
+            <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
         </div>
 
     </div>
@@ -159,9 +208,9 @@
     <div class="lc-block toggled animated fadeIn hidden" id="l-register">
 
         <form id="reg" ng-submit="lctrl.registerAttmpt()" class="col-xs-12">
-            
+
             <p class="intro col-xs-12">Sign Up</p>
-            
+
             <div class="row">
                 <div class="pull-right m-b-15">
                     <div class="toggle-switch" data-ts-color="blue">
@@ -289,6 +338,8 @@
     <script src="js/services.js"></script>
     <script src="js/appSettings.js"></script>
     <script src="js/modules/form.js"></script>
+
+
 
 
 
