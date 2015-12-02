@@ -463,7 +463,7 @@ noochForLandlords
             data.ip = ip;
             data.country = country;
             data.isBusiness = isBiz;
-            data.shouldSendEmails = true;
+            data.shouldSendEmails = false;
 
             console.log("Register Input: [" + JSON.stringify(data) + "]");
 
