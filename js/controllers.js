@@ -472,13 +472,17 @@ noochForLandlords
                                             //console.log(dueDate);
 
                                             var amountArray = data.split(".");
+                                            var dollarVal = amountArray[0];
+                                            var centsVal = typeof amountArray[1] == "undefined" ? "00" : amountArray[1];
 
-                                            if (dueDate != null && dueDate.length > 2) {
-                                                htmlToDisplay = "<div class='wholeAmount'>$&nbsp;" + amountArray[0] + ".<span class='cents'>" + amountArray[1] + "</span></div>" +
+                                            if (dueDate != null && dueDate.length > 2)
+                                            {
+                                                htmlToDisplay = "<div class='wholeAmount'>$&nbsp;" + dollarVal + ".<span class='cents'>" + centsVal + "</span></div>" +
                                                                 "<div><small>Due: <span class='f-400'>" + dueDate + "</span></small></div>";
                                             }
-                                            else {
-                                                htmlToDisplay = "<div class='wholeAmount'>$&nbsp;" + amountArray[0] + ".<span class='cents'>" + amountArray[1] + "</span></div>";
+                                            else
+                                            {
+                                                htmlToDisplay = "<div class='wholeAmount'>$&nbsp;" + dollarVal + ".<span class='cents'>" + centsVal + "</span></div>";
                                             }
                                             return htmlToDisplay;
                                         }
@@ -696,9 +700,23 @@ noochForLandlords
                                 $('#addUnitModal #monthlyRentGrp').removeClass('has-error').removeClass('has-success');
                                 $('#addUnitModal #monthlyRent').val(data['UnitRent']);
 
-                                var shouldUseCurrentDate = data['DateAdded'] != null && data['DateAdded'].length > 2 ? false : true;
-                                var dateToUse = shouldUseCurrentDate == false ? data['DateAdded'] : new Date();
+                                // Set RentStartDate field
+                                var shouldUseCurrentDate = data['RentStartDate'] != null && data['RentStartDate'].length > 2
+                                                           ? false
+                                                           : true;
+                                var dateToUse = shouldUseCurrentDate == false
+                                                ? data['RentStartDate']
+                                                : data['DateAdded'];
 
+                                // Set LeaseLength field
+                                var leaseLength = data['LeaseLength'] != null
+                                                  ? data['LeaseLength']
+                                                  : "";
+
+                                //if (leaseLength == "6 Months")
+                                //{
+                                $('#rentDurationInMonths').value = "6";
+                                //}
 
                                 $('#addUnitDatePicker').datetimepicker({
                                     format: 'MM/DD/YYYY',
@@ -955,7 +973,6 @@ noochForLandlords
                                                         if (wasThisUnitOccupied) {
                                                             $scope.selectedProperty.tenants -= 1;
                                                         }
-
 
                                                         swal({
                                                             title: "Unit Removed",
@@ -1403,7 +1420,8 @@ noochForLandlords
         $scope.addUnit_submit = function () {
             // Check Unit Number field for length
             if ($('#addUnitModal #unitNum').val().length > 0 ||
-                $('#addUnitModal #nickname').val().length > 0) {
+                $('#addUnitModal #nickname').val().length > 0)
+            {
                 var trimmedUnitNum = $('#addUnitModal #unitNum').val().trim();
                 $('#addUnitModal #unitNum').val(trimmedUnitNum);
 
@@ -1414,8 +1432,10 @@ noochForLandlords
                 updateValidationUi("nickname", true);
 
                 // Now check Monthly Rent Amount field
-                if ($('#addUnitModal #monthlyRent').val().length > 3) {
-                    if ($('#addUnitModal #monthlyRent').val() < 100) {
+                if ($('#addUnitModal #monthlyRent').val().length > 2)
+                {
+                    if ($('#addUnitModal #monthlyRent').val() < 100)
+                    {
                         swal({
                             title: "Set Rent to $" + $('#addUnitModal #monthlyRent').val() + "?",
                             text: "You are about to set the rent for this unit to <strong>$" + $('#addUnitModal #monthlyRent').val() + "</strong>. &nbsp;Is that correct?",
@@ -1450,6 +1470,7 @@ noochForLandlords
                 updateValidationUi("unitNum", false);
             }
         }
+
         $scope.addUnit_submitToService = function () {
             updateValidationUi("monthlyRent", true);
 
@@ -2482,7 +2503,6 @@ noochForLandlords
                 {
                     //authenticationService.ClearUserData();
                     window.location.href = 'login.html';
-                    //alert('Auth token failure 1');
                 }
             });
         }
@@ -2588,93 +2608,52 @@ noochForLandlords
                 MemberId: $scope.userInfoInSession.memberId
             };
 
-            if (item === 'personalInfo') {
+            var userInfo = {};
 
-                var userInfo = {
-                    fullName: $scope.userInfo.fullName,
-                    birthDay: $scope.userInfo.birthDay,
-                    InfoType: 'Personal'
-                };
-
-                getProfileService.UpdateInfo(userInfo, deviceInfo, function (response) {
-
-                    if (response.IsSuccess == true) {
-                        growlService.growl('Profile info updated successfully!', 'success');
-                    }
-                    else {
-                        growlService.growl(response.ErrorMessage, 'danger');
-                    }
-
-                });
+            if (item === 'personalInfo')
+            {
+                userInfo.fullName = $scope.userInfo.fullName;
+                userInfo.birthDay = $scope.userInfo.birthDay;
+                userInfo.InfoType = 'Personal';
 
                 this.editPersonalInfo = 0;
             }
-
-            if (item === 'businessInfo') {
-
-                var userInfo = {
-                    companyName: $scope.company.name,
-                    compein: $scope.company.ein,
-                    InfoType: 'Company'
-                }
-
-                getProfileService.UpdateInfo(userInfo, deviceInfo, function (response) {
-
-                    if (response.IsSuccess == true) {
-                        growlService.growl('Company info updated successfully!', 'success');
-                    }
-                    else {
-                        growlService.growl(response.ErrorMessage, 'danger');
-                    }
-                });
-
+            else if (item === 'businessInfo')
+            {
+                userInfo.companyName = $scope.company.name;
+                userInfo.compein = $scope.company.ein;
+                userInfo.InfoType = 'Company';
 
                 this.editBusinessInfo = 0;
             }
+            else if (item === 'contactInfo') {
 
-            if (item === 'contactInfo') {
-
-                var userInfo = {
-                    email: $scope.userInfo.emailAddress,
-                    mobileNum: $scope.userInfo.mobileNumber,
-                    InfoType: 'Contact',
-                    addressLine1: $scope.userInfo.address1,
-                    twitterHandle: $scope.userInfo.twitter
-                }
-
-                getProfileService.UpdateInfo(userInfo, deviceInfo, function (response) {
-
-                    if (response.IsSuccess == true) {
-                        growlService.growl('Contact info updated successfully!', 'success');
-                    }
-                    else {
-                        growlService.growl(response.ErrorMessage, 'danger');
-                    }
-                });
+                userInfo.email = $scope.userInfo.emailAddress;
+                userInfo.mobileNum = $scope.userInfo.mobileNumber;
+                userInfo.InfoType = 'Contact';
+                userInfo.addressLine1 = $scope.userInfo.address1;
+                userInfo.twitterHandle = $scope.userInfo.twitter;
 
                 this.editContactInfo = 0;
             }
-
-            if (item === 'socialInfo') {
-
-                var userInfo = {
-                    fb: $scope.userInfo.fb,
-                    twitterHandle: $scope.userInfo.twitter,
-                    InfoType: 'Social',
-                    insta: $scope.userInfo.insta
-                }
-
-                getProfileService.UpdateInfo(userInfo, deviceInfo, function (response) {
-                    if (response.IsSuccess == true) {
-                        growlService.growl('Social netowrk info updated successfully!', 'success');
-                    }
-                    else {
-                        growlService.growl(response.ErrorMessage, 'danger');
-                    }
-                });
+            else if (item === 'socialInfo')
+            {
+                userInfo.fb = $scope.userInfo.fb;
+                userInfo.twitterHandle = $scope.userInfo.twitter;
+                userInfo.InfoType = 'Social';
+                userInfo.insta = $scope.userInfo.insta;
 
                 this.editSocialInfo = 0;
             }
+
+            getProfileService.UpdateInfo(userInfo, deviceInfo, function (response) {
+                if (response.IsSuccess == true) {
+                    growlService.growl(userInfo.InfoType + ' info updated successfully!', 'success');
+                }
+                else {
+                    growlService.growl(response.ErrorMessage, 'danger');
+                }
+            });
         }
 
         $scope.editProfilePic = function () {
@@ -2741,7 +2720,7 @@ noochForLandlords
             $('#profilePicFileInput').fileinput('upload'); // This should automatically call the URL specified in 'uploadUrl' parameter above
         }
 
-        //console.log("$rootScope.isIdVerified... (2463):");
+        //console.log("$rootScope.isIdVerified... (2702):");
         //console.log($rootScope.isIdVerified);
 
 
@@ -2798,12 +2777,8 @@ noochForLandlords
 
 
                         var calendarIcon = $('#idVerForm1 .md-event');
-                        //$compile(calendarIcon)($scope);
-                        calendarIcon.click(function () {
-                            console.log("FOCUS REACHED!");
-                            //$('#idVer-dob').data("DateTimePicker").show();
-                            //$('#idVer-dob').focus();
 
+                        calendarIcon.click(function () {
                             setTimeout(function () {
                                 $('#dobGrp .dtp-container.dropdown').addClass('fg-toggled open');
                                 $('#idVer-dob').data("DateTimePicker").show();

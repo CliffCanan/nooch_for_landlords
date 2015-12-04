@@ -142,19 +142,24 @@
                                         </div>
 
                                         <dl class="dl-horizontal" id="nameGrp">
-                                            <dt class="p-t-10">Legal Name</dt>
+                                            <dt class="p-t-10 withIcon">
+                                                Legal Name<br/>
+                                                <i class="md md-info-outline m-l-5" data-trigger="hover" data-toggle="popover" data-placement="auto" data-content="Please enter YOUR legal name. This should be the same name as it is listed on your bank account." data-original-title="Your Legal Name"></i>
+                                            </dt>
                                             <dd>
                                                 <div class="form-group">
                                                     <div class="fg-line">
                                                         <input id="idVer-name" data-ng-model="userInfo.fullName" type="text" class="form-control capitalize" value="{{ userInfo.fullName }}" placeholder="eg. Arnold Palmer" maxlength="40" required />
-                                                        <i class="md md-info-outline m-l-10" data-trigger="hover" data-toggle="popover" data-placement="auto" data-content="Please enter YOUR legal name. This should be the same name as it is listed on your bank account." data-original-title="Your Legal Name"></i>
                                                     </div>
                                                 </div>
                                             </dd>
                                         </dl>
 
                                         <dl class="dl-horizontal" id="dobGrp">
-                                            <dt class="p-t-10">Date of Birth</dt>
+                                            <dt class="p-t-10 withIcon">
+                                                Date of Birth<br/>
+                                                <i class="md md-info-outline m-l-5" data-trigger="hover" data-toggle="popover" data-placement="auto" data-content="A date of birth is needed to verify a user's identity. Don't worry - nobody sees this!"></i>
+                                            </dt>
                                             <dd>
                                                 <div class="input-group form-group">
                                                     <span class="input-group-addon"><i class="md md-event" onclick="focus()"></i></span>
@@ -186,12 +191,15 @@
 
                                     <div class="well wellsm">
                                         <div class="f-16">
-                                            Please enter your <span class="f-600">current</span> street address.
+                                            Please enter your <span class="f-600">current personal</span> street address and zip code.
                                         </div>
                                     </div>
 
                                     <dl class="dl-horizontal" id="addressGrp">
-                                        <dt class="p-t-10">Street Address</dt>
+                                        <dt class="p-t-10">
+                                            Street Address<br/>
+                                            <i class="md md-info-outline m-l-5" data-trigger="hover" data-toggle="popover" data-placement="auto" data-content="Proving you know your personal address and zip code helps verify your identity."></i>
+                                        </dt>
                                         <dd>
                                             <div class="form-group">
                                                 <div class="dtp-container dropdown fg-line">
