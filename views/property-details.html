@@ -179,7 +179,8 @@
                                                 <li><i class="md md-place"></i> {{ selectedProperty.address1 | capitalize }}</li>
                                                 <li class="address2">{{ selectedProperty.address2 | capitalize }}</li>
                                                 <li class="address2">{{ selectedProperty.city | capitalize}}, <span class="uppercase">{{ selectedProperty.state }}</span> {{ selectedProperty.zip }}</li>
-                                                <li><i class="md md-call"></i> {{ selectedProperty.contactNumber | formatphone}}</li>
+                                                <li><i class="md md-call" data-ng-if="selectedProperty.contactNumber.length > 8"></i> {{ selectedProperty.contactNumber | formatphone}}</li>
+                                                <li><i class="md md-call" data-ng-if="selectedProperty.contactNumber.length == 0"></i> <span>+ add phone #</span></li>
                                             </ul>
                                         </div>
 

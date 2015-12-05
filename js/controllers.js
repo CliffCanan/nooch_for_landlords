@@ -397,8 +397,9 @@ noochForLandlords
                             if ($scope.allTenantsList.length > 0) {
 
                                 $scope.allTenantsList.splice(0, 0, { "Name": "Select A Tenant", "TenantEmail": "Select A Tenant" });
-                                console.log("TENANTS LIST...");
-                                console.log($scope.allTenantsList);
+
+                                //console.log("TENANTS LIST...");
+                                //console.log($scope.allTenantsList);
 
                                 //$scope.tenantSelected = $scope.allTenantsList[0];
                             }
@@ -519,12 +520,40 @@ noochForLandlords
 									    "targets": [5, -1],
 									    className: "text-center"
 									},
+									{
+									    "targets": [-1],
+									    "render": function (data, type, full, meta) {
+
+									        var leaseDocString = '<a href="" class=\'btn btn-icon btn-default m-r-10 uploadLeaseBtn\'><span class=\'md md-cloud-upload\'></span></a>';
+
+									        if (typeof full.LeaseDocPath != 'undefined' && full.LeaseDocPath.length > 10)
+									        {
+									            leaseDocString = '<a href="' + full.LeaseDocPath + '" class=\'btn btn-icon btn-default m-r-10 viewLeaseBtn\' target=\'_blank\'>' +
+                                                                 '<span class=\'md md-visibility\'></span></a>';
+									        }
+
+									        var htmlString = '<span style=\'display: inline-block; height: 100%; vertical-align: top;\'><a href="" class=\'btn btn-link m-r-10 editUnitBtn\'>edit</a></span>' +
+                                                             '<div style=\'display: inline-block\'><div>' +
+														          leaseDocString +
+                                                                 '<a href="" class=\'btn btn-icon btn-default m-r-10 msgUnitBtn\'><span class=\'md md-chat\'></span></a>' +
+                                                                 '<a href="" class=\'btn btn-icon btn-default msgUnitBtn\'><span class=\'md md-forum\'></span></a>' +
+                                                             '</div><div class=\'m-t-10\'>' +
+                                                                 '<a href="" class=\'btn btn-icon btn-default m-r-10 msgUnitBtn\'><span class=\'md md-star-half\'></span></a>' +
+                                                                 '<a href="" class=\'btn btn-icon btn-default m-r-10 msgUnitBtn\'><span class=\'md md-person-add\'></span></a>' +
+														         '<a href="" class=\'btn btn-icon btn-default deleteUnitBtn\'><span class=\'md md-clear\'></span></a>' +
+                                                             '</div></div>';
+
+									        return htmlString;
+									    }
+									},
                                 ],
                                 "language": {
                                     "info": "Showing units <strong>_START_</strong> - <strong>_END_</strong> of <strong>_TOTAL_</strong> total units in " + $scope.selectedProperty.name,
                                     "infoEmpty": "No Units Added Yet!",
-                                }
+                                },
+                                "order": [2, 'asc']
                             });
+                            
 
                             // Add Tooltips to Action Buttons
                             $('#propUnits tbody .btn.editUnitBtn').tooltip({
@@ -533,6 +562,10 @@ noochForLandlords
                             });
                             $('#propUnits tbody .btn.uploadLeaseBtn').tooltip({
                                 title: "Upload Lease",
+                                trigger: "hover"
+                            }); 
+                            $('#propUnits tbody .btn.viewLeaseBtn').tooltip({
+                                title: "View Lease",
                                 trigger: "hover"
                             });
                             $('#propUnits tbody .btn.msgUnitBtn').tooltip({
@@ -876,31 +909,25 @@ noochForLandlords
 
                                 // FILE INPUT DOCUMENTATION: http://plugins.krajee.com/file-input#options
                                 $("#leaseFileInput").fileinput({
-                                    alallowedFileExtensionslowedFileTypes: ['jpg', 'gif', 'png', 'txt', 'pdf', 'doc'],
-                                    //initialPreview: [
-                                    //    "<img src='" + $scope.selectedProperty.imgUrl + "' class='file-preview-image' id='lease'>"
-                                    //],
+                                    alallowedFileExtensionslowedFileTypes: ['jpg', 'png', 'txt', 'pdf', 'doc'],
                                     initialPreviewShowDelete: false,
                                     layoutTemplates: {
                                         icon: '<span class="md md-panorama m-r-10 kv-caption-icon"></span>',
                                     },
                                     maxFileCount: 1,
-                                    maxFileSize: 250,
+                                    maxFileSize: 400,
                                     msgSizeTooLarge: "File '{name}' ({size} KB) exceeds the maximum allowed file size of {maxSize} KB. Please try a slightly smaller picture!",
                                     showCaption: false,
-                                    showUpload: false,
+                                    showUpload: true,
                                     showPreview: true,
                                     resizeImage: true,
-                                    maxImageWidth: 400,
-                                    maxImageHeight: 400,
-                                    resizePreference: 'width',
+                                    uploadUrl: URLs.UploadLease,
                                     uploadExtraData: {
                                         UnitId: data['UnitId']
                                     },
-                                    uploadUrl: URLs.UploadLease
                                 });
 
-                                // Save Property Picture
+                                // Save Lease Doc
                                 $scope.saveLeaseDoc = function () {
                                     $('#leaseFileInput').fileinput('upload');
                                 };
@@ -1121,7 +1148,6 @@ noochForLandlords
                 uploadUrl: URLs.UploadPropertyImage
             });
 
-
             $('#propPicFileInput').on('fileuploaded', function (event, data, previewId, index) {
                 var response = data.response;
 
@@ -1137,15 +1163,12 @@ noochForLandlords
                 else {
                     $('#editPropPic').modal('hide');
                     swal({
-                        title: "Oops",
+                        title: "Oh No",
                         text: data.response.ErrorMessage,
                         type: "error"
                     });
-
                 }
-
             });
-
         }
 
         // Save Property Picture
@@ -2692,7 +2715,8 @@ noochForLandlords
                 console.log(data);
                 console.log(response);
 
-                if (data.response.IsSuccess == true) {
+                if (data.response.IsSuccess == true)
+                {
                     $('#addPic').modal('hide');
                     $scope.userInfo.userImage = data.response.ErrorMessage;
                     $rootScope.userDetailsRoot.imgUrl = data.response.ErrorMessage + '#' + new Date().getTime();
@@ -2704,11 +2728,12 @@ noochForLandlords
                         $state.reload();
                     }, 400);
                 }
-                else {
+                else
+                {
                     $('#addPic').modal('hide');
 
                     swal({
-                        title: "Oops",
+                        title: "Oh No...",
                         text: data.response.ErrorMessage,
                         type: "error"
                     });
@@ -3157,6 +3182,7 @@ noochForLandlords
             }
         }
 
+        console.log($rootScope.User)
 
         $scope.phEmWarning = function (input) {
             console.log(input);
@@ -4349,8 +4375,8 @@ noochForLandlords
                     $('#fname').focus();
                 });
             }
-            else if (localStorage.getItem('userLoginName') != null &&
-                     localStorage.getItem('userLoginName').length > 0)  //checking if exists something in local storage
+            else if (true || (localStorage.getItem('userLoginName') != null &&
+                     localStorage.getItem('userLoginName').length > 0))  //checking if exists something in local storage
             {
                 //console.log("Username found in storage");
 
@@ -4583,21 +4609,15 @@ noochForLandlords
 
         this.loginWithGoogleAttmpt = function () {
 
-            // setting stuff from local storage
             $scope.GoogleLoginData.eMail = $('#googleUserEmail').val();
             $scope.GoogleLoginData.Name = $('#googleUserName').val();
             $scope.GoogleLoginData.GooglePhotoUrl = $('#googleImageUrl').val();
             $scope.GoogleLoginData.GoogleUserId = $('#googleUserId').val();
-            
-
 
             // Check Username (email) field for length
             if ($scope.GoogleLoginData.eMail.length > 0) {
 
-
                 if ($scope.GoogleLoginData.Name.length > 0) {
-
-                    
 
                     if ($scope.GoogleLoginData.GoogleUserId.length > 0) {
 
@@ -4665,17 +4685,16 @@ noochForLandlords
                         else {
                             swal({
                                 title: "Oh No!",
-                                text: "Looks like permission related problem with your google id.  Please try re login with Google.",
+                                text: "Looks like permissions-related problem with your Google account. Please try again!",
                                 customClass: 'largeText',
                                 type: "error"
                             });
                         }
-                 
                 }
                 else {
                     swal({
                         title: "Oh No!",
-                        text: "Looks like permission related problem with your name from Google.  Please try re login with Google.",
+                        text: "Looks like a permissions-related problem with your name from Google. Please try again!",
                         customClass: 'largeText',
                         type: "error"
                     });
@@ -4684,7 +4703,7 @@ noochForLandlords
             else {
                 swal({
                     title: "Oh No!",
-                    text: "Looks like permission related problem with your email from Google.  Please try re login with Google.",
+                    text: "Looks like a permissions-related problem with your email from Google. Please try again!",
                     customClass: 'largeText',
                     type: "error"
                 });

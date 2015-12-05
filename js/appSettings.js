@@ -31,6 +31,7 @@ var URLs = {
     EditUnitInProperty: PATH + 'Properties/EditPropertyUnit',
     DeletePropertyUnit: PATH + 'Properties/DeletePropertyUnit',
     InviteTenant: PATH + 'Properties/InviteTenant',
+    UploadLease: PATH + 'Properties/UploadPropertyUnitLeasePDF',
 
     // Account Stats
     GetAccountCompletionStats: PATH + 'Users/GetAccountCompletetionStatsOfGivenLandlord',

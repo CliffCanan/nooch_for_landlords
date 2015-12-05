@@ -24,119 +24,10 @@
 </head>
 
 <body class="login-content" data-ng-controller="loginCtrl as lctrl" onload="removeGoogleSession()">
-    <script>
-        function statusChangeCallback(response) {
-            console.log('statusChangeCallback');
-            console.log(response);
-
-            if (response.status === 'connected') {
-                // Logged into your app and Facebook.
-                getFBData();
-            } else if (response.status === 'not_authorized') {
-                // The person is logged into Facebook, but not your app.
-                //document.getElementById('status').innerHTML = 'Please log ' +
-                //  'into this app.';
-            } else {
-                // The person is not logged into Facebook, so we're not sure if
-                // they are logged into this app or not.
-                //document.getElementById('status').innerHTML = 'Please log ' +
-                //  'into Facebook.';
-            }
-        }
-
-        // This function is called when someone finishes with the Login
-        // Button.  See the onlogin handler attached to it in the sample
-        // code below.
-        function checkLoginState() {
-            FB.getLoginStatus(function (response) {
-                statusChangeCallback(response);
-            });
-        }
-
-        window.fbAsyncInit = function () {
-            FB.init({
-                appId: '738390306293716',
-                cookie: true,  // enable cookies to allow the server to access
-                // the session
-                xfbml: true,  // parse social plugins on this page
-                version: 'v2.2' // use version 2.2
-            });
-        };
-
-        (function (d, s, id) {
-            var js, fjs = d.getElementsByTagName(s)[0];
-            if (d.getElementById(id)) return;
-            js = d.createElement(s); js.id = id;
-            js.src = "//connect.facebook.net/en_US/sdk.js";
-            fjs.parentNode.insertBefore(js, fjs);
-        }(document, 'script', 'facebook-jssdk'));
-
-        function getFBData() {
-            FB.api('/me', function (response) {
-
-                // saving stuff in local storage that can survive page refresh after fb login
-                localStorage.setItem('fbUserEmail', response.email);
-                localStorage.setItem('fbUserFirstName', response.first_name);
-                localStorage.setItem('#fbUserLastName', response.last_name);
-                localStorage.setItem('fbUserGender', response.gender);
-                localStorage.setItem('fbUserId', response.id);
-
-                FB.api(
-                    "/" + response.id + "/picture?type=normal",
-                    function (response2) {
-                        if (response2 && !response2.error) {
-                            /* handle the result */
-                            //document.getElementById('userImage').innerHTML = response2.data.url;
-                            localStorage.setItem('fbUserPhotoUrl', response2.data.url);
-
-                            $('#ffclick').trigger('click');
-                        }
-                    });
-            });
-        }
-    </script>
-
-
-
-    <script type="text/javascript">
-
-        function removeGoogleSession() {
-            window.onbeforeunload = function (e) {
-                var auth2 = gapi.auth2.getAuthInstance();
-                auth2.signOut().then(function () {
-                    //console.log('User signed out.');
-                });
-            };
-        };
-
-
-
-        function onSignIn(googleUser) {
-            // Useful data for your client-side scripts:
-            var profile = googleUser.getBasicProfile();
-            //console.log("ID: " + profile.getId()); 
-            //console.log("Name: " + profile.getName());
-            //console.log("Image URL: " + profile.getImageUrl());
-            //console.log("Email: " + profile.getEmail());
-
-            
-            //var id_token = googleUser.getAuthResponse().id_token;
-            //console.log("ID Token: " + id_token);
-            $('#googleUserId').val(profile.getId());
-            $('#googleUserName').val(profile.getName());
-            $('#googleImageUrl').val(profile.getImageUrl());
-            $('#googleUserEmail').val(profile.getEmail());
-
-            $('#googleclick').trigger('click');
-        };
-    </script>
-
-
     <input type="hidden" id="googleUserEmail" data-ng-model="GoogleLoginData.eMail" />
     <input type="hidden" id="googleUserName" data-ng-model="GoogleLoginData.Name" />
     <input type="hidden" id="googleImageUrl" data-ng-model="GoogleLoginData.GooglePhotoUrl" />
     <input type="hidden" id="googleUserId" data-ng-model="GoogleLoginData.GoogleUserId" />
-
 
     <input type="hidden" id="fbUserEmail" data-ng-model="FBLoginData.eMail" />
     <input type="hidden" id="fbUserFirstName" data-ng-model="FBLoginData.firstName" />
@@ -144,7 +35,7 @@
     <input type="hidden" id="fbUserGender" data-ng-model="FBLoginData.gender" />
     <input type="hidden" id="fbUserId" data-ng-model="FBLoginData.fbUserId" />
     <input type="hidden" id="fbUserPhotoUrl" data-ng-model="FBLoginData.fbPhotoUrl" />
-<input type="button" ng-click="lctrl.loginWithFBAttmpt()" style="display: none" id="ffclick"/>
+    <input type="button" ng-click="lctrl.loginWithFBAttmpt()" style="display: none" id="ffclick" />
     <input type="button" ng-click="lctrl.loginWithGoogleAttmpt()" style="display: none" id="googleclick" />
 
 
@@ -192,13 +83,13 @@
 
         </form>
 
-        <div class="m-t-30">
-            <a class="f-00" data-ng-click="showBlock('signup')">Don't have an account? Sign up here</a>
-            or
+        <div class="m-t-30 text-center">
+            <a class="f-400" data-ng-click="showBlock('signup')">Don't have an account? Sign up here</a>
+            <br />or<br />
             <fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
             </fb:login-button>
-            or
-            <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
+            <div class="clearfix m-5"></div>
+            <div id="goog-signin2"></div>
         </div>
 
     </div>
@@ -311,11 +202,129 @@
 
     </div>
 
-
-
     <!-- Core -->
     <script src="vendors/bower_components/jquery/dist/jquery.min.js"></script>
     <script src="vendors/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <script>
+        function statusChangeCallback(response) {
+            console.log('statusChangeCallback');
+            console.log(response);
+
+            if (response.status === 'connected') {
+                // Logged into your app and Facebook.
+                getFBData();
+            } else if (response.status === 'not_authorized') {
+                // The person is logged into Facebook, but not your app.
+                //document.getElementById('status').innerHTML = 'Please log ' +
+                //  'into this app.';
+            } else {
+                // The person is not logged into Facebook, so we're not sure if
+                // they are logged into this app or not.
+                //document.getElementById('status').innerHTML = 'Please log ' +
+                //  'into Facebook.';
+            }
+        }
+
+        // This function is called when someone finishes with the Login Button.
+        function checkLoginState() {
+            FB.getLoginStatus(function (response) {
+                statusChangeCallback(response);
+            });
+        }
+
+        window.fbAsyncInit = function () {
+            FB.init({
+                appId: '738390306293716',
+                cookie: true,  // enable cookies to allow the server to access
+                // the session
+                xfbml: true,  // parse social plugins on this page
+                version: 'v2.2' // use version 2.2
+            });
+        };
+
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+
+        function getFBData() {
+            FB.api('/me', function (response) {
+
+                // saving stuff in local storage that can survive page refresh after fb login
+                localStorage.setItem('fbUserEmail', response.email);
+                localStorage.setItem('fbUserFirstName', response.first_name);
+                localStorage.setItem('#fbUserLastName', response.last_name);
+                localStorage.setItem('fbUserGender', response.gender);
+                localStorage.setItem('fbUserId', response.id);
+
+                FB.api(
+                    "/" + response.id + "/picture?type=normal",
+                    function (response2) {
+                        if (response2 && !response2.error) {
+                            /* handle the result */
+                            //document.getElementById('userImage').innerHTML = response2.data.url;
+                            localStorage.setItem('fbUserPhotoUrl', response2.data.url);
+
+                            $('#ffclick').trigger('click');
+                        }
+                    });
+            });
+        }
+    </script>
+
+    <script type="text/javascript">
+        function removeGoogleSession() {
+            window.onbeforeunload = function (e) {
+                var auth2 = gapi.auth2.getAuthInstance();
+                auth2.signOut().then(function () {
+                    //console.log('User signed out.');
+                });
+            };
+        };
+
+        function onSignIn(googleUser) {
+            
+        };
+
+        function onSuccess(googleUser) {
+            console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
+
+            // Useful data for your client-side scripts:
+            var profile = googleUser.getBasicProfile();
+            //console.log("ID: " + profile.getId());
+            //console.log("Name: " + profile.getName());
+            //console.log("Image URL: " + profile.getImageUrl());
+            //console.log("Email: " + profile.getEmail());
+
+            //var id_token = googleUser.getAuthResponse().id_token;
+            //console.log("ID Token: " + id_token);
+            $('#googleUserId').val(profile.getId());
+            $('#googleUserName').val(profile.getName());
+            $('#googleImageUrl').val(profile.getImageUrl());
+            $('#googleUserEmail').val(profile.getEmail());
+
+            $('#googleclick').trigger('click');
+        }
+        function onFailure(error) {
+            console.log(error);
+        }
+        function renderButton() {
+            gapi.signin2.render('goog-signin2', {
+                'scope': 'email',
+                'width': 250,
+                'height': 42,
+                'longtitle': true,
+                'theme': 'dark',
+                'onsuccess': onSuccess,
+                'onfailure': onFailure
+            });
+        }
+    </script>
+    <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
 
     <!-- Angular -->
     <script src="vendors/angular/angular.min.js"></script>
@@ -338,10 +347,6 @@
     <script src="js/services.js"></script>
     <script src="js/appSettings.js"></script>
     <script src="js/modules/form.js"></script>
-
-
-
-
 
 </body>
 </html>

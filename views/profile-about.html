@@ -62,16 +62,18 @@
                     <form data-ng-submit="pctrl.submit('personalInfo', 'Profile Information')" class="pmbb-edit" data-ng-if="pctrl.editPersonalInfo === 1">
 
                         <dl class="dl-horizontal">
-                            <dt class="p-t-10">Full Name</dt>
+                            <dt>Full Name</dt>
                             <dd>
-                                <div class="fg-line">
+                                <div class="fg-line" ng-if="userInfo.isIdVerified === true">
+                                    <input id="fullName" data-ng-model="userInfo.fullName" type="text" class="form-control capitalize" value="{{ userInfo.fullName | capitalize}}" placeholder="eg Arnold Palmer" disabled>
+                                </div>
+                                <div class="fg-line" ng-if="userInfo.isIdVerified != true">
                                     <input id="fullName" data-ng-model="userInfo.fullName" type="text" class="form-control capitalize" value="{{ userInfo.fullName | capitalize}}" placeholder="eg Arnold Palmer">
                                 </div>
-
                             </dd>
                         </dl>
                         <dl class="dl-horizontal">
-                            <dt class="p-t-10">Birthday</dt>
+                            <dt>Birthday</dt>
                             <dd>
                                 <div class="dtp-container dropdown fg-line">
                                     <input data-ng-model="userInfo.birthDay" type='text' class="form-control" value="{{ userInfo.birthDay}}" data-dt-picker data-format="MM/DD/YYYY" data-toggle="dropdown" placeholder="eg. 08/05/1988">
@@ -116,7 +118,7 @@
 
                     <form data-ng-submit="pctrl.submit('businessInfo', 'Business Information')" class="pmbb-edit" data-ng-if="pctrl.editBusinessInfo === 1">
                         <dl class="dl-horizontal">
-                            <dt class="p-t-10">Company Name</dt>
+                            <dt>Company Name</dt>
                             <dd>
                                 <div class="fg-line">
                                     <input id="compName" data-ng-model="company.name" type="text" class="form-control" value="{{ company.name | capitalize }}" placeholder="eg. ABC Rental LLC">
@@ -126,7 +128,7 @@
                         </dl>
 
                         <dl class="dl-horizontal">
-                            <dt class="p-t-10">EIN (Tax ID #)</dt>
+                            <dt>EIN (Tax ID #)</dt>
                             <dd>
                                 <div class="dtp-container dropdown fg-line">
                                     <input id="compEin" data-ng-model="company.ein" type='num' class="form-control" value="{{ company.ein }}" data-input-mask="{mask: '00-0000000'}">
@@ -192,7 +194,7 @@
 
                     <form data-ng-submit="pctrl.submit('contactInfo', 'Profile Contact Information')" class="pmbb-edit" data-ng-if="pctrl.editContactInfo === 1">
                         <dl class="dl-horizontal">
-                            <dt class="p-t-10">Email Address</dt>
+                            <dt>Email Address</dt>
                             <dd>
                                 <div class="fg-line">
                                     <input data-ng-model="userInfo.emailAddress" type="email" class="form-control" placeholder="eg. cliff@nooch.com" disabled>
@@ -200,7 +202,7 @@
                             </dd>
                         </dl>
                         <dl class="dl-horizontal">
-                            <dt class="p-t-10">Mobile Phone</dt>
+                            <dt>Mobile Phone</dt>
                             <dd>
                                 <div class="fg-line">
                                     <input data-ng-model="userInfo.mobileNumber" type="text" class="form-control" placeholder="ex: (215) 804-4226" data-input-mask="{mask: '(000) 000-0000'}">
@@ -208,7 +210,7 @@
                             </dd>
                         </dl>
                         <dl class="dl-horizontal">
-                            <dt class="p-t-10">Address</dt>
+                            <dt>Address</dt>
                             <dd>
                                 <div class="fg-line">
                                     <input data-ng-model="userInfo.address1" type="text" class="form-control" placeholder="eg. 123 W. Main St.">
