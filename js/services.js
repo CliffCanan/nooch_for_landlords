@@ -625,7 +625,6 @@ noochForLandlords
             data.DeviceInfo = dataDevice;
             data.EmailInfo = emailObj;
 
-
             $http.post(URLs.SendEmailsToTenants, data)
                 .success(function (response) {
                     callback(response);
@@ -777,15 +776,16 @@ noochForLandlords
 
         var Operations = {};
 
-
         Operations.GetHistory = function (landlordId, memberId, accessToken, callback) {
+
+            console.log("Service -> GetHistory Initiated");
 
             var data = {};
             data.LandlordId = landlordId;
             data.AccessToken = accessToken;
             data.MemberId = memberId;
 
-            //console.log(JSON.stringify(data));
+            console.log(JSON.stringify(data));
 
             $http.post(URLs.GetTransHistory, data)
                 .success(function (response) {
@@ -796,6 +796,27 @@ noochForLandlords
                     callback(response);
                 });
         };
+
+
+        Operations.sendPaymentReminder = function (transactionId, tenantId, landlordId, accessToken, callback) {
+
+            console.log("Service -> sendPaymentReminder Fired");
+
+            var data = {};
+            data.LandlordId = landlordId;
+            data.AccessToken = accessToken;
+            data.transId = transactionId;
+            data.tenantId = tenantId
+
+            console.log(JSON.stringify(data));
+
+            $http.post(URLs.SendPaymentReminder, data)
+                .success(function (response) {
+                    console.log(response);
+
+                    callback(response);
+                });
+        }
 
         return Operations;
     })

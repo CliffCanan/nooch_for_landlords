@@ -36,5 +36,9 @@ var URLs = {
     // Account Stats
     GetAccountCompletionStats: PATH + 'Users/GetAccountCompletetionStatsOfGivenLandlord',
     ResendVerificationEmailAndSMS: PATH + 'Users/ResendVerificationEmailAndSMS',
-    SendEmailsToTenants: PATH + 'Users/SendEmailsToTenants'
+    SendEmailsToTenants: PATH + 'Users/SendEmailsToTenants',
+
+    // History APIs
+    GetTransHistory: PATH + 'RentTrans/GetLandlordsPaymentHistory',
+    SendPaymentReminder: PATH + 'RentTrans/SendPaymentReminder'
 };

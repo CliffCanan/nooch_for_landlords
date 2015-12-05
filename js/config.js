@@ -70,6 +70,7 @@ noochForLandlords
                                 'vendors/bower_components/jquery.bootgrid/dist/jquery.bootgrid.min.js',
                                 'https://cdn.datatables.net/1.10.9/js/jquery.dataTables.min.js',
                                 'vendors/bower_components/moment/min/moment.min.js',
+                                'vendors/blockUI/blockui.min.js'
                             ]
                         }
                     ])

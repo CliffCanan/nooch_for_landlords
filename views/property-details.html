@@ -180,7 +180,7 @@
                                                 <li class="address2">{{ selectedProperty.address2 | capitalize }}</li>
                                                 <li class="address2">{{ selectedProperty.city | capitalize}}, <span class="uppercase">{{ selectedProperty.state }}</span> {{ selectedProperty.zip }}</li>
                                                 <li><i class="md md-call" data-ng-if="selectedProperty.contactNumber.length > 8"></i> {{ selectedProperty.contactNumber | formatphone}}</li>
-                                                <li><i class="md md-call" data-ng-if="selectedProperty.contactNumber.length == 0"></i> <span>+ add phone #</span></li>
+                                                <li class="empty" data-ng-click="beginEditingProp()"><i class="md md-call" data-ng-if="selectedProperty.contactNumber.length == 0"></i> <span>+ add phone #</span></li>
                                             </ul>
                                         </div>
 
@@ -211,6 +211,7 @@
                                                     </div>
                                                 </dd>
                                             </dl>-->
+                                            
 
                                             <dl>
                                                 <dt>City</dt>
@@ -519,6 +520,8 @@
                                 </select>-->
                             </div>
                         </div>
+
+                        <
 
                         <div class="col-xs-12" id="startDateGrp">
                             <label for="addUnitDatePicker" class="col-sm-3 control-label">Start Date<small>Optional</small></label>

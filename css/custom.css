@@ -858,6 +858,9 @@ form .alert {
     text-shadow: 0 0 0 #fff;
 }
 
+.blockUI.blockPage {
+    z-index: 99999 !important;
+}
 
 /**** HOME ****/
 .homePromptCard {
@@ -1047,7 +1050,9 @@ form .checkbox.haserror .input-helper:before {
     box-shadow: 0 1px 12px -1px rgba(240,50,50,.8);
 }
 
-#goog-signin2 > div {margin: 0 auto;}
+#goog-signin2 > div {
+    margin: 0 auto;
+}
 
 /**** LEFT SIDEBAR ****/
 #sidebar,
@@ -2406,6 +2411,12 @@ addPropWiz .content {
             top: -3px;
         }
 
+        .propInfoSidebar .propCard .address li.empty span {
+            font-size: 94%;
+            font-weight: 300;
+            opacity: .7;
+            cursor: pointer;
+        }
 .propInfoSidebar .bank-container .media-object {
     border-radius: 8px;
     max-width: 100px;

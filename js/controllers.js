@@ -536,11 +536,12 @@ noochForLandlords
                                                              '<div style=\'display: inline-block\'><div>' +
 														          leaseDocString +
                                                                  '<a href="" class=\'btn btn-icon btn-default m-r-10 msgUnitBtn\'><span class=\'md md-chat\'></span></a>' +
-                                                                 '<a href="" class=\'btn btn-icon btn-default msgUnitBtn\'><span class=\'md md-forum\'></span></a>' +
-                                                             '</div><div class=\'m-t-10\'>' +
-                                                                 '<a href="" class=\'btn btn-icon btn-default m-r-10 msgUnitBtn\'><span class=\'md md-star-half\'></span></a>' +
-                                                                 '<a href="" class=\'btn btn-icon btn-default m-r-10 msgUnitBtn\'><span class=\'md md-person-add\'></span></a>' +
-														         '<a href="" class=\'btn btn-icon btn-default deleteUnitBtn\'><span class=\'md md-clear\'></span></a>' +
+                                                                 '<a href="" class=\'btn btn-icon btn-default deleteUnitBtn\'><span class=\'md md-clear\'></span></a>' +
+                                                                 //'<a href="" class=\'btn btn-icon btn-default msgUnitBtn\'><span class=\'md md-forum\'></span></a>' +
+                                                             //'</div><div class=\'m-t-10\'>' +
+                                                                 //'<a href="" class=\'btn btn-icon btn-default m-r-10 msgUnitBtn\'><span class=\'md md-star-half\'></span></a>' +
+                                                                 //'<a href="" class=\'btn btn-icon btn-default m-r-10 msgUnitBtn\'><span class=\'md md-person-add\'></span></a>' +
+														         
                                                              '</div></div>';
 
 									        return htmlString;
@@ -3887,6 +3888,7 @@ noochForLandlords
     //=================================================
 
     .controller('historyCtrl', function ($rootScope, $scope, historyService, authenticationService) {
+        console.log("HISTORY LOADED!");
 
         var userDetails = authenticationService.GetUserDetails();
 
@@ -3928,7 +3930,7 @@ noochForLandlords
                             { data: 'Amount' },
                             {
                                 data: null,
-                                defaultContent:// '<a href="" class=\'btn btn-icon btn-default m-r-10 editUnitBtn\'><span class=\'md md-edit\'></span></a>' +
+                                defaultContent: '<a href="" class=\'btn btn-icon btn-default m-r-10 sendReminderBtn\'><span class=\'md md-edit\'></span></a>' +
                                                 '<a href="" class=\'btn btn-icon btn-default cancelTransBtn\'><span class=\'md md-clear\'></span></a>'
                             }
                         ],
@@ -3958,7 +3960,6 @@ noochForLandlords
                             {
                                 "targets": 11,
                                 "data": "TenantName",
-                                //className: "unitTenant",
                                 "render": function (data, type, full, meta) {
 
                                     var name = data;
@@ -4068,12 +4069,124 @@ noochForLandlords
 
                     // Add Tooltips to Action Buttons
                     $('.btn.cancelTransBtn').tooltip({
-                        title: "Cancel This Transaction",
+                        title: "Cancel This Payment",
                         trigger: "hover"
                     });
-                    $('.btn.deleteUnitBtn').tooltip({
-                        title: "Delete This Unit",
+                    $('.btn.sendReminderBtn').tooltip({
+                        title: "Send Reminder",
                         trigger: "hover"
+                    });
+
+
+                    // SEND REMINDER BTN CLICKED
+                    $('#transHistory tbody .sendReminderBtn').click(function () {
+
+                        // Cliff (12/5/15): JUSTSHOW THE "COMING SOON" ALERT UNTIL THIS IS FULLY READY FOR LIVE USE
+                        swal({
+                            title: "Coming Soon!",
+                            text: "You will soon be able to send payment reminders to your tenants via email or text message. &nbsp;We're working hard to get this ready for you ASAP!",
+                            type: "warning",
+                            customClass: "largeText",
+                            html: true,
+                        })
+
+                        return;
+
+
+                        var data = $scope.propUnitsTable.row($(this).parents('tr')).data();
+                        console.log(data);
+
+                        $scope.editingUnitId = data['UnitId'];
+
+                        var tenantName = "";
+
+                        if (data['TenantName'] != null && data['TenantName'].length > 2) {
+                            tenantName = data['TenantName'];
+                        }
+                        else if (data['TenantEmail'])
+                        {
+                            tenantName = data['TenantEmail'];
+                        }
+
+                        console.log(tenantName);
+
+                        swal({
+                            title: "Send Reminder To Tenant",
+                            text: "Would you like to send a reminder email to " + " for this payment?",
+                            type: "warning",
+                            confirmButtonColor: "#3fabe1",
+                            confirmButtonText: "Yes",
+                            showCancelButton: true,
+                            cancelButtonText: "Cancel",
+                            closeOnConfirm: false,
+                            customClass: "largeText"
+                        }, function (isConfirm) {
+
+                            if (isConfirm) {
+                                // Show Loading Block
+                                $.blockUI({
+                                    message: '<span><i class="md md-refresh fa-spin fa-loading"></i></span><br/><span class="loadingMsg">Sending Reminder to: ' + tenantName + '...</span>',
+                                    css: {
+                                        border: 'none',
+                                        padding: '10px 5px 20px',
+                                        backgroundColor: '#000',
+                                        '-webkit-border-radius': '14px',
+                                        '-moz-border-radius': '14px',
+                                        'border-radius': '14px',
+                                        opacity: '.8',
+                                        color: '#fff'
+                                    }
+                                });
+
+                                // CALL SERVICE FOR SENDING A REMINDER TO THE TENANT
+                                historyService.sendPaymentReminder(data['TransactionId'], data['TenantId'], userDetails.landlordId, userDetails.accessToken, function (response) {
+                                    console.log("History Cntrlr -> SendPaymentReminder Response...");
+                                    console.log(response);
+
+                                    $.unblockUI({
+                                        onUnblock: function () {
+                                            if (response.success == true) {
+                                                // On Success
+                                                swal({
+                                                    title: "Reminder Sent",
+                                                    text: "Your payment remidner has been sent.  We will notify you when this person accepts and pays.",
+                                                    type: "success",
+                                                    confirmButtonColor: "#3fabe1",
+                                                    confirmButtonText: "Ok",
+                                                    customClass: "largeText",
+                                                }, function () {
+                                                    //$state.reload();
+                                                });
+                                            }
+                                            else {
+                                                swal({
+                                                    title: "Uh oh...",
+                                                    text: data.msg,
+                                                    type: "error",
+                                                    confirmButtonText: "Ok"
+                                                });
+                                            }
+                                        }
+                                    });
+                                });
+                            }
+                        });
+                    });
+
+
+                    // CANCEL PAYMENT BTN CLICKED
+                    $('#transHistory tbody .cancelTransBtn').click(function () {
+
+                        // Cliff (12/5/15): JUSTSHOW THE "COMING SOON" ALERT UNTIL THIS IS FULLY READY FOR LIVE USE
+                        swal({
+                            title: "Coming Soon!",
+                            text: "You will soon be able to cancel payment requests that are pending. &nbsp;We're working hard to get this ready for you ASAP!",
+                            type: "warning",
+                            customClass: "largeText",
+                            html: true,
+                        })
+
+                        return;
                     });
                 }
                 else {
