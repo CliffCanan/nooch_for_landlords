@@ -285,9 +285,9 @@
                 });
             };
         };
-
+var id_token='';
         function onSignIn(googleUser) {
-            
+            id_token = googleUser.getAuthResponse().id_token;
         };
 
         function onSuccess(googleUser) {
@@ -302,7 +302,10 @@
 
             //var id_token = googleUser.getAuthResponse().id_token;
             //console.log("ID Token: " + id_token);
-            $('#googleUserId').val(profile.getId());
+           // $('#googleUserId').val(profile.getId());
+		   id_token = googleUser.getAuthResponse().id_token;
+		   $('#googleUserId').val(id_token);
+		   console.log('user id from google '+id_token);
             $('#googleUserName').val(profile.getName());
             $('#googleImageUrl').val(profile.getImageUrl());
             $('#googleUserEmail').val(profile.getEmail());
