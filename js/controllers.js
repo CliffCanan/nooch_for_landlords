@@ -553,7 +553,8 @@ noochForLandlords
                                     "infoEmpty": "No Units Added Yet!",
                                     "emptyTable": "No units have been added yet!"
                                 },
-                                "order": [2, 'asc']
+                                "order": [2, 'asc'],
+                                "pageLength": 25
                             });
                             
 
@@ -713,7 +714,6 @@ noochForLandlords
                                                         });
                                                     }
                                                 });
-
                                             }
                                         }
                                     });
@@ -776,18 +776,23 @@ noochForLandlords
                                 }
 
                                 if (data['IsOccupied'] == true &&
-                                    data['TenantName'] != null && data['TenantName'].length > 2) {
-                                    $('#addUnitForm #tenantGrp > div').html('<p class="form-control-static capitalize" id="tenantStatic" data-memid="' + data['MemberId'] +
-                                                                            '">' + data['TenantName'] + '<a class="text-danger m-l-15" ng-click="clearTenantInModal()><i class="md md-highlight-remove m-r-5"></i>remove</a></p>');
+                                    data['TenantName'] != null && data['TenantName'].length > 2)
+                                {
+                                    $('#addUnitForm #tenantGrp > div').html('<p class="form-control-static" id="tenantStatic" data-memid="' + data['MemberId'] + '">' +
+                                                                            '<span class="capitalize">' + data['TenantName'] + '</span>' +
+                                                                            '<a class="text-danger m-l-15" ng-click="clearTenantInModal()"><i class="md md-highlight-remove m-r-5"></i>remove</a></p>');
                                     $compile($('#addUnitForm #tenantGrp > div a'))($scope);
                                 }
                                 else if (data['IsOccupied'] == true &&
-                                         data['TenantEmail'] != null && data['TenantEmail'].length > 2) {
-                                    $('#addUnitForm #tenantGrp > div').html('<p class="form-control-static" id="tenantStatic" data-memid="' + data['MemberId'] +
-                                                                            '">' + data['TenantEmail'] + '<a class="text-danger small m-l-15" data-ng-click="clearTenantInModal()"><i class="md md-highlight-remove m-r-5"></i>remove</a></p>');
+                                         data['TenantEmail'] != null && data['TenantEmail'].length > 2)
+                                {
+                                    $('#addUnitForm #tenantGrp > div').html('<p class="form-control-static" id="tenantStatic" data-memid="' + data['MemberId'] + '">' +
+                                                                            data['TenantEmail'] +
+                                                                            '<a class="text-danger small m-l-15" data-ng-click="clearTenantInModal()"><i class="md md-highlight-remove m-r-5"></i>remove</a></p>');
                                     $compile($('#addUnitForm #tenantGrp > div a'))($scope);
                                 }
-                                else {
+                                else
+                                {
                                     $scope.clearTenantInModal();
                                 }
 
@@ -1464,7 +1469,8 @@ noochForLandlords
                         $('#unitTenantEm').val().trim().length > 1)
                     {
                         // User has entered a tenant's email address... so need to make sure this landlord has linked a bank already.
-                        if ($rootScope.isBankAvailable !== true) {
+                        if ($rootScope.isBankAvailable != true)
+                        {
                             swal({
                                 title: "No Bank Account Linked Yet",
                                 text: "Before you can send a payment request or accept any rent payments, you must attach a bank account. " +
@@ -1488,33 +1494,35 @@ noochForLandlords
                                 }
                             });
                         }
+                        else if ($('#addUnitModal #monthlyRent').val() < 100) {
+                            swal({
+                                title: "Set Rent to $" + $('#addUnitModal #monthlyRent').val() + "?",
+                                text: "You are about to set the rent for this unit to <strong>$" + $('#addUnitModal #monthlyRent').val() + "</strong>. &nbsp;Is that correct?",
+                                type: "warning",
+                                showCancelButton: true,
+                                confirmButtonText: "Yes",
+                                cancelButtonText: "No - Edit Amount",
+                                closeOnCancel: true,
+                                customClass: "largeText",
+                                html: true
+                            }, function (isConfirm) {
+                                if (!isConfirm) {
+                                    setTimeout(function () {
+                                        $('#addUnitModal #monthlyRent').focus();
+                                        return;
+                                    }, 300);
+                                }
+                                else {
+                                    $scope.addUnit_submitToService();
+                                }
+                            });
+                        }
+                        else {
+                            $scope.addUnit_submitToService();
+                        }
                     }
-                    else if ($('#addUnitModal #monthlyRent').val() < 100)
-                    {
-                        swal({
-                            title: "Set Rent to $" + $('#addUnitModal #monthlyRent').val() + "?",
-                            text: "You are about to set the rent for this unit to <strong>$" + $('#addUnitModal #monthlyRent').val() + "</strong>. &nbsp;Is that correct?",
-                            type: "warning",
-                            showCancelButton: true,
-                            confirmButtonText: "Yes",
-                            cancelButtonText: "No - Edit Amount",
-                            closeOnCancel: true,
-                            customClass: "largeText",
-                            html: true
-                        }, function (isConfirm) {
-                            if (!isConfirm) {
-                                setTimeout(function () {
-                                    $('#addUnitModal #monthlyRent').focus();
-                                    return;
-                                }, 300);
-                            }
-                            else {
-                                $scope.addUnit_submitToService();
-                            }
-                        });
-                    }
-                    else
-                    {
+                    else {
+                        // No tenant email provided
                         $scope.addUnit_submitToService();
                     }
                 }
@@ -3933,19 +3941,21 @@ noochForLandlords
     // HISTORY
     //=================================================
 
-    .controller('historyCtrl', function ($rootScope, $scope, historyService, authenticationService) {
+    .controller('historyCtrl', function ($rootScope, $scope, historyService, propDetailsService, authenticationService)
+    {
         console.log("HISTORY LOADED!");
 
         var userDetails = authenticationService.GetUserDetails();
 
         historyService.GetHistory(userDetails.landlordId, userDetails.memberId, userDetails.accessToken, function (data) {
-            if (data.AuthTokenValidation.IsTokenOk == true) {
-
-                if (data.IsSuccess == true) {
-
+            if (data.AuthTokenValidation.IsTokenOk == true)
+            {
+                if (data.IsSuccess == true)
+                {
                     $scope.allTransList = data.Transactions;
 
-                    if ($scope.allTransList.length > 0) {
+                    if ($scope.allTransList.length > 0)
+                    {
                         console.log("allTransList LIST...");
                         console.log($scope.allTransList);
                     }
@@ -3991,15 +4001,20 @@ noochForLandlords
                                 "data": "TransactionDate",
                                 "render": function (data, type, full, meta) {
                                     var htmlToDisplay;
-                                    var dueDateFormatted = moment(dueDate).format('MMM D, YYYY')
-                                    var dueDate = full.DueDate;
+                                    var dueDateFormatted = moment(full.TransactionDate).format('MMM D, YYYY')
+                                    var dueDate = full.DueDate
 
-                                    if (dueDate != null && dueDate.length > 2) {
-                                        return '<div style="line-height:1.2;">' + dueDateFormatted + '</div>' +
-                                                        '<span class="f-13 f-300">Due: ' + dueDate + '</span>';
+                                    if (full.TenantStatus == "Accepted")
+                                    {
+                                        if (dueDate != null && dueDate.length > 2)
+                                        {
+                                            return '<div style="line-height:1.2;">' + dueDateFormatted + '</div>' +
+                                                   '<span class="f-13 f-300">Due: ' + dueDate + '</span>';
+                                        }
                                     }
-                                    else {
-                                        return dueDateFormatted;
+                                    else
+                                    {
+                                        return '<span class="f-14">Due: <span class="f-300">' + dueDate + '</span></span>';
                                     }
                                 }
                             },
@@ -4011,25 +4026,37 @@ noochForLandlords
                                     var name = data;
                                     var htmlToDisplay = name;
 
+                                    var classToAdd = "";
+                                    if (full.TenantStatus == "Invited")
+                                    {
+                                        classToAdd = 'text-warning';
+                                    }
+                                    else if (full.TenantStatus == "Accepted")
+                                    {
+                                        classToAdd = 'text-success';
+                                    }
+
                                     htmlToDisplay = "<div class='media'><div class='pull-left'><img class='tableUserPic' src='img/contacts/" + data +
                                                     ".jpg'></div><div class='media-body'><div class='lv-title'>" + data + "</div><small class='lv-small'>" + data + "</small></div></div>";
 
 
-                                    if (name != null && name.length > 1) {
+                                    if (name != null && name.length > 1)
+                                    {
                                         htmlToDisplay = '<div class="imgContainer"><span style="background-image: url(' + full.ImageUrl + ');"></span></div>' +
-                                                        '<div class="capitalize">' + name + '</div>';
+                                                        '<div class="capitalize">' + name +
+                                                        '<span class="show text-center status f-13 ' + classToAdd + '">' + full.TenantStatus + '</span>' +
+                                                        '</div>';
                                     }
-                                    else if (full.TenantEmail != null && full.TenantEmail.length > 1) {
-                                        var classToAdd = "";
-                                        if (full.TenantStatus == "Invited") {
-                                            classToAdd = 'text-warning';
-                                        }
+                                    else if (full.TenantEmail != null && full.TenantEmail.length > 1)
+                                    {
                                         htmlToDisplay = '<span class="show text-center"><a class="msgUnitBtn">' + full.TenantEmail + '</a></span>' +
-                                                          '<span class="show text-center status ' + classToAdd + '">' + full.TenantStatus + '</span>';
+                                                        '<span class="show text-center status f-13 ' + classToAdd + '">' + full.TenantStatus + '</span>';
                                     }
-                                    else {
+                                    else
+                                    {
                                         htmlToDisplay = '<span class="show text-center"><a class="addTenantBtn btn btn-default"><i class="md md-add m-r-5"></i>Add Tenant</a></span>';
                                     }
+
                                     return htmlToDisplay;
                                 }
                             },
@@ -4041,11 +4068,13 @@ noochForLandlords
                                     var propAddress = full.PropertyAddress;
                                     var htmlToDisplay;
 
-                                    if (propAddress != null && propAddress.length > 2) {
-                                        htmlToDisplay = '<div style="line-height:1.2;">' + data + '</div>' +
+                                    if (propAddress != null && propAddress.length > 2)
+                                    {
+                                        htmlToDisplay = '<div style="line-height:1.2;"><a class="goToProperty" id="' + full.PropertyId + '">' + data + '</a></div>' +
                                                         '<span class="f-13 f-300">' + propAddress + '</span>';
                                     }
-                                    else {
+                                    else
+                                    {
                                         htmlToDisplay = data;
                                     }
 
@@ -4105,25 +4134,27 @@ noochForLandlords
                                 "targets": [-1],
                                 className: "text-right"
                             },
-									{
-									    "targets": [-1],
-									    "render": function (data, type, full, meta) {
-									        console.log(full);
-									        if (full.TransactionStatus == "Pending")
-									        {
-									            return htmlString = '<a href="" class=\'btn btn-icon btn-default m-r-10 sendReminderBtn\'><span class=\'md md-edit\'></span></a>' +
-                                                                 '<a href="" class=\'btn btn-icon btn-default cancelTransBtn\'><span class=\'md md-clear\'></span></a>';
-									        }
-									        return "";
-									    }
-									},
+                            {
+                                "targets": [-1],
+                                "render": function (data, type, full, meta)
+                                {
+                                    if (full.TransactionStatus == "Pending")
+                                    {
+                                        return htmlString = '<a href="" class=\'btn btn-icon btn-default m-r-10 sendReminderBtn\'><span class=\'md md-edit\'></span></a>' +
+                                                            '<a href="" class=\'btn btn-icon btn-default cancelTransBtn\'><span class=\'md md-clear\'></span></a>';
+                                    }
+
+                                    return "";
+                                }
+                            },
                         ],
                         "language": {
                             "info": "Showing units <strong>_START_</strong> - <strong>_END_</strong> of <strong>_TOTAL_</strong> total payments",
                             "infoEmpty": "No Payments Made Yet!",
                             "emptyTable": "No payments made yet!"
                         },
-                        "order": [10, 'desc']
+                        "order": [[10, 'desc'], [12, 'asc'], [13, 'desc']],
+                        "pageLength": 25
                     });
 
                     // Add Tooltips to Action Buttons
@@ -4247,6 +4278,14 @@ noochForLandlords
                         })
 
                         return;
+                    });
+
+
+                    // For setting the 'Selected Prop' and going to a Property's Details page
+                    $('#transHistory tbody .goToProperty').click(function ()
+                    {
+                        propDetailsService.set(this.id);
+                        window.location.href = '#/property-details';
                     });
                 }
                 else {
@@ -4468,7 +4507,6 @@ noochForLandlords
     //=================================================
 
     .controller('loginCtrl', function ($scope, $rootScope, authenticationService) {
-
 
         $scope.FBLoginData = {
             eMail: '',

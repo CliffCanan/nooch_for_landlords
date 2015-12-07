@@ -306,7 +306,7 @@
                                         <div class="media-body p-b-10">
                                             <div class="">
                                                 <h4 class="media-heading">
-                                                    {{ selectedProperty.defaultBankName | capitalize }}
+                                                    {{ selectedProperty.defaultBankName }}
                                                     <span class="label label-primary m-l-5">Primary</span>
                                                 </h4>
                                                 {{ selectedProperty.defaultBankNickname | capitalize }}
@@ -542,7 +542,7 @@
                                 <select data-select-picker id="rentDurationInMonths">
                                     <option value="1">1 Month</option>
                                     <option value="6">6 Months</option>
-                                    <option value="12">12 Months</option>
+                                    <option value="12" selected>12 Months</option>
                                     <option value="24">24 Months</option>
                                     <option value="Other">Other</option>
                                 </select>
