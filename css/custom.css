@@ -373,6 +373,15 @@ table tr th:first-child.columnWidth-13pc {
     text-align: center;
 }
 
+.table > thead > tr > th:first-child,
+.table > tbody > tr > th:first-child,
+.table > tfoot > tr > th:first-child,
+.table > thead > tr > td:first-child,
+.table > tbody > tr > td:first-child,
+.table > tfoot > tr > td:first-child {
+    padding-left: 10px;
+}
+
 #propDetailsTbl .tr th {
     text-align: center;
 }
@@ -1149,7 +1158,6 @@ form .checkbox.haserror .input-helper:before {
         transition-duration: 250ms;
     }
 
-
         #profile-main .pmo-pic .pmop-edit i {
             font-size: 18px;
             vertical-align: middle;
@@ -1569,6 +1577,15 @@ form .checkbox.haserror .input-helper:before {
 /*** TABLET & ABOVE SCREENS ***
  ******************************/
 @media (min-width: 768px) {
+    .table > thead > tr > th:first-child,
+    .table > tbody > tr > th:first-child,
+    .table > tfoot > tr > th:first-child,
+    .table > thead > tr > td:first-child,
+    .table > tbody > tr > td:first-child,
+    .table > tfoot > tr > td:first-child {
+        padding-left: 20px;
+    }
+
     .dataTables_wrapper .table-fullwidth .dataTables_length {
         margin-left: 26px;
     }
@@ -2403,6 +2420,7 @@ addPropWiz .content {
         .propInfoSidebar .propCard .address li i {
             position: relative;
             left: -5px;
+            vertical-align: middle;
         }
 
         .propInfoSidebar .propCard .address li.address2 {
@@ -2411,12 +2429,6 @@ addPropWiz .content {
             top: -3px;
         }
 
-        .propInfoSidebar .propCard .address li.empty span {
-            font-size: 94%;
-            font-weight: 300;
-            opacity: .7;
-            cursor: pointer;
-        }
 .propInfoSidebar .bank-container .media-object {
     border-radius: 8px;
     max-width: 100px;

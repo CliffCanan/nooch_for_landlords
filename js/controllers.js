@@ -398,8 +398,8 @@ noochForLandlords
 
                                 $scope.allTenantsList.splice(0, 0, { "Name": "Select A Tenant", "TenantEmail": "Select A Tenant" });
 
-                                //console.log("TENANTS LIST...");
-                                //console.log($scope.allTenantsList);
+                                console.log("TENANTS LIST...");
+                                console.log($scope.allTenantsList);
 
                                 //$scope.tenantSelected = $scope.allTenantsList[0];
                             }
@@ -500,7 +500,7 @@ noochForLandlords
 
                                             if (name != null && name.length > 1) {
                                                 htmlToDisplay = '<div class="imgContainer"><span style="background-image: url(' + full.ImageUrl + ');"></span></div>' +
-                                                                '<div class="capitalize">' + name + '</div>';
+                                                                '<div class="capitalize text-left">' + name + '</div>';
                                             }
                                             else if (full.TenantEmail != null && full.TenantEmail.length > 1) {
                                                 var classToAdd = "";
@@ -551,6 +551,7 @@ noochForLandlords
                                 "language": {
                                     "info": "Showing units <strong>_START_</strong> - <strong>_END_</strong> of <strong>_TOTAL_</strong> total units in " + $scope.selectedProperty.name,
                                     "infoEmpty": "No Units Added Yet!",
+                                    "emptyTable": "No units have been added yet!"
                                 },
                                 "order": [2, 'asc']
                             });
@@ -689,11 +690,12 @@ noochForLandlords
                                                                         // On Success
                                                                         swal({
                                                                             title: "Invite Sent",
-                                                                            text: "Your request has been sent.  We will notify you when this person accepts and signs up.",
+                                                                            text: "Your request has been sent. &nbsp;We will notify you when this person accepts and signs up.",
                                                                             type: "success",
                                                                             confirmButtonColor: "#3fabe1",
                                                                             confirmButtonText: "Great",
                                                                             customClass: "largeText",
+                                                                            html: true
                                                                         }, function () {
                                                                             $state.reload();
                                                                         });
@@ -1275,7 +1277,7 @@ noochForLandlords
             if ($rootScope.isBankAvailable !== true) {
                 swal({
                     title: "No Bank Account Linked Yet",
-                    text: "Before you can accept a payment, you must attach a bank account..",
+                    text: "Before you can accept a payment, you must attach a bank account.",
                     type: "warning",
                     confirmButtonText: "Add Bank Now",
                     showCancelButton: true,
@@ -1458,7 +1460,36 @@ noochForLandlords
                 // Now check Monthly Rent Amount field
                 if ($('#addUnitModal #monthlyRent').val().length > 2)
                 {
-                    if ($('#addUnitModal #monthlyRent').val() < 100)
+                    if (document.getElementById("unitTenantEm") &&
+                        $('#unitTenantEm').val().trim().length > 1)
+                    {
+                        // User has entered a tenant's email address... so need to make sure this landlord has linked a bank already.
+                        if ($rootScope.isBankAvailable !== true) {
+                            swal({
+                                title: "No Bank Account Linked Yet",
+                                text: "Before you can send a payment request or accept any rent payments, you must attach a bank account. " +
+                                      "&nbsp;Otherwise we won't know where to send your money!" +
+                                      "<span class='show m-t-10'>Do you want to take care of this now and link a bank?</span>",
+                                type: "warning",
+                                confirmButtonText: "Add Bank Now",
+                                showCancelButton: true,
+                                cancelButtonText: "Cancel",
+                                customClass: "largeText",
+                                html: true
+                            }, function (isConfirm) {
+                                if (isConfirm) {
+                                    $('#addUnitModal').modal('hide');
+                                    setTimeout(function () {
+                                        window.location.href = '#/profile/profile-bankaccounts';
+                                    }, 300);
+                                }
+                                else {
+                                    $('#unitTenantEm').val("");
+                                }
+                            });
+                        }
+                    }
+                    else if ($('#addUnitModal #monthlyRent').val() < 100)
                     {
                         swal({
                             title: "Set Rent to $" + $('#addUnitModal #monthlyRent').val() + "?",
@@ -1482,7 +1513,8 @@ noochForLandlords
                             }
                         });
                     }
-                    else {
+                    else
+                    {
                         $scope.addUnit_submitToService();
                     }
                 }
@@ -2289,7 +2321,6 @@ noochForLandlords
                 }
                 else if (substep == 2) {
                     if (success != true) {
-                        console.log("#1 we are here!");
                         $('#addressGrp').removeClass('has-success').addClass('has-error');
                         $('#step3Feedback span').html('Please enter the <strong>city</strong> for this property!');
                         $('#step3Feedback .alert-danger').slideDown('fast');
@@ -3010,7 +3041,7 @@ noochForLandlords
 
 
             updateValidationUi = function (field, success) {
-                console.log("Field: " + field + "; success: " + success);
+                //console.log("Field: " + field + "; success: " + success);
 
                 if (field == "reset all") {
                     $('#idVerWiz .form-group').removeClass('has-error');
@@ -3455,7 +3486,7 @@ noochForLandlords
 
                     swal({
                         title: "Bank Linked Successfully",
-                        text: "That was easy.  Next stop: add your properties to invite your tenants to pay rent on Nooch.",
+                        text: "That was easy. &nbsp;Next stop: add your properties to invite your tenants to pay rent on Nooch.",
                         type: "success",
                         showCancelButton: true,
                         cancelButtonText: "Done",
@@ -3465,6 +3496,9 @@ noochForLandlords
                     }, function (isConfirm) {
                         if (isConfirm) {
                             window.location.href = '#/properties';
+                        }
+                        else {
+                            $state.reload();
                         }
                     });
                 }
@@ -3486,21 +3520,33 @@ noochForLandlords
                 if (result == true) {
                     swal({
                         title: "Bank Linked Successfully",
-                        text: "That was easy.  Next stop: add your properties to invite your tenants to pay rent on Nooch.",
+                        text: "That was easy. &nbsp;Next stop: add your properties to invite your tenants to pay rent on Nooch.",
                         type: "success",
                         showCancelButton: true,
                         cancelButtonText: "Done",
                         confirmButtonColor: "#3fabe1",
                         confirmButtonText: "Add Properties",
+                        customClass: "largeText",
                         html: true
                     }, function (isConfirm) {
                         if (isConfirm) {
                             window.location.href = '#/properties';
                         }
+                        else {
+                            $state.reload();
+                        }
                     });
                 }
                 else {
                     console.log("Problem from ID Verification Page!");
+
+                    swal({
+                        title: "Oh No!",
+                        text: "Looks like we had some trouble linking that bank account. &nbsp;Please try again or contact <a href='mailto:support@nooch.com' target='_blank'>support@nooch.com</a>" +
+                              " for further help.<span class='show m-t-10'>Very sorry for the inconvenience - we hate too it when things don't work right the first time but we'll do everything possible to resolve any issues ASAP!</span>",
+                        type: "error",
+                        html: true,
+                    })
                 }
             });
         }
@@ -4033,7 +4079,7 @@ noochForLandlords
                                     else if (data == "Pending" || data == "pending") {
                                         htmlToReturn = "<span class=\"label label-warning\">" + data + "</span>";
                                     }
-                                    else if (data == "Rejected" || data == "rejected") {
+                                    else if (data == "Rejected" || data == "rejected" || data == "Cancelled" || data == "Canceled") {
                                         htmlToReturn = "<span class=\"label label-danger\">" + data + "</span>";
                                     }
                                     else {
@@ -4059,12 +4105,25 @@ noochForLandlords
                                 "targets": [-1],
                                 className: "text-right"
                             },
+									{
+									    "targets": [-1],
+									    "render": function (data, type, full, meta) {
+									        console.log(full);
+									        if (full.TransactionStatus == "Pending")
+									        {
+									            return htmlString = '<a href="" class=\'btn btn-icon btn-default m-r-10 sendReminderBtn\'><span class=\'md md-edit\'></span></a>' +
+                                                                 '<a href="" class=\'btn btn-icon btn-default cancelTransBtn\'><span class=\'md md-clear\'></span></a>';
+									        }
+									        return "";
+									    }
+									},
                         ],
                         "language": {
                             "info": "Showing units <strong>_START_</strong> - <strong>_END_</strong> of <strong>_TOTAL_</strong> total payments",
                             "infoEmpty": "No Payments Made Yet!",
                             "emptyTable": "No payments made yet!"
-                        }
+                        },
+                        "order": [10, 'desc']
                     });
 
                     // Add Tooltips to Action Buttons
@@ -4149,11 +4208,12 @@ noochForLandlords
                                                 // On Success
                                                 swal({
                                                     title: "Reminder Sent",
-                                                    text: "Your payment remidner has been sent.  We will notify you when this person accepts and pays.",
+                                                    text: "Your payment remidner has been sent. &nbsp;We will notify you when this person accepts and pays.",
                                                     type: "success",
                                                     confirmButtonColor: "#3fabe1",
                                                     confirmButtonText: "Ok",
                                                     customClass: "largeText",
+                                                    html: true
                                                 }, function () {
                                                     //$state.reload();
                                                 });
@@ -4488,8 +4548,8 @@ noochForLandlords
                     $('#fname').focus();
                 });
             }
-            else if (true || (localStorage.getItem('userLoginName') != null &&
-                     localStorage.getItem('userLoginName').length > 0))  //checking if exists something in local storage
+            else if (localStorage.getItem('userLoginName') != null &&
+                     localStorage.getItem('userLoginName').length > 0)  //checking if exists something in local storage
             {
                 //console.log("Username found in storage");
 
@@ -4508,7 +4568,7 @@ noochForLandlords
                     }, 400);
                 }, 300);
             }
-            else if (getParameterByName("from") == "activation" &&
+            else if (//getParameterByName("from") == "activation" &&
                      getParameterByName("em") != null && getParameterByName("em") != "") {
                 $scope.LoginData.username = getParameterByName("em");
 
@@ -4752,18 +4812,18 @@ noochForLandlords
                                 }
                             });
 
-                            // var ipResults = getIP();
+                            var ipResults = getIP();
 
                             var ip = "54.148.37.21";
                             var country_code = "US";
-                            //if (ipResults != null) {
-                            //    if (ipResults.ip != null) {
-                            //        ip = ipResults.ip;
-                            //    }
-                            //    if (ipResults.country_code != null) {
-                            //        country_code = ipResults.country_code;
-                            //    }
-                            //}
+                            if (ipResults != null) {
+                                if (ipResults.ip != null) {
+                                    ip = ipResults.ip;
+                                }
+                                if (ipResults.country_code != null) {
+                                    country_code = ipResults.country_code;
+                                }
+                            }
                             console.log("IP is: " + ip + ", and Country is : " + country_code);
 
 

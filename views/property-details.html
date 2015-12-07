@@ -179,8 +179,13 @@
                                                 <li><i class="md md-place"></i> {{ selectedProperty.address1 | capitalize }}</li>
                                                 <li class="address2">{{ selectedProperty.address2 | capitalize }}</li>
                                                 <li class="address2">{{ selectedProperty.city | capitalize}}, <span class="uppercase">{{ selectedProperty.state }}</span> {{ selectedProperty.zip }}</li>
-                                                <li><i class="md md-call" data-ng-if="selectedProperty.contactNumber.length > 8"></i> {{ selectedProperty.contactNumber | formatphone}}</li>
-                                                <li class="empty" data-ng-click="beginEditingProp()"><i class="md md-call" data-ng-if="selectedProperty.contactNumber.length == 0"></i> <span>+ add phone #</span></li>
+                                                <li data-ng-if="selectedProperty.contactNumber.length > 8"><i class="md md-call"></i> {{ selectedProperty.contactNumber | formatphone}}</li>
+                                                <li data-ng-if="selectedProperty.contactNumber.length == 0" data-ng-click="beginEditingProp()">
+                                                    <i class="md md-call"></i>
+                                                    <span style="display: inline-block;">
+                                                        <span class="btn btn-link btn-block noExtraWaves"><i class="md md-add"></i> add phone #</span>
+                                                    </span>
+                                                </li>
                                             </ul>
                                         </div>
 
@@ -211,7 +216,7 @@
                                                     </div>
                                                 </dd>
                                             </dl>-->
-                                            
+
 
                                             <dl>
                                                 <dt>City</dt>
@@ -312,6 +317,7 @@
                                     <div class="f-16">
                                         <a href="index.html#/profile/profile-bankaccounts" class="btn btn-link btn-block noExtraWaves"><i class="md md-add"></i> Add Bank Account</a>
                                     </div>
+
                                 </div>
 
                                 <div class="bank-container" ng-if="selectedProperty.defaultBankName == null ">
@@ -520,8 +526,6 @@
                                 </select>-->
                             </div>
                         </div>
-
-                        <
 
                         <div class="col-xs-12" id="startDateGrp">
                             <label for="addUnitDatePicker" class="col-sm-3 control-label">Start Date<small>Optional</small></label>
