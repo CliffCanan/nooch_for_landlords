@@ -25,6 +25,7 @@ var URLs = {
     GetPropertyDetails: PATH + 'Properties/GetPropertyDetailsPageData',
     EditProperty: PATH + 'Properties/EditProperty',
     UploadPropertyImage: PATH + 'Properties/UploadPropertyImage',
+    SaveMemoFormula: PATH + 'RentTrans/SaveMemoFormula',
 
     // Unit APIs
     AddNewUnitInProperty: PATH + 'Properties/AddNewUnitInProperty',
@@ -40,5 +41,6 @@ var URLs = {
 
     // History APIs
     GetTransHistory: PATH + 'RentTrans/GetLandlordsPaymentHistory',
-    SendPaymentReminder: PATH + 'RentTrans/SendPaymentReminder'
+    SendPaymentReminder: PATH + 'RentTrans/SendPaymentReminder',
+    CancelTransaction: PATH + 'RentTrans/CancelTrans'
 };

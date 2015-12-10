@@ -638,7 +638,7 @@
                             <div class="col-sm-10">
                                 <div class="radio m-b-15">
                                     <label>
-                                        <input type="radio" name="achMemoStyle" value="">
+                                        <input type="radio" name="achMemoStyle" value="1">
                                         <i class="input-helper"></i>
                                         Property name &nbsp;+&nbsp; Unit number
                                     </label>
@@ -646,7 +646,7 @@
 
                                 <div class="radio m-b-15">
                                     <label>
-                                        <input type="radio" name="achMemoStyle" value="">
+                                        <input type="radio" name="achMemoStyle" value="2">
                                         <i class="input-helper"></i>
                                         Property name &nbsp;+&nbsp; Unit number &nbsp;+&nbsp; Month
                                     </label>
@@ -654,7 +654,7 @@
 
                                 <div class="radio ">
                                     <label>
-                                        <input type="radio" name="achMemoStyle" value="">
+                                        <input type="radio" name="achMemoStyle" value="3">
                                         <i class="input-helper"></i>
                                         Property name &nbsp;+&nbsp; Unit number &nbsp;+&nbsp; Tenant Last Name (space permitting)
                                     </label>
@@ -701,11 +701,11 @@
 
     <!-- Modal Upload Lease -->
     <div class="modal fade" id="uploadLease" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog" style="max-width: 600px;">
+        <div class="modal-dialog" style="max-width: 500px;">
             <div class="modal-content">
 
                 <div class="modal-header">
-                    <h4 class="modal-title"><i class="md md-insert-photo m-r-10"></i>Upload Lease</h4>
+                    <h4 class="modal-title"><i class="md md-backup m-r-10"></i>Upload Lease</h4>
                     <button type="button" class="btn btn-default btn-icon modalclose" data-dismiss="modal"><i class="md md-close"></i></button>
                 </div>
 
@@ -717,6 +717,33 @@
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-link" ng-click="saveLeaseDoc()"><i class="md md-check m-r-10"></i>Save</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal View Lease -->
+    <div class="modal fade" id="viewLease" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg" style="max-width: 860px;">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h4 class="modal-title"><i class="md md-assignment m-r-10"></i>View Lease</h4>
+                    <button type="button" class="btn btn-default btn-icon modalclose" data-dismiss="modal"><i class="md md-close"></i></button>
+                </div>
+
+                <div class="modal-body text-center">
+                    <object data="" type="application/pdf">
+                        <p>
+                            It appears you don't have a PDF plugin for this browser.
+                            No biggie... you can <a href="">click here</a> to download the PDF file.
+                        </p>
+                    </object>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" ng-click="saveLeaseDoc()"><i class="md md-check m-r-10"></i>Close</button>
                 </div>
 
             </div>

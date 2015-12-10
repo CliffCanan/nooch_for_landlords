@@ -523,6 +523,13 @@ table .cents {
     top: 1px;
 }
 
+.modal object {
+    display: block;
+    width: 100%;
+    min-height: 350px;
+}
+
+
 /* OLD PROP DETAILS TABLE */
 #propDetailsTbl .media-body {
     overflow: visible;
@@ -1605,6 +1612,10 @@ form .checkbox.haserror .input-helper:before {
 
     table#propUnits .unit-rent {
         padding: 14px 6px;
+    }
+
+    .modal object {
+        min-height: 460px;
     }
 
     #profileMain .pmbb-body .dl-horizontal dt {
