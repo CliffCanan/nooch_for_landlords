@@ -3419,7 +3419,8 @@ noochForLandlords
     // Profile - BANK ACCOUNTS
     //=================================================
 
-    .controller('banksCtrl', function ($rootScope, $scope, authenticationService, getBanksService, getProfileService) {
+    .controller('banksCtrl', function ($rootScope, $scope, $state, authenticationService, getBanksService, getProfileService)
+    {
         this.isBankAttached = true;
 
         // Get User's Info from DB
@@ -3432,8 +3433,10 @@ noochForLandlords
             getBanksService.getBanks(userdetails.landlordId, userdetails.accessToken, function (response) {
                 //console.log('Banks Controller -> Get Banks Response data -> ' + JSON.stringify(response));
 
-                if (response.success == true) {
-                    if (response.msg == 'Worked like a charm') {
+                if (response.success == true)
+                {
+                    if (response.msg == 'Worked like a charm')
+                    {
                         $scope.bankCount = 1;
                         $scope.bankName = response.BankName;
                         $scope.bankImg = response.BankImageURL;
@@ -3448,13 +3451,15 @@ noochForLandlords
                         $scope.bankCount = 0;
                     }
                 }
-                else {
+                else
+                {
                     $scope.bankCount = 0;
                     console.log("Get Banks FAILURE (Controller)");
                 }
             });
         }
-        else {
+        else
+        {
             window.location.href = 'login.html';
         }
 
