@@ -554,7 +554,6 @@ noochForLandlords
 									        var requestBtnString = "";
 									        if (full.IsBankAccountAdded && full.IsEmailVerified)
 									        {
-									            console.log("Bank is added and email verified!!");
 									            requestBtnString = '<a href="" class=\'btn btn-icon btn-default m-r-10 sendRequestBtn\'><span class=\'md md-attach-money\'></span></a>';
 									        }
 
@@ -623,48 +622,61 @@ noochForLandlords
                                 if ((data['IsOccupied'] != null && data['IsOccupied'] == true) &&
                                     (data['IsBankAccountAdded'] != null && data['IsBankAccountAdded'] == true))
                                 {
-
-                                    // CLIFF (4/3/16): THIS IS WHERE WE NEED TO CALL THE SERVER TO SEND THE PAYMENT REQUEST TO THE TENANT...
-                                    //                 I COPIED THIS CODE FROM BELOW FOR "ChargeTenant", but I don't think it will work... :-(
-
-
                                     // Prepare data to be submitted to DB
                                     var userdetails = authenticationService.GetUserDetails();
 
                                     var transInfo = {};
-                                    transInfo.Memo = "April Rent - " + data['IsBankAccountAdded'];
-                                    transInfo.Amount = data['IsBankAccountAdded'];
-                                    transInfo.TenantId = data['IsBankAccountAdded']; // CLIFF (4/3/16): Actually using the 
-                                    transInfo.IsRecurring = false;
+                                    transInfo.Amount = data['UnitRent'];
+                                    transInfo.Memo = "April Rent - " + $scope.selectedProperty.name;
+                                    transInfo.TenantMemberId = data['MemberId'];
 
+                                    var propId = data['PropertyId']
+                                    var unitId = data['UnitId'];
+                                    var tenantName = data['TenantName'];
 
-
-                                    propertiesService.ChargeTenant(transInfo, userdetails.landlordId, userdetails.accessToken, userDetails.memberId, function (data)
+                                    swal({
+                                        title: "Send Rent Payment Request?",
+                                        text: "Would you like to send a payment request for <strong>$" + transInfo.Amount + "</strong> to <strong>" + tenantName + "</strong>?",
+                                        type: "warning",
+                                        showCancelButton: true,
+                                        confirmButtonColor: "#3FABE1",
+                                        confirmButtonText: "Yes - Send",
+                                        customClass: "largeText",
+                                        html: true
+                                    }, function (isConfirm)
                                     {
-                                        if (data.IsSuccess == true)
+                                        if (isConfirm)
                                         {
-                                            swal({
-                                                title: "Payment Request Sent",
-                                                text: "Your tenant will be notified about your payment request. &nbsp;We will update you when they complete the payment.",
-                                                type: "success",
-                                                showCancelButton: false,
-                                                confirmButtonColor: "#3FABE1",
-                                                confirmButtonText: "Got It!",
-                                                customClass: "largeText",
-                                                html: true
-                                            });
-                                        }
-                                        else
-                                        {
-                                            swal({
-                                                title: "Oh No",
-                                                text: "Looks like we had some trouble making that payment request.  Please try again later or contact <a href='mailto:support@nooch.money' target='_blank'>Nooch Support</a> for further assistance.",
-                                                type: "error",
-                                                showCancelButton: false,
-                                                confirmButtonColor: "#3FABE1",
-                                                confirmButtonText: "Ok",
-                                                customClass: "largeText",
-                                                html: true,
+                                            //console.log(JSON.stringify(transInfo));
+
+                                            propDetailsService.sendRequestToExistingTenant(transInfo, userdetails.landlordId, userDetails.memberId, propId, unitId, userdetails.accessToken, function (data)
+                                            {
+                                                if (data.success == true || data.msg.indexOf("Request made successfully") > -1)
+                                                {
+                                                    swal({
+                                                        title: "Payment Request Sent",
+                                                        text: tenantName + " will be notified about your payment request. &nbsp;We will update you when the payment is completed by the tenant.",
+                                                        type: "success",
+                                                        showCancelButton: false,
+                                                        confirmButtonColor: "#3FABE1",
+                                                        confirmButtonText: "Got It!",
+                                                        customClass: "largeText",
+                                                        html: true
+                                                    });
+                                                }
+                                                else
+                                                {
+                                                    swal({
+                                                        title: "Oh No",
+                                                        text: "Looks like we had some trouble making that payment request.  Please try again later or contact <a href='mailto:support@nooch.money' target='_blank'>Nooch Support</a> for further assistance.",
+                                                        type: "error",
+                                                        showCancelButton: false,
+                                                        confirmButtonColor: "#3FABE1",
+                                                        confirmButtonText: "Ok",
+                                                        customClass: "largeText",
+                                                        html: true,
+                                                    });
+                                                }
                                             });
                                         }
                                     });

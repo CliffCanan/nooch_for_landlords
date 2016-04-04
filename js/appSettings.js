@@ -26,6 +26,7 @@ var URLs = {
     EditProperty: PATH + 'Properties/EditProperty',
     UploadPropertyImage: PATH + 'Properties/UploadPropertyImage',
     SaveMemoFormula: PATH + 'RentTrans/SaveMemoFormula',
+    RequestRentToExistingTenant: PATH + 'RentTrans/RequestRentToExistingTenant',
 
     // Unit APIs
     AddNewUnitInProperty: PATH + 'Properties/AddNewUnitInProperty',

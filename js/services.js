@@ -330,6 +330,33 @@ noochForLandlords
         }
 
 
+        function sendRequestToExistingTenant(transInfo, landlordId, memberId, propId, unitId, accessToken, callback)
+        {
+            var data = {};
+
+            data.PropertyId = propId;
+            data.UnitId = unitId;
+            data.Amount = transInfo.Amount.replace(",", "");
+            data.Memo = transInfo.Memo;
+            data.TenetsMemberId = transInfo.TenantMemberId;
+
+            data.User = {
+                LandlordId: landlordId,
+                AccessToken: accessToken,
+                MemberId: memberId
+            };
+
+            console.log(JSON.stringify(data));
+
+            $http.post(URLs.RequestRentToExistingTenant, data)
+                .success(function (response)
+                {
+                    console.log(response);
+                    callback(response);
+                });
+        }
+
+
         function saveMemoFormula(formulaChoice, landlordId, memberId, accessToken, callback)
         {
             var data = {};
@@ -359,7 +386,8 @@ noochForLandlords
             getPropFromDb: getPropertyDetailsFromDB,
             deleteUnit: deleteUnitFromProperty,
             inviteNewTenant: inviteNewTenant,
-            saveMemoFormula: saveMemoFormula
+            saveMemoFormula: saveMemoFormula,
+            sendRequestToExistingTenant: sendRequestToExistingTenant
         }
     }])
 
