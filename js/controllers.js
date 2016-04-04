@@ -355,10 +355,15 @@ noochForLandlords
 
             var propId = propDetailsService.get();
 
-            if (propId != null && propId.length > 0) {
-                propDetailsService.getPropFromDb(propId, userDetails.landlordId, userDetails.accessToken, function (data) {
-                    if (data.AuthTokenValidation.IsTokenOk == true) {
+            if (propId != null && propId.length > 0)
+            {
+                propDetailsService.getPropFromDb(propId, userDetails.landlordId, userDetails.accessToken, function (data)
+                {
+                    if (data.AuthTokenValidation.IsTokenOk == true)
+                    {
+
                         console.log(data);
+
                         if (data.IsSuccess == true) {
                             var propStatus = 0;
 
@@ -536,6 +541,9 @@ noochForLandlords
 									    "targets": [-1],
 									    "render": function (data, type, full, meta) {
 
+									        //console.log(data)
+									        //console.log(full)
+
 									        var leaseDocString = '<a href="" class=\'btn btn-icon btn-default m-r-10 uploadLeaseBtn\'><span class=\'md md-cloud-upload\'></span></a>';
 
 									        if (typeof full.LeaseDocPath != 'undefined' && full.LeaseDocPath.length > 10)
@@ -543,9 +551,17 @@ noochForLandlords
 									            leaseDocString = '<a href="" class=\'btn btn-icon btn-default m-r-10 viewLeaseBtn\'><span class=\'md md-visibility\'></span></a>';
 									        }
 
+									        var requestBtnString = "";
+									        if (full.IsBankAccountAdded && full.IsEmailVerified)
+									        {
+									            console.log("Bank is added and email verified!!");
+									            requestBtnString = '<a href="" class=\'btn btn-icon btn-default m-r-10 sendRequestBtn\'><span class=\'md md-attach-money\'></span></a>';
+									        }
+
 									        var htmlString = '<span style=\'display: inline-block; height: 100%; vertical-align: top;\'><a href="" class=\'btn btn-link m-r-10 editUnitBtn\'>edit</a></span>' +
                                                              '<div style=\'display: inline-block\'><div>' +
-														          leaseDocString +
+                                                                 requestBtnString +
+														         leaseDocString +
                                                                  '<a href="" class=\'btn btn-icon btn-default m-r-10 msgUnitBtn\'><span class=\'md md-chat\'></span></a>' +
                                                                  '<a href="" class=\'btn btn-icon btn-default deleteUnitBtn\'><span class=\'md md-clear\'></span></a>' +
                                                                  //'<a href="" class=\'btn btn-icon btn-default msgUnitBtn\'><span class=\'md md-forum\'></span></a>' +
@@ -590,6 +606,70 @@ noochForLandlords
                                 title: "Delete This Unit",
                                 trigger: "hover"
                             });
+                            $('#propUnits tbody .btn.sendRequestBtn').tooltip({
+                                title: "Send Payment Request",
+                                trigger: "hover"
+                            });
+
+
+                            // SEND REQUEST BTN CLICKED
+                            $('#propUnits tbody .sendRequestBtn').click(function ()
+                            {
+                                var data = $scope.propUnitsTable.row($(this).parents('tr')).data();
+                                console.log(data);
+
+                                $scope.editingUnitId = data['UnitId'];
+
+                                if ((data['IsOccupied'] != null && data['IsOccupied'] == true) &&
+                                    (data['IsBankAccountAdded'] != null && data['IsBankAccountAdded'] == true))
+                                {
+
+                                    // CLIFF (4/3/16): THIS IS WHERE WE NEED TO CALL THE SERVER TO SEND THE PAYMENT REQUEST TO THE TENANT...
+                                    //                 I COPIED THIS CODE FROM BELOW FOR "ChargeTenant", but I don't think it will work... :-(
+
+
+                                    // Prepare data to be submitted to DB
+                                    var userdetails = authenticationService.GetUserDetails();
+
+                                    var transInfo = {};
+                                    transInfo.Memo = "April Rent - " + data['IsBankAccountAdded'];
+                                    transInfo.Amount = data['IsBankAccountAdded'];
+                                    transInfo.TenantId = data['IsBankAccountAdded']; // CLIFF (4/3/16): Actually using the 
+                                    transInfo.IsRecurring = false;
+
+
+
+                                    propertiesService.ChargeTenant(transInfo, userdetails.landlordId, userdetails.accessToken, userDetails.memberId, function (data)
+                                    {
+                                        if (data.IsSuccess == true)
+                                        {
+                                            swal({
+                                                title: "Payment Request Sent",
+                                                text: "Your tenant will be notified about your payment request. &nbsp;We will update you when they complete the payment.",
+                                                type: "success",
+                                                showCancelButton: false,
+                                                confirmButtonColor: "#3FABE1",
+                                                confirmButtonText: "Got It!",
+                                                customClass: "largeText",
+                                                html: true
+                                            });
+                                        }
+                                        else
+                                        {
+                                            swal({
+                                                title: "Oh No",
+                                                text: "Looks like we had some trouble making that payment request.  Please try again later or contact <a href='mailto:support@nooch.money' target='_blank'>Nooch Support</a> for further assistance.",
+                                                type: "error",
+                                                showCancelButton: false,
+                                                confirmButtonColor: "#3FABE1",
+                                                confirmButtonText: "Ok",
+                                                customClass: "largeText",
+                                                html: true,
+                                            });
+                                        }
+                                    });
+                                }
+                            });
 
                             // SEND MESSAGE BTN CLICKED
                             $('#propUnits tbody .msgUnitBtn').click(function () {
@@ -598,12 +678,15 @@ noochForLandlords
 
                                 $scope.editingUnitId = data['UnitId'];
 
-                                if (data['IsOccupied'] != null && data['IsOccupied'] == true) {
-                                    if (data['TenantName'] != null && data['TenantName'].length > 2) {
+                                if (data['IsOccupied'] != null && data['IsOccupied'] == true)
+                                {
+                                    if (data['TenantName'] != null && data['TenantName'].length > 2)
+                                    {
                                         $('#sndMsgForm #tenantMsgGrp > div').html('<p class="form-control-static capitalize" id="tenantStatic" data-memid="' +
                                                                                   data['MemberId'] + '">' + data['TenantName'] + '</p>');
                                     }
-                                    else if (data['TenantEmail'] != null && data['TenantEmail'].length > 2) {
+                                    else if (data['TenantEmail'] != null && data['TenantEmail'].length > 2)
+                                    {
                                         $('#sndMsgForm #tenantMsgGrp > div').html('<p class="form-control-static" id="tenantStatic" data-memid="' +
                                                                                   data['MemberId'] + '">' + data['TenantEmail'] + '</p>');
                                     }
@@ -1333,7 +1416,8 @@ noochForLandlords
                     }
                 });
             }
-            else {
+            else
+            {
                 //console.log(e.target.id);
 
                 $('#chargeTenantModal').modal();
@@ -1382,7 +1466,8 @@ noochForLandlords
 
                 // Check Amount field
                 if ($('#chargeTenantForm #amount').val().length > 4 &&
-                    $('#chargeTenantForm #amount').val() > 10) {
+                    $('#chargeTenantForm #amount').val() > 10)
+                {
                     updateValidationUi("amount", true);
 
 
