@@ -1866,7 +1866,8 @@ noochForLandlords
                         // for single person
                         emailObj.IsForAllOrOne = "One";
                         //console.log($('#tenantStatic').attr('data-memid'));
-                        emailObj.TenantIdToBeMessaged = $('#tenantStatic').attr('data-memid');  // ID of tenant to be send from here..hard coded for now
+                        emailObj.TenantIdToBeMessaged = $scope.tenantSelectedForMsg;
+                       // emailObj.TenantIdToBeMessaged = $('#tenantStatic').attr('data-memid');  // ID of tenant to be send from here..hard coded for now
                     }
 
                     var userdetails = authenticationService.GetUserDetails();
@@ -4483,8 +4484,8 @@ noochForLandlords
                                     {
                                         //authenticationService.SetUserDetails($scope.LoginData.username, response.MemberId, response.LandlordId, response.AccessToken);
                                         swal({
-                                            title: "Password Updated",
-                                            text: "Your password has been successfully updated.",
+                                            title: "Payment Cancelled",
+                                            text: "Payment has been cancelled successfully.",
                                             type: "success",
                                             customClass: "largeText"
                                         });

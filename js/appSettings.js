@@ -1,4 +1,5 @@
 var PATH = 'https://noochme.com/landlords/db/api/';
+ 
 var URLs = {
     LoginWithGoogle: PATH + 'Users/LoginWithGoogle',
     LoginWithFB: PATH + 'Users/LoginWithFB',
@@ -27,6 +28,7 @@ var URLs = {
     UploadPropertyImage: PATH + 'Properties/UploadPropertyImage',
     SaveMemoFormula: PATH + 'RentTrans/SaveMemoFormula',
     RequestRentToExistingTenant: PATH + 'RentTrans/RequestRentToExistingTenant',
+    ChargeTenant: PATH + 'RentTrans/chargeTenant',
 
     // Unit APIs
     AddNewUnitInProperty: PATH + 'Properties/AddNewUnitInProperty',
