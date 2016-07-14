@@ -916,21 +916,36 @@ noochForLandlords
         };
 
 
-        Operations.sendPaymentReminder = function (transactionId, tenantId, landlordId, accessToken, callback)
+        Operations.sendPaymentReminder = function (transactionId, tenantId, landlordId, accessToken,memberID, callback)
         {
+            
             console.log("Service -> sendPaymentReminder Fired");
 
             var data = {};
-            data.LandlordId = landlordId;
-            data.AccessToken = accessToken;
-            data.transId = transactionId;
-            data.tenantId = tenantId
+
+            data.Trans = {
+                TenantId: tenantId,
+                TransactionId: transactionId,
+                ReminderType:''
+            }
+
+            data.User = {
+                LandlordId: landlordId,
+                MemberId: memberID,
+                AccessToken: accessToken
+            };
+            //data.LandlordId = landlordId;
+            //data.AccessToken = accessToken;
+            //data.transId = transactionId;
+            //data.tenantId = tenantId
 
             console.log(JSON.stringify(data));
+           
 
             $http.post(URLs.SendPaymentReminder, data)
                 .success(function (response)
                 {
+                    
                     console.log(response);
 
                     callback(response);

@@ -1866,7 +1866,16 @@ noochForLandlords
                         // for single person
                         emailObj.IsForAllOrOne = "One";
                         //console.log($('#tenantStatic').attr('data-memid'));
-                        emailObj.TenantIdToBeMessaged = $scope.tenantSelectedForMsg;
+                    
+                        if ($scope.tenantSelectedForMsg != undefined) {
+                           
+                            emailObj.TenantIdToBeMessaged = $scope.tenantSelectedForMsg;
+                        }
+                        else {
+                          
+                            emailObj.TenantIdToBeMessaged = $('#tenantStatic').attr('data-memid');
+                        }
+                       
                        // emailObj.TenantIdToBeMessaged = $('#tenantStatic').attr('data-memid');  // ID of tenant to be send from here..hard coded for now
                     }
 
@@ -4361,7 +4370,7 @@ noochForLandlords
                             html: true,
                         })
 
-                        return;
+                       return;
 
 
                         var data = $scope.historyTable.row($(this).parents('tr')).data();
@@ -4408,9 +4417,9 @@ noochForLandlords
                                         color: '#fff'
                                     }
                                 });
-
+                             
                                 // CALL SERVICE FOR SENDING A REMINDER TO THE TENANT
-                                historyService.sendPaymentReminder(data['TransactionId'], data['TenantId'], userDetails.landlordId, userDetails.accessToken, function (response) {
+                                historyService.sendPaymentReminder(data['TransactionId'], data['TenantId'], userDetails.landlordId, userDetails.accessToken, userDetails.memberId, function (response) {
                                     console.log("History Cntrlr -> SendPaymentReminder Response...");
                                     console.log(response);
 

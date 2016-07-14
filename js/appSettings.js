@@ -45,5 +45,6 @@ var URLs = {
     // History APIs
     GetTransHistory: PATH + 'RentTrans/GetLandlordsPaymentHistory',
     SendPaymentReminder: PATH + 'RentTrans/SendPaymentReminder',
+   // SendPaymentReminder: PATH + 'RentTrans/SendRentRemindersToTenants',
     CancelTransaction: PATH + 'RentTrans/CancelTrans'
 };
