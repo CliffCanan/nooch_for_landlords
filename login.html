@@ -84,12 +84,13 @@
         </form>
 
         <div class="m-t-30 text-center">
-            <a class="f-400" data-ng-click="showBlock('signup')">Don't have an account? Sign up here</a>
-            <br />or<br />
-            <fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
-            </fb:login-button>
+            <div style="margin: 3px auto 6px">or</div>
+            <fb:login-button scope="public_profile,email" onlogin="checkLoginState();"></fb:login-button>
             <div class="clearfix m-5"></div>
             <div id="goog-signin2"></div>
+            <div class="m-t-15">
+                <a class="f-400" data-ng-click="showBlock('signup')">Don't have an account? Sign up here</a>
+            </div>
         </div>
 
     </div>
@@ -101,16 +102,6 @@
         <form id="reg" ng-submit="lctrl.registerAttmpt()" class="col-xs-12">
 
             <p class="intro col-xs-12">Sign Up</p>
-
-            <div class="row">
-                <div class="pull-right m-b-15">
-                    <div class="toggle-switch" data-ts-color="blue">
-                        <span style="display:inline-block;" class="m-r-10">Business Account?&nbsp;</span>
-                        <input id="biz" type="checkbox" hidden="hidden">
-                        <label for="biz" class="ts-helper"></label>
-                    </div>
-                </div>
-            </div>
 
             <div class="row">
                 <div class="form-group fg-float halfwidth" id="fnameGrp">
@@ -147,6 +138,16 @@
                         <input type="password" id="pwreg" class="input-lg form-control fg-input" data-ng-model="SignupData.pass">
                     </div>
                     <label class="fg-label" for="pwreg">Password</label>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="text-left m-b-25">
+                    <div class="toggle-switch" data-ts-color="blue">
+                        <input id="biz" type="checkbox" hidden="hidden">
+                        <label for="biz" class="ts-helper"></label>
+                        <strong style="display:inline-block; text-align: left;" class="f-16 m-l-10 m-r-10">Business Account?&nbsp;</strong>
+                    </div>
                 </div>
             </div>
 
@@ -211,14 +212,17 @@
             console.log('statusChangeCallback');
             console.log(response);
 
-            if (response.status === 'connected') {
+            if (response.status === 'connected')
+            {
                 // Logged into your app and Facebook.
                 getFBData();
-            } else if (response.status === 'not_authorized') {
+            } else if (response.status === 'not_authorized')
+            {
                 // The person is logged into Facebook, but not your app.
                 //document.getElementById('status').innerHTML = 'Please log ' +
                 //  'into this app.';
-            } else {
+            } else
+            {
                 // The person is not logged into Facebook, so we're not sure if
                 // they are logged into this app or not.
                 //document.getElementById('status').innerHTML = 'Please log ' +
@@ -264,7 +268,8 @@
                 FB.api(
                     "/" + response.id + "/picture?type=normal",
                     function (response2) {
-                        if (response2 && !response2.error) {
+                        if (response2 && !response2.error)
+                        {
                             /* handle the result */
                             //document.getElementById('userImage').innerHTML = response2.data.url;
                             localStorage.setItem('fbUserPhotoUrl', response2.data.url);

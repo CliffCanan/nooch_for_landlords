@@ -968,8 +968,8 @@ body.login-content:before {
     text-align: center;
     font-size: 20px;
     font-weight: 500;
-    margin-top: -5px;
-    margin-bottom: 6px;
+    letter-spacing: .5px;
+    margin-bottom: 15px;
     text-transform: uppercase;
 }
 
@@ -1046,7 +1046,8 @@ body.login-content:before {
 
     .login-content .help-block.forgotpw {
         position: static;
-        float: right;
+        float: left;
+        margin-bottom: 10px;
     }
 
 .login-content .btn {

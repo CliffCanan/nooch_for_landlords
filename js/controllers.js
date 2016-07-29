@@ -3652,7 +3652,7 @@ noochForLandlords
 
         $scope.displayAddBankIframe = function () {
 
-            $('#bankAdd iframe').attr("src", "http://www.noochme.com/noochweb/trans/Add-Bank.aspx?MemberId=" + $scope.userInfoInSession.memberId + "&ll=yes");
+            $('#bankAdd iframe').attr("src", "https://www.noochme.com/noochweb/Nooch/AddBank?MemberId=" + $scope.userInfoInSession.memberId + "&ll=yes");
             $('#bankAdd').modal({
                 keyboard: false
             })
