@@ -2329,7 +2329,7 @@ noochForLandlords
 
                         // event will be fired after file is selected
                         $('#addPropPicFileInput').on('fileloaded', function (event, file, previewId, index, reader) {
-                            alert();
+                            //alert();
                             $scope.inputData.IsPropertyImageSelected = true;
                             var readerN = new FileReader();
                             //readerN.readAsText(file);
