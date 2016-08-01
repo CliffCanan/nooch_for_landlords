@@ -401,7 +401,28 @@ noochForLandlords
                             }
 
                             $scope.allUnitsList = data.PropertyDetails.AllUnits;
-                            $scope.allTenantsList = data.TenantsListForThisProperty;
+                            console.log($scope.allUnitsList);
+                            //$scope.allTenantsList = data.TenantsListForThisProperty;
+
+                            // Malkit (1 Aug 2016) :// Creating Tenants list locally here, no need to fetch from db. // Server side code is not efficient enough, will modify server side code in next release.
+                            $scope.allTenantsList = [];
+
+                            for (var x = 0; x < $scope.allUnitsList.length;x++)
+                            {
+                                console.log($scope.allUnitsList[x]);
+                                var TenantObject = {
+                                    TenantEmail: $scope.allUnitsList[x].TenantEmail,
+                                    UnitNumber: $scope.allUnitsList[x].UnitNumber,
+                                    TenantId: $scope.allUnitsList[x].MemberId,
+                                    ImageUrl: $scope.allUnitsList[x].ImageUrl,
+                                    Name: $scope.allUnitsList[x].TenantName
+                                };
+
+                                $scope.allTenantsList.push(TenantObject);
+                            }
+
+
+                            console.log($scope.allTenantsList);
                             if ($scope.allTenantsList.length > 0) {
 
                                 $scope.allTenantsList.splice(0, 0, { "Name": "Select A Tenant", "TenantEmail": "Select A Tenant" });
@@ -2308,9 +2329,12 @@ noochForLandlords
 
                         // event will be fired after file is selected
                         $('#addPropPicFileInput').on('fileloaded', function (event, file, previewId, index, reader) {
+                            alert();
                             $scope.inputData.IsPropertyImageSelected = true;
                             var readerN = new FileReader();
                             //readerN.readAsText(file);
+                             
+                            console.log(file);
                             readerN.readAsDataURL(file);
                             readerN.onload = function (e) {
                                 // browser completed reading file - display it
@@ -2320,6 +2344,7 @@ noochForLandlords
                                 var string2 = splittable[1];
                                 //console.log(string2);
                                 $scope.inputData.propertyImage = string2;
+                                console.log(string2);
                             };
                         });
 
@@ -3538,7 +3563,7 @@ noochForLandlords
             $scope.userInfoInSession = userdetails;
 
             getBanksService.getBanks(userdetails.landlordId, userdetails.accessToken, function (response) {
-                //console.log('Banks Controller -> Get Banks Response data -> ' + JSON.stringify(response));
+                console.log('Banks Controller -> Get Banks Response data -> ' + JSON.stringify(response));
 
                 if (response.success == true)
                 {
@@ -3652,7 +3677,7 @@ noochForLandlords
 
         $scope.displayAddBankIframe = function () {
 
-            $('#bankAdd iframe').attr("src", "http://www.noochme.com/noochweb/trans/Add-Bank.aspx?MemberId=" + $scope.userInfoInSession.memberId + "&ll=yes");
+            $('#bankAdd iframe').attr("src", "http://nooch.info/noochweb/Nooch/AddBank?memberid=?MemberId=" + $scope.userInfoInSession.memberId + "&ll=yes");
             $('#bankAdd').modal({
                 keyboard: false
             })
