@@ -3677,7 +3677,11 @@ noochForLandlords
 
         $scope.displayAddBankIframe = function () {
 
+<<<<<<< HEAD
             $('#bankAdd iframe').attr("src", "http://nooch.info/noochweb/Nooch/AddBank?memberid=?MemberId=" + $scope.userInfoInSession.memberId + "&ll=yes");
+=======
+            $('#bankAdd iframe').attr("src", "https://www.noochme.com/noochweb/Nooch/AddBank?MemberId=" + $scope.userInfoInSession.memberId + "&ll=yes");
+>>>>>>> 054f830c7a20c06d522668e9960e13c7ac48c91f
             $('#bankAdd').modal({
                 keyboard: false
             })
