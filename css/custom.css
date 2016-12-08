@@ -1342,7 +1342,12 @@ form .checkbox.haserror .input-helper:before {
     }
 
 #idVerWiz > .steps > ul > li {
-    width: 32%;
+    width: 25%;
+}
+
+.wizard > .steps a {
+    padding: .75em .75em;
+    text-align: center;
 }
 
 #idVerWiz > .steps .current a {
@@ -1420,22 +1425,7 @@ form .checkbox.haserror .input-helper:before {
 }
 
 #idVerWiz #idVer-ssn {
-    padding-left: 92px;
     letter-spacing: 1px;
-}
-
-#idVerWiz #ssnPrefix {
-    position: absolute;
-    left: 5px;
-    bottom: 7px;
-    font-size: 16px;
-    font-weight: 400;
-    letter-spacing: .75px;
-}
-
-#idVerWiz .actions {
-    font-size: 16px;
-    margin-top: 25px;
 }
 
 #idVerWiz .fileinput .fileinput-preview {
@@ -1484,6 +1474,13 @@ form .checkbox.haserror .input-helper:before {
         box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.12), 0 2px 10px -3px rgba(0, 0, 0, 0.1);
     }
 
+.wizard .steps a i {
+    font-size: 17px;
+    position: relative;
+    top: -2px;
+    text-align: center;
+}
+
 .bootstrap-datetimepicker-widget table thead .fa {
     color: #3fabe1;
     font-size: 19px;
@@ -1525,19 +1522,6 @@ form .checkbox.haserror .input-helper:before {
     overflow: hidden;
 }
 
-#idVerWiz .content > section:nth-child(2):after {
-    content: "*...and comply with the USA Patriot Act. Imagine how bad we'd look if terrorists used Nooch. So we take it pretty seriously.";
-    color: rgba(64,65,66,0.9);
-    display: block;
-    position: absolute;
-    bottom: -10px;
-    font-size: 12.5px;
-    letter-spacing: .5px;
-    font-weight: 300;
-    width: 80%;
-    left: 10%;
-}
-
 #idVerWiz .well .ast > span {
     font-size: 92%;
     font-weight: 300;
@@ -1551,6 +1535,11 @@ form .checkbox.haserror .input-helper:before {
 /****   MOBILE SCREENS   ****
  ****************************/
 @media (max-width: 767px) {
+    .hide-sm {
+        display: none !important;
+        visibility: hidden !important;
+    }
+
     .modal .modal-body {
         padding: 0 3px 10px;
     }
@@ -1979,11 +1968,9 @@ table .btn-icon .md-clear {
     top: -15px;
 }
 
-
 addPropWiz .content {
     min-height: 22em;
 }
-
 
 #addPropWiz .alert-danger {
     padding: 8px 20px !important;
@@ -1995,9 +1982,9 @@ addPropWiz .content {
 }
 
 .actions > ul > li:last-child > a {
-    color: #333333;
-    background-color: #ffffff;
-    border-color: #cccccc;
+    color: #333;
+    background-color: #fff;
+    border-color: #ccc;
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.12), 0 2px 10px 0 rgba(0, 0, 0, 0.1);
 }
 

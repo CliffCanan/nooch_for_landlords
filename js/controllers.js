@@ -5,7 +5,8 @@ noochForLandlords
 
     .controller('noochAdminCtrl', function ($rootScope, $window, $location, $timeout, $state, growlService, authenticationService) {
 
-        if (!authenticationService.IsValidUser()) {
+        if (!authenticationService.IsValidUser())
+        {
             console.log("adminCtrl -> User no longer valid!");
 
             growlService.growl('Please login to continue!', 'inverse');
@@ -14,7 +15,8 @@ noochForLandlords
         }
 
         // Detect Mobile Browser
-        if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+        if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent))
+        {
             angular.element('html').addClass('ismobile');
         }
 
@@ -31,7 +33,8 @@ noochForLandlords
 
         //Close sidebar on click
         this.sidebarStat = function (event) {
-            if (!angular.element(event.target).parent().hasClass('active')) {
+            if (!angular.element(event.target).parent().hasClass('active'))
+            {
                 this.sidebarToggle.left = false;
             }
         }
@@ -47,12 +50,14 @@ noochForLandlords
     //      HEADER
     // ===============================================================
     .controller('headerCtrl', function ($rootScope, $timeout, messageService, authenticationService) {
-        if (!authenticationService.IsValidUser()) {
+        if (!authenticationService.IsValidUser())
+        {
             console.log("headCtrl -> User no longer valid!");
             window.location.href = 'login.html';
         }
 
-        if (typeof $rootScope.userDetailsRoot == 'undefined') {
+        if (typeof $rootScope.userDetailsRoot == 'undefined')
+        {
             //console.log($userDetailsRoot.imgUrl);
             $rootScope.userDetailsRoot = {};
         }
@@ -108,7 +113,8 @@ noochForLandlords
                 cancelButtonText: "No - Stay Logged In",
                 closeOnConfirm: false
             }, function (isConfirm) {
-                if (isConfirm) {
+                if (isConfirm)
+                {
                     //localStorage.clear();
                     localStorage.setItem('userLoginPass', "");
                     window.location.href = 'login.html';
@@ -120,32 +126,41 @@ noochForLandlords
         this.fullScreen = function () {
             //Launch
             function launchIntoFullscreen(element) {
-                if (element.requestFullscreen) {
+                if (element.requestFullscreen)
+                {
                     element.requestFullscreen();
-                } else if (element.mozRequestFullScreen) {
+                } else if (element.mozRequestFullScreen)
+                {
                     element.mozRequestFullScreen();
-                } else if (element.webkitRequestFullscreen) {
+                } else if (element.webkitRequestFullscreen)
+                {
                     element.webkitRequestFullscreen();
-                } else if (element.msRequestFullscreen) {
+                } else if (element.msRequestFullscreen)
+                {
                     element.msRequestFullscreen();
                 }
             }
 
             //Exit
             function exitFullscreen() {
-                if (document.exitFullscreen) {
+                if (document.exitFullscreen)
+                {
                     document.exitFullscreen();
-                } else if (document.mozCancelFullScreen) {
+                } else if (document.mozCancelFullScreen)
+                {
                     document.mozCancelFullScreen();
-                } else if (document.webkitExitFullscreen) {
+                } else if (document.webkitExitFullscreen)
+                {
                     document.webkitExitFullscreen();
                 }
             }
 
-            if (exitFullscreen()) {
+            if (exitFullscreen())
+            {
                 launchIntoFullscreen(document.documentElement);
             }
-            else {
+            else
+            {
                 launchIntoFullscreen(document.documentElement);
             }
         }
@@ -163,7 +178,8 @@ noochForLandlords
             //console.log($rootScope.isIdVerified);
 
             // Check if New User Tour should be displayed
-            if ($rootScope.hasSeenNewUserTour != true && $rootScope.isIdVerified != true) {
+            if ($rootScope.hasSeenNewUserTour != true && $rootScope.isIdVerified != true)
+            {
                 console.log('HOME -> starting tour!');
 
                 // Instance the tour
@@ -231,25 +247,31 @@ noochForLandlords
 
         $scope.goTo = function (destination) {
 
-            if (typeof $scope.tour !== 'undefined') {
+            if (typeof $scope.tour !== 'undefined')
+            {
                 console.log('Home Controller -> TOUR WAS NOT OVER YET!');
                 $scope.tour.end();
             }
 
-            if (destination == '1') {
+            if (destination == '1')
+            {
                 $rootScope.shouldDisplayOverviewAlert = true;
                 window.location.href = '#/profile/profile-about';
             }
-            else if (destination == '2') {
+            else if (destination == '2')
+            {
                 window.location.href = '#/profile/profile-bankaccounts';
             }
-            else if (destination == '3') {
+            else if (destination == '3')
+            {
                 window.location.href = '#/add-property';
             }
-            else if (destination == 'props') {
+            else if (destination == 'props')
+            {
                 window.location.href = '#/properties';
             }
-            else if (destination == 'hist') {
+            else if (destination == 'hist')
+            {
                 window.location.href = '#/history';
             }
         }
@@ -281,14 +303,17 @@ noochForLandlords
             //console.log('propertiesCtrl -> get properties called user details -> [MemberID: ' + userdetails.memberId + '], [LandlordID: ' + userdetails.landlordId + '], [Token: ' + userdetails.accessToken + ']');
 
             propertiesService.GetProperties(userdetails.landlordId, userdetails.accessToken, function (data) {
-                if (data.AuthTokenValidation.IsTokenOk == true) {
-                    if (data.IsSuccess == true) {
+                if (data.AuthTokenValidation.IsTokenOk == true)
+                {
+                    if (data.IsSuccess == true)
+                    {
 
                         $rootScope.propCount = data.AllProperties.length;
 
                         var index;
 
-                        for (index = 0; index < data.AllProperties.length; ++index) {
+                        for (index = 0; index < data.AllProperties.length; ++index)
+                        {
                             //console.log(data.AllProperties[index]);
 
                             var propItem = {
@@ -312,7 +337,8 @@ noochForLandlords
                         $scope.userAccountDetails.IsAnyRentReceived = data.IsAnyRentReceived;
                         //console.log('items [0]' + $scope.propResult[0]);
                     }
-                    else if (data.ErrorMessage == "No properties found for given Landlord.") {
+                    else if (data.ErrorMessage == "No properties found for given Landlord.")
+                    {
                         $rootScope.propCount = 0;
                     }
                 }
@@ -347,8 +373,7 @@ noochForLandlords
         var userDetails = authenticationService.GetUserDetails();
 
 
-        function getPropertyDetails()
-        {
+        function getPropertyDetails() {
             //console.log('propDetailsCtrl -> GetPropertiesDetails called -> [MemberID: ' + userDetails.memberId +
             //            '], [LandlordID: ' + userDetails.landlordId +
             //            '], [Token: ' + userDetails.accessToken + ']');
@@ -357,20 +382,22 @@ noochForLandlords
 
             if (propId != null && propId.length > 0)
             {
-                propDetailsService.getPropFromDb(propId, userDetails.landlordId, userDetails.accessToken, function (data)
-                {
+                propDetailsService.getPropFromDb(propId, userDetails.landlordId, userDetails.accessToken, function (data) {
                     if (data.AuthTokenValidation.IsTokenOk == true)
                     {
 
                         console.log(data);
 
-                        if (data.IsSuccess == true) {
+                        if (data.IsSuccess == true)
+                        {
                             var propStatus = 0;
 
-                            if (data.PropertyDetails.PropStatus == "Published") {
+                            if (data.PropertyDetails.PropStatus == "Published")
+                            {
                                 propStatus = 1;
                             }
-                            else {
+                            else
+                            {
                                 propStatus = 0;
                             }
                             $scope.selectedProperty = {
@@ -394,8 +421,10 @@ noochForLandlords
                             }
 
                             // If Bank nickname value was empty, try the Account Number string as backup
-                            if ($scope.selectedProperty.defaultBankNickname == null) {
-                                if (data.BankAccountDetails.BankAccountNumString != null) {
+                            if ($scope.selectedProperty.defaultBankNickname == null)
+                            {
+                                if (data.BankAccountDetails.BankAccountNumString != null)
+                                {
                                     $scope.selectedProperty.defaultBankNickname = data.BankAccountDetails.BankAccountNumString;
                                 }
                             }
@@ -407,7 +436,7 @@ noochForLandlords
                             // Malkit (1 Aug 2016) :// Creating Tenants list locally here, no need to fetch from db. // Server side code is not efficient enough, will modify server side code in next release.
                             $scope.allTenantsList = [];
 
-                            for (var x = 0; x < $scope.allUnitsList.length;x++)
+                            for (var x = 0; x < $scope.allUnitsList.length; x++)
                             {
                                 console.log($scope.allUnitsList[x]);
                                 var TenantObject = {
@@ -423,7 +452,8 @@ noochForLandlords
 
 
                             console.log($scope.allTenantsList);
-                            if ($scope.allTenantsList.length > 0) {
+                            if ($scope.allTenantsList.length > 0)
+                            {
 
                                 $scope.allTenantsList.splice(0, 0, { "Name": "Select A Tenant", "TenantEmail": "Select A Tenant" });
 
@@ -480,13 +510,16 @@ noochForLandlords
                                         "render": function (data, type, full, meta) {
                                             var htmlToReturn = data;
 
-                                            if (data.length > 12) {
+                                            if (data.length > 12)
+                                            {
                                                 htmlToReturn = '<span style="font-size:12.5px;letter-spacing:-.4px;white-space:nowrap;">' + data.substr(0, 11) + '...</span>'
                                             }
-                                            else if (data.length > 11) {
+                                            else if (data.length > 11)
+                                            {
                                                 htmlToReturn = '<span style="font-size:13px;letter-spacing:-.4px;white-space:nowrap;">' + data.substr(0, 10) + '...</span>'
                                             }
-                                            else if (data.length > 10) {
+                                            else if (data.length > 10)
+                                            {
                                                 htmlToReturn = '<span style="font-size:13.5px;letter-spacing:-.4px;white-space:nowrap;">' + data.substr(0, 9) + '...</span>'
                                             }
                                             return htmlToReturn;
@@ -588,7 +621,7 @@ noochForLandlords
                                                              //'</div><div class=\'m-t-10\'>' +
                                                                  //'<a href="" class=\'btn btn-icon btn-default m-r-10 msgUnitBtn\'><span class=\'md md-star-half\'></span></a>' +
                                                                  //'<a href="" class=\'btn btn-icon btn-default m-r-10 msgUnitBtn\'><span class=\'md md-person-add\'></span></a>' +
-														         
+
                                                              '</div></div>';
 
 									        return htmlString;
@@ -603,7 +636,7 @@ noochForLandlords
                                 "order": [2, 'asc'],
                                 "pageLength": 25
                             });
-                            
+
 
                             // Add Tooltips to Action Buttons
                             $('#propUnits tbody .btn.editUnitBtn').tooltip({
@@ -613,7 +646,7 @@ noochForLandlords
                             $('#propUnits tbody .btn.uploadLeaseBtn').tooltip({
                                 title: "Upload Lease",
                                 trigger: "hover"
-                            }); 
+                            });
                             $('#propUnits tbody .btn.viewLeaseBtn').tooltip({
                                 title: "View Lease",
                                 trigger: "hover"
@@ -633,8 +666,7 @@ noochForLandlords
 
 
                             // SEND REQUEST BTN CLICKED
-                            $('#propUnits tbody .sendRequestBtn').click(function ()
-                            {
+                            $('#propUnits tbody .sendRequestBtn').click(function () {
                                 var data = $scope.propUnitsTable.row($(this).parents('tr')).data();
                                 console.log(data);
 
@@ -664,14 +696,12 @@ noochForLandlords
                                         confirmButtonText: "Yes - Send",
                                         customClass: "largeText",
                                         html: true
-                                    }, function (isConfirm)
-                                    {
+                                    }, function (isConfirm) {
                                         if (isConfirm)
                                         {
                                             //console.log(JSON.stringify(transInfo));
 
-                                            propDetailsService.sendRequestToExistingTenant(transInfo, userdetails.landlordId, userDetails.memberId, propId, unitId, userdetails.accessToken, function (data)
-                                            {
+                                            propDetailsService.sendRequestToExistingTenant(transInfo, userdetails.landlordId, userDetails.memberId, propId, unitId, userdetails.accessToken, function (data) {
                                                 if (data.success == true || data.msg.indexOf("Request made successfully") > -1)
                                                 {
                                                     swal({
@@ -730,10 +760,12 @@ noochForLandlords
                                     $('#sndMsgForm #msgGrp').removeClass('has-error').removeClass('has-success');
                                     $('#sndMsgForm #msg').val('');
 
-                                    if ($('#tenantMsgGrp .help-block').length) {
+                                    if ($('#tenantMsgGrp .help-block').length)
+                                    {
                                         $('#tenantMsgGrp .help-block').slideUp();
                                     }
-                                    if ($('#msgGrp .help-block').length) {
+                                    if ($('#msgGrp .help-block').length)
+                                    {
                                         $('#msgGrp .help-block').slideUp();
                                     }
 
@@ -742,7 +774,8 @@ noochForLandlords
                                     $scope.IsMessageForall = false;
                                     $('#sendMsgModal').modal();
                                 }
-                                else {
+                                else
+                                {
                                     swal({
                                         title: "Unoccupied Unit",
                                         text: "That unit has no tenant yet!  Would you like to invite a tenant to pay rent for this unit?",
@@ -755,8 +788,10 @@ noochForLandlords
                                         customClass: "largeText"
                                     }, function (isConfirm) {
 
-                                        if (isConfirm) {
-                                            if ($rootScope.isBankAvailable !== true) {
+                                        if (isConfirm)
+                                        {
+                                            if ($rootScope.isBankAvailable !== true)
+                                            {
                                                 swal({
                                                     title: "No Bank Account Linked Yet",
                                                     text: "Before you can accept payments from your tenants, you must attach a bank account." +
@@ -769,12 +804,14 @@ noochForLandlords
                                                     customClass: "smallText",
                                                     html: true
                                                 }, function (isConfirm) {
-                                                    if (isConfirm) {
+                                                    if (isConfirm)
+                                                    {
                                                         window.location.href = '#/profile/profile-bankaccounts';
                                                     }
                                                 });
                                             }
-                                            else {
+                                            else
+                                            {
                                                 swal({
                                                     title: "Unoccupied Unit",
                                                     text: "Enter your tenant's email address and we will invite them to pay their rent for this unit.",
@@ -786,8 +823,10 @@ noochForLandlords
                                                     cancelButtonText: "Cancel",
                                                     closeOnConfirm: false
                                                 }, function (input) {
-                                                    if (typeof input == "string") {
-                                                        if (input.length < 5 || $scope.ValidateEmail(input) == false) {
+                                                    if (typeof input == "string")
+                                                    {
+                                                        if (input.length < 5 || $scope.ValidateEmail(input) == false)
+                                                        {
                                                             swal.showInputError("Please enter an email address!")
                                                             return false;
                                                         }
@@ -814,7 +853,8 @@ noochForLandlords
 
                                                             $.unblockUI({
                                                                 onUnblock: function () {
-                                                                    if (response.success == true) {
+                                                                    if (response.success == true)
+                                                                    {
                                                                         // On Success
                                                                         swal({
                                                                             title: "Invite Sent",
@@ -828,7 +868,8 @@ noochForLandlords
                                                                             $state.reload();
                                                                         });
                                                                     }
-                                                                    else {
+                                                                    else
+                                                                    {
                                                                         swal({
                                                                             title: "Uh oh...",
                                                                             text: data.msg,
@@ -895,10 +936,12 @@ noochForLandlords
                                     viewMode: 'months',
                                     //debug: true
                                 });
-                                if (shouldUseCurrentDate) {
+                                if (shouldUseCurrentDate)
+                                {
                                     $('#addUnitDatePicker').val(moment().add(1, 'M').startOf('month').format('MMM D, YYYY'));
                                 }
-                                else {
+                                else
+                                {
                                     $('#addUnitDatePicker').val(moment(dateToUse).format('MMM D, YYYY'));
                                 }
 
@@ -925,10 +968,12 @@ noochForLandlords
 
                                 $('#addUnitModal select').val('');
 
-                                if ($('#unitNumGrp .help-block').length) {
+                                if ($('#unitNumGrp .help-block').length)
+                                {
                                     $('#unitNumGrp .help-block').slideUp();
                                 }
-                                if ($('#monthlyRentGrp .help-block').length) {
+                                if ($('#monthlyRentGrp .help-block').length)
+                                {
                                     $('#monthlyRentGrp .help-block').slideUp();
                                 }
 
@@ -945,7 +990,8 @@ noochForLandlords
                                 console.log(data);
                                 //console.log(data['UnitId']);
 
-                                if ($rootScope.isBankAvailable !== true) {
+                                if ($rootScope.isBankAvailable !== true)
+                                {
                                     swal({
                                         title: "No Bank Account Linked Yet",
                                         text: "Before you can accept payments from your tenants, you must attach a bank account." +
@@ -958,12 +1004,14 @@ noochForLandlords
                                         customClass: "smallText",
                                         html: true
                                     }, function (isConfirm) {
-                                        if (isConfirm) {
+                                        if (isConfirm)
+                                        {
                                             window.location.href = '#/profile/profile-bankaccounts';
                                         }
                                     });
                                 }
-                                else {
+                                else
+                                {
                                     swal({
                                         title: "Unoccupied Unit",
                                         text: "Enter your tenant's email address and we will invite them to pay their rent for this unit.",
@@ -977,8 +1025,10 @@ noochForLandlords
                                         closeOnCancel: true,
                                         customClass: "largeText"
                                     }, function (input) {
-                                        if (typeof input == "string") {
-                                            if (input.length < 5 || $scope.ValidateEmail(input) == false) {
+                                        if (typeof input == "string")
+                                        {
+                                            if (input.length < 5 || $scope.ValidateEmail(input) == false)
+                                            {
                                                 swal.showInputError("Please enter an email address!")
                                                 return false;
                                             }
@@ -1004,7 +1054,8 @@ noochForLandlords
 
                                                 $.unblockUI({
                                                     onUnblock: function () {
-                                                        if (response.success == true) {
+                                                        if (response.success == true)
+                                                        {
                                                             console.log("Cntrlr -> InviteNewTenant response from server successful - redrawing table...");
                                                             $scope.propUnitsTable.draw();
                                                             // On Success
@@ -1019,7 +1070,8 @@ noochForLandlords
                                                                 $state.reload();
                                                             });
                                                         }
-                                                        else {
+                                                        else
+                                                        {
                                                             swal({
                                                                 title: "Uh oh...",
                                                                 text: data.msg,
@@ -1037,8 +1089,7 @@ noochForLandlords
 
 
                             // VIEW LEASE BTN CLICKED
-                            $('#propUnits tbody .viewLeaseBtn').click(function ()
-                            {
+                            $('#propUnits tbody .viewLeaseBtn').click(function () {
                                 var data = $scope.propUnitsTable.row($(this).parents('tr')).data();
 
                                 if (typeof data.LeaseDocPath != "undefined" &&
@@ -1053,8 +1104,7 @@ noochForLandlords
                             })
 
                             // UPLOAD LEASE BTN CLICKED
-                            $('#propUnits tbody .uploadLeaseBtn').click(function ()
-                            {
+                            $('#propUnits tbody .uploadLeaseBtn').click(function () {
                                 $('#uploadLease').modal();
 
                                 var data = $scope.propUnitsTable.row($(this).parents('tr')).data();
@@ -1091,7 +1141,8 @@ noochForLandlords
 
                                     $('#uploadLease').modal('hide');
 
-                                    if (data.response.IsSuccess == true) {
+                                    if (data.response.IsSuccess == true)
+                                    {
                                         swal({
                                             title: "Document Uploaded Successfully",
                                             text: "You can view this lease by clicking the &nbsp;<a href='' class='btn btn-icon btn-default m-r-10'><span style='position:relative;top:8px;' class='md md-visibility'></span></a> button.",
@@ -1100,12 +1151,12 @@ noochForLandlords
                                             confirmButtonText: "Great",
                                             customClass: "largeText",
                                             html: true
-                                        }, function ()
-                                        {
+                                        }, function () {
                                             $state.reload();
                                         });
                                     }
-                                    else {
+                                    else
+                                    {
                                         swal({
                                             title: "Oops",
                                             text: data.response.ErrorMessage,
@@ -1133,7 +1184,8 @@ noochForLandlords
                                     cancelButtonText: "Cancel",
                                     html: true
                                 }, function (isConfirm) {
-                                    if (isConfirm) {
+                                    if (isConfirm)
+                                    {
                                         // Show Loading Block
                                         $.blockUI({
                                             message: '<span><i class="md md-refresh fa-spin fa-loading"></i></span><br/><span class="loadingMsg">Deleting that unit...</span>',
@@ -1156,11 +1208,13 @@ noochForLandlords
                                             $.unblockUI({
                                                 onUnblock: function () {
 
-                                                    if (data.IsSuccess == true) {
+                                                    if (data.IsSuccess == true)
+                                                    {
 
                                                         $scope.propUnitsTable.row(btn.parents('tr')).remove().draw();
                                                         $scope.selectedProperty.units -= 1;
-                                                        if (wasThisUnitOccupied) {
+                                                        if (wasThisUnitOccupied)
+                                                        {
                                                             $scope.selectedProperty.tenants -= 1;
                                                         }
 
@@ -1177,7 +1231,8 @@ noochForLandlords
                                                             //$state.reload();
                                                         });
                                                     }
-                                                    else {
+                                                    else
+                                                    {
                                                         swal({
                                                             title: "Uh oh...",
                                                             text: data.ErrorMessage,
@@ -1192,7 +1247,8 @@ noochForLandlords
                                 });
                             });
                         }
-                        else {
+                        else
+                        {
                             console.log('PropDetails Ctrlr -> Error while getting property details!');
                         }
                     }
@@ -1203,7 +1259,8 @@ noochForLandlords
                     }
                 });
             }
-            else {
+            else
+            {
                 window.location.href = '#/properties';
             }
         };
@@ -1214,14 +1271,17 @@ noochForLandlords
 
             // Increment the scope's number of Units so the User Interface updates immediately (otherwise would need to reload page to see the new unit accounted for)
             var numOfUnits = parseInt($scope.selectedProperty.units);
-            if (numOfUnits != null) {
+            if (numOfUnits != null)
+            {
                 numOfUnits += 1;
                 $scope.selectedProperty.units = numOfUnits.toString();
             }
 
-            if (withTenant == true) {
+            if (withTenant == true)
+            {
                 var numOfTenants = parseInt($scope.selectedProperty.tenants);
-                if (numOfTenants != null) {
+                if (numOfTenants != null)
+                {
                     numOfTenants += 1;
                     $scope.selectedProperty.tenants = numOfTenants.toString();
                 }
@@ -1256,7 +1316,8 @@ noochForLandlords
 
         // Edit Property Details (Address, phone, etc.)
         $scope.updatePropInfo = function () {
-            if ($scope.editPropInfo == 1) {
+            if ($scope.editPropInfo == 1)
+            {
 
                 // Preparing data to be sent for updating property
                 $scope.inputData = {};
@@ -1269,11 +1330,13 @@ noochForLandlords
                 $scope.inputData.propId = $scope.selectedProperty.propertyId;
 
                 propertiesService.EditProperty($scope.inputData, userDetails.landlordId, userDetails.accessToken, function (data) {
-                    if (data.IsSuccess == true) {
+                    if (data.IsSuccess == true)
+                    {
                         $scope.editPropInfo = 0;
                         growlService.growl('Property details updated successfully!', 'success');
                     }
-                    else {
+                    else
+                    {
                         $scope.editPropInfo = 0;
                         growlService.growl(data.ErrorMessage, 'error');
                     }
@@ -1316,14 +1379,16 @@ noochForLandlords
 
                 console.log('Save prop pic response is ' + JSON.stringify(response));
 
-                if (data.response.IsSuccess == true) {
+                if (data.response.IsSuccess == true)
+                {
                     $('#editPropPic').modal('hide');
                     $scope.selectedProperty.imgUrl = data.response.ErrorMessage;
 
                     $('#propPicPreview').attr('src', data.response.ErrorMessage);
                     $('#propImage').css('background-image', data.response.ErrorMessage);
                 }
-                else {
+                else
+                {
                     $('#editPropPic').modal('hide');
                     swal({
                         title: "Oh No",
@@ -1347,7 +1412,8 @@ noochForLandlords
             var isAlreadyPublished = false;
             var shouldCloseOnConfirm = false;
 
-            if ($scope.selectedProperty.published == 1) {
+            if ($scope.selectedProperty.published == 1)
+            {
                 isAlreadyPublished = true;
                 shouldCloseOnConfirm = true;
                 alertTitleTxt = "Hide This Property?";
@@ -1355,7 +1421,8 @@ noochForLandlords
                 actionBtnTxt = "No, Keep It Published";
                 cancelBtnTxt = "Yes, Hide It";
             }
-            else {
+            else
+            {
                 alertTitleTxt = "Publish This Property";
                 alertBodyTxt = "You can publish this property which will make this property be included in search results when a tenant searches for their apartment on Nooch.";
                 actionBtnTxt = "Yes, Publish Now";
@@ -1372,11 +1439,14 @@ noochForLandlords
                 closeOnConfirm: shouldCloseOnConfirm,
                 closeOnCancel: false
             }, function (isConfirm) {
-                if (isConfirm) {
-                    if (!isAlreadyPublished) {
+                if (isConfirm)
+                {
+                    if (!isAlreadyPublished)
+                    {
                         propertiesService.SetPropertyStatus(propDetailsService.get(), true, userdetails.landlordId, userdetails.accessToken, function (data2) {
 
-                            if (data2.IsSuccess == true) {
+                            if (data2.IsSuccess == true)
+                            {
                                 setIsPublished(1);
                                 swal({
                                     title: "You Got It!",
@@ -1384,7 +1454,8 @@ noochForLandlords
                                     type: "success"
                                 });
                             }
-                            else {
+                            else
+                            {
                                 swal({
                                     title: "Ooops Error!",
                                     text: data2.ErrorMessage,
@@ -1394,11 +1465,14 @@ noochForLandlords
                         });
                     }
                 }
-                else {
-                    if (isAlreadyPublished) {
+                else
+                {
+                    if (isAlreadyPublished)
+                    {
                         propertiesService.SetPropertyStatus(propDetailsService.get(), false, userdetails.landlordId, userdetails.accessToken, function (data2) {
 
-                            if (data2.IsSuccess == true) {
+                            if (data2.IsSuccess == true)
+                            {
                                 setIsPublished(0);
                                 swal({
                                     title: "No Problem",
@@ -1406,7 +1480,8 @@ noochForLandlords
                                     type: "success"
                                 });
                             }
-                            else {
+                            else
+                            {
                                 swal({
                                     title: "Ooops Error!",
                                     text: data2.ErrorMessage,
@@ -1415,7 +1490,8 @@ noochForLandlords
                             }
                         });
                     }
-                    else {
+                    else
+                    {
                         swal({
                             title: "No Problem",
                             text: "Your property will remain hidden. Before tenants can pay rent for this property, you must publish it.",
@@ -1434,7 +1510,8 @@ noochForLandlords
         // Charge Tenant Button
         $scope.chargeTenant = function (e) {
 
-            if ($rootScope.isBankAvailable !== true) {
+            if ($rootScope.isBankAvailable !== true)
+            {
                 swal({
                     title: "No Bank Account Linked Yet",
                     text: "Before you can accept a payment, you must attach a bank account.",
@@ -1444,7 +1521,8 @@ noochForLandlords
                     cancelButtonText: "OK",
                     customClass: "largeText"
                 }, function (isConfirm) {
-                    if (isConfirm) {
+                    if (isConfirm)
+                    {
                         window.location.href = '#/profile/profile-bankaccounts';
                     }
                 });
@@ -1460,23 +1538,28 @@ noochForLandlords
                 $('#chargeTenantForm #tenantGrp').removeClass('has-error').removeClass('has-success');
                 $('#chargeTenantForm #amountGrp').removeClass('has-error').removeClass('has-success');
 
-                if ($('#tenantGrp .help-block').length) {
+                if ($('#tenantGrp .help-block').length)
+                {
                     $('#tenantGrp .help-block').slideUp();
                 }
-                if ($('#amountGrp .help-block').length) {
+                if ($('#amountGrp .help-block').length)
+                {
                     $('#amountGrp .help-block').slideUp();
                 }
 
                 // Set Memo
                 memoType = e.target.id;
                 memoToUse = "";
-                if (memoType === "secDeposit") {
+                if (memoType === "secDeposit")
+                {
                     memoToUse = "Security Deposit";
                 }
-                else if (memoType === "rent") {
+                else if (memoType === "rent")
+                {
                     memoToUse = "Rent Payment for " + moment(new Date()).format('MMM YYYY');
                 }
-                else if (memoType === "damage") {
+                else if (memoType === "damage")
+                {
                     memoToUse = "Damage Fee";
                 }
 
@@ -1494,7 +1577,8 @@ noochForLandlords
 
         $scope.chargeTenant_Submit = function () {
             // Check Name field for length
-            if (typeof $scope.tenantSelected != 'undefined') {
+            if (typeof $scope.tenantSelected != 'undefined')
+            {
                 updateValidationUi("tenant", true);
 
                 // Check Amount field
@@ -1515,7 +1599,8 @@ noochForLandlords
 
                     propertiesService.ChargeTenant(transInfo, userdetails.landlordId, userdetails.accessToken, userDetails.memberId, function (data) {
 
-                        if (data.IsSuccess == true) {
+                        if (data.IsSuccess == true)
+                        {
 
                             $('#chargeTenantModal').modal('hide');
 
@@ -1530,7 +1615,8 @@ noochForLandlords
                                 html: true
                             });
                         }
-                        else {
+                        else
+                        {
                             swal({
                                 title: "Uh Oh",
                                 text: "Looks like we had some trouble making that payment request.  Please try again later or contact <a href='mailto:support@nooch.money' target='_blank'>Nooch Support</a> for further assistance.",
@@ -1546,11 +1632,13 @@ noochForLandlords
                         }
                     });
                 }
-                else {
+                else
+                {
                     updateValidationUi("amount", false);
                 }
             }
-            else {
+            else
+            {
                 updateValidationUi("tenant", false);
             }
         }
@@ -1573,10 +1661,12 @@ noochForLandlords
             $('#addUnitModal #nicknameGrp').removeClass('has-error').removeClass('has-success');
             $('#addUnitModal #monthlyRentGrp').removeClass('has-error').removeClass('has-success');
 
-            if ($('#unitNumGrp .help-block').length) {
+            if ($('#unitNumGrp .help-block').length)
+            {
                 $('#unitNumGrp .help-block').slideUp();
             }
-            if ($('#monthlyRentGrp .help-block').length) {
+            if ($('#monthlyRentGrp .help-block').length)
+            {
                 $('#monthlyRentGrp .help-block').slideUp();
             }
 
@@ -1640,18 +1730,21 @@ noochForLandlords
                                 customClass: "largeText",
                                 html: true
                             }, function (isConfirm) {
-                                if (isConfirm) {
+                                if (isConfirm)
+                                {
                                     $('#addUnitModal').modal('hide');
                                     setTimeout(function () {
                                         window.location.href = '#/profile/profile-bankaccounts';
                                     }, 300);
                                 }
-                                else {
+                                else
+                                {
                                     $('#unitTenantEm').val("");
                                 }
                             });
                         }
-                        else if ($('#addUnitModal #monthlyRent').val() < 100) {
+                        else if ($('#addUnitModal #monthlyRent').val() < 100)
+                        {
                             swal({
                                 title: "Set Rent to $" + $('#addUnitModal #monthlyRent').val() + "?",
                                 text: "You are about to set the rent for this unit to <strong>$" + $('#addUnitModal #monthlyRent').val() + "</strong>. &nbsp;Is that correct?",
@@ -1663,31 +1756,37 @@ noochForLandlords
                                 customClass: "largeText",
                                 html: true
                             }, function (isConfirm) {
-                                if (!isConfirm) {
+                                if (!isConfirm)
+                                {
                                     setTimeout(function () {
                                         $('#addUnitModal #monthlyRent').focus();
                                         return;
                                     }, 300);
                                 }
-                                else {
+                                else
+                                {
                                     $scope.addUnit_submitToService();
                                 }
                             });
                         }
-                        else {
+                        else
+                        {
                             $scope.addUnit_submitToService();
                         }
                     }
-                    else {
+                    else
+                    {
                         // No tenant email provided
                         $scope.addUnit_submitToService();
                     }
                 }
-                else {
+                else
+                {
                     updateValidationUi("monthlyRent", false);
                 }
             }
-            else {
+            else
+            {
                 updateValidationUi("unitNum", false);
             }
         }
@@ -1714,21 +1813,25 @@ noochForLandlords
             unitData.TenantId = "";
             unitData.TenantEmail = "";
 
-            if (document.getElementById("tenantStatic") && $('#tenantGrp #tenantStatic').attr('data-memid') != null) {
+            if (document.getElementById("tenantStatic") && $('#tenantGrp #tenantStatic').attr('data-memid') != null)
+            {
                 unitData.TenantId = $('#tenantGrp #tenantStatic').attr('data-memid');
                 unitData.IsTenantAdded = "true";
             }
-            else if (document.getElementById("unitTenantEm") && $('#unitTenantEm').val().trim().length > 1) {
+            else if (document.getElementById("unitTenantEm") && $('#unitTenantEm').val().trim().length > 1)
+            {
                 unitData.TenantEmail = $('#unitTenantEm').val().trim();
                 unitData.IsTenantAdded = "true";
             }
-            else {
+            else
+            {
                 unitData.IsTenantAdded = "false";
             }
             //console.log(JSON.stringify(unitData));
 
             // NOW CHECK WHETHER WE SHOULD CREATE A A *NEW* UNIT OR JUST EDIT IF THIS IS AN EXISTING UNIT
-            if ($scope.addingNewUnit === true) {
+            if ($scope.addingNewUnit === true)
+            {
                 // Add a New Unit
                 unitData.isNewUnit = true;
                 unitData.UnitId = "";
@@ -1738,7 +1841,8 @@ noochForLandlords
                     console.log("Add New Unit service response...");
                     console.log(data);
 
-                    if (data.IsSuccess == true) {
+                    if (data.IsSuccess == true)
+                    {
                         // Update table to add row for the newly created unit immediately (instead of waiting for page refresh)
 
                         $scope.addTblRow(unitData.IsTenantAdded, userdetails.landlordId, data.PropertyIdGenerated, unitData.UnitNum, unitData.Rent, "", unitData.TenantEmail, "", "", false, false, "Invited", false, false);
@@ -1754,17 +1858,20 @@ noochForLandlords
                             closeOnCancel: true,
                             customClass: "largeText"
                         }, function (isConfirm) {
-                            if (!isConfirm) {
+                            if (!isConfirm)
+                            {
                                 $scope.addUnit();
                             }
-                            else {
+                            else
+                            {
                                 setTimeout(function () {
                                     $state.reload();
                                 }, 500);
                             }
                         });
                     }
-                    else {
+                    else
+                    {
                         swal({
                             title: "Uh Oh",
                             text: data.ErrorMessage,
@@ -1776,7 +1883,8 @@ noochForLandlords
                     }
                 });
             }
-            else {
+            else
+            {
                 // Editing An Existing Unit
                 unitData.isNewUnit = false;
                 unitData.UnitId = $scope.editingUnitId;
@@ -1786,7 +1894,8 @@ noochForLandlords
                     console.log("PropDetails Ctrlr -> Edit Unit service response...");
                     console.log(data);
 
-                    if (data.IsSuccess == true) {
+                    if (data.IsSuccess == true)
+                    {
                         // Update table to add row for the newly created unit immediately (instead of waiting for page refresh)
                         // $scope.addTblRow(unitData.IsTenantAdded, userdetails.landlordId, data.PropertyIdGenerated, unitData.UnitNum, unitData.Rent, "", "", "", "", false, false, "Published", false, false);
 
@@ -1807,7 +1916,8 @@ noochForLandlords
                             $state.reload();
                         });
                     }
-                    else {
+                    else
+                    {
                         swal({
                             title: "Uh Oh",
                             text: "We had some trouble updating that unit.  Please try again, or contact <a href='mailto:support@nooch.com' target='_blank'>Nooch Support</a>!",
@@ -1834,19 +1944,23 @@ noochForLandlords
             $('#sndMsgForm #msgGrp').removeClass('has-error').removeClass('has-success');
             $('#sndMsgForm #msg').val('');
 
-            if ($('#tenantMsgGrp .help-block').length) {
+            if ($('#tenantMsgGrp .help-block').length)
+            {
                 $('#tenantMsgGrp .help-block').slideUp();
             }
-            if ($('#msgGrp .help-block').length) {
+            if ($('#msgGrp .help-block').length)
+            {
                 $('#msgGrp .help-block').slideUp();
             }
 
-            if (howMany == "all") {
+            if (howMany == "all")
+            {
                 $('#sndMsgForm .well div').text('Enter a message below.  This will be emailed to ALL tenants for this property.');
                 $('#sndMsgForm #tenantMsgGrp').addClass('hidden');
                 $scope.IsMessageForall = true;
             }
-            else if (howMany == "1") {
+            else if (howMany == "1")
+            {
                 $('#tenantMsg.selectpicker').selectpicker({
                     title: "Select a tenant",
                 });
@@ -1863,9 +1977,11 @@ noochForLandlords
 
         $scope.sendMsg_submit = function () {
             if ((!$('#sndMsgForm #tenantMsgGrp').hasClass('hidden') && $('#sndMsgForm #tenantMsg').val() != '0') ||
-                  $('#sndMsgForm #tenantMsgGrp').hasClass('hidden')) {
+                  $('#sndMsgForm #tenantMsgGrp').hasClass('hidden'))
+            {
                 // Check Message field for length
-                if ($('#sndMsgForm textarea').val().length > 1) {
+                if ($('#sndMsgForm textarea').val().length > 1)
+                {
                     var trimmedMsg = $('#sndMsgForm textarea').val().trim();
                     $('#sndMsgForm textarea').val(trimmedMsg);
 
@@ -1887,17 +2003,19 @@ noochForLandlords
                         // for single person
                         emailObj.IsForAllOrOne = "One";
                         //console.log($('#tenantStatic').attr('data-memid'));
-                    
-                        if ($scope.tenantSelectedForMsg != undefined) {
-                           
+
+                        if ($scope.tenantSelectedForMsg != undefined)
+                        {
+
                             emailObj.TenantIdToBeMessaged = $scope.tenantSelectedForMsg;
                         }
-                        else {
-                          
+                        else
+                        {
+
                             emailObj.TenantIdToBeMessaged = $('#tenantStatic').attr('data-memid');
                         }
-                       
-                       // emailObj.TenantIdToBeMessaged = $('#tenantStatic').attr('data-memid');  // ID of tenant to be send from here..hard coded for now
+
+                        // emailObj.TenantIdToBeMessaged = $('#tenantStatic').attr('data-memid');  // ID of tenant to be send from here..hard coded for now
                     }
 
                     var userdetails = authenticationService.GetUserDetails();
@@ -1933,11 +2051,13 @@ noochForLandlords
                         }
                     });
                 }
-                else {
+                else
+                {
                     updateValidationUi("msg", false);
                 }
             }
-            else if (!$('#sndMsgForm #tenantMsgGrp').hasClass('hidden')) {
+            else if (!$('#sndMsgForm #tenantMsgGrp').hasClass('hidden'))
+            {
                 updateValidationUi("tenantMsg", false);
             }
         }
@@ -1948,7 +2068,8 @@ noochForLandlords
             // Reset each field
             $('#achMemoGrp').removeClass('has-error').removeClass('has-success');
 
-            if ($('#achMemoGrp .help-block').length) {
+            if ($('#achMemoGrp .help-block').length)
+            {
                 $('#achMemoGrp .help-block').slideUp();
             }
 
@@ -1986,13 +2107,11 @@ noochForLandlords
 
                     var userDetailsLocal = authenticationService.GetUserDetails();
 
-                    propDetailsService.saveMemoFormula(radioChoice, userDetailsLocal.landlordId, userDetailsLocal.memberId, userDetailsLocal.accessToken, function (response)
-                    {
+                    propDetailsService.saveMemoFormula(radioChoice, userDetailsLocal.landlordId, userDetailsLocal.memberId, userDetailsLocal.accessToken, function (response) {
                         console.log(response);
 
                         $.unblockUI({
-                            onUnblock: function ()
-                            {
+                            onUnblock: function () {
                                 if (response.success == true)
                                 {
                                     swal({
@@ -2033,37 +2152,47 @@ noochForLandlords
         updateValidationUi = function (field, success) {
             //console.log("Field: " + field + "; success: " + success);
 
-            if (success == true) {
+            if (success == true)
+            {
                 $('#' + field + 'Grp').removeClass('has-error').addClass('has-success');
-                if ($('#' + field + 'Grp .help-block').length) {
+                if ($('#' + field + 'Grp .help-block').length)
+                {
                     $('#' + field + 'Grp .help-block').slideUp();
                 }
             }
-            else {
+            else
+            {
                 $('#' + field + 'Grp').removeClass('has-success').addClass('has-error');
 
                 var helpBlockTxt = "";
-                if (field == "tenant") {
+                if (field == "tenant")
+                {
                     helpBlockTxt = "Please select one of your current tenants.";
                 }
-                else if (field == "amount") {
+                else if (field == "amount")
+                {
                     helpBlockTxt = "Please enter an amount!"
                 }
-                else if (field == "tenantMsg") {
+                else if (field == "tenantMsg")
+                {
                     helpBlockTxt = "Please select a tenant!"
                 }
-                else if (field == "msg") {
+                else if (field == "msg")
+                {
                     helpBlockTxt = "Please enter a message!"
                 }
-                else if (field == "achMemo") {
+                else if (field == "achMemo")
+                {
                     helpBlockTxt = "Please select one of the options above."
                 }
 
-                if (!$('#' + field + 'Grp .help-block').length) {
+                if (!$('#' + field + 'Grp .help-block').length)
+                {
                     $('#' + field + 'Grp').append('<small class="help-block col-sm-offset-3 col-sm-9" style="display:none">' + helpBlockTxt + '</small>');
                     $('#' + field + 'Grp .help-block').slideDown();
                 }
-                else { $('#' + field + 'Grp .help-block').show() }
+                else
+                { $('#' + field + 'Grp .help-block').show() }
 
                 // Now focus on the element that failed validation
                 setTimeout(function () {
@@ -2075,34 +2204,41 @@ noochForLandlords
         $scope.ValidateEmail = function (str) {
             console.log; ("Property Details Ctrlr -> Validate Email reached");
 
-            if (str != null) {
+            if (str != null)
+            {
                 var at = "@"
                 var dot = "."
                 var lat = str.indexOf("@")
                 var lstr = str.length
                 var ldot = str.indexOf(".")
 
-                if (lat == -1 || lat == 0 || lat == lstr) {
+                if (lat == -1 || lat == 0 || lat == lstr)
+                {
                     return false
                 }
 
-                if (ldot == -1 || ldot == 0 || ldot == lstr) {
+                if (ldot == -1 || ldot == 0 || ldot == lstr)
+                {
                     return false
                 }
 
-                if (str.indexOf(at, (lat + 1)) != -1) {
+                if (str.indexOf(at, (lat + 1)) != -1)
+                {
                     return false
                 }
 
-                if (str.substring(lat - 1, lat) == dot || str.substring(lat + 1, lat + 2) == dot) {
+                if (str.substring(lat - 1, lat) == dot || str.substring(lat + 1, lat + 2) == dot)
+                {
                     return false
                 }
 
-                if (str.indexOf(dot, (lat + 2)) == -1) {
+                if (str.indexOf(dot, (lat + 2)) == -1)
+                {
                     return false
                 }
 
-                if (str.indexOf(" ") != -1) {
+                if (str.indexOf(" ") != -1)
+                {
                     return false
                 }
 
@@ -2159,16 +2295,20 @@ noochForLandlords
                             "status": function (column, row) {
                                 var lastDateText = "<br/><span class=\"lastPaymentDate\">(Last: " + row.lastPaymentDate + ")</span>";
 
-                                if (row.status == "Paid" || row.status == "paid" || row.status == "completed") {
+                                if (row.status == "Paid" || row.status == "paid" || row.status == "completed")
+                                {
                                     return "<span class=\"label label-success\">" + row.status + "</span>" + lastDateText;
                                 }
-                                else if (row.status.toLowerCase == "pending") {
+                                else if (row.status.toLowerCase == "pending")
+                                {
                                     return "<span class=\"label label-warning\">" + row.status + "</span>" + lastDateText;
                                 }
-                                else if (row.status.toLowerCase() == "past due") {
+                                else if (row.status.toLowerCase() == "past due")
+                                {
                                     return "<span class=\"label label-danger\">" + row.status + "</span>" + lastDateText;
                                 }
-                                else {
+                                else
+                                {
                                     return "<span class=\"label label-warning\">" + row.status + "</span>" + lastDateText;
                                 }
                             },
@@ -2222,14 +2362,17 @@ noochForLandlords
                         closeOnConfirm: false,
                         closeOnCancel: false
                     }, function (isConfirm) {
-                        if (isConfirm) {
+                        if (isConfirm)
+                        {
                             propertiesService.RemoveProperty(propertyId, userdetails.landlordId, userdetails.accessToken, function (data2) {
-                                if (data2.IsSuccess == true) {
+                                if (data2.IsSuccess == true)
+                                {
 
                                     swal("Deleted!", "That property has been deleted.", "success");
                                     $('.propCard#property' + propertyId).fadeOut();
                                 }
-                                else {
+                                else
+                                {
                                     swal({
                                         title: "Oh No!",
                                         text: data2.ErrorMessage,
@@ -2240,7 +2383,8 @@ noochForLandlords
                                 }
                             });
                         }
-                        else {
+                        else
+                        {
                             swal("Cancelled", "No worries, this property is safe :)");
                         }
                     });
@@ -2289,13 +2433,16 @@ noochForLandlords
             },
             onStepChanging: function (event, currentIndex, newIndex) {
 
-                if (newIndex == 0) {
+                if (newIndex == 0)
+                {
                     $('.wizard.vertical > .content').animate({ height: "22em" }, 500)
                 }
 
                 // IF going to Step 2
-                if (newIndex == 1) {
-                    if ($('#propertyName').val().length > 3) {
+                if (newIndex == 1)
+                {
+                    if ($('#propertyName').val().length > 3)
+                    {
                         console.log($scope.inputData.propertyName);
 
                         updateValidationUi(1, null, true);
@@ -2333,7 +2480,7 @@ noochForLandlords
                             $scope.inputData.IsPropertyImageSelected = true;
                             var readerN = new FileReader();
                             //readerN.readAsText(file);
-                             
+
                             console.log(file);
                             readerN.readAsDataURL(file);
                             readerN.onload = function (e) {
@@ -2351,14 +2498,16 @@ noochForLandlords
                         $('.wizard.vertical > .content').animate({ height: "32em" }, 750)
                         return true;
                     }
-                    else {
+                    else
+                    {
                         updateValidationUi(1, null, false);
                         return false;
                     }
                 }
 
                 // IF going to Step 3
-                if (newIndex == 2) {
+                if (newIndex == 2)
+                {
                     $('.wizard.vertical > .content').animate({ height: "23em" }, 700)
                     setTimeout(function () {
                         $('#address1').focus();
@@ -2367,41 +2516,49 @@ noochForLandlords
                 }
 
                 // IF going to Step 4
-                if (newIndex == 3) {
+                if (newIndex == 3)
+                {
                     // Check Address Field
-                    if ($('#address1').val().length > 4) {
+                    if ($('#address1').val().length > 4)
+                    {
                         updateValidationUi(3, 1, true);
 
                         // Now check City field
-                        if ($('#city').val().length > 3) {
+                        if ($('#city').val().length > 3)
+                        {
                             updateValidationUi(3, 2, true);
 
                             // Now check ZIP field
-                            if ($('#zipCode').val().length == 5) {
+                            if ($('#zipCode').val().length == 5)
+                            {
                                 updateValidationUi(3, 3, true);
 
                                 setWizardContentHeight();
 
                                 return true;
                             }
-                            else {
+                            else
+                            {
                                 updateValidationUi(3, 3, false);
                                 return false;
                             }
                         }
-                        else {
+                        else
+                        {
                             updateValidationUi(3, 2, false);
                             return false;
                         }
                     }
-                    else {
+                    else
+                    {
                         updateValidationUi(3, 1, false);
                         return false;
                     }
                 }
 
                 // Allways allow previous action even if the current form is not valid!
-                if (currentIndex > newIndex) {
+                if (currentIndex > newIndex)
+                {
                     return true;
                 }
             },
@@ -2438,7 +2595,8 @@ noochForLandlords
 
         saveProperty = function () {
             // Send data to server
-            if ($scope.inputData.IsMultiUnitProperty == true) {
+            if ($scope.inputData.IsMultiUnitProperty == true)
+            {
                 // iterating through all units
 
                 $scope.inputData.IsSingleUnitProperty = false;
@@ -2450,12 +2608,14 @@ noochForLandlords
                     $(ht).find('input[type=text]').each(function (ini, dtt) {
                         //console.log(dtt);
                         temp = temp + 1;
-                        if (temp == 1) {
+                        if (temp == 1)
+                        {
                             // CLIFF (10/25/15): EVENTUALLY SHOULD ADD A CHECK HERE TO SEE IF THE PERSON ENTERE ALL NUMBERS OR INCLDED
                             // A FEW CHARACTERS, MEANING THEY PROBABLY ENTERED A "NICKNAME" NOT A "UNIT #"
                             unitObject.UnitNum = $(this).val();
                         }
-                        if (temp == 2) {
+                        if (temp == 2)
+                        {
                             // CLIFF (10/25/15): Should also add a check here to make sure the amount isn't too low (user might not realize 
                             //                   the cents are included, so they might enter "20.00" when they meant "2000.00")
                             unitObject.Rent = $(this).val();
@@ -2465,7 +2625,8 @@ noochForLandlords
                     $scope.inputData.allUnits.push(unitObject);
                 });
             }
-            else {
+            else
+            {
                 $scope.inputData.IsSingleUnitProperty = true;
                 $scope.inputData.IsMultiUnitProperty = false;
                 $scope.inputData.SingleUnitRent = $('#singleUnitRentInput').val();
@@ -2474,7 +2635,8 @@ noochForLandlords
             }
 
             propertiesService.SaveProperty($scope.inputData, userdetails.landlordId, userdetails.memberId, userdetails.accessToken, function (data) {
-                if (data.IsSuccess == false) {
+                if (data.IsSuccess == false)
+                {
                     swal({
                         title: "Ooops Error!",
                         text: data.ErrorMessage,
@@ -2483,7 +2645,8 @@ noochForLandlords
                         window.location.href = '#/properties';
                     });
                 }
-                if (data.IsSuccess == true) {
+                if (data.IsSuccess == true)
+                {
                     swal({
                         title: "Awesome - Property Added",
                         text: "You have successfully created a new property:<span class='show f-600 m-t-5'>" + $scope.inputData.propertyName + "</span>" +
@@ -2514,10 +2677,12 @@ noochForLandlords
                             }*/
                         });
 
-                        if (isConfirm) {
+                        if (isConfirm)
+                        {
                             window.location.href = '#/properties';
                         }
-                        else {
+                        else
+                        {
                             $state.reload();
                         }
                     });
@@ -2528,13 +2693,16 @@ noochForLandlords
         updateValidationUi = function (step, substep, success) {
             //console.log("Step: " + step + "; substep: " + substep + "; success: " + success);
 
-            if (step == 1) {
-                if (success == true) {
+            if (step == 1)
+            {
+                if (success == true)
+                {
                     $('#propNameGrp').removeClass('has-error').addClass('has-success');
                     $('#propNameGrp .form-control-feedback').fadeIn();
                     $('#step1Feedback .alert-danger').slideUp('fast');
                 }
-                else {
+                else
+                {
                     $('.form-group#propNameGrp').removeClass('has-success').addClass('has-error');
                     $('#step1Feedback .alert-danger').slideDown('fast');
 
@@ -2544,9 +2712,12 @@ noochForLandlords
                 }
             }
 
-            else if (step == 3) {
-                if (substep == 1) {
-                    if (success != true) {
+            else if (step == 3)
+            {
+                if (substep == 1)
+                {
+                    if (success != true)
+                    {
                         $('#addressGrp').removeClass('has-success').addClass('has-error');
                         $('#step3Feedback span').html('Please enter the <strong>street address</strong> for this property!');
                         $('#step3Feedback .alert-danger').slideDown('fast');
@@ -2555,8 +2726,10 @@ noochForLandlords
                         }, 200);
                     }
                 }
-                else if (substep == 2) {
-                    if (success != true) {
+                else if (substep == 2)
+                {
+                    if (success != true)
+                    {
                         $('#addressGrp').removeClass('has-success').addClass('has-error');
                         $('#step3Feedback span').html('Please enter the <strong>city</strong> for this property!');
                         $('#step3Feedback .alert-danger').slideDown('fast');
@@ -2565,12 +2738,15 @@ noochForLandlords
                         }, 200);
                     }
                 }
-                else if (substep == 3) {
-                    if (success == true) {
+                else if (substep == 3)
+                {
+                    if (success == true)
+                    {
                         $('#addressGrp').removeClass('has-error').addClass('has-success');
                         $('#step3Feedback .alert-danger').slideUp('fast');
                     }
-                    else {
+                    else
+                    {
                         $('#addressGrp').removeClass('has-success').addClass('has-error');
                         $('#step3Feedback .alert-danger').slideDown('fast');
                         $('#step3Feedback span').html('Please enter the <strong>ZIP code</strong> for this property!');
@@ -2598,7 +2774,8 @@ noochForLandlords
                 closeOnCancel: true,
                 customClass: "largeText"
             }, function (isConfirm) {
-                if (isConfirm) {
+                if (isConfirm)
+                {
                     $('#addNewProperty').addClass('animated').addClass('bounceOut');
 
                     // Send user back to main Properties page after exist animation completes
@@ -2606,7 +2783,8 @@ noochForLandlords
                         window.location.href = '#/properties';
                     }, 900);
                 }
-                else { }
+                else
+                { }
             });
         }
 
@@ -2676,27 +2854,35 @@ noochForLandlords
         }
 
         function setWizardContentHeight() {
-            if ($scope.unitInputsShowing > 1) {
-                if ($scope.unitInputsShowing > 12) {
+            if ($scope.unitInputsShowing > 1)
+            {
+                if ($scope.unitInputsShowing > 12)
+                {
                     $('.wizard.vertical > .content').animate({ height: "75em" }, 600);
                 }
-                else if ($scope.unitInputsShowing > 10) {
+                else if ($scope.unitInputsShowing > 10)
+                {
                     $('.wizard.vertical > .content').animate({ height: "65em" }, 600);
                 }
-                else if ($scope.unitInputsShowing > 8) {
+                else if ($scope.unitInputsShowing > 8)
+                {
                     $('.wizard.vertical > .content').animate({ height: "60em" }, 600);
                 }
-                else if ($scope.unitInputsShowing > 4) {
+                else if ($scope.unitInputsShowing > 4)
+                {
                     $('.wizard.vertical > .content').animate({ height: "46em" }, 600);
                 }
-                else if ($scope.unitInputsShowing > 2) {
+                else if ($scope.unitInputsShowing > 2)
+                {
                     $('.wizard.vertical > .content').animate({ height: "32em" }, 600);
                 }
-                else {
+                else
+                {
                     $('.wizard.vertical > .content').animate({ height: "28em" }, 600);
                 }
             }
-            else {
+            else
+            {
                 $('.wizard.vertical > .content').animate({ height: "25em" }, 700);
             }
         }
@@ -2714,7 +2900,8 @@ noochForLandlords
         $scope.userInfo = {};
 
         // Get User's Info from DB
-        if (authenticationService.IsValidUser() == true) {
+        if (authenticationService.IsValidUser() == true)
+        {
             var userdetails = authenticationService.GetUserDetails();
 
             $scope.userInfoInSession = userdetails;
@@ -2723,7 +2910,8 @@ noochForLandlords
                 console.log('Profile Controller -> User profile data -> ' + JSON.stringify(response));
 
                 // Check AuthTokenValidation
-                if (response.AuthTokenValidation.IsTokenOk == true) {
+                if (response.AuthTokenValidation.IsTokenOk == true)
+                {
                     // Update MemberID
                     authenticationService.SetUserDetails(response.UserEmail, response.MemberId, "", response.AuthTokenValidation.AccessToken);
 
@@ -2755,11 +2943,13 @@ noochForLandlords
                     $scope.userInfo.emailAddress = response.UserEmail;
                     $scope.userInfo.isEmailVerified = response.IsEmailVerified;
 
-                    if (response.FbUrl.indexOf('.com/') > -1) {
+                    if (response.FbUrl.indexOf('.com/') > -1)
+                    {
                         var strippedFbId = response.FbUrl.substr(response.FbUrl.indexOf('.com/') + 5);
                         $scope.userInfo.fb = strippedFbId;
                     }
-                    else {
+                    else
+                    {
                         $scope.userInfo.fb = response.FbUrl;
                     }
 
@@ -2771,18 +2961,16 @@ noochForLandlords
                     $scope.userInfo.addressCountry = response.Country;
                     $scope.userInfo.zip = response.Zip;
 
-                    if (response.UserImageUrl == null) {
+                    if (response.UserImageUrl == null)
                         $scope.userInfo.userImage = "https://www.noochme.com/noochservice/UploadedPhotos/Photos/gv_no_photo.png"
-                    }
-                    else {
+                    else
                         $scope.userInfo.userImage = response.UserImageUrl;
-                    }
+
                     $rootScope.userDetailsRoot.imgUrl = $scope.userInfo.userImage;
                     $scope.userInfo.tenantsCount = response.TenantsCount;
                     $rootScope.propCount = response.PropertiesCount;
                     $scope.userInfo.propertiesCount = response.PropertiesCount;
                     $scope.userInfo.unitsCount = response.UnitsCount;
-
 
                     // Set Company Info
                     $scope.company = {
@@ -2797,7 +2985,8 @@ noochForLandlords
                 }
             });
         }
-        else {
+        else
+        {
             /* if (localStorage.getItem('userLoginName') != null &&
                  localStorage.getItem('userLoginName').length > 0 &&
                  localStorage.getItem('userLoginPass') != null &&
@@ -2909,7 +3098,8 @@ noochForLandlords
 
                 this.editBusinessInfo = 0;
             }
-            else if (item === 'contactInfo') {
+            else if (item === 'contactInfo')
+            {
 
                 userInfo.email = $scope.userInfo.emailAddress;
                 userInfo.mobileNum = $scope.userInfo.mobileNumber;
@@ -2930,12 +3120,10 @@ noochForLandlords
             }
 
             getProfileService.UpdateInfo(userInfo, deviceInfo, function (response) {
-                if (response.IsSuccess == true) {
+                if (response.IsSuccess == true)
                     growlService.growl(userInfo.InfoType + ' info updated successfully!', 'success');
-                }
-                else {
+                else
                     growlService.growl(response.ErrorMessage, 'danger');
-                }
             });
         }
 
@@ -3040,9 +3228,6 @@ noochForLandlords
 
                         $('input#idVer-name').focus();
 
-                        // Need to initialize the Popover b/c it's in a modal here
-                        $('[data-toggle="popover"]').popover()
-
                         var dobPicker = $('#idVer-dob');
                         $compile(dobPicker)($scope);
 
@@ -3060,7 +3245,6 @@ noochForLandlords
                             //debug: true
                         });
 
-
                         var calendarIcon = $('#idVerForm1 .md-event');
 
                         calendarIcon.click(function () {
@@ -3070,129 +3254,129 @@ noochForLandlords
                             }, 150);
                         });
 
-                        $('#idVer-ssn').mask("0000");
+                        $('#idVer-ssn').mask("000 - 00 - 0000");
+                        $('#idVer-ein').mask("00 - 0000000");
                         $('#idVer-zip').mask("00000");
                         $('#idVer-phone').mask("(000) 000-0000");
 
+                        // Need to initialize the Popover b/c it's in a modal here
+                        $('[data-toggle="popover"]').popover();
                     }, 750)
                 },
                 onStepChanging: function (event, currentIndex, newIndex) {
 
-                    if (newIndex == 0) {
-                        $('#idVerWiz > .content').animate({ height: "24em" }, 500)
-                    }
+                    if (newIndex == 0) $('#idVerWiz > .content').animate({ height: "24.5em" }, 500)
 
                     // IF going to Step 2
-                    if (newIndex == 1) {
+                    if (newIndex == 1)
+                    {
                         // Check Name field for length
-                        if ($('#idVer-name').val().trim().length > 4) {
+                        if ($('#idVer-name').val().trim().length > 4)
+                        {
                             var trimmedName = $('#idVer-name').val().trim();
                             $('#idVer-name').val(trimmedName);
 
                             // Check Name Field for a " "
-                            if ($('#idVer-name').val().indexOf(' ') > 1) {
+                            if ($scope.userInfo.subtype == "Business" || $('#idVer-name').val().indexOf(' ') > 1)
+                            {
                                 updateValidationUi("name", true);
 
-                                // Check DOB field
-                                if ($('#idVer-dob').val().length == 10) {
-                                    updateValidationUi("dob", true);
+                                // Check Email field
+                                $('#idVer-email').val($('#idVer-email').val().trim());
 
-                                    // Check SSN field
-                                    if ($('#idVer-ssn').val().length == 4) {
-                                        updateValidationUi("ssn", true);
+                                if ($scope.ValidateEmail($('#idVer-email').val()) == true)
+                                {
+                                    updateValidationUi("email", true);
 
-                                        // Great, we can finally go to the next step of the wizard :-]
-                                        $('#idVerWiz > .content').animate({ height: "22.5em" }, 700)
+                                    // Finally, check the phone number's length
+                                    if ($('#idVer-phone').val().trim().replace(/[^0-9]/g, '').length == 10)
+                                    {
+                                        updateValidationUi("phone", true);
+
+                                        // Great, we can finally go to the next step of the wizard :-D
+                                        $('#idVerWiz > .content').animate({ height: "19em" }, 600)
                                         return true;
                                     }
-                                    else {
-                                        updateValidationUi("ssn", false);
-                                    }
+                                    else updateValidationUi("phone", false);
                                 }
-                                else {
-                                    updateValidationUi("dob", false);
-                                }
+                                else updateValidationUi("email", false);
                             }
-                            else {
-                                updateValidationUi("name", false);
-                            }
+                            else updateValidationUi("name", false);
                         }
-                        else {
-                            updateValidationUi("name", false);
-                        }
+                        else updateValidationUi("name", false);
 
                         return false;
                     }
 
                     // IF going to Step 3
-                    if (newIndex == 2) {
+                    if (newIndex == 2)
+                    {
                         // Check Address field
-                        if ($('#idVer-address').val().trim().length > 4) {
+                        var trimmedAddress = $('#idVer-address').val().trim();
+                        $('#idVer-address').val(trimmedAddress);
+
+                        if ($('#idVer-address').val().trim().length > 4 &&
+                            $('#idVer-address').val().indexOf(' ') > -1)
+                        {
                             updateValidationUi("address", true);
 
-                            var trimmedAddress = $('#idVer-address').val().trim();
-                            $('#idVer-address').val(trimmedAddress);
-
                             // Check ZIP code field
-                            if ($('#idVer-zip').val().length == 5) {
+                            var trimmedZip = $('#idVer-zip').val().trim().replace(/[^0-9]/g, '');
+                            $('#idVer-zip').val(trimmedZip);
+
+                            if ($('#idVer-zip').val().length == 5)
+                            {
                                 updateValidationUi("zip", true);
 
                                 // Check ZIP code field
-                                if ($('#idVer-phone').val().length == 14) {
+                                if ($('#idVer-phone').val().length == 14)
+                                {
                                     updateValidationUi("phone", true);
 
                                     // Great, go to the next step of the wizard :-]
+                                    // Great, go to the next step of the wizard :-]
 
-                                    // FILE INPUT DOCUMENTATION: http://plugins.krajee.com/file-input#options
-                                    $("#IdWizPic_FileInput").fileinput({
-                                        allowedFileTypes: ['image'],
-                                        initialPreview: [
-                                            "<img src='" + $scope.userInfo.userImage + "' class='file-preview-image' alt='Profile Picture' id='IdWizUserPicPreview'>"
-                                        ],
-                                        initialPreviewShowDelete: false,
-                                        layoutTemplates: {
-                                            icon: '<span class="md md-panorama m-r-10 kv-caption-icon"></span>',
-                                        },
-                                        maxFileCount: 1,
-                                        maxFileSize: 350,
-                                        msgSizeTooLarge: "File '{name}' ({size} KB) is too big a file! Please try a picture under {maxSize} KB!",
-                                        showCaption: false,
-                                        showUpload: false,
-                                        uploadUrl: URLs.UploadLandlordProfileImage,
-                                        uploadExtraData: {
-                                            LandlorId: $scope.userInfoInSession.landlordId,
-                                            AccessToken: $scope.userInfoInSession.accessToken
-                                        },
-                                        showPreview: true,
-                                        resizeImage: true,
-                                        maxImageWidth: 500,
-                                        maxImageHeight: 500,
-                                        resizePreference: 'width'
-                                    });
-
-                                    $('#idVerWiz > .content').animate({ height: "29em" }, 700)
+                                    $('#idVerWiz > .content').animate({ height: "20em" }, 500)
                                     return true;
                                 }
-                                else {
+                                else
                                     updateValidationUi("phone", false);
-                                }
                             }
-                            else {
+                            else
                                 updateValidationUi("zip", false);
-                            }
                         }
-                        else {
+                        else
                             updateValidationUi("address", false);
-                        }
+                    }
+
+                    // IF going to Step 4
+                    if (newIndex == 3)
+                    {
+                        if ($scope.userInfo.subtype != "Business")
+                            return $scope.checkStepThree();
                     }
 
                     // Allways allow previous action even if the current form is not valid!
-                    if (currentIndex > newIndex) {
-                        return true;
+                    if (currentIndex > newIndex) return true;
+                },
+                onStepChanged: function (event, currentIndex, priorIndex) {
+                    if (currentIndex == 1)
+                    {
+                        $('#idVerWiz').css('overflow', 'visible');
+                        $('#idVer-address').focus();
                     }
+                    else if (currentIndex == 2)
+                        $('#idVer-email').focus();
                 },
                 onCanceled: function (event) {
                     $scope.cancelIdVer();
+                },
+                onFinishing: function (event, currentIndex) {
+                    if ($scope.userInfo.subtype == "Business")
+                        return $scope.checkStepThree();
+
+                    // Finish the Wizard...
+                    return true;
                 },
                 onFinished: function (event, currentIndex) {
 
@@ -3217,14 +3401,15 @@ noochForLandlords
                     };
 
                     getProfileService.submitIdVerWizard(DeviceInfo, fullName, birthDay, ssnLast4, address, zip, phone, function (response) {
-                        console.log("submitIdVerWizard Response... (2440)");
+                        console.log("submitIdVerWizard Response...");
                         console.log(response);
 
                         // HIDE THE MODAL CONTAINING THE WIZARD
                         $('html').css('overflow-y', 'hidden');
                         $('#idVer').modal('hide')
 
-                        if (response.success == true) {
+                        if (response.success == true)
+                        {
                             growlService.growl('Profile info updated successfully!', 'success');
 
                             $scope.userInfo.isIdVerified = 1;
@@ -3243,18 +3428,18 @@ noochForLandlords
                                 confirmButtonText: "Add Bank Now",
                                 html: true
                             }, function (isConfirm) {
-                                if (isConfirm) {
+                                if (isConfirm)
                                     window.location.href = '#/profile/profile-bankaccounts';
-                                }
                             });
                         }
-                        else {
+                        else
+                        {
                             growlService.growl(response.ErrorMessage, 'danger');
 
                             // THEN DISPLAY FAILURE ALERT
                             swal({
                                 title: "Oh No!",
-                                text: "Looks like we had some trouble submitting your information.  Please try again or contact <a href='mailto:support@nooch.com' target='_blank'>Nooch Support</a> and we will help resolve the issue.",
+                                text: "Looks like we had trouble verifying your information. Please try again or contact <a href='mailto:support@nooch.com' target='_blank'>Nooch Support</a> for further help!",
                                 type: "error",
                                 showCancelButton: false,
                                 confirmButtonColor: "#3fabe1",
@@ -3271,49 +3456,52 @@ noochForLandlords
             updateValidationUi = function (field, success) {
                 //console.log("Field: " + field + "; success: " + success);
 
-                if (field == "reset all") {
+                if (field == "reset all")
+                {
                     $('#idVerWiz .form-group').removeClass('has-error');
                     $('#idVerWiz .help-block').slideUp();
                 }
 
-                if (success == true) {
+                if (success == true)
+                {
                     $('#' + field + 'Grp .form-group').removeClass('has-error').addClass('has-success');
                     $('#' + field + 'Grp .help-block').slideUp();
                 }
 
-                else {
+                else
+                {
                     $('#' + field + 'Grp .form-group').removeClass('has-success').addClass('has-error');
 
                     var helpBlockTxt = "";
-                    if (field == "name") {
+                    if (field == "name")
                         helpBlockTxt = "Please enter your full legal name.";
-                    }
-                    else if (field == "dob") {
-                        $('#idVerWiz > .content').animate({ height: "25.5em" }, 300)
+                    else if (field == "dob")
                         helpBlockTxt = "Please enter your date of birth. We promise nobody ever sees this!"
-                    }
-                    else if (field == "ssn") {
-                        $('#idVerWiz > .content').animate({ height: "25.5em" }, 300)
-                        helpBlockTxt = "Please enter just the LAST 4 digits of your SSN. This is used solely to protect your account."
-                    }
-                    else if (field == "address") {
-                        $('#idVerWiz > .content').animate({ height: "24em" }, 300)
+                    else if (field == "ssn")
+                        helpBlockTxt = "Please enter your SSN. This is used solely to verify your identity."
+                    else if (field == "address")
+                    {
+                        $('#idVerWiz > .content').animate({ height: "23em" }, 300)
                         helpBlockTxt = "Please enter the physical street address of where you currently live."
                     }
-                    else if (field == "zip") {
-                        $('#idVerWiz > .content').animate({ height: "23.5em" }, 300)
+                    else if (field == "zip")
+                    {
+                        $('#idVerWiz > .content').animate({ height: "23em" }, 300)
                         helpBlockTxt = "Please enter the zip code for the street address above."
                     }
-                    else if (field == "phone") {
+                    else if (field == "phone")
+                    {
                         $('#idVerWiz > .content').animate({ height: "23em" }, 300)
                         helpBlockTxt = "Please enter your full, valid phone number!"
                     }
 
-                    if (!$('#' + field + 'Grp .help-block').length) {
+                    if (!$('#' + field + 'Grp .help-block').length)
+                    {
                         $('#' + field + 'Grp .form-group').append('<small class="help-block" style="display:none">' + helpBlockTxt + '</small>');
                         $('#' + field + 'Grp .help-block').slideDown();
                     }
-                    else { $('#' + field + 'Grp .help-block').show() }
+                    else
+                    { $('#' + field + 'Grp .help-block').show() }
 
                     console.log()
                     // Now focus on the element that failed validation
@@ -3324,6 +3512,77 @@ noochForLandlords
 
             }
         }
+
+
+        $scope.checkStepThree = function () {
+            // Check DOB field
+            if ($('#idVer-dob').val().length == 10)
+            {
+                updateValidationUi("dob", true);
+
+                if ($scope.userInfo.subtype != "Business")
+                {
+                    // Check SSN field
+                    var ssnVal = $('#idVer-ssn').val().trim();
+                    ssnVal = ssnVal.replace(/ /g, "").replace(/-/g, "");
+
+                    if (ssnVal.length == 9)
+                    {
+                        updateValidationUi("ssn", true);
+
+                        // FILE INPUT DOCUMENTATION: http://plugins.krajee.com/file-input#options
+                        $("#IdWizPic_FileInput").fileinput({
+                            allowedFileTypes: ['image'],
+                            initialPreview: [
+                                "<img src='" + $scope.userInfo.userImage + "' class='file-preview-image' alt='Profile Picture' id='IdWizUserPicPreview'>"
+                            ],
+                            initialPreviewShowDelete: false,
+                            layoutTemplates: {
+                                icon: '<span class="md md-panorama m-r-10 kv-caption-icon"></span>',
+                            },
+                            maxFileCount: 1,
+                            maxFileSize: 350,
+                            msgSizeTooLarge: "File '{name}' ({size} KB) is too big a file! Please try a picture under {maxSize} KB!",
+                            showCaption: false,
+                            showUpload: false,
+                            uploadUrl: URLs.UploadLandlordProfileImage,
+                            uploadExtraData: {
+                                LandlorId: $scope.userInfoInSession.landlordId,
+                                AccessToken: $scope.userInfoInSession.accessToken
+                            },
+                            showPreview: true,
+                            resizeImage: true,
+                            maxImageWidth: 500,
+                            maxImageHeight: 500,
+                            resizePreference: 'width'
+                        });
+
+                        // Great, we can finally go to the next step of the wizard :-]
+                        $('#idVerWiz > .content').animate({ height: "31em" }, 700)
+                        return true;
+                    }
+                    else
+                        updateValidationUi("ssn", false);
+                }
+                else if ($scope.userInfo.subtype == "Business")
+                {
+                    // Check SSN field
+                    var einVal = $('#idVer-ein').val().trim();
+                    einVal = einVal.replace(/ /g, "").replace(/-/g, "");
+
+                    if (einVal.length == 9)
+                    {
+                        updateValidationUi("ein", true);
+                        return true;
+                    }
+                    else updateValidationUi("ein", false);
+                }
+            }
+            else updateValidationUi("dob", false);
+
+            return false;
+        }
+
 
         $scope.cancelIdVer = function () {
             swal({
@@ -3337,7 +3596,8 @@ noochForLandlords
                 closeOnConfirm: true,
                 closeOnCancel: true
             }, function (isConfirm) {
-                if (isConfirm) {
+                if (isConfirm)
+                {
                     setTimeout(function () {
                         $('html').css('overflow-y', 'hidden');
                         $('#idVer').modal('hide');
@@ -3355,13 +3615,34 @@ noochForLandlords
             $('.idVerAlert').slideUp();
             //		    $('.idVerAlert').alert('close');
         }
+
+        $scope.ValidateEmail = function (str) {
+            if (str != null)
+            {
+                var at = "@"
+                var dot = "."
+                var lat = str.indexOf("@")
+                var lstr = str.length
+                var ldot = str.indexOf(".")
+
+                if (lat == -1 || lat == 0 || lat == lstr) return false
+                if (ldot == -1 || ldot == 0 || ldot == lstr) return false
+                if (str.indexOf(at, (lat + 1)) != -1) return false
+                if (str.substring(lat - 1, lat) == dot || str.substring(lat + 1, lat + 2) == dot) return false
+                if (str.indexOf(dot, (lat + 2)) == -1) return false
+                if (str.indexOf(" ") != -1) return false
+
+                return true
+            }
+            return false
+        };
     })
 
 
     .controller('profileAboutCtrl', function ($rootScope, $compile, getProfileService, authenticationService, $scope) {
 
-        if ($rootScope.shouldShowPhoneTour === true) {
-
+        if ($rootScope.shouldShowPhoneTour)
+        {
             setTimeout(function () {
                 var tourPhone = new Tour({
                     name: 'editPhoneTour',
@@ -3396,10 +3677,10 @@ noochForLandlords
             }, 500);
         }
 
-        if ($rootScope.isIdVerified === false) {
-            console.log("ID IS NOT VERIFIED YET");
-
-            if ($rootScope.shouldDisplayOverviewAlert === true) {
+        if ($rootScope.isIdVerified === false)
+        {
+            if ($rootScope.shouldDisplayOverviewAlert === true)
+            {
                 $rootScope.shouldDisplayOverviewAlert = false;
 
                 swal({
@@ -3418,18 +3699,16 @@ noochForLandlords
                     allowEscapeKey: false,
                     html: true
                 }, function (isConfirm) {
-                    if (isConfirm) {
+                    if (isConfirm)
                         $scope.runWizard();
-                    }
                 });
             }
-            else if ($rootScope.shouldLaunchWizOnLoad === true) {
+            else if ($rootScope.shouldLaunchWizOnLoad === true)
+            {
                 console.log("$rootScope.shouldLaunchWizOnLoad  IS TRUE");
                 $rootScope.shouldLaunchWizOnLoad = false;
             }
         }
-
-        console.log($rootScope.User)
 
         $scope.phEmWarning = function (input) {
             console.log(input);
@@ -3438,13 +3717,15 @@ noochForLandlords
             var imgUrl;
             var sendWhat;
 
-            if (input == "e") {
+            if (input == "e")
+            {
                 sendWhat = "Email";
                 title = "Verify Your Email";
                 bodyTxt = "As part of our efforts to keep Nooch the safest way to get paid, we ask all users to confirm their email address." +
                       "<span class='show m-t-15'>Click <strong>\"Send\"</strong> to re-send the verification link.  Just click the big blue button in that email to confirm.</span>";
             }
-            else if (input == "p") {
+            else if (input == "p")
+            {
                 sendWhat = "SMS";
                 title = "Verify Your Phone";
                 bodyTxt = "To help keep Nooch the safest way to get paid, we ask all users to confirm a valid phone number." +
@@ -3463,7 +3744,8 @@ noochForLandlords
                 confirmButtonText: "Send Now",
                 html: true
             }, function (isConfirm) {
-                if (isConfirm) {
+                if (isConfirm)
+                {
                     $scope.ResendVerificationEmailOrSMS(sendWhat);
                 }
             });
@@ -3472,9 +3754,11 @@ noochForLandlords
         $scope.ResendVerificationEmailOrSMS = function (sendWhat) {
             console.log("Profile Controller -> ResendVerificationEmailOrSMS fired");
 
-            if (sendWhat == "SMS") {
+            if (sendWhat == "SMS")
+            {
                 if ($rootScope.ContactNumber == "" ||
-                    $rootScope.ContactNumber.length < 10) {
+                    $rootScope.ContactNumber.length < 10)
+                {
                     swal({
                         title: "No Phone Added Yet",
                         text: "Looks like you still need to add your phone number before we can verify it!",
@@ -3484,9 +3768,8 @@ noochForLandlords
                         confirmButtonText: "Add Now",
                         confirmButtonColor: "#3FABE1"
                     }, function (isConfirm) {
-                        if (isConfirm) {
+                        if (isConfirm)
                             $scope.goTo("profile");
-                        }
                     });
                     return;
                 }
@@ -3497,9 +3780,11 @@ noochForLandlords
             getProfileService.ResendVerificationEmailOrSMS(userdetails.landlordId, "Landlord", sendWhat, function (response) {
                 console.log(response);
 
-                if (response.IsSuccess && response.IsSuccess == true) {
+                if (response.IsSuccess && response.IsSuccess == true)
+                {
                     console.log("Inside success");
-                    if (sendWhat == "Email") {
+                    if (sendWhat == "Email")
+                    {
                         swal({
                             title: "Email Verification Resent",
                             text: "We just re-sent a verification link to <strong>" + $rootScope.emailAddress + "</strong>, please check your email and click the link to verify your email address.",
@@ -3508,7 +3793,8 @@ noochForLandlords
                             html: true
                         });
                     }
-                    if (sendWhat == "SMS") {
+                    if (sendWhat == "SMS")
+                    {
                         swal({
                             title: "SMS Verification Sent!",
                             text: "We just sent a text message to <strong>" + $rootScope.ContactNumber + "</strong>, please check your phone and reply \"Go\" to the text (case doesn't matter).",
@@ -3518,12 +3804,15 @@ noochForLandlords
                         });
                     }
                 }
-                else {
+                else
+                {
                     var msgtxt = "";
-                    if (response.ErrorMessage.indexOf('Already Activated') > -1) {
+                    if (response.ErrorMessage.indexOf('Already Activated') > -1)
+                    {
                         msgtxt = "Looks like your account is already verified! If you continue to see messages saying your email is not verified, please contact Nooch support so we can straighten things out!";
                     }
-                    else if (response.ErrorMessage.indexOf('Already Verified') > -1) {
+                    else if (response.ErrorMessage.indexOf('Already Verified') > -1)
+                    {
                         msgtxt = "Looks like your phone number is already verified! If you continue to see messages saying your email is not verified, please contact Nooch support so we can straighten things out!";
                     }
                     swal({
@@ -3551,12 +3840,12 @@ noochForLandlords
     // Profile - BANK ACCOUNTS
     //=================================================
 
-    .controller('banksCtrl', function ($rootScope, $scope, $state, authenticationService, getBanksService, getProfileService)
-    {
+    .controller('banksCtrl', function ($rootScope, $scope, $state, authenticationService, getBanksService, getProfileService) {
         this.isBankAttached = true;
 
         // Get User's Info from DB
-        if (authenticationService.IsValidUser() == true) {
+        if (authenticationService.IsValidUser() == true)
+        {
 
             var userdetails = authenticationService.GetUserDetails();
 
@@ -3606,7 +3895,8 @@ noochForLandlords
 
         $scope.addBank = function () {
 
-            if ($rootScope.isIdVerified === false) {
+            if ($rootScope.isIdVerified === false)
+            {
                 swal({
                     title: "Help Us Keep Nooch Safe",
                     text: "Before you link your bank account, please take 1 minute to verify your identity by completing your profile.<span style='display:block;margin-top:14px;'>This helps us make sure Nooch is safe for everyone.  We will only ask for this info once and will never share it publicly without your explicit permission.  All data is stored with encryption on secure servers.</span>",
@@ -3619,12 +3909,14 @@ noochForLandlords
                     closeOnCancel: true,
                     html: true
                 }, function (isConfirm) {
-                    if (isConfirm) {
+                    if (isConfirm)
+                    {
                         $scope.runWizard();
                     }
                 });
             }
-            else if ($rootScope.IsEmailVerified != true) {
+            else if ($rootScope.IsEmailVerified != true)
+            {
                 swal({
                     title: "Help Us Keep Nooch Safe",
                     text: "Before you link a bank account, please verify your email address by clicking the verification link we emailed to <strong>" + $rootScope.emailAddress + "</strong>.</span>",
@@ -3637,15 +3929,19 @@ noochForLandlords
                     closeOnCancel: true,
                     html: true
                 }, function (isConfirm) {
-                    if (!isConfirm) {
+                    if (!isConfirm)
+                    {
                         $scope.ResendVerificationEmailOrSMS('Email');
                     }
                 });
             }
-            else {
-                if ($scope.bankCount > 0) {
+            else
+            {
+                if ($scope.bankCount > 0)
+                {
                     var plural = "";
-                    if ($scope.bankCount > 1) {
+                    if ($scope.bankCount > 1)
+                    {
                         plural = "s";
                     }
 
@@ -3662,7 +3958,8 @@ noochForLandlords
                         html: true,
                         customClass: "largeText"
                     }, function (isConfirm) {
-                        if (isConfirm) {
+                        if (isConfirm)
+                        {
                             $scope.displayAddBankIframe();
                         }
                     });
@@ -3677,11 +3974,8 @@ noochForLandlords
 
         $scope.displayAddBankIframe = function () {
 
-<<<<<<< HEAD
-            $('#bankAdd iframe').attr("src", "http://nooch.info/noochweb/Nooch/AddBank?memberid=?MemberId=" + $scope.userInfoInSession.memberId + "&ll=yes");
-=======
             $('#bankAdd iframe').attr("src", "https://www.noochme.com/noochweb/Nooch/AddBank?MemberId=" + $scope.userInfoInSession.memberId + "&ll=yes");
->>>>>>> 054f830c7a20c06d522668e9960e13c7ac48c91f
+
             $('#bankAdd').modal({
                 keyboard: false
             })
@@ -3696,13 +3990,15 @@ noochForLandlords
                 console.log("Callback from Add Bank page - \"sendToIdVerQuestions\" was: [" + result + "]");
 
                 // Check if extra ID Verification questions must be answered
-                if (result == true) {
+                if (result == true)
+                {
                     console.log("NEED TO CREATE NEW IFRAME POINTING TO ID VERIFICATION PAGE");
 
                     // NEED TO CREATE NEW IFRAME POINTING TO ID VERIFICATION PAGE
                     $('#bankAdd iframe').attr("src", "http://www.noochme.com/noochweb/trans/idverification.aspx?memid=" + $scope.userInfoInSession.memberId + "&from=llapp");
                 }
-                else {
+                else
+                {
                     console.log("BANK ADDED SUCCESSFULLY, NO EXTRA ID VER NEEDED!");
 
                     // Hide the add-bank modal
@@ -3718,10 +4014,12 @@ noochForLandlords
                         customClass: "largeText",
                         html: true
                     }, function (isConfirm) {
-                        if (isConfirm) {
+                        if (isConfirm)
+                        {
                             window.location.href = '#/properties';
                         }
-                        else {
+                        else
+                        {
                             $state.reload();
                         }
                     });
@@ -3741,7 +4039,8 @@ noochForLandlords
                 $('#bankAdd').modal('hide');
 
                 // Check if extra ID Verification questions were submitted successfully
-                if (result == true) {
+                if (result == true)
+                {
                     swal({
                         title: "Bank Linked Successfully",
                         text: "That was easy. &nbsp;Next stop: add your properties to invite your tenants to pay rent on Nooch.",
@@ -3753,15 +4052,18 @@ noochForLandlords
                         customClass: "largeText",
                         html: true
                     }, function (isConfirm) {
-                        if (isConfirm) {
+                        if (isConfirm)
+                        {
                             window.location.href = '#/properties';
                         }
-                        else {
+                        else
+                        {
                             $state.reload();
                         }
                     });
                 }
-                else {
+                else
+                {
                     console.log("Problem from ID Verification Page!");
 
                     swal({
@@ -3779,8 +4081,8 @@ noochForLandlords
         this.makePrimary = function (e) {
             var bankName = $(e.target).data('bankname');
             swal({
-                title: "Make " + bankName + " your Primary Bank Account?",
-                text: "This will change your default bank account.  Any new properties or units you create will be assigned to your new default bank.",
+                title: "Make " + bankName + " your primary Bank Account?",
+                text: "This will change your default bank account. Any new properties or units you create will be assigned to your new default bank.",
                 type: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#DD6B55",
@@ -3789,7 +4091,8 @@ noochForLandlords
                 closeOnConfirm: false,
                 closeOnCancel: true
             }, function (isConfirm) {
-                if (isConfirm) {
+                if (isConfirm)
+                {
                     swal("You Got It", bankName + " is now your primary bank account.", "success");
                 }
             });
@@ -3809,12 +4112,15 @@ noochForLandlords
                 closeOnCancel: true,
                 customClass: "largeText"
             }, function (isConfirm) {
-                if (isConfirm) {
+                if (isConfirm)
+                {
                     getBanksService.deleteBank(userdetails.landlordId, userdetails.memberId, userdetails.accessToken, function (response) {
                         console.log('Banks Controller -> Get Banks Response data -> ' + JSON.stringify(response));
 
-                        if (response.success == true) {
-                            if (response.msg == "ok") {
+                        if (response.success == true)
+                        {
+                            if (response.msg == "ok")
+                            {
                                 $scope.bankCount -= 1;
                                 $scope.bankName = "";
                                 $scope.bankNickname = "";
@@ -3828,7 +4134,8 @@ noochForLandlords
                             }
                             console.log("Get Banks SUCCESS (Controller)");
                         }
-                        else {
+                        else
+                        {
                             console.log("Get Banks FAILURE (Controller)");
 
                             swal("Oh No!", "We ran into some trouble trying to delete that bank.  Please try again!", "error");
@@ -3846,9 +4153,11 @@ noochForLandlords
 
             var userDetails = authenticationService.GetUserDetails();
 
-            if (sendWhat == "SMS") {
+            if (sendWhat == "SMS")
+            {
                 if ($rootScope.ContactNumber == "" ||
-                    $rootScope.ContactNumber.length < 10) {
+                    $rootScope.ContactNumber.length < 10)
+                {
                     swal({
                         title: "No Phone Added Yet",
                         text: "Looks like you still need to add your phone number before we can verify it!",
@@ -3858,7 +4167,8 @@ noochForLandlords
                         confirmButtonText: "Add Now",
                         confirmButtonColor: "#3FABE1"
                     }, function (isConfirm) {
-                        if (isConfirm) {
+                        if (isConfirm)
+                        {
                             $rootScope.shouldDisplayOverviewAlert = false;
                             $rootScope.shouldShowPhoneTour = true;
                             window.location.href = '#/profile/profile-about';
@@ -3871,8 +4181,10 @@ noochForLandlords
             getProfileService.ResendVerificationEmailOrSMS(userDetails.landlordId, "Landlord", sendWhat, function (response) {
                 console.log(response);
 
-                if (response.IsSuccess && response.IsSuccess == true) {
-                    if (sendWhat == "Email") {
+                if (response.IsSuccess && response.IsSuccess == true)
+                {
+                    if (sendWhat == "Email")
+                    {
                         swal({
                             title: "Email Verification Resent",
                             text: "We just re-sent a verification link to <strong>" + $rootScope.emailAddress + "</strong>, please check your email and click the link to verify your email address.",
@@ -3881,7 +4193,8 @@ noochForLandlords
                             html: true
                         });
                     }
-                    if (sendWhat == "SMS") {
+                    if (sendWhat == "SMS")
+                    {
                         swal({
                             title: "SMS Verification Sent!",
                             text: "We just sent a text message to <strong>" + $rootScope.ContactNumber + "</strong>, please check your phone and reply \"Go\" to the text (case doesn't matter).",
@@ -3891,12 +4204,15 @@ noochForLandlords
                         });
                     }
                 }
-                else {
+                else
+                {
                     var msgtxt = "";
-                    if (response.ErrorMessage.indexOf('Already Activated') > -1) {
+                    if (response.ErrorMessage.indexOf('Already Activated') > -1)
+                    {
                         msgtxt = "Looks like your account is already verified! If you continue to see messages saying your email is not verified, please contact Nooch support so we can straighten things out!";
                     }
-                    else if (response.ErrorMessage.indexOf('Already Verified') > -1) {
+                    else if (response.ErrorMessage.indexOf('Already Verified') > -1)
+                    {
                         msgtxt = "Looks like your phone number is already verified! If you continue to see messages saying your email is not verified, please contact Nooch support so we can straighten things out!";
                     }
                     swal({
@@ -3927,14 +4243,18 @@ noochForLandlords
         $scope.updatePwSubmit = function () {
             console.log($('#currentPw').val());
             // Check Username (email) field for length
-            if ($('#currentPw').val() && $('#currentPw').val().length > 6) {
+            if ($('#currentPw').val() && $('#currentPw').val().length > 6)
+            {
                 updateValidationUi("currentPw", true);
 
-                if ($('#newPw').val() && $('#newPw').val().length > 6) {
+                if ($('#newPw').val() && $('#newPw').val().length > 6)
+                {
                     updateValidationUi("newPw", true);
 
-                    if ($('#confirmPw').val() && $('#confirmPw').val().length > 6) {
-                        if ($('#newPw').val() == $('#confirmPw').val()) {
+                    if ($('#confirmPw').val() && $('#confirmPw').val().length > 6)
+                    {
+                        if ($('#newPw').val() == $('#confirmPw').val())
+                        {
                             updateValidationUi("confirmPw", true);
 
                             // ADD THE LOADING BOX
@@ -3955,7 +4275,8 @@ noochForLandlords
                                 }
                             });
 
-                            if (authenticationService.IsValidUser() == true) {
+                            if (authenticationService.IsValidUser() == true)
+                            {
                                 var userdetails = authenticationService.GetUserDetails();
 
                                 authenticationService.updatePw(userdetails.landlordId, userdetails.accessToken, $scope.pwData.current, $scope.pwData.newPw, $scope.pwData.confirmPw, function (response) {
@@ -3964,7 +4285,8 @@ noochForLandlords
 
                                     $('#changePw div').unblock();
 
-                                    if (response.success === true) {
+                                    if (response.success === true)
+                                    {
                                         //authenticationService.SetUserDetails($scope.LoginData.username, response.MemberId, response.LandlordId, response.AccessToken);
                                         swal({
                                             title: "Password Updated",
@@ -3980,9 +4302,11 @@ noochForLandlords
                                         $('#newPw').val('');
                                         $('#confirmPw').val('');
                                     }
-                                    else {
+                                    else
+                                    {
                                         var msg = "Looks like either your email or password was incorrect.  Please try again.";
-                                        if (response.msg != null && response.msg.indexOf("Current password was incorrect") > -1) {
+                                        if (response.msg != null && response.msg.indexOf("Current password was incorrect") > -1)
+                                        {
                                             msg = "Looks like your current password was not correct. Please try again or if you don't remember your password, click \"Forgot Password\".";
                                         }
                                         swal({
@@ -3995,19 +4319,23 @@ noochForLandlords
                                 });
                             }
                         }
-                        else {
+                        else
+                        {
                             updateValidationUi("confirmPw2", false);
                         }
                     }
-                    else {
+                    else
+                    {
                         updateValidationUi("confirmPw", false);
                     }
                 }
-                else {
+                else
+                {
                     updateValidationUi("newPw", false);
                 }
             }
-            else {
+            else
+            {
                 updateValidationUi("currentPw", false);
             }
         }
@@ -4015,7 +4343,8 @@ noochForLandlords
         $scope.forgotPwSubmit = function () {
             var email = $scope.forgotPwEmail;
 
-            if ($scope.ValidateEmail(email)) {
+            if ($scope.ValidateEmail(email))
+            {
                 updateValidationUi("emforgot", true);
 
                 // ADD THE LOADING BOX
@@ -4042,7 +4371,8 @@ noochForLandlords
 
                     $('#forgotPw > div').unblock();
 
-                    if (response.IsSuccess == true) {
+                    if (response.IsSuccess == true)
+                    {
                         swal({
                             title: "Reset Link Sent",
                             text: "We just sent a reset password link to <strong>" + email + "</strong>.  Please click the link in that email to create a new password.",
@@ -4050,7 +4380,8 @@ noochForLandlords
                             html: true
                         });
                     }
-                    else { // This will just be for a general server error where the server doesn't return any 'success' parameter at all
+                    else
+                    { // This will just be for a general server error where the server doesn't return any 'success' parameter at all
                         console.log(response);
                         swal({
                             title: "Oh No!",
@@ -4061,41 +4392,49 @@ noochForLandlords
                     }
                 });
             }
-            else {
+            else
+            {
                 updateValidationUi("emforgot", false);
             }
         }
 
         $scope.ValidateEmail = function (str) {
             console.log; ("Profile Page -> Forgot PW -> VALIDATE EMAIL REACHED")
-            if (str != null) {
+            if (str != null)
+            {
                 var at = "@"
                 var dot = "."
                 var lat = str.indexOf("@")
                 var lstr = str.length
                 var ldot = str.indexOf(".")
 
-                if (lat == -1 || lat == 0 || lat == lstr) {
+                if (lat == -1 || lat == 0 || lat == lstr)
+                {
                     return false
                 }
 
-                if (ldot == -1 || ldot == 0 || ldot == lstr) {
+                if (ldot == -1 || ldot == 0 || ldot == lstr)
+                {
                     return false
                 }
 
-                if (str.indexOf(at, (lat + 1)) != -1) {
+                if (str.indexOf(at, (lat + 1)) != -1)
+                {
                     return false
                 }
 
-                if (str.substring(lat - 1, lat) == dot || str.substring(lat + 1, lat + 2) == dot) {
+                if (str.substring(lat - 1, lat) == dot || str.substring(lat + 1, lat + 2) == dot)
+                {
                     return false
                 }
 
-                if (str.indexOf(dot, (lat + 2)) == -1) {
+                if (str.indexOf(dot, (lat + 2)) == -1)
+                {
                     return false
                 }
 
-                if (str.indexOf(" ") != -1) {
+                if (str.indexOf(" ") != -1)
+                {
                     return false
                 }
 
@@ -4108,40 +4447,50 @@ noochForLandlords
         updateValidationUi = function (field, success) {
             console.log("Profile -> PW -> UpdateValidationUI - Field: " + field + "; success: " + success);
 
-            if (success == true) {
-                if (field == "confirmPw2") {
+            if (success == true)
+            {
+                if (field == "confirmPw2")
+                {
                     field = "confirmPw";
                 }
                 $('#' + field + 'Grp').removeClass('has-error').addClass('has-success');
 
-                if (field != 'pw' && $('#' + field + 'Grp .help-block').length) {
+                if (field != 'pw' && $('#' + field + 'Grp .help-block').length)
+                {
                     $('#' + field + 'Grp .help-block').slideUp();
                 }
             }
-            else {
+            else
+            {
                 var helpBlockTxt = "";
 
-                if (field == "currentPw") {
+                if (field == "currentPw")
+                {
                     helpBlockTxt = "Please enter your current password!"
                 }
-                else if (field == "newPw") {
+                else if (field == "newPw")
+                {
                     helpBlockTxt = "Please enter a strong new password."
                 }
-                else if (field == "confirmPw") {
+                else if (field == "confirmPw")
+                {
                     helpBlockTxt = "Please confirm your new password."
                 }
-                else if (field == "confirmPw2") {
+                else if (field == "confirmPw2")
+                {
                     helpBlockTxt = "New password does not match confirm password."
                     field = "confirmPw";
                 }
 
                 $('#' + field + 'Grp').removeClass('has-success').addClass('has-error');
 
-                if (!$('#' + field + 'Grp .help-block').length) {
+                if (!$('#' + field + 'Grp .help-block').length)
+                {
                     $('#' + field + 'Grp').append('<small class="help-block pull-right f-14" style="display:none">' + helpBlockTxt + '</small>');
                     $('#' + field + 'Grp .help-block').slideDown();
                 }
-                else { $('#' + field + 'Grp .help-block').show() }
+                else
+                { $('#' + field + 'Grp .help-block').show() }
 
                 // Now focus on the element that failed validation
                 setTimeout(function () {
@@ -4156,8 +4505,7 @@ noochForLandlords
     // HISTORY
     //=================================================
 
-    .controller('historyCtrl', function ($rootScope, $scope, historyService, propDetailsService, authenticationService)
-    {
+    .controller('historyCtrl', function ($rootScope, $scope, historyService, propDetailsService, authenticationService) {
         console.log("HISTORY LOADED!");
 
         var userDetails = authenticationService.GetUserDetails();
@@ -4220,21 +4568,13 @@ noochForLandlords
                                     var dueDate = full.DueDate
 
                                     if (full.TenantStatus == "Accepted")
-                                    {
                                         if (dueDate != null && dueDate.length > 2)
-                                        {
                                             return '<div style="line-height:1.2;">Paid: ' + transDateFormatted + '</div>' +
                                                    '<span class="f-13 f-300">Due: ' + dueDate + '</span>';
-                                        }
-                                    }
-                                    else if (dueDate != null && dueDate.length > 2)
-                                    {
-                                        return '<span class="f-14">Due: <span class="f-300">' + dueDate + '</span></span>';
-                                    }
-                                    else if (full.TransactionDate != null)
-                                    {
-                                        return '<span class="f-14">Sent: <span class="f-300">' + transDateFormatted + '</span></span>';
-                                    }
+                                        else if (dueDate != null && dueDate.length > 2)
+                                            return '<span class="f-14">Due: <span class="f-300">' + dueDate + '</span></span>';
+                                        else if (full.TransactionDate != null)
+                                            return '<span class="f-14">Sent: <span class="f-300">' + transDateFormatted + '</span></span>';
                                 }
                             },
                             {
@@ -4247,13 +4587,9 @@ noochForLandlords
 
                                     var classToAdd = "";
                                     if (full.TenantStatus == "Invited")
-                                    {
                                         classToAdd = 'text-warning';
-                                    }
                                     else if (full.TenantStatus == "Accepted")
-                                    {
                                         classToAdd = 'text-success';
-                                    }
 
                                     htmlToDisplay = "<div class='media'><div class='pull-left'><img class='tableUserPic' src='img/contacts/" + data +
                                                     ".jpg'></div><div class='media-body'><div class='lv-title'>" + data + "</div><small class='lv-small'>" + data + "</small></div></div>";
@@ -4267,14 +4603,10 @@ noochForLandlords
                                                         '</div>';
                                     }
                                     else if (full.TenantEmail != null && full.TenantEmail.length > 1)
-                                    {
                                         htmlToDisplay = '<span class="show text-center"><a class="msgUnitBtn">' + full.TenantEmail + '</a></span>' +
                                                         '<span class="show text-center status f-13 ' + classToAdd + '">' + full.TenantStatus + '</span>';
-                                    }
                                     else
-                                    {
                                         htmlToDisplay = '<span class="show text-center"><a class="addTenantBtn btn btn-default"><i class="md md-add m-r-5"></i>Add Tenant</a></span>';
-                                    }
 
                                     return htmlToDisplay;
                                 }
@@ -4305,10 +4637,12 @@ noochForLandlords
                                 "data": "UnitNum",
                                 "render": function (data, type, full, meta) {
 
-                                    if (data != null && data.length > 0) {
+                                    if (data != null && data.length > 0)
+                                    {
                                         return data;
                                     }
-                                    else if (full.UnitName != null && full.UnitName.length > 2) {
+                                    else if (full.UnitName != null && full.UnitName.length > 2)
+                                    {
                                         return full.UnitName;
                                     }
 
@@ -4321,16 +4655,20 @@ noochForLandlords
                                 "render": function (data, type, full, meta) {
                                     var htmlToReturn = data;
 
-                                    if (data == "Paid" || data == "paid" || data == "completed") {
+                                    if (data == "Paid" || data == "paid" || data == "completed")
+                                    {
                                         htmlToReturn = "<span class=\"label label-success\">" + data + "</span>";
                                     }
-                                    else if (data == "Pending" || data == "pending") {
+                                    else if (data == "Pending" || data == "pending")
+                                    {
                                         htmlToReturn = "<span class=\"label label-warning\">" + data + "</span>";
                                     }
-                                    else if (data == "Rejected" || data == "rejected" || data == "Cancelled" || data == "Canceled") {
+                                    else if (data == "Rejected" || data == "rejected" || data == "Cancelled" || data == "Canceled")
+                                    {
                                         htmlToReturn = "<span class=\"label label-danger\">" + data + "</span>";
                                     }
-                                    else {
+                                    else
+                                    {
                                         htmlToReturn = "<span class=\"label label-warning\">" + data + "</span>";
                                     }
                                     return htmlToReturn;
@@ -4355,8 +4693,7 @@ noochForLandlords
                             },
                             {
                                 "targets": [-1],
-                                "render": function (data, type, full, meta)
-                                {
+                                "render": function (data, type, full, meta) {
                                     if (full.TransactionStatus == "Pending")
                                     {
                                         return htmlString = '<a href="" class=\'btn btn-icon btn-default m-r-10 sendReminderBtn\'><span class=\'md md-edit\'></span></a>' +
@@ -4399,7 +4736,7 @@ noochForLandlords
                             html: true,
                         })
 
-                       return;
+                        return;
 
 
                         var data = $scope.historyTable.row($(this).parents('tr')).data();
@@ -4409,7 +4746,8 @@ noochForLandlords
 
                         var tenantName = "";
 
-                        if (data['TenantName'] != null && data['TenantName'].length > 2) {
+                        if (data['TenantName'] != null && data['TenantName'].length > 2)
+                        {
                             tenantName = data['TenantName'];
                         }
                         else if (data['TenantEmail'])
@@ -4431,7 +4769,8 @@ noochForLandlords
                             customClass: "largeText"
                         }, function (isConfirm) {
 
-                            if (isConfirm) {
+                            if (isConfirm)
+                            {
                                 // Show Loading Block
                                 $.blockUI({
                                     message: '<span><i class="md md-refresh fa-spin fa-loading"></i></span><br/><span class="loadingMsg">Sending Reminder to: ' + tenantName + '...</span>',
@@ -4446,7 +4785,7 @@ noochForLandlords
                                         color: '#fff'
                                     }
                                 });
-                             
+
                                 // CALL SERVICE FOR SENDING A REMINDER TO THE TENANT
                                 historyService.sendPaymentReminder(data['TransactionId'], data['TenantId'], userDetails.landlordId, userDetails.accessToken, userDetails.memberId, function (response) {
                                     console.log("History Cntrlr -> SendPaymentReminder Response...");
@@ -4454,7 +4793,8 @@ noochForLandlords
 
                                     $.unblockUI({
                                         onUnblock: function () {
-                                            if (response.success == true) {
+                                            if (response.success == true)
+                                            {
                                                 // On Success
                                                 swal({
                                                     title: "Reminder Sent",
@@ -4468,7 +4808,8 @@ noochForLandlords
                                                     //$state.reload();
                                                 });
                                             }
-                                            else {
+                                            else
+                                            {
                                                 swal({
                                                     title: "Uh oh...",
                                                     text: data.msg,
@@ -4485,8 +4826,7 @@ noochForLandlords
 
 
                     // CANCEL PAYMENT BTN CLICKED
-                    $('#transHistory tbody .cancelTransBtn').click(function ()
-                    {
+                    $('#transHistory tbody .cancelTransBtn').click(function () {
                         var data = $scope.historyTable.row($(this).parents('tr')).data();
                         console.log(data);
 
@@ -4511,13 +4851,11 @@ noochForLandlords
                             }
                         });
 
-                        historyService.cancelTransaction($scope.TransactionId, userDetails.landlordId, userDetails.memberId, userDetails.accessToken, function (response)
-                        {
+                        historyService.cancelTransaction($scope.TransactionId, userDetails.landlordId, userDetails.memberId, userDetails.accessToken, function (response) {
                             console.log(response);
 
                             $.unblockUI({
-                                onUnblock: function ()
-                                {
+                                onUnblock: function () {
                                     if (response.success === true)
                                     {
                                         //authenticationService.SetUserDetails($scope.LoginData.username, response.MemberId, response.LandlordId, response.AccessToken);
@@ -4546,13 +4884,12 @@ noochForLandlords
 
 
                     // For setting the 'Selected Prop' and going to a Property's Details page
-                    $('#transHistory tbody .goToProperty').click(function ()
-                    {
+                    $('#transHistory tbody .goToProperty').click(function () {
                         propDetailsService.set(this.id);
                         window.location.href = '#/property-details';
                     });
                 }
-                    else 
+                else
                 {
                     console.log('History Ctrlr -> Error while getting transaction history!');
                 }
@@ -4588,16 +4925,20 @@ noochForLandlords
                             return "<button type=\"button\" class=\"btn btn-icon btn-default command-edit m-r-10\" data-row-id=\"" + row.id + "\"><span class=\"md md-edit\"></span></button> ";
                         },
                         "status": function (column, row) {
-                            if (row.status == "Paid" || row.status == "paid" || row.status == "completed") {
+                            if (row.status == "Paid" || row.status == "paid" || row.status == "completed")
+                            {
                                 return "<span class=\"label label-success\">" + row.status + "</span>";
                             }
-                            else if (row.status == "Pending" || row.status == "pending") {
+                            else if (row.status == "Pending" || row.status == "pending")
+                            {
                                 return "<span class=\"label label-warning\">" + row.status + "</span>";
                             }
-                            else if (row.status == "Rejected" || row.status == "rejected") {
+                            else if (row.status == "Rejected" || row.status == "rejected")
+                            {
                                 return "<span class=\"label label-danger\">" + row.status + "</span>";
                             }
-                            else {
+                            else
+                            {
                                 return "<span class=\"label label-warning\">" + row.status + "</span>";
                             }
                         },
@@ -4632,24 +4973,29 @@ noochForLandlords
             percentComplete: 0
         }
 
-        if (authenticationService.IsValidUser() == true) {
+        if (authenticationService.IsValidUser() == true)
+        {
             var userdetails = authenticationService.GetUserDetails();
 
             getProfileService.GetAccountCompletionStats(userdetails.landlordId, userdetails.accessToken, function (response) {
                 //console.log(response);
 
-                if (response.AllPropertysCount > 0) {
+                if (response.AllPropertysCount > 0)
+                {
                     $scope.checklistItems.addProp = 1;
                     $rootScope.hasAddedProperty = true;
-                } else {
+                } else
+                {
                     $scope.checklistItems.addProp = 0;
                     $rootScope.hasAddedProperty = false;
                 }
 
-                if (response.AllTenantsCount > 0) {
+                if (response.AllTenantsCount > 0)
+                {
                     $scope.checklistItems.addTenant = 1;
                     $rootScope.hasAddedTenant = true;
-                } else {
+                } else
+                {
                     $scope.checklistItems.addTenant = 0;
                     $rootScope.hasAddedTenant = false;
                 }
@@ -4677,16 +5023,19 @@ noochForLandlords
                 }, 200);
             });
         }
-        else {
+        else
+        {
             window.location.href = 'login.html';
         }
 
         $scope.ResendVerificationEmailOrSMS = function (sendWhat) {
             console.log("Accnt Checklist Controller -> ResendVerificationEmailOrSMS fired");
 
-            if (sendWhat == "SMS") {
+            if (sendWhat == "SMS")
+            {
                 if ($rootScope.ContactNumber == "" ||
-                    $rootScope.ContactNumber.length < 10) {
+                    $rootScope.ContactNumber.length < 10)
+                {
                     swal({
                         title: "No Phone Added Yet",
                         text: "Looks like you still need to add your phone number before we can verify it!",
@@ -4696,7 +5045,8 @@ noochForLandlords
                         confirmButtonText: "Add Now",
                         confirmButtonColor: "#3FABE1"
                     }, function (isConfirm) {
-                        if (isConfirm) {
+                        if (isConfirm)
+                        {
                             $scope.goTo("profile");
                         }
                     });
@@ -4709,9 +5059,11 @@ noochForLandlords
             getProfileService.ResendVerificationEmailOrSMS(userdetails.landlordId, "Landlord", sendWhat, function (response) {
                 console.log(response);
 
-                if (response.IsSuccess && response.IsSuccess == true) {
+                if (response.IsSuccess && response.IsSuccess == true)
+                {
                     console.log("Inside success");
-                    if (sendWhat == "Email") {
+                    if (sendWhat == "Email")
+                    {
                         swal({
                             title: "Email Verification Resent",
                             text: "We just re-sent a verification link to <strong>" + $rootScope.emailAddress + "</strong>, please check your email and click the link to verify your email address.",
@@ -4720,7 +5072,8 @@ noochForLandlords
                             html: true
                         });
                     }
-                    if (sendWhat == "SMS") {
+                    if (sendWhat == "SMS")
+                    {
                         swal({
                             title: "SMS Verification Sent!",
                             text: "We just sent a text message to <strong>" + $rootScope.ContactNumber + "</strong>, please check your phone and reply \"Go\" to the text (case doesn't matter).",
@@ -4730,12 +5083,15 @@ noochForLandlords
                         });
                     }
                 }
-                else {
+                else
+                {
                     var msgtxt = "";
-                    if (response.ErrorMessage.indexOf('Already Activated') > -1) {
+                    if (response.ErrorMessage.indexOf('Already Activated') > -1)
+                    {
                         msgtxt = "Looks like your account is already verified! If you continue to see messages saying your email is not verified, please contact Nooch support so we can straighten things out!";
                     }
-                    else if (response.ErrorMessage.indexOf('Already Verified') > -1) {
+                    else if (response.ErrorMessage.indexOf('Already Verified') > -1)
+                    {
                         msgtxt = "Looks like your phone number is already verified! If you continue to see messages saying your email is not verified, please contact Nooch support so we can straighten things out!";
                     }
                     swal({
@@ -4748,7 +5104,8 @@ noochForLandlords
         };
 
         $scope.goTo = function (destination) {
-            if (destination == "profile") {
+            if (destination == "profile")
+            {
                 $rootScope.shouldDisplayOverviewAlert = false;
                 $rootScope.shouldShowPhoneTour = true;
                 window.location.href = '#/profile/profile-about';
@@ -4808,14 +5165,14 @@ noochForLandlords
             $(document).on("focusout", "form#reg input", function () {
                 var field = this.id;
 
-                if ($(this).val() && $(this).val().length > 2) {
-                    if (field == "em") {
-                        if ($scope.ValidateEmail($('form#reg #em').val())) {
+                if ($(this).val() && $(this).val().length > 2)
+                {
+                    if (field == "em")
+                    {
+                        if ($scope.ValidateEmail($('form#reg #em').val()))
                             updateValidationUi("em", true);
-                        }
-                    } else {
+                    } else
                         updateValidationUi(field, true);
-                    }
                 }
             })
 
@@ -4826,7 +5183,8 @@ noochForLandlords
             });
 
             if (getParameterByName("from") == "lp1" &&
-                getParameterByName("em") != "") {
+                getParameterByName("em") != "")
+            {
                 $('#username').val(''); // Username in Login block
 
                 console.log(getParameterByName("em"));
@@ -4851,7 +5209,7 @@ noochForLandlords
                 });
             }
             else if (localStorage.getItem('userLoginName') != null &&
-                     localStorage.getItem('userLoginName').length > 0)  //checking if exists something in local storage
+                     localStorage.getItem('userLoginName').length > 0)  // checking if anything exists in local storage
             {
                 //console.log("Username found in storage");
 
@@ -4871,7 +5229,8 @@ noochForLandlords
                 }, 300);
             }
             else if (//getParameterByName("from") == "activation" &&
-                     getParameterByName("em") != null && getParameterByName("em") != "") {
+                     getParameterByName("em") != null && getParameterByName("em") != "")
+            {
                 $scope.LoginData.username = getParameterByName("em");
 
                 $('#username').val('');
@@ -4887,7 +5246,8 @@ noochForLandlords
                     }, 400);
                 }, 300);
             }
-            else {
+            else
+            {
                 setTimeout(function () {
                     $('#l-register').removeClass('hidden');
                 }, 400);
@@ -4895,17 +5255,20 @@ noochForLandlords
         });
 
         $scope.showBlock = function (destination) {
-            if (destination == "signup") {
+            if (destination == "signup")
+            {
                 $('#l-login').addClass('hidden');
                 $('#l-register').removeClass('hidden');
                 $('#l-forget-password').addClass('hidden');
             }
-            else if (destination == "forgotpw") {
+            else if (destination == "forgotpw")
+            {
                 $('#l-login').addClass('hidden');
                 $('#l-register').addClass('hidden');
                 $('#l-forget-password').removeClass('hidden');
             }
-            else if (destination == "login") {
+            else if (destination == "login")
+            {
                 $('#l-login').removeClass('hidden');
                 $('#l-register').addClass('hidden');
                 $('#l-forget-password').addClass('hidden');
@@ -4922,38 +5285,20 @@ noochForLandlords
         });
 
         $scope.ValidateEmail = function (str) {
-            console.log; ("VALIDATE EMAIL REACHED")
-            console.log(str);
-            if (str != null) {
+            if (str != null)
+            {
                 var at = "@"
                 var dot = "."
                 var lat = str.indexOf("@")
                 var lstr = str.length
                 var ldot = str.indexOf(".")
 
-                if (lat == -1 || lat == 0 || lat == lstr) {
-                    return false
-                }
-
-                if (ldot == -1 || ldot == 0 || ldot == lstr) {
-                    return false
-                }
-
-                if (str.indexOf(at, (lat + 1)) != -1) {
-                    return false
-                }
-
-                if (str.substring(lat - 1, lat) == dot || str.substring(lat + 1, lat + 2) == dot) {
-                    return false
-                }
-
-                if (str.indexOf(dot, (lat + 2)) == -1) {
-                    return false
-                }
-
-                if (str.indexOf(" ") != -1) {
-                    return false
-                }
+                if (lat == -1 || lat == 0 || lat == lstr) return false
+                if (ldot == -1 || ldot == 0 || ldot == lstr) return false
+                if (str.indexOf(at, (lat + 1)) != -1) return false
+                if (str.substring(lat - 1, lat) == dot || str.substring(lat + 1, lat + 2) == dot) return false
+                if (str.indexOf(dot, (lat + 2)) == -1) return false
+                if (str.indexOf(" ") != -1) return false
 
                 return true
             }
@@ -4974,14 +5319,18 @@ noochForLandlords
 
 
             // Check Username (email) field for length
-            if ($scope.FBLoginData.eMail.length > 0) {
+            if ($scope.FBLoginData.eMail.length > 0)
+            {
 
 
-                if ($scope.FBLoginData.firstName.length > 0) {
+                if ($scope.FBLoginData.firstName.length > 0)
+                {
 
-                    if ($scope.FBLoginData.lastName.length > 0) {
+                    if ($scope.FBLoginData.lastName.length > 0)
+                    {
 
-                        if ($scope.FBLoginData.fbUserId.length > 0) {
+                        if ($scope.FBLoginData.fbUserId.length > 0)
+                        {
 
                             // ADD THE LOADING BOX
                             $('form#login').block({
@@ -5015,12 +5364,14 @@ noochForLandlords
 
                                     console.log(response);
 
-                                    if (response.IsSuccess == true) {
+                                    if (response.IsSuccess == true)
+                                    {
                                         fbreloadCheckPass = true;
                                         authenticationService.SetUserDetails($scope.FBLoginData.eMail, response.MemberId, response.LandlordId, response.AccessToken);
                                         window.location.href = 'index.html#/home';
                                     }
-                                    else {
+                                    else
+                                    {
                                         swal({
                                             title: "Oh No!",
                                             text: response.ErrorMessage,
@@ -5036,7 +5387,8 @@ noochForLandlords
                                     }
                                 });
                         }
-                        else {
+                        else
+                        {
                             swal({
                                 title: "Oh No!",
                                 text: "Looks like permission related problem with your facebook id.  Please try re login with Facebook.",
@@ -5045,7 +5397,8 @@ noochForLandlords
                             });
                         }
                     }
-                    else {
+                    else
+                    {
                         swal({
                             title: "Oh No!",
                             text: "Looks like permission related problem with your last name from Facebook.  Please try re login with Facebook.",
@@ -5054,7 +5407,8 @@ noochForLandlords
                         });
                     }
                 }
-                else {
+                else
+                {
                     swal({
                         title: "Oh No!",
                         text: "Looks like permission related problem with your first name from Facebook.  Please try re login with Facebook.",
@@ -5063,7 +5417,8 @@ noochForLandlords
                     });
                 }
             }
-            else {
+            else
+            {
                 swal({
                     title: "Oh No!",
                     text: "Looks like permission related problem with your email from Facebook.  Please try re login with Facebook.",
@@ -5082,11 +5437,14 @@ noochForLandlords
             $scope.GoogleLoginData.GoogleUserId = $('#googleUserId').val();
 
             // Check Username (email) field for length
-            if ($scope.GoogleLoginData.eMail.length > 0) {
+            if ($scope.GoogleLoginData.eMail.length > 0)
+            {
 
-                if ($scope.GoogleLoginData.Name.length > 0) {
+                if ($scope.GoogleLoginData.Name.length > 0)
+                {
 
-                    if ($scope.GoogleLoginData.GoogleUserId.length > 0) {
+                    if ($scope.GoogleLoginData.GoogleUserId.length > 0)
+                    {
 
                         // ADD THE LOADING BOX
                         $('form#login').block({
@@ -5114,19 +5472,21 @@ noochForLandlords
                                  : "";
                         //console.log("IP: [" + ip + "]");
 
-                        authenticationService.GoogleLogin($scope.GoogleLoginData.eMail, $scope.GoogleLoginData.Name, $scope.GoogleLoginData.GooglePhotoUrl, ip,'fingerprint',
-                                $scope.GoogleLoginData.GoogleUserId,  function (response) {
+                        authenticationService.GoogleLogin($scope.GoogleLoginData.eMail, $scope.GoogleLoginData.Name, $scope.GoogleLoginData.GooglePhotoUrl, ip, 'fingerprint',
+                                $scope.GoogleLoginData.GoogleUserId, function (response) {
                                     authenticationService.ClearUserData();
                                     $('form#login').unblock();
 
                                     console.log(response);
 
-                                    if (response.IsSuccess == true) {
-                                        
+                                    if (response.IsSuccess == true)
+                                    {
+
                                         authenticationService.SetUserDetails($scope.GoogleLoginData.eMail, response.MemberId, response.LandlordId, response.AccessToken);
                                         window.location.href = 'index.html#/home';
                                     }
-                                    else {
+                                    else
+                                    {
                                         swal({
                                             title: "Oh No!",
                                             text: response.ErrorMessage,
@@ -5141,17 +5501,19 @@ noochForLandlords
                                         console.log('Sign In Error: ' + response.ErrorMessage);
                                     }
                                 });
-                        }
-                        else {
-                            swal({
-                                title: "Oh No!",
-                                text: "Looks like permissions-related problem with your Google account. Please try again!",
-                                customClass: 'largeText',
-                                type: "error"
-                            });
-                        }
+                    }
+                    else
+                    {
+                        swal({
+                            title: "Oh No!",
+                            text: "Looks like permissions-related problem with your Google account. Please try again!",
+                            customClass: 'largeText',
+                            type: "error"
+                        });
+                    }
                 }
-                else {
+                else
+                {
                     swal({
                         title: "Oh No!",
                         text: "Looks like a permissions-related problem with your name from Google. Please try again!",
@@ -5160,7 +5522,8 @@ noochForLandlords
                     });
                 }
             }
-            else {
+            else
+            {
                 swal({
                     title: "Oh No!",
                     text: "Looks like a permissions-related problem with your email from Google. Please try again!",
@@ -5174,17 +5537,20 @@ noochForLandlords
         this.loginAttmpt = function () {
 
             // Check Username (email) field for length
-            if ($('form#login #username').val()) {
+            if ($('form#login #username').val())
+            {
                 var trimmedUserName = $('form#login #username').val().trim();
                 $('form#login #username').val(trimmedUserName);
 
                 // Check Name Field for a "@"
-                if ($scope.ValidateEmail($('form#login #username').val())) {
+                if ($scope.ValidateEmail($('form#login #username').val()))
+                {
 
                     updateValidationUi("username", true);
 
                     // Check Password field
-                    if ($('form#login #pw').val().length > 4) {
+                    if ($('form#login #pw').val().length > 4)
+                    {
                         updateValidationUi("pw", true);
 
                         // ADD THE LOADING BOX
@@ -5221,7 +5587,8 @@ noochForLandlords
 
                             if (response.IsSuccess == true)
                             {
-                                if ($('#rememberMeCheck').prop("checked") == true) {
+                                if ($('#rememberMeCheck').prop("checked") == true)
+                                {
                                     localStorage.setItem('userLoginName', $scope.LoginData.username);
                                     localStorage.setItem('userLoginPass', $scope.LoginData.password);
                                 }
@@ -5267,15 +5634,18 @@ noochForLandlords
                             }
                         });
                     }
-                    else {
+                    else
+                    {
                         updateValidationUi("pw", false);
                     }
                 }
-                else {
+                else
+                {
                     updateValidationUi("username", false);
                 }
             }
-            else {
+            else
+            {
                 updateValidationUi("username", false);
             }
         }
@@ -5284,7 +5654,8 @@ noochForLandlords
         this.forgotPwAttmpt = function () {
             var email = $scope.LoginData.forgotPassword;
 
-            if ($scope.ValidateEmail(email)) {
+            if ($scope.ValidateEmail(email))
+            {
                 updateValidationUi("emforgot", true);
 
                 // ADD THE LOADING BOX
@@ -5322,7 +5693,8 @@ noochForLandlords
                             type: "success"
                         });
                     }
-                    else { // This will just be for a general server error where the server doesn't return any 'success' parameter at all
+                    else
+                    { // This will just be for a general server error where the server doesn't return any 'success' parameter at all
                         swal({
                             title: "Oh No!",
                             text: "Looks like we ran into a little trouble processing your request. Please try again or contact support@nooch.com for more help.",
@@ -5331,17 +5703,19 @@ noochForLandlords
                     }
                 });
             }
-            else {
+            else
+            {
                 updateValidationUi("emforgot", false);
             }
         }
 
 
         this.registerAttmpt = function () {
-            if ($scope.SignupData.email &&
-                $scope.SignupData.email != 'undefined' &&
-                $scope.SignupData.email.length != 0)
-            { }
+            //if ($scope.SignupData.email &&
+            //    $scope.SignupData.email != 'undefined' &&
+            //    $scope.SignupData.email.length != 0)
+            //{ }
+
             var regForm = $('form#reg');
             var fName = $scope.SignupData.firstName;
             var lName = $scope.SignupData.lastName;
@@ -5350,28 +5724,33 @@ noochForLandlords
             var isBiz = $scope.isBusiness;
 
             // Check Name fields for length
-            if (fName && fName.length > 1) {
+            if (fName && fName.length > 1)
+            {
                 updateValidationUi("fname", true);
 
                 var trimmedFName = capitalize(fName.trim());
                 $('form#reg #fname').val(trimmedFName);
 
-                if (lName && lName.length > 1) {
+                if (lName && lName.length > 1)
+                {
                     updateValidationUi("lname", true);
 
                     var trimmedLName = lName.trim();
                     $('form#reg #lname').val(trimmedLName);
 
                     // Validate Email Field
-                    if ($scope.ValidateEmail(email)) {
+                    if ($scope.ValidateEmail(email))
+                    {
                         updateValidationUi("em", true);
 
                         // Check Password field
-                        if (pw.length > 4) {
+                        if (pw.length > 4)
+                        {
                             updateValidationUi("pwreg", true);
 
                             // Finally, check if the Terms of Service box is checked
-                            if ($('#tosboxGrp input').prop('checked')) {
+                            if ($('#tosboxGrp input').prop('checked'))
+                            {
                                 updateValidationUi("tosbox", true);
 
                                 // ADD THE LOADING BOX
@@ -5392,7 +5771,6 @@ noochForLandlords
                                     }
                                 });
 
-
                                 var country_code = "";
                                 // Get IP Address from 'upusr' var, which is defined in Login.html
                                 var ip = (typeof ipusr != 'undefined')
@@ -5406,7 +5784,8 @@ noochForLandlords
                                     regForm.unblock();
 
                                     // Cliff (9/10/15): Users should be automatically logged in after creating an account... send them to the Home page.
-                                    if (response.IsSuccess == true) {
+                                    if (response.IsSuccess == true)
+                                    {
                                         var username = $scope.SignupData.email;
                                         var pw = $scope.SignupData.pass;
 
@@ -5450,7 +5829,8 @@ noochForLandlords
 
                                                 //regForm.unblock();
 
-                                                if (response.IsSuccess == true) {
+                                                if (response.IsSuccess == true)
+                                                {
                                                     $rootScope.hasSeenNewUserTour = false;
 
                                                     authenticationService.SetUserDetails(username, response.MemberId, response.LandlordId, response.AccessToken);
@@ -5462,18 +5842,20 @@ noochForLandlords
 
                                                     swal({
                                                         title: "Oh No!",
-                                                        text: "Looks like we had some trouble logging you in.  Very sorry about this!  Please try again.",
+                                                        text: "Looks like we had trouble logging you in! Please try again.",
                                                         type: "error"
                                                     });
                                                 }
                                             });
                                         });
                                     }
-                                    else {
-                                        var msg = "Looks like we had some trouble creating your account.  We hate it when this happens.  Please try again or contact support@nooch.com for more help.";
+                                    else
+                                    {
+                                        var msg = "Looks like we had trouble creating your account. We hate it when that happens. Please try again or contact support@nooch.com for more help.";
                                         var showCancel = false;
 
-                                        if (response.ErrorMessage.indexOf("already exists") > -1) {
+                                        if (response.ErrorMessage.indexOf("already exists") > -1)
+                                        {
                                             msg = "Looks like that email address is already registered.  If you forgot your password you can reset it.  Or try using a different email address.";
                                             showCancel = true;
                                         }
@@ -5487,46 +5869,38 @@ noochForLandlords
                                             cancelButtonText: "Forgot My Password!",
                                             confirmButtonText: "Ok",
                                         }, function (isConfirm) {
-                                            if (isConfirm) {
-                                                //setTimeout(function () {
+                                            if (isConfirm)
                                                 updateValidationUi("em", false);
-                                                //}, 300);
-                                            }
-                                            else {
-                                                console.log("check. point. charlie..")
+                                            else
                                                 $scope.showBlock("forgotpw");
-                                            }
                                         });
                                     }
                                 });
                             }
-                            else {
+                            else
                                 updateValidationUi("tosbox", false);
-                            }
                         }
-                        else {
+                        else
                             updateValidationUi("pwreg", false);
-                        }
                     }
-                    else {
+                    else
                         updateValidationUi("em", false);
-                    }
                 }
-                else {
+                else
                     updateValidationUi("lname", false);
-                }
             }
-            else {
+            else
                 updateValidationUi("fname", false);
-            }
         }
 
         $scope.tosClicked = function () {
-            if ($('#tosboxGrp input').prop('checked')) {
+            if ($('#tosboxGrp input').prop('checked'))
+            {
                 console.log("TOS BOX CHECKED");
                 $('#createAccnt').addClass('pulse');
             }
-            else {
+            else
+            {
                 console.log("Should remove the animated class");
                 $('#createAccnt').removeClass('pulse');
             }
@@ -5536,44 +5910,46 @@ noochForLandlords
         updateValidationUi = function (field, success) {
             console.log("Field: " + field + "; success: " + success);
 
-            if (success == true) {
-                if (field != "tosbox") {
+            if (success == true)
+            {
+                if (field != "tosbox")
+                {
                     $('#' + field + 'Grp').removeClass('has-error').addClass('has-success');
-                    if (field != 'pw' && $('#' + field + 'Grp .help-block').length) {
+                    if (field != 'pw' && $('#' + field + 'Grp .help-block').length)
+                    {
                         $('#' + field + 'Grp .help-block').slideUp();
                     }
                 }
             }
-            else {
+            else
+            {
                 $('#' + field + 'Grp').removeClass('has-success').addClass('has-error');
 
                 var helpBlockTxt = "";
 
-                if (field == "username" || field == "em" || field == "emforgot") {
+                if (field == "username" || field == "em" || field == "emforgot")
                     helpBlockTxt = "Please enter your full email address.";
-                }
-                else if (field == "pw") {
+                else if (field == "pw")
                     helpBlockTxt = "Please enter your password!"
-                }
-                else if (field == "fname") {
+                else if (field == "fname")
                     helpBlockTxt = "Please enter your first name."
-                }
-                else if (field == "lname") {
+                else if (field == "lname")
                     helpBlockTxt = "Please enter your last name."
-                }
-                else if (field == "pwreg") {
+                else if (field == "pwreg")
                     helpBlockTxt = "Please create a strong password."
-                }
-                else if (field == "tosbox") {
+                else if (field == "tosbox")
+                {
                     helpBlockTxt = "Please read and agree to Nooch's TOS to create your account."
                     $('#createAccnt').attr("style", "margin-top:30px !important");
                 }
 
-                if (!$('#' + field + 'Grp .help-block').length) {
+                if (!$('#' + field + 'Grp .help-block').length)
+                {
                     $('#' + field + 'Grp').append('<small class="help-block pull-left" style="display:none">' + helpBlockTxt + '</small>');
                     $('#' + field + 'Grp .help-block').slideDown();
                 }
-                else { $('#' + field + 'Grp .help-block').show() }
+                else
+                    $('#' + field + 'Grp .help-block').show()
 
                 // Now focus on the element that failed validation
                 setTimeout(function () {
@@ -5617,15 +5993,18 @@ noochForLandlords
                     },
                     formatters: {
                         "actions": function (column, row) {
-                            if (row.status == "Pending" || row.status == "pending") {
+                            if (row.status == "Pending" || row.status == "pending")
+                            {
                                 return "<button data-target=\"#test123\" data-toggle=\"modal\" type=\"button\" class=\"btn btn-icon btn-default m-r-15\" data-row-id=\"" + row.id + "\" title=\"Approve\"><span class=\"md md-check c-green\"></span></button> " +
                                        "<button type=\"button\" class=\"btn btn-icon btn-default\" data-row-id=\"" + row.id + "\"><span class=\"md md-close c-red\"></span></button>";
                             }
-                            else if (row.status == "Approved" || row.status == "approved") {
+                            else if (row.status == "Approved" || row.status == "approved")
+                            {
                                 return "<button type=\"button\" class=\"btn btn-icon btn-default m-r-15\" data-row-id=\"" + row.id + "\"><span class=\"md md-verified-user c-blue\"></span></button> " +
                                        "<button type=\"button\" class=\"btn btn-icon btn-default\" data-row-id=\"" + row.id + "\"><span class=\"md md-mail\"></span></button>";
                             }
-                            else if (row.status == "Rejected" || row.status == "rejected") {
+                            else if (row.status == "Rejected" || row.status == "rejected")
+                            {
                                 return "<button type=\"button\" class=\"btn btn-icon btn-default m-r-15\" data-row-id=\"" + row.id + "\"><span class=\"md md-undo c-orange\"></span></button> " +
                                        "<button type=\"button\" class=\"btn btn-icon btn-default\" data-row-id=\"" + row.id + "\"><span class=\"md md-report c-red\"></span></button>";
                             }
@@ -5634,16 +6013,20 @@ noochForLandlords
                             return "<span>" + row.dateSubmitted + "</span>";
                         },
                         "status": function (column, row) {
-                            if (row.status == "Pending" || row.status == "pending") {
+                            if (row.status == "Pending" || row.status == "pending")
+                            {
                                 return "<span class=\"label label-warning\">" + row.status + "</span>";
                             }
-                            else if (row.status == "Approved" || row.status == "approved") {
+                            else if (row.status == "Approved" || row.status == "approved")
+                            {
                                 return "<span class=\"label label-success\">" + row.status + "</span>";
                             }
-                            else if (row.status == "Rejected" || row.status == "rejected") {
+                            else if (row.status == "Rejected" || row.status == "rejected")
+                            {
                                 return "<span class=\"label label-danger\">" + row.status + "</span>";
                             }
-                            else {
+                            else
+                            {
                                 return "<span class=\"label label-default\">" + row.status + "</span>";
                             }
                         },
@@ -5679,7 +6062,8 @@ noochForLandlords
             return (!!input) ? input.replace(/([^\W_]+[^\s-]*) */g, function (txt) {
                 var number = input.toString().trim().replace('[^0-9]', '');
 
-                if (number.length == 10) {
+                if (number.length == 10)
+                {
                     var first3 = number.slice(0, 3);
                     var second3 = number.slice(3, 6);
                     var last4 = number.slice(6);

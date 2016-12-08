@@ -2,7 +2,7 @@ angular.module('noochForLandlords').run(['$templateCache', function ($templateCa
     'use strict';
 
     $templateCache.put('includes/footer.html',
-      "Copyright &copy; 2015 Nooch Inc<ul class=\"f-menu\"><li><a data-ui-sref=\"home\">Dashboard</a></li><li><a href=\"\">Reports</a></li><li><a href=\"http://support.nooch.com/\" target=\"_blank\">Support</a></li><li><a href=\"https://www.nooch.com/contact/\" target=\"_blank\">Contact</a></li></ul>"
+      "Copyright &copy; 2016 Nooch Inc<ul class=\"f-menu\"><li><a data-ui-sref=\"home\">Dashboard</a></li><li><a href=\"\">Reports</a></li><li><a href=\"https://www.nooch.com/contact/\" target=\"_blank\">Contact</a></li></ul>"
     );
 
     $templateCache.put('includes/header.html',

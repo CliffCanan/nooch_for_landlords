@@ -133,18 +133,17 @@
                         <div class="row">
                             <div id="idVerWiz" class="col-sm-12">
 
-                                <h3><i class="md md-person m-r-5"></i> Profile Info</h3>
+                                <h3><i class="md md-email m-r-5"></i><br /> Contact Info</h3>
                                 <section>
 
                                     <form id="idVerForm1" role="form">
-                                        <div class="well well-sm">
-                                            <div class="ast">To keep Nooch safe for everyone<span class="desk-only ast">*</span>, we need to verify your identity. Please complete the following fields.</div>
-                                        </div>
+                                        <div class="well well-sm">First, please confirm your <span>email address</span> and phone number. &nbsp;We only use this to contact you about your payments.</div>
 
                                         <dl class="dl-horizontal" id="nameGrp">
                                             <dt class="p-t-10 withIcon">
-                                                Legal Name<br/>
-                                                <i class="md md-info-outline m-l-5" data-trigger="hover" data-toggle="popover" data-placement="auto" data-content="Please enter YOUR legal name. This should be the same name as it is listed on your bank account." data-original-title="Your Legal Name"></i>
+                                                Legal Name<br />
+                                                <i ng-if="userInfo.subtype != 'Business'" class="md md-info-outline m-l-5" data-trigger="hover" data-toggle="popover" data-placement="auto" data-content="Please enter YOUR legal name. This should be the same name as it is listed on your bank account." data-original-title="Your Legal Name"></i>
+                                                <i ng-if="userInfo.subtype == 'Business'" class="md md-info-outline m-l-5" data-trigger="hover" data-toggle="popover" data-placement="auto" data-content="Please enter your business's full legal name. This should be the same name as it is listed on your bank account." data-original-title="Your Legal Name"></i>
                                             </dt>
                                             <dd>
                                                 <div class="form-group">
@@ -155,28 +154,23 @@
                                             </dd>
                                         </dl>
 
-                                        <dl class="dl-horizontal" id="dobGrp">
-                                            <dt class="p-t-10 withIcon">
-                                                Date of Birth<br/>
-                                                <i class="md md-info-outline m-l-5" data-trigger="hover" data-toggle="popover" data-placement="auto" data-content="A date of birth is needed to verify a user's identity. Don't worry - nobody sees this!"></i>
-                                            </dt>
+                                        <dl class="dl-horizontal" id="emailGrp">
+                                            <dt class="p-t-10">Email Address</dt>
                                             <dd>
-                                                <div class="input-group form-group">
-                                                    <span class="input-group-addon"><i class="md md-event" onclick="focus()"></i></span>
+                                                <div class="form-group">
                                                     <div class="dtp-container dropdown fg-line">
-                                                        <input id="idVer-dob" data-format="MM/DD/YYYY" data-ng-model="userInfo.birthDay" type='text' class="form-control" data-toggle="dropdown" placeholder="eg. 08/05/1978" />
+                                                        <input id="idVer-email" data-ng-model="userInfo.mobileNumber" type='email' class="form-control" value="{{ userInfo.emailAddress }}" placeholder="" maxlength="30" />
                                                     </div>
                                                 </div>
                                             </dd>
                                         </dl>
 
-                                        <dl class="dl-horizontal" id="ssnGrp">
-                                            <dt class="p-t-10">SSN<small>Last 4 Digits Only</small></dt>
+                                        <dl class="dl-horizontal" id="phoneGrp">
+                                            <dt class="p-t-10">Phone Number</dt>
                                             <dd>
                                                 <div class="form-group">
                                                     <div class="dtp-container dropdown fg-line">
-                                                        <span id="ssnPrefix">XXX - XX -</span>
-                                                        <input id="idVer-ssn" data-ng-model="userInfo.ssnLast4" type='text' class="form-control" value="{{ userInfo.ssnLast4 }}" placeholder="1234" />
+                                                        <input id="idVer-phone" data-ng-model="userInfo.mobileNumber" type='text' class="form-control" value="{{ userInfo.mobileNumber }}" placeholder="" maxlength="18" />
                                                     </div>
                                                 </div>
                                             </dd>
@@ -186,19 +180,19 @@
 
                                 </section>
 
-                                <h3><i class="md md-place m-r-5"></i> Address</h3>
+                                <h3><i class="md md-place m-r-5"></i><br />Address</h3>
                                 <section>
 
                                     <div class="well wellsm">
                                         <div class="f-16">
-                                            Please enter your <span class="f-600">current personal</span> street address and zip code.
+                                            Please enter your <span class="f-600">current</span> <span ng-if="userInfo.subtype != 'Business'">personal</span><span ng-if="userInfo.subtype == 'Business'">business</span> street address and zip code.
                                         </div>
                                     </div>
 
                                     <dl class="dl-horizontal" id="addressGrp">
                                         <dt class="p-t-10">
-                                            Street Address<br/>
-                                            <i class="md md-info-outline m-l-5" data-trigger="hover" data-toggle="popover" data-placement="auto" data-content="Proving you know your personal address and ZIP code helps verify your identity to keep Nooch safe for everyone."></i>
+                                            Street Address<br />
+                                            <i class="md md-info-outline m-l-5" data-trigger="hover" data-toggle="popover" data-placement="auto" data-content="Your address helps to verify your identity and keep Nooch safe for everyone."></i>
                                         </dt>
                                         <dd>
                                             <div class="form-group">
@@ -220,30 +214,96 @@
                                         </dd>
                                     </dl>
 
-                                    <dl class="dl-horizontal" id="phoneGrp">
-                                        <dt class="p-t-10">Phone Number</dt>
+                                </section>
+
+                                <h3><i class="md md-person"></i><br />Identity<span class="hide-sm"> Info</span></h3>
+                                <section>
+
+                                    <div class="well well-sm">
+                                        <div>Please help us prevent fraud and identity theft...</div>
+                                    </div>
+
+                                    <dl class="dl-horizontal" id="dobGrp">
+                                        <dt class="p-t-10 withIcon">
+                                            Date of <span ng-if="userInfo.subtype != 'Business'">
+                                                Birth<br />
+                                                <i class="md md-info-outline m-l-5" data-trigger="hover" data-toggle="popover" data-placement="auto" data-content="A date of birth is needed to verify a user's identity. Don't worry - nobody sees this!"></i>
+                                            </span>
+                                            <span ng-if="userInfo.subtype == 'Business'" class="show">Incorporation</span>
+                                        </dt>
                                         <dd>
-                                            <div class="form-group">
+                                            <div class="input-group form-group">
+                                                <span class="input-group-addon"><i class="md md-event" onclick="focus()"></i></span>
                                                 <div class="dtp-container dropdown fg-line">
-                                                    <input id="idVer-phone" data-ng-model="userInfo.mobileNumber" type='text' class="form-control" value="{{ userInfo.mobileNumber }}" placeholder="" maxlength="18" />
+                                                    <input id="idVer-dob" data-format="MM/DD/YYYY" data-ng-model="userInfo.birthDay" type='text' class="form-control" data-toggle="dropdown" placeholder="eg. 08/05/1978" />
                                                 </div>
                                             </div>
                                         </dd>
                                     </dl>
 
+                                    <dl class="dl-horizontal" id="ssnGrp">
+                                        <dt class="p-t-10">SSN</dt>
+                                        <dd>
+                                            <div class="form-group">
+                                                <div class="dtp-container dropdown fg-line">
+                                                    <input id="idVer-ssn" data-ng-model="userInfo.ssnLast4" type='text' class="form-control" value="" placeholder="XXXX - XX - XXXX" />
+                                                </div>
+                                            </div>
+                                        </dd>
+                                    </dl>
+
+                                    <dl ng-if="userInfo.subtype == 'Business'" class="dl-horizontal" id="bizTypeGrp">
+                                        <dt class="p-t-10">Type</dt>
+                                        <dd>
+                                            <div class="form-group">
+                                                <div class="dtp-container dropdown fg-line">
+                                                    <select id="idVer-bizType" class="form-control">
+                                                        <option>LLC</option>
+                                                        <option>Corporation</option>
+                                                        <option>Partnership</option>
+                                                        <option>Sole Proprietorship</option>
+                                                        <option>Other</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </dd>
+                                    </dl>
+
+                                    <dl ng-if="userInfo.subtype == 'Business'" class="dl-horizontal" id="einGrp">
+                                        <dt class="p-t-10">EIN<small>(Tax ID #)</small></dt>
+                                        <dd>
+                                            <div class="form-group withIcon">
+                                                <div class="dtp-container dropdown fg-line">
+                                                    <input id="idVer-ein" data-ng-model="company.ein" type='tel' class="form-control p-l-0" value="{{ company.ein }}" />
+                                                </div>
+                                                <i class="fa fa-fw fa-question-circle-o icon-right help-icon m-l-5" data-trigger="hover" data-toggle="popover" data-placement="auto" data-content="EIN = Employer Identification Number (Tax ID # from the IRS)"></i>
+                                            </div>
+                                        </dd>
+                                    </dl>
+
+                                    <small class="tos-text no-id-step-show hidden">
+                                        By clicking submit, you agree to our <a href="https://www.nooch.com/tos" target="_blank">Terms of Service</a> &amp; <a href="https://www.noooch.com/" target="_blank">Privacy Policy</a> and our financial software partner SynapsePay's <a href="https://synapsepay.com/legal" target="_blank">Terms of Service</a> &amp; <a href="https://synapsepay.com/legal" target="_blank">Privacy Policy</a>.
+                                    </small>
+
                                 </section>
 
-                                <h3><i class="md md-image m-r-5"></i> Add a Picture</h3>
-                                <section>
+                                <h3 ng-if="userInfo.subtype != 'Business'" class="no-id-step"><i class="md md-image m-r-5"></i><br />ID Doc<span class="hide-sm"></span></h3>
+                                <section ng-if="userInfo.subtype != 'Business'">
 
-                                    <div class="well well-sm m-b-10">
-                                        <div class="f-15">Please attach a picture of yourself.</div>
-                                        <div><small>(optional)</small></div>
+                                    <div class="well p-15 m-b-15">
+                                        <div>
+                                            Please upload a copy of your <span class="text-primary">photo ID</span> (driver's license, passport, etc.) <span class="f-400">&nbsp;Please make sure your name and picture are<span class="hide-sm"> clearly</span> legible.</span>
+                                            <i class="fa fa-thumbs-up" style="color: #bbb; margin-left: 6px; text-shadow: 0 -1px 0 rgba(40,40,40,.6)"></i>
+                                        </div>
                                     </div>
 
                                     <div class="text-center">
                                         <input id="IdWizPic_FileInput" type="file" class="file-loading">
                                     </div>
+
+                                    <small class="tos-text">
+                                        By clicking submit, you agree to our <a href="https://www.nooch.com/tos" target="_blank">Terms of Service</a> &amp; <a href="https://www.noooch.com/" target="_blank">Privacy Policy</a> and our financial software partner SynapsePay's <a href="https://synapsepay.com/legal" target="_blank">Terms of Service</a> &amp; <a href="https://synapsepay.com/legal" target="_blank">Privacy Policy</a>.
+                                    </small>
 
                                 </section>
 
