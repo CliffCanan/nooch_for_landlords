@@ -5187,7 +5187,6 @@ noochForLandlords
             {
                 $('#username').val(''); // Username in Login block
 
-                console.log(getParameterByName("em"));
                 $scope.SignupData.email = getParameterByName("em");
 
                 setTimeout(function () {
@@ -5211,8 +5210,6 @@ noochForLandlords
             else if (localStorage.getItem('userLoginName') != null &&
                      localStorage.getItem('userLoginName').length > 0)  // checking if anything exists in local storage
             {
-                //console.log("Username found in storage");
-
                 $scope.LoginData.username = localStorage.getItem('userLoginName');
 
                 $('#username').val('');
@@ -5249,7 +5246,7 @@ noochForLandlords
             else
             {
                 setTimeout(function () {
-                    $('#l-register').removeClass('hidden');
+                    $('#l-login').removeClass('hidden');
                 }, 400);
             }
         });

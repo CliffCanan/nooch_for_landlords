@@ -4,12 +4,10 @@ noochForLandlords
     // Properties Widget Data
     // =========================================================================
 
-    .service('propertiesService', ['$http', '$resource', 'authenticationService', function ($http, $resource, authenticationService)
-    {
+    .service('propertiesService', ['$http', '$resource', 'authenticationService', function ($http, $resource, authenticationService) {
         var Operations = {};
 
-        Operations.SaveProperty = function (propertyData, landlordId, memberId, accessToken, callback)
-        {
+        Operations.SaveProperty = function (propertyData, landlordId, memberId, accessToken, callback) {
             var data = {};
             data.PropertyName = propertyData.propertyName;
             data.Address = propertyData.propertyAddress;
@@ -26,13 +24,11 @@ noochForLandlords
                 AccessToken: accessToken
             };
 
-            if (propertyData.IsMultiUnitProperty == true)
-            {
+            if (propertyData.IsMultiUnitProperty == true) {
                 data.Unit = propertyData.allUnits;
                 data.IsMultipleUnitsAdded = true;
             }
-            else
-            {
+            else {
                 var data1 = {
                     UnitNum: propertyData.propertyName,
                     Rent: propertyData.SingleUnitRent,
@@ -46,10 +42,8 @@ noochForLandlords
             }
 
             $http.post(URLs.AddProperty, data)
-                .success(function (response)
-                {
-                    if (response.IsSuccess && response.IsSuccess == true)
-                    {
+                .success(function (response) {
+                    if (response.IsSuccess && response.IsSuccess == true) {
                         authenticationService.ManageToken(response.AuthTokenValidation);
                     }
                     callback(response);
@@ -57,25 +51,19 @@ noochForLandlords
         };
 
 
-        Operations.AddNewUnit = function (propertyId, unitData, landlordId, accessToken, callback)
-        {
+        Operations.AddNewUnit = function (propertyId, unitData, landlordId, accessToken, callback) {
             var data = {};
 
             data.PropertyId = propertyId;
             data.Unit = unitData;
-
             data.User = {
                 LandlordId: landlordId,
                 AccessToken: accessToken
             };
-
-            console.log(JSON.stringify(data));
 
             $http.post(URLs.AddNewUnitInProperty, data)
-                .success(function (response)
-                {
-                    if (response.IsSuccess && response.IsSuccess == true)
-                    {
+                .success(function (response) {
+                    if (response.IsSuccess && response.IsSuccess == true) {
                         authenticationService.ManageToken(response.AuthTokenValidation);
                     }
                     callback(response);
@@ -83,24 +71,19 @@ noochForLandlords
         };
 
 
-        Operations.EditUnitInProperty = function (propertyId, unitData, landlordId, accessToken, callback)
-        {
+        Operations.EditUnitInProperty = function (propertyId, unitData, landlordId, accessToken, callback) {
             var data = {};
 
             data.PropertyId = propertyId;
             data.Unit = unitData;
-
             data.User = {
                 LandlordId: landlordId,
                 AccessToken: accessToken
             };
 
-
             $http.post(URLs.EditUnitInProperty, data)
-                .success(function (response)
-                {
-                    if (response.IsSuccess && response.IsSuccess == true)
-                    {
+                .success(function (response) {
+                    if (response.IsSuccess && response.IsSuccess == true) {
                         authenticationService.ManageToken(response.AuthTokenValidation);
                     }
                     callback(response);
@@ -108,8 +91,7 @@ noochForLandlords
         };
 
 
-        Operations.EditProperty = function (propertyData, landlordId, accessToken, callback)
-        {
+        Operations.EditProperty = function (propertyData, landlordId, accessToken, callback) {
             var data = {};
             data.PropertyName = propertyData.propertyName;
             data.Address = propertyData.propertyAddress;
@@ -118,17 +100,14 @@ noochForLandlords
             data.State = propertyData.state;
             data.ContactNumber = propertyData.contactNum;
             data.PropertyId = propertyData.propId;
-
             data.User = {
                 LandlordId: landlordId,
                 AccessToken: accessToken
             };
 
             $http.post(URLs.EditProperty, data)
-                .success(function (response)
-                {
-                    if (response.IsSuccess && response.IsSuccess == true)
-                    {
+                .success(function (response) {
+                    if (response.IsSuccess && response.IsSuccess == true) {
                         authenticationService.ManageToken(response.AuthTokenValidation);
                     }
                     callback(response);
@@ -136,24 +115,19 @@ noochForLandlords
         };
 
 
-        Operations.SetPropertyStatus = function (propertyId, propertyStatus, memberId, accessToken, callback)
-        {
+        Operations.SetPropertyStatus = function (propertyId, propertyStatus, memberId, accessToken, callback) {
             var data = {};
 
             data.PropertyId = propertyId;
             data.PropertyStatusToSet = propertyStatus;
-
             data.User = {
                 LandlorId: memberId,
                 AccessToken: accessToken
             };
 
-
             $http.post(URLs.SetPropertyStatus, data)
-                .success(function (response)
-                {
-                    if (response.IsSuccess && response.IsSuccess == true)
-                    {
+                .success(function (response) {
+                    if (response.IsSuccess && response.IsSuccess == true) {
                         authenticationService.ManageToken(response.AuthTokenValidation);
                     }
                     callback(response);
@@ -161,8 +135,7 @@ noochForLandlords
         };
 
 
-        Operations.GetProperties = function (memberId, accessToken, callback)
-        {
+        Operations.GetProperties = function (memberId, accessToken, callback) {
             //console.log('get properties called user details -> ' + memberId + ' ' + accessToken);
 
             var data = {};
@@ -171,10 +144,8 @@ noochForLandlords
             data.AccessToken = accessToken;
 
             $http.post(URLs.GetProperties, data)
-                .success(function (response)
-                {
-                    if (response.IsSuccess && response.IsSuccess == true)
-                    {
+                .success(function (response) {
+                    if (response.IsSuccess && response.IsSuccess == true) {
                         authenticationService.ManageToken(response.AuthTokenValidation);
                     }
                     callback(response);
@@ -182,23 +153,19 @@ noochForLandlords
         };
 
         // to remove property
-        Operations.RemoveProperty = function (propertyId, memberId, accessToken, callback)
-        {
+        Operations.RemoveProperty = function (propertyId, memberId, accessToken, callback) {
             var data = {};
 
             data.PropertyId = propertyId;
             data.PropertyStatusToSet = false;
-
             data.User = {
                 LandlorId: memberId,
                 AccessToken: accessToken
             };
 
             $http.post(URLs.RemoveProperty, data)
-                .success(function (response)
-                {
-                    if (response.IsSuccess && response.IsSuccess == true)
-                    {
+                .success(function (response) {
+                    if (response.IsSuccess && response.IsSuccess == true) {
                         authenticationService.ManageToken(response.AuthTokenValidation);
                     }
                     callback(response);
@@ -206,27 +173,19 @@ noochForLandlords
         };
 
 
-        Operations.ChargeTenant = function (transInfo, landlordId, accessToken, memberId, callback)
-        {
+        Operations.ChargeTenant = function (transInfo, landlordId, accessToken, memberId, callback) {
             var data = {};
-            data.TransRequest = transInfo;
 
+            data.TransRequest = transInfo;
             data.User = {
                 LandlordId: landlordId,
                 AccessToken: accessToken,
                 MemberId: memberId
             };
 
-            console.log(JSON.stringify(data));
-
             $http.post(URLs.ChargeTenant, data)
-                .success(function (response)
-                {
-                    console.log("Services -> Charge Tenant response...");
-                    console.log(response);
-                    //if (response.IsSuccess && response.IsSuccess == true) {
-                    //    authenticationService.ManageToken(response.AuthTokenValidation);
-                    //}
+                .success(function (response) {
+                    //console.log(response);
                     callback(response);
                 });
         };
@@ -237,25 +196,20 @@ noochForLandlords
 
 
 
-    .service('propDetailsService', ['$http', 'authenticationService', '$resource', function ($http, authenticationService, $resource)
-    {
+    .service('propDetailsService', ['$http', 'authenticationService', '$resource', function ($http, authenticationService, $resource) {
         // FOR GOING TO THE INDIDVIDUAL PROPERTY'S DETAILS PAGE
         var selectedProp = {};
         var selectedPropDetails = {};
 
-        function set(propId)
-        {
+        function set(propId) {
             selectedProp.propId = propId;
-            console.log('selected prop id -> ' + selectedProp.propId);
         }
 
-        function get()
-        {
+        function get() {
             return selectedProp.propId;
         }
 
-        function getPropertyDetailsFromDB(propertyId, memberId, accessToken, callback)
-        {
+        function getPropertyDetailsFromDB(propertyId, memberId, accessToken, callback) {
             var data = {};
 
             data.PropertyId = propertyId;
@@ -265,12 +219,10 @@ noochForLandlords
                 LandlorId: memberId,
                 AccessToken: accessToken
             };
-            //console.log(JSON.stringify(data));
+
             $http.post(URLs.GetPropertyDetails, data)
-                .success(function (response)
-                {
-                    if (response.IsSuccess && response.IsSuccess == true)
-                    {
+                .success(function (response) {
+                    if (response.IsSuccess && response.IsSuccess == true) {
                         authenticationService.ManageToken(response.AuthTokenValidation);
                     }
                     callback(response);
@@ -278,8 +230,7 @@ noochForLandlords
         }
 
 
-        function deleteUnitFromProperty(unitId, memberId, accessToken, callback)
-        {
+        function deleteUnitFromProperty(unitId, memberId, accessToken, callback) {
             var data = {};
 
             data.PropertyId = unitId;
@@ -291,10 +242,8 @@ noochForLandlords
             };
 
             $http.post(URLs.DeletePropertyUnit, data)
-                .success(function (response)
-                {
-                    if (response.IsSuccess && response.IsSuccess == true)
-                    {
+                .success(function (response) {
+                    if (response.IsSuccess && response.IsSuccess == true) {
                         authenticationService.ManageToken(response.AuthTokenValidation);
                     }
                     callback(response);
@@ -302,8 +251,7 @@ noochForLandlords
         }
 
 
-        function inviteNewTenant(propId, unitId, email, fname, lname, rentAmount, landlordId, accessToken, callback)
-        {
+        function inviteNewTenant(propId, unitId, email, fname, lname, rentAmount, landlordId, accessToken, callback) {
             var data = {};
 
             data.propertyId = propId;
@@ -320,18 +268,16 @@ noochForLandlords
                 firstName: fname,
                 lastName: lname
             }
-            console.log(JSON.stringify(data));
+
             $http.post(URLs.InviteTenant, data)
-                .success(function (response)
-                {
+                .success(function (response) {
                     console.log(response);
                     callback(response);
                 });
         }
 
 
-        function sendRequestToExistingTenant(transInfo, landlordId, memberId, propId, unitId, accessToken, callback)
-        {
+        function sendRequestToExistingTenant(transInfo, landlordId, memberId, propId, unitId, accessToken, callback) {
             var data = {};
 
             data.PropertyId = propId;
@@ -346,19 +292,15 @@ noochForLandlords
                 MemberId: memberId
             };
 
-            console.log(JSON.stringify(data));
-
             $http.post(URLs.RequestRentToExistingTenant, data)
-                .success(function (response)
-                {
+                .success(function (response) {
                     console.log(response);
                     callback(response);
                 });
         }
 
 
-        function saveMemoFormula(formulaChoice, landlordId, memberId, accessToken, callback)
-        {
+        function saveMemoFormula(formulaChoice, landlordId, memberId, accessToken, callback) {
             var data = {};
 
             data.formulaToUse = formulaChoice;
@@ -370,10 +312,8 @@ noochForLandlords
             };
 
             $http.post(URLs.SaveMemoFormula, data)
-                .success(function (response)
-                {
-                    if (response.success && response.success == true)
-                    {
+                .success(function (response) {
+                    if (response.success && response.success == true) {
                         authenticationService.ManageToken(response.AuthTokenValidation);
                     }
                     callback(response);
@@ -417,11 +357,9 @@ noochForLandlords
     // =========================================================================
     // Nice Scroll - Custom Scroll bars
     // =========================================================================
-    .service('nicescrollService', function ()
-    {
+    .service('nicescrollService', function () {
         var ns = {};
-        ns.niceScroll = function (selector, color, cursorWidth)
-        {
+        ns.niceScroll = function (selector, color, cursorWidth) {
             $(selector).niceScroll({
                 cursorcolor: '#4fabe1',
                 cursorborder: '8px',
@@ -441,11 +379,9 @@ noochForLandlords
     // BOOTSTRAP GROWL
     //==============================================
 
-    .service('growlService', function ()
-    {
+    .service('growlService', function () {
         var gs = {};
-        gs.growl = function (message, type)
-        {
+        gs.growl = function (message, type) {
             $.growl({
                 message: message
             }, {
@@ -477,29 +413,23 @@ noochForLandlords
     // =========================================================================
     // Authentication service
     // =========================================================================
-    .service('authenticationService', function ($http)
-    {
+    .service('authenticationService', function ($http) {
         var Operations = {};
 
-        Operations.Login = function (username, password, ip, callback)
-        {
+        Operations.Login = function (username, password, ip, callback) {
             var data = {};
             data.UserName = username;
             data.Password = password;
             data.Ip = ip;
 
-            console.log(data);
-
             $http.post(URLs.Login, data)
-                .success(function (response)
-                {
+                .success(function (response) {
                     callback(response);
                 });
         };
 
 
-        Operations.FBLogin = function (email, firstName, lastName, gender, photoUrl, ip, fingerprint, fbUserId, callback)
-        {
+        Operations.FBLogin = function (email, firstName, lastName, gender, photoUrl, ip, fingerprint, fbUserId, callback) {
             var data = {};
             data.FirstName = firstName;
             data.LastName = lastName;
@@ -510,18 +440,14 @@ noochForLandlords
             data.UserFingerPrints = fingerprint;
             data.Ip = ip;
 
-            console.log(data);
-
             $http.post(URLs.LoginWithFB, data)
-                .success(function (response)
-                {
+                .success(function (response) {
                     callback(response);
                 });
         };
 
 
-        Operations.GoogleLogin = function (email, name, photoUrl, ip, fingerprint, googleUserId, callback)
-        {
+        Operations.GoogleLogin = function (email, name, photoUrl, ip, fingerprint, googleUserId, callback) {
             var data = {};
             data.Name = name;
             data.eMail = email;
@@ -531,18 +457,14 @@ noochForLandlords
             data.UserFingerPrints = fingerprint;
             data.Ip = ip;
 
-            console.log(data);
-
             $http.post(URLs.LoginWithGoogle, data)
-                .success(function (response)
-                {
+                .success(function (response) {
                     callback(response);
                 });
         };
 
 
-        Operations.RegisterLandlord = function (firstName, lastName, username, password, fingerprint, ip, country, isBiz, callback)
-        {
+        Operations.RegisterLandlord = function (firstName, lastName, username, password, fingerprint, ip, country, isBiz, callback) {
             var data = {};
             data.FirstName = firstName;
             data.LastName = lastName;
@@ -554,42 +476,34 @@ noochForLandlords
             data.isBusiness = isBiz;
             data.shouldSendEmails = true;
 
-            console.log("Register Input: [" + JSON.stringify(data) + "]");
-
             $http.post(URLs.Register, data)
-                .success(function (response)
-                {
+                .success(function (response) {
                     callback(response);
                 });
         };
 
 
-        Operations.getMemberId = function (username, callback)
-        {
+        Operations.getMemberId = function (username, callback) {
             $http.get('https://www.noochme.com/NoochService/NoochService.svc/GetMemberIdByUserName?userName=' + username)
-                .success(function (response)
-                {
+                .success(function (response) {
                     console.log(response);
                     callback(response);
                 });
         }
 
 
-        Operations.PasswordRest = function (eMail, callback)
-        {
+        Operations.PasswordRest = function (eMail, callback) {
             var data2 = {};
             data2.eMail = eMail;
 
             $http.post(URLs.PasswordRest, data2)
-                .success(function (response)
-                {
+                .success(function (response) {
                     callback(response);
                 });
         };
 
 
-        Operations.updatePw = function (landlordId, accessToken, current, newPw, confirmPw, callback)
-        {
+        Operations.updatePw = function (landlordId, accessToken, current, newPw, confirmPw, callback) {
             var AuthInfo = {};
             AuthInfo.LandlorId = landlordId;
             AuthInfo.AccessToken = accessToken;
@@ -598,64 +512,52 @@ noochForLandlords
             data.AuthInfo = AuthInfo;
             data.currentPw = current;
             data.newPw = newPw;
-            //console.log("[" + JSON.stringify(data) + "]");
 
             $http.post(URLs.UpdatePw, data)
-                .success(function (response)
-                {
+                .success(function (response) {
                     callback(response);
                 });
         };
 
 
-        Operations.SetUserDetails = function (username, memberId, landlordId, accessToken)
-        {
-            if (username != "")
-            {
+        Operations.SetUserDetails = function (username, memberId, landlordId, accessToken) {
+            if (username != "") {
                 localStorage.setItem('username', username);
             }
-            if (memberId != "")
-            {
+            if (memberId != "") {
                 localStorage.setItem('memberId', memberId);
             }
-            if (landlordId != "")
-            {
+            if (landlordId != "") {
                 localStorage.setItem('landlordId', landlordId);
             }
-            if (accessToken != "")
-            {
+            if (accessToken != "") {
                 localStorage.setItem('accessToken', accessToken);
             }
         };
 
 
-        Operations.ClearUserData = function ()
-        {
+        Operations.ClearUserData = function () {
             localStorage.clear();
         };
 
 
-        Operations.GetUserDetails = function ()
-        {
+        Operations.GetUserDetails = function () {
             var User = {};
             User.username = localStorage.getItem('username');
             User.memberId = localStorage.getItem('memberId');
             User.landlordId = localStorage.getItem('landlordId');
             User.accessToken = localStorage.getItem('accessToken');
-            //console.log(User);
             return User;
         };
 
 
-        Operations.IsValidUser = function ()
-        {
+        Operations.IsValidUser = function () {
             var User = {};
             User.username = localStorage.getItem('username');
             User.landlordId = localStorage.getItem('landlordId');
             User.accessToken = localStorage.getItem('accessToken');
 
-            if (User.username == null || User.landlordId == null || User.accessToken == null)
-            {
+            if (User.username == null || User.landlordId == null || User.accessToken == null) {
                 return false;
             }
             if (User.username.length > 0 && User.landlordId.length > 0 && User.accessToken.length > 0)
@@ -665,10 +567,8 @@ noochForLandlords
         };
 
 
-        Operations.ManageToken = function (tokenResponse)
-        {
-            if (tokenResponse.IsTokenUpdated == true)
-            {
+        Operations.ManageToken = function (tokenResponse) {
+            if (tokenResponse.IsTokenUpdated == true) {
                 localStorage.setItem('accessToken', tokenResponse.AccessToken);
                 localStorage.setItem('memberId', tokenResponse.MemberId);
             }
@@ -682,22 +582,18 @@ noochForLandlords
     // =========================================================================
     // Profile data read service
     // =========================================================================
-    .service('getProfileService', function ($http, authenticationService)
-    {
+    .service('getProfileService', function ($http, authenticationService) {
         var Operations = {};
 
 
-        Operations.GetAccountCompletionStats = function (landlordId, accessToken, callback)
-        {
+        Operations.GetAccountCompletionStats = function (landlordId, accessToken, callback) {
             var data = {};
             data.LandlorId = landlordId;
             data.AccessToken = accessToken;
 
             $http.post(URLs.GetAccountCompletionStats, data)
-                .success(function (response)
-                {
-                    if (response.IsSuccess && response.IsSuccess == true)
-                    {
+                .success(function (response) {
+                    if (response.IsSuccess && response.IsSuccess == true) {
                         authenticationService.ManageToken(response.AuthTokenValidation);
                     }
                     callback(response);
@@ -705,25 +601,21 @@ noochForLandlords
         };
 
 
-        Operations.ResendVerificationEmailOrSMS = function (userId, userType, requestFor, callback)
-        {
+        Operations.ResendVerificationEmailOrSMS = function (userId, userType, requestFor, callback) {
             var data = {};
             data.UserId = userId;
             data.UserType = userType;
             data.RequestFor = requestFor;
-            //console.log("SERVICES -> ResendVerificationEmailOrSMS METHOD -> [" + JSON.stringify(data) + "]")
 
             $http.post(URLs.ResendVerificationEmailAndSMS, data)
-                .success(function (response)
-                {
+                .success(function (response) {
                     console.log(response);
                     callback(response);
                 });
         };
 
 
-        Operations.SendEmailsToTenants = function (userId, accessTok, emailObj, callback)
-        {
+        Operations.SendEmailsToTenants = function (userId, accessTok, emailObj, callback) {
             var dataDevice = {};
             dataDevice.LandlorId = userId;
             dataDevice.AccessToken = accessTok;
@@ -733,24 +625,20 @@ noochForLandlords
             data.EmailInfo = emailObj;
 
             $http.post(URLs.SendEmailsToTenants, data)
-                .success(function (response)
-                {
+                .success(function (response) {
                     callback(response);
                 });
         };
 
 
-        Operations.GetData = function (landlordId, accessToken, callback)
-        {
+        Operations.GetData = function (landlordId, accessToken, callback) {
             var data = {};
             data.LandlorId = landlordId;
             data.AccessToken = accessToken;
 
             $http.post(URLs.GetProfileData, data)
-                .success(function (response)
-                {
-                    if (response.IsSuccess && response.IsSuccess == true)
-                    {
+                .success(function (response) {
+                    if (response.IsSuccess && response.IsSuccess == true) {
                         authenticationService.ManageToken(response.AuthTokenValidation);
                     }
                     callback(response);
@@ -758,8 +646,7 @@ noochForLandlords
         };
 
         // to update profile info of user
-        Operations.UpdateInfo = function (userInfo, deviceInfo, callback)
-        {
+        Operations.UpdateInfo = function (userInfo, deviceInfo, callback) {
             var data = {};
 
             var userInfoObj = {};
@@ -770,8 +657,7 @@ noochForLandlords
             };
 
             var ssnToSend = "";
-            if (typeof userInfo.ssnLast4 !== 'undefined')
-            { // Only sending the SSN from the ID ver wizard, not the regular profile anymore (10/13/15)
+            if (typeof userInfo.ssnLast4 !== 'undefined') { // Only sending the SSN from the ID ver wizard, not the regular profile anymore (10/13/15)
                 ssnToSend = userInfo.ssnLast4;
             }
 
@@ -797,13 +683,11 @@ noochForLandlords
             data.DeviceInfo = deviceInfoObj;
             data.UserInfo = userInfoObj;
 
-            console.log("SERVICES -> SENDING DATA TO EDIT PROFILE METHOD -> [" + JSON.stringify(data) + "]")
+            //console.log("SERVICES -> SENDING DATA TO EDIT PROFILE METHOD -> [" + JSON.stringify(data) + "]")
 
             $http.post(URLs.EditProfileData, data)
-                .success(function (response)
-                {
-                    if (response.IsSuccess && response.IsSuccess == true)
-                    {
+                .success(function (response) {
+                    if (response.IsSuccess && response.IsSuccess == true) {
                         authenticationService.ManageToken(response.AuthTokenValidation);
                     }
                     console.log(response);
@@ -813,8 +697,7 @@ noochForLandlords
 
 
         // Submitting ID Verification Wizard Responses
-        Operations.submitIdVerWizard = function (deviceInfo, fullName, birthDay, ssnLast4, address, zip, phone, callback)
-        {
+        Operations.submitIdVerWizard = function (deviceInfo, fullName, birthDay, ssnLast4, address, zip, phone, callback) {
             var deviceInfoObj = {
                 LandlorId: deviceInfo.LandlorId,
                 AccessToken: deviceInfo.AccessToken
@@ -832,9 +715,8 @@ noochForLandlords
             data.DeviceInfo = deviceInfoObj;
 
             $http.post(URLs.submitIdVerWizard, data)
-                .success(function (response)
-                {
-                    console.log('Services.js -> submitIdVerWizard response received');
+                .success(function (response) {
+                    //console.log('Services.js -> submitIdVerWizard response received');
                     console.log(response);
                     callback(response);
                 });
@@ -847,35 +729,28 @@ noochForLandlords
     // =========================================================================
     // Bank Accounts Data
     // =========================================================================
-    .service('getBanksService', function ($http, authenticationService)
-    {
+    .service('getBanksService', function ($http, authenticationService) {
         var Operations = {};
 
-        Operations.getBanks = function (landlordId, accessToken, callback)
-        {
+        Operations.getBanks = function (landlordId, accessToken, callback) {
             var data = {};
             data.LandlorId = landlordId;
             data.AccessToken = accessToken;
 
             $http.post(URLs.GetBanks, data)
-                .success(function (response)
-                {
+                .success(function (response) {
                     callback(response);
                 });
         };
 
-        Operations.deleteBank = function (landlordId, memberId, accessToken, callback)
-        {
+        Operations.deleteBank = function (landlordId, memberId, accessToken, callback) {
             var data = {};
             data.LandlordId = landlordId;
             data.AccessToken = accessToken;
             data.MemberId = memberId;
 
-            //console.log("[" + JSON.stringify(data) + "]");
-
             $http.post(URLs.DeleteBank, data)
-                .success(function (response)
-                {
+                .success(function (response) {
                     console.log("Services -> DeleteBank -> Got a response!");
                     callback(response);
                 });
@@ -888,27 +763,19 @@ noochForLandlords
     // =========================================================================
     // HISTORY
     // =========================================================================
-    .service('historyService', function ($http, authenticationService, $resource)
-    {
+    .service('historyService', function ($http, authenticationService, $resource) {
         var Operations = {};
 
-        Operations.GetHistory = function (landlordId, memberId, accessToken, callback)
-        {
-            console.log("Service -> GetHistory Initiated");
-
+        Operations.GetHistory = function (landlordId, memberId, accessToken, callback) {
             var data = {};
             data.LandlordId = landlordId;
             data.AccessToken = accessToken;
             data.MemberId = memberId;
 
-            console.log(JSON.stringify(data));
-
             $http.post(URLs.GetTransHistory, data)
-                .success(function (response)
-                {
+                .success(function (response) {
                     console.log(response);
-                    if (response.IsSuccess && response.IsSuccess == true)
-                    {
+                    if (response.IsSuccess && response.IsSuccess == true) {
                         authenticationService.ManageToken(response.AuthTokenValidation);
                     }
                     callback(response);
@@ -916,17 +783,13 @@ noochForLandlords
         };
 
 
-        Operations.sendPaymentReminder = function (transactionId, tenantId, landlordId, accessToken,memberID, callback)
-        {
-            
-            console.log("Service -> sendPaymentReminder Fired");
-
+        Operations.sendPaymentReminder = function (transactionId, tenantId, landlordId, accessToken, memberID, callback) {
             var data = {};
 
             data.Trans = {
                 TenantId: tenantId,
                 TransactionId: transactionId,
-                ReminderType:''
+                ReminderType: ''
             }
 
             data.User = {
@@ -934,18 +797,10 @@ noochForLandlords
                 MemberId: memberID,
                 AccessToken: accessToken
             };
-            //data.LandlordId = landlordId;
-            //data.AccessToken = accessToken;
-            //data.transId = transactionId;
-            //data.tenantId = tenantId
-
-            console.log(JSON.stringify(data));
-           
 
             $http.post(URLs.SendPaymentReminder, data)
-                .success(function (response)
-                {
-                    
+                .success(function (response) {
+
                     console.log(response);
 
                     callback(response);
@@ -953,8 +808,7 @@ noochForLandlords
         }
 
 
-        Operations.cancelTransaction = function (transactionId, landlordId, memberId, accessToken, callback)
-        {
+        Operations.cancelTransaction = function (transactionId, landlordId, memberId, accessToken, callback) {
             var data = {};
 
             data.TransId = transactionId;
@@ -966,10 +820,8 @@ noochForLandlords
             };
 
             $http.post(URLs.CancelTransaction, data)
-                .success(function (response)
-                {
-                    if (response.success && response.success == true)
-                    {
+                .success(function (response) {
+                    if (response.success && response.success == true) {
                         authenticationService.ManageToken(response.AuthTokenValidation);
                     }
                     callback(response);
@@ -989,10 +841,8 @@ noochForLandlords
     // Todo List Widget Data
     // =========================================================================
 
-    .service('todoService', ['$resource', function ($resource)
-    {
-        this.getTodo = function (todo)
-        {
+    .service('todoService', ['$resource', function ($resource) {
+        this.getTodo = function (todo) {
             var todoList = $resource("data/todo.json");
 
             return todoList.get({
@@ -1006,10 +856,8 @@ noochForLandlords
     // Recent Items Widget Data
     // =========================================================================
 
-    .service('recentitemService', ['$resource', function ($resource)
-    {
-        this.getRecentitem = function (id, name, price)
-        {
+    .service('recentitemService', ['$resource', function ($resource) {
+        this.getRecentitem = function (id, name, price) {
             var recentitemList = $resource("data/recent-items.json");
 
             return recentitemList.get({
@@ -1025,10 +873,8 @@ noochForLandlords
     // Header Messages and Notifications list Data
     // =========================================================================
 
-    .service('messageService', ['$resource', function ($resource)
-    {
-        this.getMessage = function (img, user, text)
-        {
+    .service('messageService', ['$resource', function ($resource) {
+        this.getMessage = function (img, user, text) {
             var gmList = $resource("data/messages-notifications.json");
 
             return gmList.get({
